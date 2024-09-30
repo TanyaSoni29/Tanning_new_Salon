@@ -27,18 +27,18 @@ const UserList = () => {
 
 	return (
 		<div className='user-container'>
-			<div className='search-container'>
+			<div className='user-search-container'>
 				<input
 					type='text'
 					placeholder='Search User'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button'>ADD NEW USER</button>
+				<button className='add-button3'>ADD NEW USER</button>
 			</div>
 
 			<div className='users-table'>
-				<div className='table-header'>
+				<div className='user-table-header'>
 					<span>USER NAME</span>
 					<span>ROLE</span>
 					<span>LOCATION</span>
@@ -50,7 +50,7 @@ const UserList = () => {
 					filteredUsers.map((user, index) => (
 						<div
 							key={index}
-							className='table-row'
+							className='user-table-row'
 						>
 							<span>{user.userName}</span>
 							<span>{user.role}</span>
