@@ -4,7 +4,7 @@
  * @format
  */
 
-.user-container {
+.transaction-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -20,14 +20,14 @@
 }
 
 .search-container input {
-	width: 70%;
+	width: 30%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
 
-.add-button {
+.search-button {
 	background-color: #007bff;
 	color: white;
 	padding: 10px 20px;
@@ -37,12 +37,12 @@
 	font-size: 16px;
 }
 
-.add-button:hover {
+.search-button:hover {
 	background-color: #0056b3;
 }
 
 /* Table Styles */
-.users-table {
+.transactions-table {
 	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
@@ -51,7 +51,7 @@
 .table-header,
 .table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 2fr 2fr 1fr 2fr 2fr 2fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 }
@@ -75,21 +75,42 @@
 	align-items: center;
 }
 
-.table-row .fa {
-	margin: 0 10px;
+.transaction-success {
+	color: white;
+	background-color: green;
+	padding: 5px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+.transaction-failure {
+	color: white;
+	background-color: red;
+	padding: 5px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+/* Pagination */
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.pagination button {
+	background-color: white;
+	color: #007bff;
+	padding: 10px 15px;
+	border: 1px solid #007bff;
+	border-radius: 4px;
+	margin: 0 5px;
 	cursor: pointer;
 }
 
-.fa-eye {
-	color: #007bff;
-}
-
-.fa-pencil {
-	color: #28a745;
-}
-
-.fa-trash {
-	color: #dc3545;
+.pagination button:hover {
+	background-color: #007bff;
+	color: white;
 }
 
 .no-data {

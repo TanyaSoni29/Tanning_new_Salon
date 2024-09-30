@@ -2,12 +2,13 @@
 
 import React from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
+import ServiceList from './ServiceList';
 
 function Services() {
 	return (
 		<div>
 			<HeaderWithSidebar />
-			Services
+			<ServiceList />
 		</div>
 	);
 }

@@ -4,7 +4,7 @@
  * @format
  */
 
-.user-container {
+.service-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -42,7 +42,7 @@
 }
 
 /* Table Styles */
-.users-table {
+.services-table {
 	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
@@ -51,7 +51,7 @@
 .table-header,
 .table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 }
