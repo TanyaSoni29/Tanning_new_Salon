@@ -15,7 +15,7 @@ const UserList = () => {
 	const { token } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations } = useSelector((state) => state.location);
-
+	console.log('users---', users);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -107,7 +107,7 @@ const UserList = () => {
 			<div className='users-table'>
 				<div className='user-table-header'>
 					<span>USER NAME</span>
-					<span>USER email</span>
+					<span>USER EMAIL</span>
 					<span>ROLE</span>
 					<span>LOCATION</span>
 					<span>PHONE NUMBER</span>
@@ -117,8 +117,7 @@ const UserList = () => {
 				{filteredUsers.length > 0 ? (
 					filteredUsers.map((user) => {
 						const preferredLocation = locations.find(
-							(location) =>
-								location.id === user.profile?.preferred_location
+							(location) => location.id === user.profile?.preferred_location
 						);
 						return (
 							<div
@@ -128,7 +127,9 @@ const UserList = () => {
 								<span>{user.user.name}</span>
 								<span>{user.user.email}</span>
 								<span>{user.user.role}</span>
-								<span>{preferredLocation ? preferredLocation : 'N/A'}</span>
+								<span>
+									{preferredLocation ? preferredLocation.name : 'N/A'}
+								</span>
 								<span>{user.profile?.phone_number}</span>
 								<span>
 									<i
