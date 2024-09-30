@@ -9,6 +9,7 @@ const HeaderWithSidebar = () => {
 	const [isReportSubmenuOpen, setIsReportSubmenuOpen] = useState(false);
 	const [isCustomersSubmenuOpen, setIsCustomersSubmenuOpen] = useState(false);
 	const [isTransactionsSubmenuOpen, setIsTransactionsSubmenuOpen] = useState(false);
+	const [isSalesSubmenuOpen, setIsSalesSubmenuOpen] = useState(false); // State for sales submenu
 
 	const toggleSidebar = () => {
 		setIsSidebarOpen(!isSidebarOpen);
@@ -24,6 +25,10 @@ const HeaderWithSidebar = () => {
 
 	const toggleTransactionsSubmenu = () => {
 		setIsTransactionsSubmenuOpen(!isTransactionsSubmenuOpen);
+	};
+
+	const toggleSalesSubmenu = () => {
+		setIsSalesSubmenuOpen(!isSalesSubmenuOpen);
 	};
 
 	return (
@@ -181,13 +186,35 @@ const HeaderWithSidebar = () => {
 														Services Used
 													</NavLink>
 												</li>
-												<li>
-													<NavLink
-														to='/reports/transactions/sales'
-														className={({ isActive }) => (isActive ? 'active' : '')}
+												{/* Sales with Submenu */}
+												<li className='submenu-item'>
+													<span
+														className='submenu-title'
+														onClick={toggleSalesSubmenu}
 													>
-														Sales
-													</NavLink>
+														Sales{' '}
+														<i className={`fa ${isSalesSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+													</span>
+													{isSalesSubmenuOpen && (
+														<ul className='submenu'>
+															<li>
+																<NavLink
+																	to='/reports/transactions/sales/purchase'
+																	className={({ isActive }) => (isActive ? 'active' : '')}
+																>
+																	Purchase
+																</NavLink>
+															</li>
+															<li>
+																<NavLink
+																	to='/reports/transactions/sales/product'
+																	className={({ isActive }) => (isActive ? 'active' : '')}
+																>
+																	Product
+																</NavLink>
+															</li>
+														</ul>
+													)}
 												</li>
 											</ul>
 										)}
