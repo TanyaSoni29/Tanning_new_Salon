@@ -111,3 +111,47 @@ body {
 .edit-modal .cancel-button:hover {
 	background-color: #f1f1f1;
 }
+
+.add-modal {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	max-width: 500px;
+	width: 100%;
+}
+
+/* Title styling */
+#add-location-modal-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* Submit button */
+.add-modal .confirm-button {
+	background-color: #ff9800;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.add-modal .confirm-button:hover {
+	background-color: #000;
+}
+
+/* Cancel button */
+.add-modal .cancel-button {
+	background-color: white;
+	border: 1px solid #ccc;
+	padding: 8px 16px;
+	border-radius: 5px;
+	color: #666;
+}
+
+.add-modal .cancel-button:hover {
+	background-color: #f1f1f1;
+}

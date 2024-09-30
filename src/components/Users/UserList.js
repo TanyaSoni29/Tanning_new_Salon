@@ -2,16 +2,18 @@
 
 import React, { useState } from 'react';
 import './UserList.css'; // Importing CSS
+import { deleteUserProfile } from '../../service/operations/userProfileApi';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserList = () => {
-	const [users, setUsers] = useState([
-		{
-			userName: 'John Smith',
-			role: 'Admin',
-			location: 'New York',
-			phoneNumber: '123-456-7890',
-		},
-	]);
+	const dispatch = useDispatch();
+	const { token } = useSelector((state) => state.auth);
+	const { users } = useSelector((state) => state.profile);
+	const [isAddOpen, setIsAddOpen] = useState(false);
+	const [isEditOpen, setIsEditOpen] = useState(false);
+	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+	const [isViewOpen, setIsViewOpen] = useState(false);
+	const [activeUser, setActiveUser] = useState(null);
 
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -19,10 +21,35 @@ const UserList = () => {
 		user.userName.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
-	const handleDelete = (index) => {
-		const newUsers = [...users];
-		newUsers.splice(index, 1);
-		setUsers(newUsers);
+	const handleCreateNewUser = () => {
+		setIsAddOpen(true);
+	};
+
+	// Handle opening the edit user modal
+	const handleEdit = (user) => {
+		setActiveUser(user); // Set the active user to be edited
+		setIsEditOpen(true);
+	};
+
+	// Handle opening the view user modal
+	const handleView = (user) => {
+		setActiveUser(user); // Set the active user to be viewed
+		setIsViewOpen(true);
+	};
+
+	const handleDelete = async () => {
+		try {
+			const result = await deleteUserProfile(token, activeUser.user.id);
+			if (result) {
+				dispatch(removeUser(activeUser.user.id));
+				dispatch(refreshUser());
+				setIsDeleteOpen(false);
+			}
+		} catch (error) {
+			console.error('Error during user deletion:', error);
+		} finally {
+			setIsDeleteOpen(false);
+		}
 	};
 
 	return (

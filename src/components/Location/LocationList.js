@@ -7,6 +7,7 @@ import { removeLocation, refreshLocation } from '../../slices/locationSlice'; //
 import { deleteLocation } from '../../service/operations/locationApi';
 import Modal from '../Modal'; // Assuming deleteLocation API call
 import EditLocationModal from './EditLocationModal';
+import AddLocationModal from './AddLocationModal';
 
 const LocationList = () => {
 	const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const LocationList = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
-
+	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeLocation, setActiveLocation] = useState(null); // Track the location to be deleted
 
 	// Filter locations based on search term
@@ -46,6 +47,10 @@ const LocationList = () => {
 		}
 	};
 
+	const handleAdd = () => {
+		setIsAddOpen(true);
+	};
+
 	const handleEdit = (location) => {
 		setIsEditOpen(true);
 		setActiveLocation(location); // Set the location to be edited
@@ -68,6 +73,10 @@ const LocationList = () => {
 		setActiveLocation(null); // Reset active location
 	};
 
+	const closeAddModal = () => {
+		setIsAddOpen(false);
+	};
+
 	return (
 		<div className='location-container'>
 			<div className='location-search-container'>
@@ -77,7 +86,12 @@ const LocationList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button1'>ADD NEW LOCATION</button>
+				<button
+					className='add-button1'
+					onClick={() => handleAdd()}
+				>
+					ADD NEW LOCATION
+				</button>
 			</div>
 
 			<div className='locations-table'>
@@ -118,7 +132,14 @@ const LocationList = () => {
 					</div>
 				)}
 			</div>
-
+			{isAddOpen && (
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
+					<AddLocationModal closeAddModal={closeAddModal} />
+				</Modal>
+			)}
 			{/* Delete Confirmation Modal/Alert */}
 			{isDeleteOpen && activeLocation && (
 				<Modal
