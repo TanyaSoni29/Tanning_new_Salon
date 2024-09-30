@@ -1,0 +1,65 @@
+/**
+ * Modal overlay to cover the whole screen
+ *
+ * @format
+ */
+
+/* Card styling for the modal */
+.modal-card {
+	width: 360px;
+	background-color: white;
+	border-radius: 8px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button styling */
+.close-button {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
+.close-button:hover {
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Container for user details */
+.user-details {
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Image styling */
+.user-image {
+	height: 200px;
+	width: 100%;
+	object-fit: cover;
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+/* Typography styling */
+.text-secondary {
+	font-size: 12px;
+	color: #666;
+}
+
+.preferred-location {
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+}
+
+/* Typography for headers */
+h6 {
+	font-weight: bold;
+	font-size: 16px;
+}

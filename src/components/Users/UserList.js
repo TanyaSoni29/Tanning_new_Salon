@@ -15,7 +15,7 @@ const UserList = () => {
 	const { token } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations } = useSelector((state) => state.location);
-	console.log('users---', users);
+
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);

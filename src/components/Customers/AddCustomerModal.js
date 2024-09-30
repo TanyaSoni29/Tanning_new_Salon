@@ -1,15 +1,20 @@
-// EditUserModal.js
-import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+// AddNewCustomerModal.js
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { updateUserProfile } from "../../service/operations/userProfileApi";
-import { refreshUser } from "../../slices/userProfileSlice";
 import { refreshLocation } from "../../slices/locationSlice";
+import { createUser } from "../../service/operations/userApi";
+import { addCustomer, refreshCustomers } from "../../slices/customerProfile";
 
-const EditUserModal = ({ activeUser, closeEditModal }) => {
-  const { locations, loading } = useSelector((state) => state.location);
-  const [preferredLocation, setPreferredLocation] = useState("");
+const AddCustomerModal = ({ closeAddModal }) => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -20,29 +25,18 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  useEffect(() => {
-    if (!activeUser) {
-      closeEditModal();
-    }
-  }, []);
+  const { locations, loading } = useSelector((state) => state.location);
 
   useEffect(() => {
     dispatch(refreshLocation());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (activeUser?.profile?.preferred_location && locations.length > 0) {
-      setPreferredLocation(activeUser.profile.preferred_location);
-    }
-  }, [activeUser, locations]);
-
   const handleSubmitForm = async (data) => {
     try {
       const newUserData = {
-        user_id: activeUser.user.id,
+        password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
-        role: data.role,
         email: data.email,
         address: data.address,
         post_code: data.post_code,
@@ -52,50 +46,46 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
         gdpr_email_active: data.gdpr_email_active || false,
         referred_by: data.referred_by,
         preferred_location: data.preferred_location,
+        avatar: "",
+        role: "customer",
       };
-      const updatedUser = await updateUserProfile(
-        token,
-        activeUser.user.id,
-        newUserData
-      );
-      if (updatedUser) {
-        dispatch({
-          type: "profile/updateUser",
-          payload: updatedUser,
-        });
+      const newUser = await createUser(token, newUserData);
+      if (newUser) {
+        dispatch(addCustomer(newUser));
       }
-      dispatch(refreshUser());
-      closeEditModal();
+      dispatch(refreshCustomers());
+      closeAddModal();
     } catch (error) {
       console.error(error);
-      closeEditModal();
+    } finally {
+      closeAddModal();
     }
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
+        password: "",
         firstName: "",
         lastName: "",
-        role: "",
         email: "",
         address: "",
-        postCode: "",
+        post_code: "",
         phone_number: "",
         gender: "",
         referred_by: "",
         preferred_location: "",
+        gdpr_sms_active: false,
+        gdpr_email_active: false,
         avatar: "",
       });
     }
   }, [reset, isSubmitSuccessful]);
 
-  if (!activeUser) return null;
-
   return (
     <Box className="modal-container">
-      <Typography id="edit-location-modal-title" variant="h6">
-        Edit User
+      <Typography variant="h6" id="add-location-modal-title">
+        Add New Customer
       </Typography>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
         <Box mt={2}>
@@ -103,14 +93,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
             <TextField
               label="First Name"
               variant="outlined"
-              defaultValue={activeUser.profile?.firstName}
               {...register("firstName", { required: true })}
               fullWidth
             />
             <TextField
               label="Last Name"
               variant="outlined"
-              defaultValue={activeUser.profile?.lastName}
               {...register("lastName", { required: true })}
               fullWidth
             />
@@ -120,15 +108,22 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
             <TextField
               label="Email"
               variant="outlined"
-              defaultValue={activeUser.user?.email}
               {...register("email", { required: true })}
               fullWidth
             />
             <TextField
               label="Phone Number"
               variant="outlined"
-              defaultValue={activeUser.profile?.phone_number}
               {...register("phone_number", { required: true })}
+              fullWidth
+            />
+          </Box>
+
+          <Box className="form-row">
+            <TextField
+              label="Password"
+              variant="outlined"
+              {...register("password", { required: true })}
               fullWidth
             />
           </Box>
@@ -137,7 +132,6 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
             <TextField
               label="Address"
               variant="outlined"
-              defaultValue={activeUser.profile?.address}
               {...register("address", { required: true })}
               fullWidth
             />
@@ -147,15 +141,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
             <TextField
               label="Post Code"
               variant="outlined"
-              defaultValue={activeUser.profile?.post_code}
               {...register("post_code", { required: true })}
               fullWidth
             />
-
             <TextField
               label="Referred By"
               variant="outlined"
-              defaultValue={activeUser.profile?.referred_by}
               {...register("referred_by", { required: true })}
               fullWidth
             />
@@ -163,36 +154,9 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 
           <Box className="form-row">
             <select
-              id="role"
+              id="preferred_location"
               className="custom-select"
-              defaultValue={activeUser.user?.role}
-              {...register("role", { required: true })}
-            >
-              <option value="">Select role</option>
-              <option value="admin">Admin</option>
-              <option value="operator">User</option>
-            </select>
-
-            <select
-              id="gender"
-              className="custom-select"
-              defaultValue={activeUser.profile?.gender}
-              {...register("gender", { required: true })}
-            >
-              <option value="">Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </Box>
-
-          <Box className="form-row full-width">
-            <select
-              id="location"
-              className="custom-select"
-              value={preferredLocation}
               {...register("preferred_location", { required: true })}
-              onChange={(e) => setPreferredLocation(e.target.value)}
               disabled={loading}
             >
               <option value="">Select location</option>
@@ -202,6 +166,34 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
                 </option>
               ))}
             </select>
+
+            <select
+              id="gender"
+              className="custom-select"
+              {...register("gender", { required: true })}
+            >
+              <option value="">Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </Box>
+
+          <Box className="switch-row">
+            <FormControlLabel
+              control={
+                <Switch {...register("gdpr_sms_active")} color="primary" />
+              }
+              label="SMS"
+              className="form-control-label"
+            />
+            <FormControlLabel
+              control={
+                <Switch {...register("gdpr_email_active")} color="primary" />
+              }
+              label="Email"
+              className="form-control-label"
+            />
           </Box>
         </Box>
 
@@ -212,7 +204,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
           <Button
             variant="contained"
             className="cancel-button"
-            onClick={closeEditModal}
+            onClick={closeAddModal}
           >
             Cancel
           </Button>
@@ -222,4 +214,4 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
   );
 };
 
-export default EditUserModal;
+export default AddCustomerModal;

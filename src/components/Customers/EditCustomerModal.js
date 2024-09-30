@@ -1,15 +1,23 @@
 // EditUserModal.js
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateUserProfile } from "../../service/operations/userProfileApi";
-import { refreshUser } from "../../slices/userProfileSlice";
 import { refreshLocation } from "../../slices/locationSlice";
+import { refreshCustomers } from "../../slices/customerProfile";
 
-const EditUserModal = ({ activeUser, closeEditModal }) => {
+const EditCustomerModal = ({ closeEditModal, activeUser }) => {
   const { locations, loading } = useSelector((state) => state.location);
   const [preferredLocation, setPreferredLocation] = useState("");
+
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -24,7 +32,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
     if (!activeUser) {
       closeEditModal();
     }
-  }, []);
+  }, [activeUser, closeEditModal]);
 
   useEffect(() => {
     dispatch(refreshLocation());
@@ -42,7 +50,6 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
         user_id: activeUser.user.id,
         firstName: data.firstName,
         lastName: data.lastName,
-        role: data.role,
         email: data.email,
         address: data.address,
         post_code: data.post_code,
@@ -60,11 +67,11 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
       );
       if (updatedUser) {
         dispatch({
-          type: "profile/updateUser",
+          type: "customer/updateCustomer", // Ensure this matches the action type name
           payload: updatedUser,
         });
       }
-      dispatch(refreshUser());
+      dispatch(refreshCustomers());
       closeEditModal();
     } catch (error) {
       console.error(error);
@@ -77,15 +84,15 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
       reset({
         firstName: "",
         lastName: "",
-        role: "",
         email: "",
         address: "",
-        postCode: "",
+        post_code: "",
         phone_number: "",
         gender: "",
         referred_by: "",
         preferred_location: "",
-        avatar: "",
+        gdpr_sms_active: false,
+        gdpr_email_active: false,
       });
     }
   }, [reset, isSubmitSuccessful]);
@@ -94,9 +101,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 
   return (
     <Box className="modal-container">
-      <Typography id="edit-location-modal-title" variant="h6">
-        Edit User
-      </Typography>
+      <Typography variant="h6">Edit Customer</Typography>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
         <Box mt={2}>
           <Box className="form-row">
@@ -151,7 +156,6 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
               {...register("post_code", { required: true })}
               fullWidth
             />
-
             <TextField
               label="Referred By"
               variant="outlined"
@@ -163,14 +167,19 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 
           <Box className="form-row">
             <select
-              id="role"
+              id="preferred_location"
               className="custom-select"
-              defaultValue={activeUser.user?.role}
-              {...register("role", { required: true })}
+              value={preferredLocation}
+              onChange={(e) => setPreferredLocation(e.target.value)}
+              {...register("preferred_location", { required: true })}
+              disabled={loading}
             >
-              <option value="">Select role</option>
-              <option value="admin">Admin</option>
-              <option value="operator">User</option>
+              <option value="">Select location</option>
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.name}
+                </option>
+              ))}
             </select>
 
             <select
@@ -186,22 +195,29 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
             </select>
           </Box>
 
-          <Box className="form-row full-width">
-            <select
-              id="location"
-              className="custom-select"
-              value={preferredLocation}
-              {...register("preferred_location", { required: true })}
-              onChange={(e) => setPreferredLocation(e.target.value)}
-              disabled={loading}
-            >
-              <option value="">Select location</option>
-              {locations.map((location) => (
-                <option key={location.id} value={location.id}>
-                  {location.name}
-                </option>
-              ))}
-            </select>
+          <Box className="switch-row">
+            <FormControlLabel
+              control={
+                <Switch
+                  {...register("gdpr_sms_active")}
+                  color="primary"
+                  defaultChecked={activeUser.profile?.gdpr_sms_active}
+                />
+              }
+              label="SMS"
+              className="form-control-label"
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  {...register("gdpr_email_active")}
+                  color="primary"
+                  defaultChecked={activeUser.profile?.gdpr_email_active}
+                />
+              }
+              label="Email"
+              className="form-control-label"
+            />
           </Box>
         </Box>
 
@@ -222,4 +238,4 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
   );
 };
 
-export default EditUserModal;
+export default EditCustomerModal;
