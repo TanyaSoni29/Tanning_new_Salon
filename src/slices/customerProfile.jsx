@@ -2,7 +2,6 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllUser } from '../service/operations/userApi';
-// import { getAllUserProfiles } from '../service/operations/userProfileApi';
 
 const initialState = {
 	customersIndex: null,
@@ -17,35 +16,37 @@ const customerProfileSlice = createSlice({
 		setLoading: (state, action) => {
 			state.loading = action.payload;
 		},
-		setUsers: (state, action) => {
-			state.users = action.payload;
+		setCustomers: (state, action) => {
+			state.customers = action.payload;
 			state.loading = false;
 		},
 		setCustomerIndex: (state, action) => {
-			state.userIndex = action.payload;
+			state.customersIndex = action.payload;
 			state.loading = false;
 		},
 		addCustomer: (state, action) => {
-			state.users.push(action.payload);
+			state.customers.push(action.payload);
 			state.loading = false;
 		},
-		updateUser: (state, action) => {
-			const index = state.users.findIndex(
+		updateCustomer: (state, action) => {
+			const index = state.customers.findIndex(
 				(user) => user.id === action.payload.id
 			);
 			if (index !== -1) {
-				state.users[index] = action.payload;
+				state.customers[index] = action.payload;
 			}
 			state.loading = false;
 		},
-		removeUser: (state, action) => {
-			state.users = state.users.filter((user) => user.id !== action.payload);
+		removeCustomer: (state, action) => {
+			state.customers = state.customers.filter(
+				(user) => user.id !== action.payload
+			);
 			state.loading = false;
 		},
 	},
 });
 
-export function refreshUser() {
+export function refreshCustomers() {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token;
 		try {
@@ -53,7 +54,7 @@ export function refreshUser() {
 			const customers = response.filter(
 				(data) => data.user.role === 'customer'
 			);
-			dispatch(setUsers(customers));
+			dispatch(setCustomers(customers));
 		} catch (error) {
 			console.error('Failed to refresh users:', error);
 		}
@@ -61,11 +62,11 @@ export function refreshUser() {
 }
 
 export const {
-	setUsers,
+	setCustomers,
 	setLoading,
-	setUserIndex,
-	addUser,
-	updateUser,
-	removeUser,
-} = profileSlice.actions;
+	setCustomerIndex,
+	addCustomer,
+	updateCustomer,
+	removeCustomer,
+} = customerProfileSlice.actions;
 export default customerProfileSlice.reducer;

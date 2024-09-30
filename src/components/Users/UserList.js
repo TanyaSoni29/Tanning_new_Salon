@@ -4,11 +4,18 @@ import React, { useState } from 'react';
 import './UserList.css'; // Importing CSS
 import { deleteUserProfile } from '../../service/operations/userProfileApi';
 import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser, removeUser } from '../../slices/userProfileSlice';
+import Modal from '../Modal';
+import AddUserModal from './AddUserModal';
+import ViewUserModal from './ViewUserModal';
+import EditUserModal from './EditUserModal';
 
 const UserList = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth);
-	const { users } = useSelector((state) => state.profile);
+	const { users } = useSelector((state) => state.userProfile);
+	const { locations } = useSelector((state) => state.location);
+
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -17,11 +24,16 @@ const UserList = () => {
 
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const filteredUsers = users.filter((user) =>
-		user.userName.toLowerCase().includes(searchTerm.toLowerCase())
+	const filteredUsers = users.filter(
+		(data) =>
+			(data.user.firstName &&
+				data.user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(data.profile?.phone_number &&
+				data.profile?.phone_number
+					.toLowerCase()
+					.includes(searchTerm.toLowerCase()))
 	);
-
-	const handleCreateNewUser = () => {
+	const handleAdd = () => {
 		setIsAddOpen(true);
 	};
 
@@ -52,6 +64,29 @@ const UserList = () => {
 		}
 	};
 
+	const confirmDelete = (user) => {
+		setActiveUser(user); // Set the active user to be deleted
+		setIsDeleteOpen(true); // Open delete confirmation modal
+	};
+
+	const closeDeleteModal = () => {
+		setIsDeleteOpen(false);
+		setActiveUser(null); // Reset active location
+	};
+
+	const closeEditModal = () => {
+		setIsEditOpen(false);
+		setActiveUser(null); // Reset active location
+	};
+
+	const closeAddModal = () => {
+		setIsAddOpen(false);
+	};
+
+	const closeViewModal = () => {
+		setIsViewOpen(false);
+	};
+
 	return (
 		<div className='user-container'>
 			<div className='user-search-container'>
@@ -61,12 +96,18 @@ const UserList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button3'>ADD NEW USER</button>
+				<button
+					className='add-button3'
+					onClick={() => handleAdd()}
+				>
+					ADD NEW USER
+				</button>
 			</div>
 
 			<div className='users-table'>
 				<div className='user-table-header'>
 					<span>USER NAME</span>
+					<span>USER email</span>
 					<span>ROLE</span>
 					<span>LOCATION</span>
 					<span>PHONE NUMBER</span>
@@ -74,31 +115,111 @@ const UserList = () => {
 				</div>
 
 				{filteredUsers.length > 0 ? (
-					filteredUsers.map((user, index) => (
-						<div
-							key={index}
-							className='user-table-row'
-						>
-							<span>{user.userName}</span>
-							<span>{user.role}</span>
-							<span>{user.location}</span>
-							<span>{user.phoneNumber}</span>
-							<span>
-								<i className='fa fa-eye'></i>
-								<i className='fa fa-pencil'></i>
-								<i
-									className='fa fa-trash'
-									onClick={() => handleDelete(index)}
-								></i>
-							</span>
-						</div>
-					))
+					filteredUsers.map((user) => {
+						const preferredLocation = locations.find(
+							(location) =>
+								location.id === user.profile?.preferred_location
+						);
+						return (
+							<div
+								key={user.user.id}
+								className='user-table-row'
+							>
+								<span>{user.user.name}</span>
+								<span>{user.user.email}</span>
+								<span>{user.user.role}</span>
+								<span>{preferredLocation ? preferredLocation : 'N/A'}</span>
+								<span>{user.profile?.phone_number}</span>
+								<span>
+									<i
+										className='fa fa-eye'
+										onClick={() => handleView(user)}
+									></i>
+									<i
+										className='fa fa-pencil'
+										onClick={() => handleEdit(user)}
+									></i>
+									<i
+										className='fa fa-trash'
+										onClick={() => confirmDelete(user)}
+									></i>
+								</span>
+							</div>
+						);
+					})
 				) : (
 					<div className='no-data'>No users found.</div>
 				)}
 			</div>
+			{isAddOpen && (
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
+					<AddUserModal closeAddModal={closeAddModal} />
+				</Modal>
+			)}
+
+			{isViewOpen && activeUser && (
+				<Modal
+					setOpen={setIsViewOpen}
+					open={isViewOpen}
+				>
+					<ViewUserModal
+						closeAddModal={closeViewModal}
+						activeUser={activeUser}
+					/>
+				</Modal>
+			)}
+			{/* Delete Confirmation Modal/Alert */}
+			{isDeleteOpen && activeUser && (
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
+					<DeleteUserModal
+						handleDelete={handleDelete}
+						activeUser={activeUser}
+						closeDeleteModal={closeDeleteModal}
+					/>
+				</Modal>
+			)}
+
+			{isEditOpen && activeUser && (
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditUserModal
+						activeUser={activeUser}
+						closeEditModal={closeEditModal}
+					/>
+				</Modal>
+			)}
 		</div>
 	);
 };
 
 export default UserList;
+
+function DeleteUserModal({ handleDelete, activeUser, closeDeleteModal }) {
+	return (
+		<div className='delete-modal'>
+			<p>Are you sure you want to delete {activeUser.user.name}?</p>
+			<div className='button-container'>
+				<button
+					onClick={() => handleDelete(activeUser.user.id)}
+					className='confirm-button'
+				>
+					Confirm
+				</button>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
+					Cancel
+				</button>
+			</div>
+		</div>
+	);
+}

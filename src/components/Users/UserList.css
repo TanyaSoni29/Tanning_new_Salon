@@ -46,16 +46,16 @@
 	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
-    width: 100%;
+	width: 100%;
 }
 
 .user-table-header,
 .user-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-    width: 100%; /* Make sure rows take the full width */
+	width: 100%; /* Make sure rows take the full width */
 	box-sizing: border-box;
 }
 

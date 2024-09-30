@@ -10,8 +10,8 @@ const initialState = {
 	users: [],
 };
 
-const profileSlice = createSlice({
-	name: 'profile',
+const userProfileSlice = createSlice({
+	name: 'userProfile',
 	initialState: initialState,
 	reducers: {
 		setLoading: (state, action) => {
@@ -50,7 +50,8 @@ export function refreshUser() {
 		const token = getState().auth.token;
 		try {
 			const response = await getAllUser(token);
-			dispatch(setUsers(response));
+			const users = response.filter((data) => data.user.role !== 'customer');
+			dispatch(setUsers(users));
 		} catch (error) {
 			console.error('Failed to refresh users:', error);
 		}
@@ -64,5 +65,5 @@ export const {
 	addUser,
 	updateUser,
 	removeUser,
-} = profileSlice.actions;
-export default profileSlice.reducer;
+} = userProfileSlice.actions;
+export default userProfileSlice.reducer;
