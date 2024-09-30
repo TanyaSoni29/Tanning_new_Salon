@@ -12,6 +12,13 @@ import Products from './components/Products/Products';
 import Services from './components/Services/Services';
 import Transactions from './components/Transactions/Transactions';
 import Users from './components/Users/Users';
+import Allcustomers from './components/Allcustomers/Allcustomers';
+import Bydata from './components/Bydata/Bydata';
+import Currentmonth from './components/Currentmonth/Currentmonth';
+import Topcustomers from './components/Topcustomers/Topcustomers';
+import Serviceused from './components/Serviceused/Serviceused';
+import Purchasereport from './components/Purchasereport/Purchasereport';
+import Productreport from './components/Productreport/Productreport';
 
 const App = () => {
 	return (
@@ -57,6 +64,34 @@ const App = () => {
 					<Route
 						path='/transactions'
 						element={<Transactions />}
+					/>
+					<Route
+						path='/allcustomers'
+						element={<Allcustomers />}
+					/>
+					<Route
+						path='/bydata'
+						element={<Bydata />}
+					/>
+					<Route
+						path='/currentmonth'
+						element={<Currentmonth />}
+					/>
+					<Route
+						path='/topcustomers'
+						element={<Topcustomers />}
+					/>
+					<Route
+						path='/serviceused'
+						element={<Serviceused />}
+					/>
+					<Route
+						path='/purchasereport'
+						element={<Purchasereport />}
+					/>
+					<Route
+						path='/productreport'
+						element={<Productreport />}
 					/>
 				</Routes>
 			</div>
