@@ -167,7 +167,7 @@ const UserList = () => {
 					open={isViewOpen}
 				>
 					<ViewUserModal
-						closeAddModal={closeViewModal}
+						closeViewModal={closeViewModal}
 						activeUser={activeUser}
 					/>
 				</Modal>

@@ -16,101 +16,99 @@ const ViewUserModal = ({ closeViewModal, activeUser }) => {
 	);
 
 	return (
-		<div className='view-user-modal'>
-			<Card className='modal-card'>
-				{/* Close Button */}
-				<IconButton
-					className='close-button'
-					onClick={closeViewModal}
+		<Card className='modal-card'>
+			{/* Close Button */}
+			<IconButton
+				className='close-button'
+				onClick={closeViewModal}
+			>
+				<CloseIcon />
+			</IconButton>
+
+			<Box className='user-details'>
+				{/* Name */}
+				<Typography variant='h6'>
+					{activeUser.profile?.firstName + ' ' + activeUser.profile?.lastName}
+				</Typography>
+
+				{/* Email */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
 				>
-					<CloseIcon />
-				</IconButton>
+					{activeUser.user?.email}
+				</Typography>
 
-				<Box className='user-details'>
-					{/* Name */}
-					<Typography variant='h6'>
-						{activeUser.profile?.firstName + ' ' + activeUser.profile?.lastName}
-					</Typography>
+				{/* Phone Number */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					{activeUser.profile?.phone_number}
+				</Typography>
 
-					{/* Email */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.user?.email}
-					</Typography>
+				{/* Role */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					{activeUser.user?.role}
+				</Typography>
 
-					{/* Phone Number */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.profile?.phone_number}
-					</Typography>
+				{/* Profile Image */}
+				<CardMedia
+					component='img'
+					className='user-image'
+					image={
+						activeUser.avatar ||
+						'https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286'
+					}
+					alt={
+						activeUser.profile?.firstName + ' ' + activeUser.profile?.lastName
+					}
+				/>
 
-					{/* Role */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.user?.role}
-					</Typography>
+				{/* Address */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					{activeUser.profile?.address}
+				</Typography>
 
-					{/* Profile Image */}
-					<CardMedia
-						component='img'
-						className='user-image'
-						image={
-							activeUser.avatar ||
-							'https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286'
-						}
-						alt={
-							activeUser.profile?.firstName + ' ' + activeUser.profile?.lastName
-						}
-					/>
+				{/* Post Code */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					{activeUser.profile?.post_code}
+				</Typography>
 
-					{/* Address */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.profile?.address}
-					</Typography>
+				{/* Gender */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					{activeUser.profile?.gender}
+				</Typography>
 
-					{/* Post Code */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.profile?.post_code}
-					</Typography>
+				{/* Preferred Location */}
+				<Typography
+					variant='h6'
+					className='preferred-location'
+				>
+					Preferred Location: {preferredLocation?.name}
+				</Typography>
 
-					{/* Gender */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						{activeUser.profile?.gender}
-					</Typography>
-
-					{/* Preferred Location */}
-					<Typography
-						variant='h6'
-						className='preferred-location'
-					>
-						Preferred Location: {preferredLocation?.name}
-					</Typography>
-
-					{/* Created On */}
-					<Typography
-						variant='body2'
-						className='text-secondary'
-					>
-						Created On: {formatDate(activeUser.user.created_at)}
-					</Typography>
-				</Box>
-			</Card>
-		</div>
+				{/* Created On */}
+				<Typography
+					variant='body2'
+					className='text-secondary'
+				>
+					Created On: {formatDate(activeUser.user.created_at)}
+				</Typography>
+			</Box>
+		</Card>
 	);
 };
 
