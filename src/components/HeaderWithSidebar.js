@@ -42,10 +42,7 @@ const HeaderWithSidebar = () => {
 					/>
 					<span className='logo-text'>Tanning Salon</span>
 				</div>
-				<div
-					className='hamburger-icon'
-					onClick={toggleSidebar}
-				>
+				<div className='hamburger-icon' onClick={toggleSidebar}>
 					<i className='fa fa-bars'></i>
 				</div>
 			</div>
@@ -54,113 +51,74 @@ const HeaderWithSidebar = () => {
 			<div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
 				<div className='sidebar-header'>
 					<h3>Menu</h3>
-					<button
-						className='close-button'
-						onClick={toggleSidebar}
-					>
+					<button className='close-button' onClick={toggleSidebar}>
 						<i className='fa fa-times'></i>
 					</button>
 				</div>
 				<ul className='sidebar-menu'>
 					<li>
-						<NavLink
-							to='/locationStep'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/locationStep' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Dashboard
 						</NavLink>
 					</li>
 					<li>
-						<NavLink
-							to='/location'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/location' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Location
 						</NavLink>
 					</li>
 					<li>
-						<NavLink
-							to='/users'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/users' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Users
 						</NavLink>
 					</li>
 					<li>
-						<NavLink
-							to='/products'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/products' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Products
 						</NavLink>
 					</li>
 					<li>
-						<NavLink
-							to='/services'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/services' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Services
 						</NavLink>
 					</li>
 					<li>
-						<NavLink
-							to='/customers'
-							className={({ isActive }) => (isActive ? 'active' : '')}
-						>
+						<NavLink to='/customers' className={({ isActive }) => (isActive ? 'active' : '')}>
 							Customers
 						</NavLink>
 					</li>
 					<li>
 						{/* Report with Submenu */}
 						<div className='submenu-item'>
-							<span
-								className='submenu-title'
-								onClick={toggleReportSubmenu}
-							>
+							<span className='submenu-title' onClick={toggleReportSubmenu}>
 								Report <i className={`fa ${isReportSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
 							</span>
 							{isReportSubmenuOpen && (
 								<ul className='submenu'>
 									{/* Customers Submenu */}
 									<li className='submenu-item'>
-										<span
-											className='submenu-title'
-											onClick={toggleCustomersSubmenu}
-										>
+										<span className='submenu-title' onClick={toggleCustomersSubmenu}>
 											Customers{' '}
 											<i className={`fa ${isCustomersSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
 										</span>
 										{isCustomersSubmenuOpen && (
 											<ul className='submenu'>
 												<li>
-													<NavLink
-														to='/reports/customers/all'
-														className={({ isActive }) => (isActive ? 'active' : '')}
-													>
+													<NavLink to='/reports/customers/all' className={({ isActive }) => (isActive ? 'active' : '')}>
 														All Customers
 													</NavLink>
 												</li>
 												<li>
-													<NavLink
-														to='/reports/customers/by-date'
-														className={({ isActive }) => (isActive ? 'active' : '')}
-													>
+													<NavLink to='/reports/customers/by-date' className={({ isActive }) => (isActive ? 'active' : '')}>
 														By Date
 													</NavLink>
 												</li>
 												<li>
-													<NavLink
-														to='/reports/customers/current-month'
-														className={({ isActive }) => (isActive ? 'active' : '')}
-													>
+													<NavLink to='/reports/customers/current-month' className={({ isActive }) => (isActive ? 'active' : '')}>
 														Current Month
 													</NavLink>
 												</li>
 												<li>
-													<NavLink
-														to='/reports/customers/top-customers'
-														className={({ isActive }) => (isActive ? 'active' : '')}
-													>
+													<NavLink to='/reports/customers/top-customers' className={({ isActive }) => (isActive ? 'active' : '')}>
 														Top Customers
 													</NavLink>
 												</li>
@@ -169,47 +127,32 @@ const HeaderWithSidebar = () => {
 									</li>
 									{/* Transactions Submenu */}
 									<li className='submenu-item'>
-										<span
-											className='submenu-title'
-											onClick={toggleTransactionsSubmenu}
-										>
+										<span className='submenu-title' onClick={toggleTransactionsSubmenu}>
 											Transactions{' '}
 											<i className={`fa ${isTransactionsSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
 										</span>
 										{isTransactionsSubmenuOpen && (
 											<ul className='submenu'>
 												<li>
-													<NavLink
-														to='/reports/transactions/services-used'
-														className={({ isActive }) => (isActive ? 'active' : '')}
-													>
+													<NavLink to='/reports/transactions/services-used' className={({ isActive }) => (isActive ? 'active' : '')}>
 														Services Used
 													</NavLink>
 												</li>
 												{/* Sales with Submenu */}
 												<li className='submenu-item'>
-													<span
-														className='submenu-title'
-														onClick={toggleSalesSubmenu}
-													>
+													<span className='submenu-title' onClick={toggleSalesSubmenu}>
 														Sales{' '}
 														<i className={`fa ${isSalesSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
 													</span>
 													{isSalesSubmenuOpen && (
 														<ul className='submenu'>
 															<li>
-																<NavLink
-																	to='/reports/transactions/sales/purchase'
-																	className={({ isActive }) => (isActive ? 'active' : '')}
-																>
+																<NavLink to='/reports/transactions/sales/purchase' className={({ isActive }) => (isActive ? 'active' : '')}>
 																	Purchase
 																</NavLink>
 															</li>
 															<li>
-																<NavLink
-																	to='/reports/transactions/sales/product'
-																	className={({ isActive }) => (isActive ? 'active' : '')}
-																>
+																<NavLink to='/reports/transactions/sales/product' className={({ isActive }) => (isActive ? 'active' : '')}>
 																	Product
 																</NavLink>
 															</li>
@@ -224,14 +167,16 @@ const HeaderWithSidebar = () => {
 						</div>
 					</li>
 				</ul>
+				{/* Logout Button */}
+				<div className='logout-button'>
+					<i className='fa fa-sign-out-alt'></i>
+					<span>Logout</span>
+				</div>
 			</div>
 
 			{/* Overlay */}
 			{isSidebarOpen && (
-				<div
-					className='overlay'
-					onClick={toggleSidebar}
-				></div>
+				<div className='overlay' onClick={toggleSidebar}></div>
 			)}
 		</div>
 	);

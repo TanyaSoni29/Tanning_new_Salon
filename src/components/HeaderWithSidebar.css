@@ -1,6 +1,7 @@
 /* Header */
 .header {
   padding: 10px 20px;
+  
 }
 
 .logo {
@@ -12,14 +13,11 @@
 .logo-text {
   font-size: 20px;
   font-weight: bold;
-  color: white;
 }
 
 .hamburger-icon {
   font-size: 25px;
   cursor: pointer;
-  color: white;
-  margin-left: 15px;
 }
 
 /* Sidebar */
@@ -29,12 +27,15 @@
   top: 0;
   width: 250px;
   height: 100%;
-  color: black;
   background-color: white;
+  color: black;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   transition: left 0.3s ease-in-out;
   z-index: 1000;
-  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto; /* Allow scrolling when the sidebar content exceeds viewport */
 }
 
 .sidebar.open {
@@ -44,43 +45,29 @@
 .sidebar-header {
   background-color: #ff9800;
   color: white;
-  padding: 15px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 0.5px solid black;
 }
 
 .sidebar-menu {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  flex-grow: 1; /* Pushes the logout button to the bottom */
+  overflow-y: auto; /* Scrollable if content is large */
 }
 
 .sidebar-menu li {
-  padding: 0px 10px;
+  padding: 1px 20px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  width: 100%;
 }
 
 .sidebar-menu li:hover {
   background-color: #f0f0f0;
-}
-
-/* Sidebar active link styling */
-.sidebar-menu li .active {
-  background-color: #ff9800;
-  color: white;
-  display: block;
-  width: 100%;
-  padding: 15px 20px;
-  box-sizing: border-box;
-}
-
-.sidebar-menu li .active:hover {
-  background-color: #e68900; /* Slightly darker orange on hover */
 }
 
 .sidebar-menu li a {
@@ -88,32 +75,45 @@
   color: black;
   display: block;
   font-size: 16px;
+  width: 100%; /* Ensures the background covers the full width */
   padding: 15px 20px;
   box-sizing: border-box;
+}
+
+.sidebar-menu li a.active {
+  background-color: #ff9800;
+  color: white;
+  width: 100%; /* Ensure background color covers the full width */
+}
+
+.sidebar-menu li a.active:hover {
+  background-color: #e68900; /* Slightly darker orange on hover */
 }
 
 .sidebar-menu li a:hover {
   color: #ff9800;
 }
 
-/* Close button */
-.close-button {
-  background: none;
-  border: none;
+/* Logout Button */
+.logout-button {
+  background-color: #ff9800;
   color: white;
-  font-size: 20px;
+  padding: 15px 20px;
+  text-align: center;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-top: 1px solid #ddd;
 }
 
-/* Overlay */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 500;
+.logout-button:hover {
+  background-color: #e68900;
+}
+
+.logout-button i {
+  margin-right: 10px;
 }
 
 /* Submenu styling */
@@ -129,7 +129,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
   font-size: 16px;
   padding: 10px 20px;
 }
@@ -138,20 +137,20 @@
   background-color: #f0f0f0;
 }
 
-/* Chevron icon for submenu toggle */
 .fa-chevron-up,
 .fa-chevron-down {
   margin-left: 10px;
 }
 
-/* Add active class style for submenu items */
-.submenu-item .active {
-  background-color: #ff9800;
-  color: white;
-}
-
-.submenu-item .active:hover {
-  background-color: #e68900;
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 500;
 }
 
 /* Scrollbar styling for the sidebar */
