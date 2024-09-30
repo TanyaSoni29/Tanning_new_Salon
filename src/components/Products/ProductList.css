@@ -52,7 +52,7 @@
 .product-table-header,
 .product-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1.5fr 1fr;
+	grid-template-columns: 8fr 7fr 6fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%; /* Make sure rows take the full width */
