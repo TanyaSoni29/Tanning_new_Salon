@@ -101,7 +101,6 @@ const LocationList = () => {
 							<span>{location.post_code}</span>
 							<span>{location.phone_number}</span>
 							<span>
-								<i className='fa fa-eye'></i>
 								<i
 									className='fa fa-pencil'
 									onClick={() => handleEdit(location)}

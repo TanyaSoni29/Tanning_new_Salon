@@ -67,13 +67,21 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 			</Typography>
 
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
-				<Box mt={2} sx={{}}>
+				<Box
+					mt={2}
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: 2,
+					}}
+				>
 					<TextField
 						label='Name'
 						fullWidth
 						{...register('name', { required: true })}
 					/>
-                    <TextField
+					<TextField
 						label='Phone Number'
 						fullWidth
 						{...register('phone_number', { required: true })}
