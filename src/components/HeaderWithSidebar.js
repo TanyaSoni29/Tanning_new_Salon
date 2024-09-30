@@ -166,6 +166,11 @@ const HeaderWithSidebar = () => {
 							)}
 						</div>
 					</li>
+					<li>
+						<NavLink to='/qrcode' className={({ isActive }) => (isActive ? 'active' : '')}>
+							QRCode
+						</NavLink>
+					</li>
 				</ul>
 				{/* Logout Button */}
 				<div className='logout-button'>

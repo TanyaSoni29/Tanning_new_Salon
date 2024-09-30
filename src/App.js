@@ -27,6 +27,7 @@ import Topcustomers from './components/Topcustomers/Topcustomers';
 import Serviceused from './components/Serviceused/Serviceused';
 import Purchasereport from './components/Purchasereport/Purchasereport';
 import Productreport from './components/Productreport/Productreport';
+import Qrcode from './components/Qrcode/Qrcode';
 import './App.css';
 
 const App = () => {
@@ -111,6 +112,10 @@ const App = () => {
 					<Route
 						path='/productreport'
 						element={<Productreport />}
+					/>
+					<Route
+						path='/qrcode'
+						element={<Qrcode />}
 					/>
 			</Routes>
 		</div>

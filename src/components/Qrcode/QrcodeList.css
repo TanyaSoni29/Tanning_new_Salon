@@ -1,0 +1,114 @@
+/* Main container */
+.qrcode-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 40px;
+	font-family: Arial, sans-serif;
+	background-color: #ffffff;
+	border-radius: 10px;
+	width: 90%;
+	max-width: 700px;
+	margin: 0 auto;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+	color: #ff8c00;
+	margin-bottom: 20px;
+  }
+  
+  /* Location circles container */
+  .location-circles {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	max-width: 600px;
+	margin-bottom: 30px;
+  }
+  
+  /* Individual location circle */
+  .location-circle {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background-color: #ff8c00;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+  }
+  
+  .location-circle:hover {
+	transform: scale(1.1);
+  }
+  
+  /* Icon styling inside the circle */
+  .icon {
+	font-size: 36px;
+	margin-bottom: 10px;
+  }
+  
+  .location-circle p {
+	margin: 0;
+	font-size: 14px;
+	font-weight: bold;
+  }
+  
+  /* QR Code display section */
+  .qr-code-display {
+	text-align: center;
+	margin-top: 20px;
+  }
+  
+  .qr-code-display h3 {
+	color: #ff8c00;
+	margin-bottom: 10px;
+  }
+  
+  .qr-code-image {
+	width: 150px;
+	height: 150px;
+  }
+  
+  /* Print Button */
+  .next-button {
+	background-color: #ff8c00;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 30px;
+	cursor: pointer;
+	margin-top: 20px;
+	transition: background-color 0.3s ease;
+  }
+  
+  .next-button:hover {
+	background-color: #e67600;
+  }
+  
+  .next-button:disabled {
+	background-color: #cccccc;
+	cursor: not-allowed;
+  }
+  
+  /* Hide everything except the QR code for printing */
+  @media print {
+	body * {
+	  visibility: hidden;
+	}
+	#print-area, #print-area * {
+	  visibility: visible;
+	}
+	#print-area {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	}
+  }
+  
