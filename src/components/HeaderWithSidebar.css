@@ -1,0 +1,88 @@
+
+
+/* Header */
+.header {
+  padding: 10px 20px;
+  
+}
+
+.logo {
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.hamburger-icon {
+  font-size: 25px;
+  cursor: pointer;
+  color: white;
+  margin-left: 15px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  color: black;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-header {
+  background-color: #ff9800;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 20px;
+}
+
+.sidebar-menu li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.sidebar-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Close button */
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 500;
+}
