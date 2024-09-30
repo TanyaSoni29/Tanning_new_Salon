@@ -29,18 +29,18 @@ const CustomerList = () => {
 
 	return (
 		<div className='customer-container'>
-			<div className='search-container'>
+			<div className='customer-search-container'>
 				<input
 					type='text'
 					placeholder='Search Customer'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button'>ADD NEW CUSTOMER</button>
+				<button className='add-button2'>ADD NEW CUSTOMER</button>
 			</div>
 
 			<div className='customers-table'>
-				<div className='table-header'>
+				<div className='customer-table-header'>
 					<span>USER NAME</span>
 					<span>LOCATION</span>
 					<span>PHONE NUMBER</span>
@@ -54,7 +54,7 @@ const CustomerList = () => {
 					filteredCustomers.map((customer, index) => (
 						<div
 							key={index}
-							className='table-row'
+							className='customer-table-row'
 						>
 							<span>{customer.userName}</span>
 							<span>{customer.location}</span>

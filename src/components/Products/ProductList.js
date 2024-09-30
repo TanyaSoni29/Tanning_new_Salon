@@ -26,18 +26,18 @@ const ProductList = () => {
 
 	return (
 		<div className='product-container'>
-			<div className='search-container'>
+			<div className='product-search-container'>
 				<input
 					type='text'
 					placeholder='Search Product'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button'>ADD NEW PRODUCT</button>
+				<button className='add-button4'>ADD NEW PRODUCT</button>
 			</div>
 
 			<div className='products-table'>
-				<div className='table-header'>
+				<div className='product-table-header'>
 					<span>PRODUCT NAME</span>
 					<span>PRICE</span>
 					<span>LISTED ON</span>
@@ -48,7 +48,7 @@ const ProductList = () => {
 					filteredProducts.map((product, index) => (
 						<div
 							key={index}
-							className='table-row'
+							className='product-table-row'
 						>
 							<span>{product.productName}</span>
 							<span>{product.price}</span>

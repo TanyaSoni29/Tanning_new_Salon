@@ -22,18 +22,18 @@ const LocationList = () => {
 
 	return (
 		<div className='location-container'>
-			<div className='search-container'>
+			<div className='location-search-container'>
 				<input
 					type='text'
 					placeholder='Search Location'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button'>ADD NEW LOCATION</button>
+				<button className='add-button1'>ADD NEW LOCATION</button>
 			</div>
 
 			<div className='locations-table'>
-				<div className='table-header'>
+				<div className='location-table-header'>
 					<span>LOCATION NAME</span>
 					<span>ADDRESS</span>
 					<span>POSTCODE</span>
@@ -43,7 +43,7 @@ const LocationList = () => {
 				{filteredLocations.map((location, index) => (
 					<div
 						key={index}
-						className='table-row'
+						className='location-table-row'
 					>
 						<span>{location.name}</span>
 						<span>{location.address}</span>
