@@ -1,0 +1,73 @@
+/**
+ * Delete Modal Overlay to cover entire screen
+ *
+ * @format
+ */
+/* Modal container */
+.delete-modal {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	width: 300px;
+	text-align: center;
+}
+
+/* Modal message text */
+.delete-modal p {
+	font-size: 16px;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+/* Button container for Yes/Cancel buttons */
+.button-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+/* Yes button */
+.confirm-button {
+	background-color: #ff9800;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.confirm-button:hover {
+	background-color: #000;
+}
+
+/* Cancel button */
+.cancel-button {
+	background-color: white;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.cancel-button:hover {
+	background-color: #f1f1f1;
+}
+
+/* Modal box styling */
+.edit-modal {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	width: 30vw;
+}
+
+/* Title styling */
+#edit-location-modal-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}

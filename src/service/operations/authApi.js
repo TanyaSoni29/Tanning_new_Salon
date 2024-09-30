@@ -95,21 +95,27 @@ export function login(email, password, navigate) {
 	};
 }
 
-export function getMe(navigate, token) {
-	return async (dispatch) => {
-		// console.log(token);
-		if (!token) {
+export function getMe(navigate) {
+	return async (dispatch, getState) => {
+		// Check for token in Redux state or localStorage
+		const storedToken = getState().auth.token || localStorage.getItem('token');
+
+		if (!storedToken) {
 			console.log('No token provided, redirecting to sign-in.');
 			toast.error('No token found. Please log in.');
 			dispatch(setToken(null));
 			dispatch(setIsAuth(false));
+			navigate('/'); // Redirect to login
 			return;
 		}
+
 		const toastId = toast.loading('Fetching current user...');
 		dispatch(setLoading(true));
+
 		try {
+			// Fetch current user details using token
 			const response = await apiConnector('POST', GET_ME_API, null, {
-				'Authorization': `Bearer ${token}`,
+				'Authorization': `Bearer ${storedToken}`,
 				'Content-Type': 'application/json',
 			});
 
@@ -118,26 +124,34 @@ export function getMe(navigate, token) {
 			if (response.status !== 200) {
 				throw new Error(response.data);
 			}
+
+			// Save user info and mark the user as authenticated
 			dispatch(setUser(response.data));
 			dispatch(setIsAuth(true));
+
 			toast.success('Current Login User Fetched Successfully');
 
+			// Redirect user to locationStep or other relevant page
 			navigate('/locationStep');
 		} catch (error) {
-			console.log('LOGIN API ERROR........', error);
+			console.log('GET ME API ERROR........', error);
 
 			const errorMessage =
 				error?.response?.data?.error || 'Failed to fetch user';
 			toast.error(errorMessage);
+
+			// Log user out on failure
 			dispatch(setToken(null));
 			dispatch(setIsAuth(false));
 			localStorage.removeItem('token');
 			localStorage.removeItem('expirationTime');
-			// navigate("/authentication/sign-in");
+
+			// Redirect to login page
+			navigate('/');
 		} finally {
 			dispatch(setLoading(false));
+			toast.dismiss(toastId);
 		}
-		toast.dismiss(toastId);
 	};
 }
 
