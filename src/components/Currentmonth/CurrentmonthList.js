@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import './CurrentmonthList.css'; // Importing CSS
+import { saveAs } from 'file-saver'; // For saving files
+import jsPDF from 'jspdf'; // For generating PDFs
 
 const ProductList = () => {
 	const [products, setProducts] = useState([
@@ -24,6 +26,44 @@ const ProductList = () => {
 		setProducts(newProducts);
 	};
 
+	// Function to download CSV
+	const handleDownloadCSV = () => {
+		const headers = ['Product Name', 'Price', 'Listed On'];
+		const csvRows = [
+			headers.join(','), // header row
+			...products.map((product) =>
+				[product.productName, product.price, product.listedOn].join(',')
+			),
+		].join('\n');
+
+		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
+		saveAs(blob, 'products.csv');
+	};
+
+	// Function to download PDF
+	const handleDownloadPDF = () => {
+		const doc = new jsPDF();
+
+		doc.text('Product List', 10, 10); // Title of the document
+		let row = 20;
+
+		// Table headers
+		doc.text('Product Name', 10, row);
+		doc.text('Price', 80, row);
+		doc.text('Listed On', 140, row);
+		row += 10;
+
+		// Table content
+		products.forEach((product) => {
+			doc.text(product.productName, 10, row);
+			doc.text(product.price, 80, row);
+			doc.text(product.listedOn, 140, row);
+			row += 10;
+		});
+
+		doc.save('products.pdf');
+	};
+
 	return (
 		<div className='product-container'>
 			<div className='product-search-container'>
@@ -33,7 +73,15 @@ const ProductList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button4'>ADD NEW PRODUCT</button>
+				<div>
+					<button className='add-button4'>ADD NEW PRODUCT</button>
+					<button className='download-button' onClick={handleDownloadCSV}>
+						DOWNLOAD CSV
+					</button>
+					<button className='download-button' onClick={handleDownloadPDF}>
+						DOWNLOAD PDF
+					</button>
+				</div>
 			</div>
 
 			<div className='products-table'>

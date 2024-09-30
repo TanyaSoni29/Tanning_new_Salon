@@ -101,3 +101,18 @@
 	font-size: 18px;
 	color: #666;
 }
+
+.download-button {
+	background-color: #28a745;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.download-button:hover {
+	background-color: #218838;
+}
