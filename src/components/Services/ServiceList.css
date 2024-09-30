@@ -28,7 +28,7 @@
 }
 
 .add-button {
-	background-color: #007bff;
+	background-color: #e67600;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -38,7 +38,7 @@
 }
 
 .add-button:hover {
-	background-color: #0056b3;
+	background-color: #e67600;
 }
 
 /* Table Styles */
@@ -51,13 +51,13 @@
 .table-header,
 .table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 2fr 2fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 }
 
 .table-header {
-	background-color: #007bff;
+	background-color: #e67600;
 	color: white;
 	font-weight: bold;
 }
@@ -81,7 +81,7 @@
 }
 
 .fa-eye {
-	color: #007bff;
+	color: #e67600;
 }
 
 .fa-pencil {

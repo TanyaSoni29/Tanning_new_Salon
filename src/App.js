@@ -18,7 +18,7 @@ import Location from './components/Location/Location';
 import Customers from './components/Customers/Customers';
 import Products from './components/Products/Products';
 import Services from './components/Services/Services';
-import Transactions from './components/Transactions/Transactions';
+// import Transactions from './components/Transactions/Transactions';
 import Users from './components/Users/Users';
 import Allcustomers from './components/Allcustomers/Allcustomers';
 import Bydata from './components/Bydata/Bydata';
@@ -81,10 +81,10 @@ const App = () => {
 					path='/customers'
 					element={<ProtectedRoute element={<Customers />} />}
 				/>
-				<Route
+				{/* <Route
 					path='/transactions'
 					element={<ProtectedRoute element={<Transactions />} />}
-				/>
+				/> */}
 				<Route
 						path='/allcustomers'
 						element={<Allcustomers />}
