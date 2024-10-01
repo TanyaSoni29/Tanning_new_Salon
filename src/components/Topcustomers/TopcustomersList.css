@@ -8,6 +8,7 @@
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 /* Search Bar */
@@ -15,11 +16,12 @@
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .Topcustomer-search-container input {
 	width: 100%;
-	max-width: 50%; /* Allow it to take half of the width */
+	max-width: 50%; /* Takes half of the width on larger screens */
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -30,7 +32,7 @@
 .Topcustomer-buttons-container {
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 	gap: 15px;
 	margin-top: 10px;
 }
@@ -55,7 +57,7 @@
 }
 
 .Topcustomer-add-button4 {
-	background-color: #0c65be; /* Orange for add button */
+	background-color: #0c65be; /* Blue for add button */
 	color: white;
 	padding: 12px;
 	border: none;
@@ -65,7 +67,7 @@
 	transition: background-color 0.3s ease;
 }
 
-.Topcustomeradd-button4:hover {
+.Topcustomer-add-button4:hover {
 	background-color: #e68900;
 }
 
@@ -145,57 +147,111 @@
 	color: #666;
 }
 
-/* Responsive Layout */
-@media (max-width: 768px) {
+/* Responsive Layout for Tablet and Mobile */
+@media (max-width: 1024px) {
+	.Topcustomer-container {
+		width: 70%;
+		margin-top: 140px;
+		margin-left: 340px;
+	}
+	.Topcustomer-container {
+		width: 85%;
+		margin-left: 60px; /* Adjust width for tablets */
+	}
+
+	.Topcustomer-search-container input {
+		width: 100%; /* Full width on tablet */
+	}
+
 	.Topcustomer-buttons-container {
-		flex-direction: row;
 		justify-content: space-between;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.Topcustomer-table-header,
+	.Topcustomer-table-row {
+		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Maintain layout */
+		min-width: 900px; /* Ensure horizontal scrolling on tablets */
+	}
+}
+
+@media (max-width: 768px) {
+	.Topcustomer-container {
+		width: 90%; /* Adjust container width for mobile */
+		margin-left: 20px;
+	}
+
+	.Topcustomer-buttons-container {
+		flex-direction: column; /* Stack buttons vertically on mobile */
+		gap: 10px;
+		width: 100%; /* Full width */
+	}
+
+	.Topcustomer-search-container input {
+		width: 100%; /* Full width search bar */
+	}
+
+	.Topcustomer-delete-button,
+	.Topcustomer-download-button,
+	.Topcustomer-add-button4 {
+		width: 100%; /* Full width buttons */
 	}
 
 	.Topcustomer-table {
-		overflow-x: auto;
+		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 		width: 100%;
 	}
 
 	.Topcustomer-table-header,
 	.Topcustomer-table-row {
 		grid-template-columns: 2fr 1fr 1.5fr 1fr;
-		min-width: 900px; /* Ensure horizontal scrolling on mobile */
+		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
 
 @media (max-width: 480px) {
+	.Topcustomer-container {
+		width: 95%;
+		margin-left: 10px; /* Adjust margins for extra small screens */
+	}
+
 	.Topcustomer-search-container {
-		flex-direction: column;
+		flex-direction: column; /* Stack search bar vertically */
 		align-items: center;
 	}
+
 	.Topcustomer-search-container input {
-		width: 100%;
-		max-width: 90%;
-	}
-	.Topcustomer-add-button4 {
-		padding: 12px 82px;
+		width: 100%; /* Full width search bar */
+		max-width: 100%;
 	}
 
 	.Topcustomer-buttons-container {
-		flex-direction: row;
-		justify-content: space-between;
+		flex-direction: column; /* Stack buttons vertically */
 		width: 100%;
-		gap: 10px;
 	}
 
 	.Topcustomer-delete-button,
 	.Topcustomer-download-button {
-		width: 48%; /* Make Delete and CSV buttons side by side */
+		width: 100%; /* Full width for buttons */
+	}
+
+	.Topcustomer-add-button4 {
+		width: 100%; /* Full width for add button */
 	}
 
 	.Topcustomer-table {
-		overflow-x: scroll;
+		overflow-x: scroll; /* Enable horizontal scroll */
 	}
 
 	.Topcustomer-table-header,
 	.Topcustomer-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr;
-		min-width: 900px; /* Maintain width for horizontal scrolling */
+		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Maintain column structure */
+		min-width: 900px; /* Ensure table width remains scrollable */
+	}
+
+	.Topcustomer-table-header span,
+	.Topcustomer-table-row span {
+		font-size: 14px; /* Adjust font size for smaller screens */
 	}
 }

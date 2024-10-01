@@ -1,5 +1,4 @@
-/** @format */
-
+/* Desktop View */
 .products-container {
 	width: 70%;
 	margin: 20px auto;
@@ -101,18 +100,35 @@
 
 /* Tablet View */
 @media (max-width: 1024px) {
+	.products-container {
+		width: 85%; /* Adjust width for tablets */
+		margin-left: 60px; /* Reduce left margin */
+	}
+
 	.products-search-container input {
-		width: 40%; /* Increase input width on tablets */
+		width: 40%; /* Increase input width for tablet view */
 	}
 
 	.products-table-header,
 	.products-table-row {
 		grid-template-columns: 2fr 1fr 1fr; /* Adjust the number of columns for tablets */
+		padding: 10px; /* Reduce padding for better fit */
+	}
+
+	/* Ensure the table body is scrollable if content overflows */
+	.product-table {
+		overflow-x: auto;
 	}
 }
 
 /* Mobile View */
 @media (max-width: 768px) {
+	.products-container {
+		width: 90%; /* Adjust container width for mobile */
+		margin-left: 20px;
+		margin-top: 120px;
+	}
+
 	.products-search-container {
 		flex-direction: column; /* Stack search and button vertically on mobile */
 		gap: 10px;
@@ -123,25 +139,44 @@
 	}
 
 	.product-table {
-		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
+		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 	}
 
 	.products-table-header,
 	.products-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Ensure proper layout */
-		min-width: 600px; /* Set a minimum width for the table to trigger horizontal scrolling */
+		grid-template-columns: 2fr 1.5fr 1fr; /* Fewer columns for mobile to fit better */
+		grid-auto-flow: column; /* Allow horizontal scrolling */
+		min-width: 600px; /* Set a minimum width for the table */
+		padding: 8px; /* Reduce padding for mobile */
+	}
+
+	.products-table-header span,
+	.products-table-row span {
+		padding: 5px 10px;
 	}
 }
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
+	.products-container {
+		width: 95%; /* Adjust container to almost full width */
+		margin-left: 10px; /* Minimal left margin */
+		margin-top: 120px;
+	}
+
 	.products-search-container input {
 		width: 100%; /* Full width input on very small screens */
 	}
 
 	.products-table-header,
 	.products-table-row {
-		grid-template-columns: 1.5fr 1.5fr 1fr 1fr; /* Further reduced columns for small screens */
+		grid-template-columns: 1.5fr 1.5fr 1fr; /* Further reduced columns for small screens */
 		min-width: 500px; /* Ensure enough width for content */
+		padding: 5px; /* Minimize padding for extra small screens */
+	}
+
+	.products-table-header span,
+	.products-table-row span {
+		font-size: 14px; /* Reduce font size for small screens */
 	}
 }

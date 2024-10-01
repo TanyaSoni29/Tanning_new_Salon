@@ -1,9 +1,4 @@
-/**
- * General Layout
- *
- * @format
- */
-
+/* Desktop View */
 .location-container {
 	width: 70%;
 	margin: 20px auto;
@@ -55,7 +50,7 @@
 .location-table-header,
 .location-table-row {
 	display: grid;
-	grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+	grid-template-columns: 1.5fr 1.2fr 1fr 1fr 0.2fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -117,17 +112,35 @@
 
 /* Tablet View */
 @media (max-width: 1024px) {
+	.location-container {
+		width: 85%; /* Adjust width for smaller screens */
+		margin-left: 60px;
+	}
+
 	.location-search-container input {
 		width: 40%;
 	}
+
 	.location-table-header,
 	.location-table-row {
 		grid-template-columns: 1fr 1.5fr 1fr 1fr; /* Adjusted column sizes for smaller screens */
+		padding: 10px; /* Reduce padding for better fit */
+	}
+
+	/* Ensure the table body is scrollable if content overflows */
+	.locations-table {
+		overflow-x: auto;
 	}
 }
 
 /* Mobile View */
 @media (max-width: 768px) {
+	.location-container {
+		width: 90%; /* Adjust container width for mobile */
+		margin-left: 20px;
+		margin-top: 120px;
+	}
+
 	.location-search-container {
 		flex-direction: column; /* Stack search and button vertically */
 		gap: 10px;
@@ -138,7 +151,7 @@
 	}
 
 	.locations-table {
-		overflow-x: scroll; /* Adds horizontal scroll for smaller screens */
+		overflow-x: auto; /* Adds horizontal scroll for smaller screens */
 	}
 
 	.location-table-header,
@@ -146,6 +159,7 @@
 		grid-template-columns: 1.5fr 2.5fr 1fr; /* Reduced columns for mobile view */
 		grid-auto-flow: column; /* Allow horizontal scrolling */
 		min-width: 600px; /* Ensure a minimum width for table */
+		padding: 8px; /* Reduce padding for mobile */
 	}
 
 	.location-table-header span,
@@ -156,6 +170,13 @@
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
+	.location-container {
+		width: 95%;
+		margin: 20px auto;
+		margin-top: 120px;
+		margin-left: 10px;
+	}
+
 	.location-search-container input {
 		width: 100%; /* Full width on very small screens */
 	}
@@ -164,5 +185,11 @@
 	.location-table-row {
 		grid-template-columns: 2fr 3fr 1fr; /* Further adjust column sizes */
 		min-width: 500px; /* Ensure enough width for content */
+		padding: 5px; /* Minimize padding for extra small screens */
+	}
+
+	.location-table-header span,
+	.location-table-row span {
+		font-size: 14px; /* Reduce font size for small screens */
 	}
 }

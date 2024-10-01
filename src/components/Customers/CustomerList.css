@@ -1,9 +1,4 @@
-/**
- * General Layout
- *
- * @format
- */
-
+/* Desktop View */
 .customer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -55,7 +50,7 @@
 .customer-table-header,
 .customer-table-row {
 	display: grid;
-	grid-template-columns: 150px 170px 180px 180px 200px 250px 150px; /* Fixed column widths */
+	grid-template-columns: 130px 130px 160px 180px 150px 150px 150px; /* Fixed column widths */
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -110,18 +105,34 @@
 
 /* Tablet View */
 @media (max-width: 1024px) {
+	.customer-container {
+		width: 85%; /* Adjust width for tablets */
+		margin-left: 60px;
+	}
+
 	.customer-search-container input {
 		width: 40%; /* Increase input width on tablets */
 	}
 
 	.customer-table-header,
 	.customer-table-row {
-		grid-template-columns: 180px 180px 130px 130px 130px 180px 130px; /* Reduce column widths for tablet view */
+		grid-template-columns: 180px 180px 130px 130px 130px 180px 130px; /* Adjust the number of columns for tablets */
+		padding: 10px; /* Reduce padding for better fit */
+	}
+
+	.customers-table {
+		overflow-x: auto;
 	}
 }
 
 /* Mobile View */
 @media (max-width: 768px) {
+	.customer-container {
+		width: 90%; /* Adjust container width for mobile */
+		margin-left: 20px;
+		margin-top: 120px;
+	}
+
 	.customer-search-container {
 		flex-direction: column; /* Stack search and button vertically on mobile */
 		gap: 10px;
@@ -137,20 +148,33 @@
 
 	.customer-table-header,
 	.customer-table-row {
-		grid-template-columns: 150px 150px 100px 100px 100px 150px 100px; /* Fixed column widths for mobile */
+		grid-template-columns: 150px 150px 100px 100px 100px 150px 100px; /* Adjust columns for mobile view */
 		min-width: 900px; /* Ensure enough width to trigger horizontal scrolling */
+		padding: 8px; /* Reduce padding for mobile */
 	}
 }
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
+	.customer-container {
+		width: 95%; /* Almost full width */
+		margin-left: 10px; /* Minimal left margin */
+		margin-top: 120px;
+	}
+
 	.customer-search-container input {
 		width: 100%; /* Full width input on very small screens */
 	}
 
 	.customer-table-header,
 	.customer-table-row {
-		grid-template-columns: 140px 140px 90px 90px 90px 140px 90px; /* Ensure fixed column widths for small screens */
+		grid-template-columns: 140px 140px 90px 90px 90px 140px 90px; /* Ensure proper layout on small screens */
 		min-width: 800px; /* Ensure enough width for horizontal scrolling */
+		padding: 5px; /* Reduce padding for extra small screens */
+	}
+
+	.customer-table-header span,
+	.customer-table-row span {
+		font-size: 14px; /* Reduce font size for small screens */
 	}
 }

@@ -1,4 +1,5 @@
- .service-container {
+/* Desktop View */
+.service-container {
 	width: 70%;
 	margin: 20px auto;
 	margin-left: 340px;
@@ -99,18 +100,34 @@
 
 /* Tablet View */
 @media (max-width: 1024px) {
+	.service-container {
+		width: 85%; /* Adjust width for tablets */
+		margin-left: 60px; /* Reduce left margin */
+	}
+
 	.search-container input {
 		width: 40%; /* Increase input width on tablets */
 	}
 
 	.table-header,
 	.table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Adjust the number of columns for tablets */
+		grid-template-columns: 2fr 1.5fr 1fr 1fr; /* Adjust the number of columns for tablets */
+		padding: 10px; /* Reduce padding for better fit */
+	}
+
+	.services-table {
+		overflow-x: auto;
 	}
 }
 
 /* Mobile View */
 @media (max-width: 768px) {
+	.service-container {
+		width: 90%; /* Adjust container width for mobile */
+		margin-left: 20px;
+		margin-top: 120px;
+	}
+
 	.search-container {
 		flex-direction: column; /* Stack search and button vertically on mobile */
 		gap: 10px;
@@ -121,18 +138,31 @@
 	}
 
 	.services-table {
-		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
+		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 	}
 
 	.table-header,
 	.table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Ensure proper layout */
-		min-width: 600px; /* Set a minimum width for the table to trigger horizontal scrolling */
+		grid-template-columns: 2fr 1.5fr 1fr; /* Fewer columns for mobile to fit better */
+		grid-auto-flow: column; /* Allow horizontal scrolling */
+		min-width: 600px; /* Set a minimum width for the table */
+		padding: 8px; /* Reduce padding for mobile */
+	}
+
+	.table-header span,
+	.table-row span {
+		padding: 5px 10px;
 	}
 }
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
+	.service-container {
+		width: 95%; /* Almost full width */
+		margin-left: 10px; /* Minimal left margin */
+		margin-top: 120px;
+	}
+
 	.search-container input {
 		width: 100%; /* Full width input on very small screens */
 	}
@@ -141,5 +171,11 @@
 	.table-row {
 		grid-template-columns: 1.5fr 1.5fr 1fr 1fr; /* Further reduced columns for small screens */
 		min-width: 500px; /* Ensure enough width for content */
+		padding: 5px; /* Minimize padding for extra small screens */
+	}
+
+	.table-header span,
+	.table-row span {
+		font-size: 14px; /* Reduce font size for small screens */
 	}
 }
