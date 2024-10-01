@@ -1,25 +1,33 @@
 /** @format */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AboutStep.css'; // Ensure this CSS file is imported
 import HeaderWithSidebar from './HeaderWithSidebar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomerOverview from './CustomerOverview';
 import AddCustomerModal from './Customers/AddCustomerModal';
 import Modal from '../components/Modal';
+import { refreshCustomers } from '../slices/customerProfile';
 const AboutStep = () => {
 	const navigate = useNavigate();
 	const { customers } = useSelector((state) => state.customer);
 	const { locationIndex } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
+	const dispatch = useDispatch();
 	const searchRef = useRef(null);
-	const filteredCustomers = locationIndex
-		? customers
-				.filter((user) => user.profile !== null)
-				.filter((data) => data.profile.preferred_location === locationIndex)
-		: [];
+	// const filteredCustomers = locationIndex
+	// 	? customers
+	// 			.filter((user) => user.profile !== null)
+	// 			.filter((data) => data.profile.preferred_location === locationIndex)
+	// 	: [];
+
+	useEffect(() => {
+		dispatch(refreshCustomers());
+	}, [dispatch]);
+
+	const filteredCustomers = customers.filter((user) => user.profile !== null);
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
@@ -48,12 +56,12 @@ const AboutStep = () => {
 				</p>
 
 				<div className='step-tabs'>
-					<button
+					{/* <button
 						className='tab'
 						onClick={() => navigate('/locationStep')}
 					>
 						LOCATION
-					</button>
+					</button> */}
 					<button className='tab active'>ABOUT</button>
 					<button
 						className='tab'

@@ -49,10 +49,10 @@ const App = () => {
 					element={<AuthForm />}
 				/>
 				{/* Protected routes */}
-				<Route
+				{/* <Route
 					path='/locationStep'
 					element={<ProtectedRoute element={<LocationStep />} />}
-				/>
+				/> */}
 				<Route
 					path='/about'
 					element={<ProtectedRoute element={<AboutStep />} />}

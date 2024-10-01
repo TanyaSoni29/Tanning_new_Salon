@@ -119,12 +119,12 @@ const ServiceStep = () => {
 				<h2 className='heading'>Tanning Salon</h2>
 
 				<div className='step-tabs'>
-					<button
+					{/* <button
 						onClick={() => navigate('/locationStep')}
 						className='tab'
 					>
 						LOCATION
-					</button>
+					</button> */}
 					<button
 						className='tab'
 						onClick={() => navigate('/about')}
