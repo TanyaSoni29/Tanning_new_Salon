@@ -4,13 +4,13 @@ import React, { useEffect } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import ServiceList from './ServiceList';
 import { useDispatch } from 'react-redux';
-import { refreshProduct } from '../../slices/productSlice';
+import { refreshService } from '../../slices/serviceSlice';
 
 function Services() {
 	const dispatch = useDispatch();
 	useEffect(() => {
-           dispatch(refreshProduct())
-	},[])
+		dispatch(refreshService());
+	}, [dispatch]);
 	return (
 		<div>
 			<HeaderWithSidebar />

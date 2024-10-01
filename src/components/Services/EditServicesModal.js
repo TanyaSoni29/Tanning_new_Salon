@@ -16,26 +16,16 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 		handleSubmit,
 		reset,
 		formState: { isSubmitSuccessful },
-	} = useForm({
-		defaultValues: {
-			name: activeService.name,
-			price: activeService.price,
-			minute: activeService.minute,
-		},
-	});
+	} = useForm();
 
 	const handleSubmitForm = async (data) => {
 		try {
 			const updatedData = {
-				name: data.name,
+				serviceName: data.serviceName,
 				price: data.price,
-				minute: data.minute,
+				minutesAvailable: data.minutesAvailable,
 			};
-			const result = await updateService(
-				token,
-				activeService.id,
-				updatedData
-			);
+			const result = await updateService(token, activeService.id, updatedData);
 
 			if (result) {
 				dispatch(refreshService());
@@ -48,9 +38,9 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 	useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset({
-				name: '',
+				serviceName: '',
 				price: '',
-				minute: '',
+				minutesAvailable: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -64,36 +54,42 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 			</Typography>
 
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
-				<Box
-					mt={2}
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						gap: 2,
-					}}
-				>
+				<Box mt={2}>
 					<TextField
 						label='Name'
 						fullWidth
-						{...register('name', { required: true })}
+						defaultValue={activeService?.serviceName}
+						{...register('serviceName', { required: true })}
 					/>
-					<TextField
-						label='Price'
-						fullWidth
-						{...register('price', { required: true })}
-					/>
-					<TextField
-						label='Minute'
-						fullWidth
-						{...register('minute', { required: true })}
-					/>
+					<Box
+						mt={2}
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							gap: 2,
+						}}
+					>
+						<TextField
+							label='Price'
+							fullWidth
+							defaultValue={activeService?.price}
+							{...register('price', { required: true })}
+						/>
+						<TextField
+							label='Minute'
+							fullWidth
+							defaultValue={activeService?.minutesAvailable}
+							{...register('minutesAvailable', { required: true })}
+						/>
+					</Box>
 				</Box>
 
 				<Box
 					mt={2}
 					display='flex'
-					justifyContent='space-between'
+					justifyContent='end'
+					gap={2}
 				>
 					<Button
 						variant='contained'

@@ -18,18 +18,18 @@ const AddServiceModal = ({ closeAddModal }) => {
 		formState: { isSubmitSuccessful },
 	} = useForm({
 		defaultValues: {
-			name: '',
+			serviceName: '',
 			price: '',
-			minute: '',
+			minutesAvailable: '',
 		},
 	});
 
 	const handleSubmitForm = async (data) => {
 		try {
 			const newService = {
-				name: data.name,
+				serviceName: data.serviceName,
 				price: data.price,
-				minute: data.minute,
+				minutesAvailable: data.minutesAvailable,
 			};
 			const result = await createService(token, newService);
 			if (result) {
@@ -45,9 +45,9 @@ const AddServiceModal = ({ closeAddModal }) => {
 	useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset({
-				name: '',
+				serviceName: '',
 				price: '',
-				minute: '',
+				minutesAvailable: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -57,38 +57,41 @@ const AddServiceModal = ({ closeAddModal }) => {
 			<Box className='add-modal'>
 				<Typography
 					variant='h6'
-					id='add-Service-modal-title'
+					id='add-location-modal-title'
 				>
 					Add New Service
 				</Typography>
 
 				<form onSubmit={handleSubmit(handleSubmitForm)}>
-					<Box
-						mt={2}
-						display='flex'
-						gap={2}
-					>
+					<Box mt={2}>
 						<TextField
 							label='Name'
 							fullWidth
-							{...register('name', { required: true })}
+							{...register('serviceName', { required: true })}
 						/>
-						<TextField
-							label='Price'
-							fullWidth
-							{...register('price', { required: true })}
-						/>
-						<TextField
-							label='Minute'
-							fullWidth
-							{...register('minute', { required: true })}
-						/>
+						<Box
+							mt={2}
+							display='flex'
+							gap={2}
+						>
+							<TextField
+								label='Price'
+								fullWidth
+								{...register('price', { required: true })}
+							/>
+							<TextField
+								label='Minute'
+								fullWidth
+								{...register('minutesAvailable', { required: true })}
+							/>
+						</Box>
 					</Box>
 
 					<Box
 						mt={2}
 						display='flex'
-						justifyContent='space-between'
+						justifyContent='end'
+						gap={2}
 					>
 						<Button
 							variant='contained'

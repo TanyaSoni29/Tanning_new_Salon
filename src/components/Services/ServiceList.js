@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './ServiceList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +24,7 @@ const ServiceList = () => {
 
 	// Filter Services based on search term
 	const filteredServices = services?.filter((service) =>
-		service?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+		service?.serviceName?.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
 	// Function to handle the delete action with API call and Redux update
@@ -74,7 +76,6 @@ const ServiceList = () => {
 		setIsAddOpen(false);
 	};
 
-
 	return (
 		<div className='service-container'>
 			<div className='search-container'>
@@ -84,8 +85,11 @@ const ServiceList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button' onClick={handleAdd}>
-				ADD NEW SERVICE
+				<button
+					className='add-button'
+					onClick={handleAdd}
+				>
+					ADD NEW SERVICE
 				</button>
 			</div>
 
@@ -97,14 +101,16 @@ const ServiceList = () => {
 					<span>ACTION</span>
 				</div>
 
-	
 				{/* Render filtered Services */}
 				{filteredServices?.length > 0 ? (
 					filteredServices.map((service) => (
-						<div key={service?.id} className='service-table-row'>
-							<span>{service?.name}</span>
+						<div
+							key={service?.id}
+							className='table-row'
+						>
+							<span>{service?.serviceName}</span>
 							<span>{service?.price}</span>
-							<span>{service?.minute}</span>
+							<span>{service?.minutesAvailable}</span>
 							<span>
 								<i
 									className='fa fa-pencil'
@@ -125,14 +131,20 @@ const ServiceList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddServiceModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{/* Delete Confirmation Modal/Alert */}
 			{isDeleteOpen && activeService && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
 					<DeleteServiceModal
 						handleDelete={handleDelete}
 						activeService={activeService}
@@ -142,7 +154,10 @@ const ServiceList = () => {
 			)}
 
 			{isEditOpen && activeService && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
 					<EditServiceModal
 						activeService={activeService}
 						closeEditModal={closeEditModal}
@@ -159,7 +174,7 @@ export default ServiceList;
 function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 	return (
 		<div className='delete-modal'>
-			<p>Are you sure you want to delete {activeService?.name}?</p>
+			<p>Are you sure you want to delete {activeService?.serviceName}?</p>
 			<div className='button-container'>
 				<button
 					onClick={() => handleDelete(activeService?.id)}
@@ -167,7 +182,10 @@ function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
 			</div>
