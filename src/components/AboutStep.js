@@ -50,14 +50,14 @@ const AboutStep = () => {
 				<div className='step-tabs'>
 					<button
 						className='tab'
-						onClick={() => navigate('/')}
+						onClick={() => navigate('/locationStep')}
 					>
 						LOCATION
 					</button>
 					<button className='tab active'>ABOUT</button>
 					<button
 						className='tab'
-						onClick={() => navigate('/service')}
+						onClick={() => navigate('')}
 					>
 						SERVICE
 					</button>
@@ -94,7 +94,7 @@ const AboutStep = () => {
 					/>
 				</div>
 
-				<div className='navigation-buttons'>
+				{/* <div className='navigation-buttons'>
 					<button
 						className='previous-button1'
 						onClick={handlePrevious}
@@ -107,7 +107,7 @@ const AboutStep = () => {
 					>
 						Next
 					</button>
-				</div>
+				</div> */}
 				{isAddOpen && (
 					<Modal
 						setOpen={setIsAddOpen}
