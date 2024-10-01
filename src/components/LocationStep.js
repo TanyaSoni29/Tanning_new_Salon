@@ -45,10 +45,10 @@ const WizardStep = () => {
 		navigate('/about');
 	};
 
-	const handleNextAbout = () => {
-		setCurrentStep('service');
-		navigate('/service');
-	};
+	// const handleNextAbout = () => {
+	// 	setCurrentStep('service');
+	// 	navigate('/service');
+	// };
 
 	const handlePreviousAbout = () => {
 		setCurrentStep('location');
@@ -95,7 +95,7 @@ const WizardStep = () => {
 					</button>
 					<button
 						className={`tab ${currentStep === 'service' ? 'active' : ''}`}
-						onClick={() => handleTabClick('service')}
+						// onClick={() => handleTabClick('service')}
 					>
 						SERVICE
 					</button>
