@@ -63,7 +63,7 @@ const HeaderWithSidebar = () => {
 				<div className='sidebar-header'>
 					<h3>Menu</h3>
 					<button
-						className='close-button'
+						className='navclose-button'
 						onClick={toggleSidebar}
 					>
 						<i className='fa fa-times'></i>

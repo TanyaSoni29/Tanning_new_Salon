@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import './QrcodeList.css'; // Import the updated CSS
+import { QRCodeCanvas } from 'qrcode.react';
+import './QrcodeList.css';
 
 const QrcodeList = () => {
   const [locations] = useState([
     {
       locationName: 'Location 1',
-      qrCode: 'https://via.placeholder.com/150?text=QR+Code+1',
     },
     {
       locationName: 'Location 2',
-      qrCode: 'https://via.placeholder.com/150?text=QR+Code+2',
     },
     {
       locationName: 'Location 3',
-      qrCode: 'https://via.placeholder.com/150?text=QR+Code+3',
     },
   ]);
 
@@ -23,7 +21,6 @@ const QrcodeList = () => {
     setSelectedLocation(locations[index]);
   };
 
-  // Function to handle printing the QR code
   const handlePrint = () => {
     const printContent = document.getElementById('print-area');
     const win = window.open('', '', 'height=500,width=800');
@@ -56,15 +53,15 @@ const QrcodeList = () => {
       {selectedLocation && (
         <div className="qr-code-display" id="print-area">
           <h3>{selectedLocation.locationName}</h3>
-          <img
-            src={selectedLocation.qrCode}
-            alt={`QR code for ${selectedLocation.locationName}`}
+          {/* Dynamically generate a QR code with URL */}
+          <QRCodeCanvas
+            value={`https://backendcodersindia.com/${selectedLocation.locationName}`} // Encode a valid URL
+            size={150} // QR code size
             className="qr-code-image"
           />
         </div>
       )}
 
-      {/* Conditionally enable the print button if a location is selected */}
       <button
         className="next-button"
         onClick={handlePrint}

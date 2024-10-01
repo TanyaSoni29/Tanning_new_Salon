@@ -1,6 +1,21 @@
+/* Import Google Fonts for improved typography */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* General Styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
 /* Header */
 .header {
   padding: 10px 20px;
+  flex-direction: column;
   
 }
 
@@ -11,65 +26,91 @@
 }
 
 .logo-text {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 600;
   color: white;
+  letter-spacing: 1px;
 }
 
 .hamburger-icon {
   font-size: 25px;
   cursor: pointer;
   color: white;
+  transition: color 0.3s ease;
+}
+
+.hamburger-icon:hover {
+  color: #ff9800;
 }
 
 /* Sidebar */
 .sidebar {
   position: fixed;
-  left: -250px;
-  top: 0;
-  width: 250px;
-  height: 100%;
+  left: -260px;
+  top: 10px; /* Slightly down to create gap */
+  width: 260px;
+  height: 95%;
   background-color: white;
   color: black;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: left 0.3s ease-in-out;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  transition: left 0.4s ease, border-radius 0.4s ease;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: auto; /* Allow scrolling when the sidebar content exceeds viewport */
+  overflow-y: auto;
+  border-radius: 40px; /* Rounded capsule-like borders */
+  padding-bottom: 10px;
 }
 
 .sidebar.open {
-  left: 0;
+  left: 10px; /* Open and shift slightly right */
 }
 
 .sidebar-header {
   background-color: #ff9800;
   color: white;
-  padding: 10px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.navclose-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navclose-button:hover {
+  color: #e68900;
+}
+
+/* Sidebar Menu */
 .sidebar-menu {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1; /* Pushes the logout button to the bottom */
-  overflow-y: auto; /* Scrollable if content is large */
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .sidebar-menu li {
-  padding: 1px 10px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .sidebar-menu li:hover {
-  background-color: #f0f0f0;
+  background-color: #f7f7f7;
+  box-shadow: inset 5px 0 #ff9800;
 }
 
 .sidebar-menu li a {
@@ -77,23 +118,60 @@
   color: black;
   display: block;
   font-size: 16px;
-  width: 100%; /* Ensures the background covers the full width */
-  padding: 15px 20px;
-  box-sizing: border-box;
+  padding: 5px 20px;
+  transition: color 0.3s ease;
 }
 
 .sidebar-menu li a.active {
   background-color: #ff9800;
   color: white;
-  width: 100%; /* Ensure background color covers the full width */
-}
-
-.sidebar-menu li a.active:hover {
-  background-color: #e68900; /* Slightly darker orange on hover */
+  border-radius: 20px;
 }
 
 .sidebar-menu li a:hover {
   color: #ff9800;
+}
+
+/* Submenu styling */
+.submenu-item {
+  cursor: pointer;
+}
+
+.submenu-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  color: black;
+  transition: background-color 0.3s ease;
+  border-radius: 20px;
+  margin: 5px 0;
+}
+
+.submenu-title:hover {
+  background-color: #e0e0e0;
+}
+
+.submenu {
+  background-color: #ffffff;
+  padding-left: 20px;
+  border-left: 4px solid #ff9800;
+  margin-top: 5px;
+}
+
+.submenu li a {
+  font-size: 14px;
+  padding: 10px 30px;
+}
+
+.submenu-title i {
+  transition: transform 0.3s ease;
+}
+
+.submenu-title i.fa-chevron-up {
+  transform: rotate(180deg);
 }
 
 /* Logout Button */
@@ -106,8 +184,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
+  font-weight: 600;
   transition: background-color 0.3s ease;
-  border-top: 1px solid #ddd;
+  border-radius: 0 0 40px 40px;
 }
 
 .logout-button:hover {
@@ -116,32 +196,6 @@
 
 .logout-button i {
   margin-right: 10px;
-}
-
-/* Submenu styling */
-.submenu {
-  padding-left: 15px;
-}
-
-.submenu-item {
-  cursor: pointer;
-}
-
-.submenu-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  padding: 10px 20px;
-}
-
-.submenu-item:hover {
-  background-color: #f0f0f0;
-}
-
-.fa-chevron-up,
-.fa-chevron-down {
-  margin-left: 10px;
 }
 
 /* Overlay */
