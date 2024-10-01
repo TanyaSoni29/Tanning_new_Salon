@@ -51,8 +51,9 @@ function CustomerOverview({ searchQuery, filteredUsers }) {
 							<tr>
 								<th>Name</th>
 								<th>Phone No.</th>
-								<th>Gender</th>
-								<th>Latest Service Usage</th>
+								<th>Available Balance</th>
+								<th>Total Spend</th>
+								<th>Last Used</th>
 								<th>Select</th>
 							</tr>
 						</thead>
@@ -60,13 +61,14 @@ function CustomerOverview({ searchQuery, filteredUsers }) {
 							{filterUsers.length > 0 ? (
 								filterUsers.map((data) => (
 									<tr key={data.user?.id}>
-										<td>{data.user?.name}</td>
+										<td>{data.profile?.firstName}</td>
 										<td>
 											{data.profile?.phone_number
 												? data.profile?.phone_number
 												: '-'}
 										</td>
-										<td>{data.profile?.gender}</td>
+										<td>{data.profile?.available_balance}</td>
+										<td>{data.profile?.total_spend}</td>
 										<td>
 											{data?.profile?.updated_at
 												? formatDate(data?.profile?.updated_at)
