@@ -17,6 +17,7 @@ import { createProductTransaction } from '../service/operations/productAndProduc
 import {
 	createServiceTransaction,
 	getServiceUseOptions,
+	getTotalSpend,
 } from '../service/operations/serviceAndServiceTransaction';
 import { refreshCustomers } from '../slices/customerProfile';
 
@@ -82,6 +83,7 @@ const ServiceStep = () => {
 				type: 'used',
 			};
 			await createServiceTransaction(token, data);
+			await getTotalSpend(token, customer.user.id);
 			dispatch(refreshCustomers());
 		} catch (err) {
 			console.error('Error creating transaction', err);
@@ -181,9 +183,7 @@ const ServiceStep = () => {
 						</div>
 					)}
 
-          <div>
-            
-          </div>
+					<div></div>
 				</div>
 				{buyProductModal && (
 					<Modal
