@@ -63,6 +63,12 @@ const WizardStep = () => {
 		dispatch(setLocationIndex(locationId)); // Set selected location index in Redux
 	};
 
+	useEffect(() => {
+		if (locations.length > 0 && locationIndex === null) {
+			dispatch(setLocationIndex(locations[0].id)); // Automatically select the first location
+		}
+	}, [locations, dispatch, locationIndex]);
+
 	return (
 		<>
 			<HeaderWithSidebar />
