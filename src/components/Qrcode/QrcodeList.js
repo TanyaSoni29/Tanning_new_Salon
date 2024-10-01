@@ -58,7 +58,7 @@ const QrcodeList = () => {
 					<h3>{selectedLocation.name}</h3>
 					{/* Dynamically generate a QR code with URL */}
 					<QRCodeCanvas
-						value={`https://backendcodersindia.com/${selectedLocation.locationName}`} // Encode a valid URL
+						value={`https://backendcodersindia.com/${selectedLocation.name}`} // Encode a valid URL
 						size={150} // QR code size
 						className='qr-code-image'
 					/>
