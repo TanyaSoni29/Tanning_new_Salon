@@ -1,117 +1,150 @@
-/* General container for the wizard */
+/**
+ * General container for the wizard
+ *
+ * @format
+ */
+
 .wizard-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;  /* Responsive width */
-    max-width: 1000px;
-    text-align: center;
-    margin: 50px auto;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Heading and subheading */
-  .heading {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .subheading {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  /* Full-width tabs */
-  .step-tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    width: 100%;
-  }
-  
-  .tab {
-    flex: 1;
-    padding: 15px 0;
-    background-color: #d9d9d9;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-  
-  .tab.active {
-    background-color: #ff9800;
-    color: white;
-  }
-  
-  /* Basic information section */
-  .about-info {
-    margin: 40px 0;
-  }
-  
-  .info-heading {
-    font-size: 20px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .search-label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #666;
-  }
-  
-  .search-input {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .register-button {
-    background-color: #ff9800;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .register-button:hover {
-    background-color: #333;
-    color: white;
-  }
-  
-  /* Navigation buttons */
-  .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  
-  .previous-button, .next-button {
-    background-color: #ff9800;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .previous-button {
-    background-color: #888;
-  }
-  
-  .previous-button:hover, .next-button:hover {
-    background-color: #333;
-    color: white;
-  }
-  
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 80%; /* Responsive width */
+	max-width: 1000px;
+	text-align: center;
+	margin: 50px auto;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading and subheading */
+.heading {
+	font-size: 32px;
+	font-weight: bold;
+	color: #333;
+}
+
+.subheading {
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
+}
+
+/* Full-width tabs */
+.step-tabs {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.tab {
+	flex: 1;
+	padding: 15px 0;
+	background-color: #d9d9d9;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+}
+
+.tab.active {
+	background-color: #ff9800;
+	color: white;
+}
+
+/* Basic information section */
+.about-info {
+	margin: 20px 0;
+}
+
+.info-heading {
+	font-size: 20px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.search-label {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 10px;
+	color: #666;
+}
+
+.search-input {
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	margin-bottom: 20px;
+	margin-right: 0.2rem;
+}
+
+.search-button {
+	background-color: #ff9800;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	font-size: 16px;
+	margin-right: 0.2rem;
+}
+
+.search-button:hover {
+	background-color: #333;
+	color: white;
+}
+
+.register-button {
+	background-color: #ff9800;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	font-size: 16px;
+}
+
+.register-button:hover {
+	background-color: #333;
+	color: white;
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	text-transform: capitalize;
+}
+
+.navigation-buttons .next-button {
+	background-color: #ff9800;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	font-size: 16px;
+}
+
+.navigation-buttons .previous-button1 {
+	background-color: #ff9800;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0.8rem;
+	font-size: 16px;
+}
+
+.navigation-buttons .previous-button1 {
+	background-color: #888;
+}
+
+.navigation-buttons .previous-button1:hover,
+.next-button:hover {
+	background-color: #333;
+	color: white;
+}
