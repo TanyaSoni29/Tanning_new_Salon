@@ -112,4 +112,36 @@
 	  width: 100%;
 	}
   }
+
+  @media (max-width: 770px){
+	
+	  
+	  /* Location circles container */
+	  
+	.location-circle {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		background-color: #0c65be;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: #fff;
+		cursor: pointer;
+		transition: transform 0.3s ease;
+	  }
+
+	  .icon {
+		font-size: 26px;
+		margin-bottom: 10px;
+	  }
+	  
+	  .location-circle p {
+		margin: 0;
+		font-size: 8px;
+		font-weight: bold;
+	  }
+	  
+  }
   

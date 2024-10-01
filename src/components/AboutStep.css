@@ -148,3 +148,21 @@
 	background-color: #333;
 	color: white;
 }
+
+
+@media (max-width: 880px){
+	.wizard-container {
+		width: 70%; /* Responsive width */
+		margin-top: 140px;
+		margin-left: 110px;
+	}
+}
+
+
+@media (max-width: 580px){
+	.wizard-container {
+		width: 85%; /* Responsive width */
+		margin-top: 140px;
+		margin-left: 20px;
+	}
+}
