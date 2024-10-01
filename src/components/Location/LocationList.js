@@ -9,6 +9,8 @@ import Modal from '../Modal'; // Assuming deleteLocation API call
 import EditLocationModal from './EditLocationModal';
 import AddLocationModal from './AddLocationModal';
 
+
+
 const LocationList = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice

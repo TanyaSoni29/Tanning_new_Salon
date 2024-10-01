@@ -302,7 +302,7 @@
 
 
 import React, { useState } from 'react';
-import './HeaderWithSidebar.css'; // CSS for Sidebar
+import './HeaderWithSidebar.css'; // CSS for Header and Sidebar
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../service/operations/authApi';
@@ -347,7 +347,7 @@ const HeaderWithSidebar = () => {
       <ul className='sidebar-menu'>
         <li>
           <NavLink
-            to='/locationStep'
+            to='/about'
             className={({ isActive }) => (isActive ? 'active' : '')}
           >
             Dashboard
