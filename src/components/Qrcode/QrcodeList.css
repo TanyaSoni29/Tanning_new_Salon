@@ -88,9 +88,9 @@
 	transition: background-color 0.3s ease;
   }
   
-  .next-button:hover {
+  /* .next-button:hover {
 	background-color: #e67600;
-  }
+  } */
   
   .next-button:disabled {
 	background-color: #cccccc;
