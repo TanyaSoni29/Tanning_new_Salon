@@ -84,7 +84,7 @@ export function login(email, password, navigate) {
 			//   : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.user.user_profile.firstName} ${response.data.data.user.user_profile.lastName}`;
 			// dispatch(setUser({ ...response.data.data.user, avatar: userImage }));
 
-			navigate('/locationStep');
+			navigate('/about');
 		} catch (error) {
 			console.log('LOGIN API ERROR........', error);
 			const errorMessage = error.response.data.error;
@@ -132,7 +132,7 @@ export function getMe(navigate) {
 			toast.success('Current Login User Fetched Successfully');
 
 			// Redirect user to locationStep or other relevant page
-			navigate('/locationStep');
+			navigate('/about');
 		} catch (error) {
 			console.log('GET ME API ERROR........', error);
 

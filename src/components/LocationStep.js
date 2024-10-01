@@ -21,9 +21,7 @@ const WizardStep = () => {
 		dispatch(refreshLocation()); // Fetch locations from the API
 	}, [dispatch]);
 
-	useEffect(() => {
-		dispatch(refreshCustomers());
-	}, [dispatch]);
+
 	// Set the current step based on the URL path
 	useEffect(() => {
 		if (location.pathname === '/about') {
@@ -81,12 +79,12 @@ const WizardStep = () => {
 
 				{/* Step Tabs */}
 				<div className='step-tabs'>
-					<button
+					{/* <button
 						className={`tab ${currentStep === 'location' ? 'active' : ''}`}
 						onClick={() => handleTabClick('location')}
 					>
 						LOCATION
-					</button>
+					</button> */}
 					<button
 						className={`tab ${currentStep === 'about' ? 'active' : ''}`}
 						onClick={() => handleTabClick('about')}
