@@ -1,22 +1,18 @@
-/**
- * General Layout
- *
- * @format
- */
-
-.service-container {
+ .service-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-x: auto; /* Enables horizontal scroll */
 }
 
 .search-container {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .search-container input {
@@ -38,7 +34,7 @@
 }
 
 .add-button:hover {
-	background-color: #e67600;
+	background-color: #000;
 }
 
 /* Table Styles */
@@ -46,6 +42,7 @@
 	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
+	width: 100%;
 }
 
 .table-header,
@@ -54,6 +51,8 @@
 	grid-template-columns: 2fr 2fr 2fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .table-header {
@@ -80,10 +79,6 @@
 	cursor: pointer;
 }
 
-.fa-eye {
-	color: #e67600;
-}
-
 .fa-pencil {
 	color: #28a745;
 }
@@ -97,4 +92,53 @@
 	padding: 20px;
 	font-size: 18px;
 	color: #666;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Tablet View */
+@media (max-width: 1024px) {
+	.search-container input {
+		width: 40%; /* Increase input width on tablets */
+	}
+
+	.table-header,
+	.table-row {
+		grid-template-columns: 2fr 1fr 1fr 1fr; /* Adjust the number of columns for tablets */
+	}
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+	.search-container {
+		flex-direction: column; /* Stack search and button vertically on mobile */
+		gap: 10px;
+	}
+
+	.search-container input {
+		width: 100%; /* Full width input on mobile */
+	}
+
+	.services-table {
+		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
+	}
+
+	.table-header,
+	.table-row {
+		grid-template-columns: 2fr 1fr 1fr 1fr; /* Ensure proper layout */
+		min-width: 600px; /* Set a minimum width for the table to trigger horizontal scrolling */
+	}
+}
+
+/* Mobile Extra Small View */
+@media (max-width: 480px) {
+	.search-container input {
+		width: 100%; /* Full width input on very small screens */
+	}
+
+	.table-header,
+	.table-row {
+		grid-template-columns: 1.5fr 1.5fr 1fr 1fr; /* Further reduced columns for small screens */
+		min-width: 500px; /* Ensure enough width for content */
+	}
 }

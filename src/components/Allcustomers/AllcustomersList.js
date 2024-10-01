@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from 'react';
 import './AllcustomersList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -65,27 +63,28 @@ const ProductList = () => {
 	};
 
 	return (
-		<div className='product-container'>
-			<div className='product-search-container'>
+		<div className='allcustomer-container'>
+			<div className='allcustomer-search-container'>
 				<input
 					type='text'
 					placeholder='Search Product'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<div>
-					<button className='add-button4'>ADD NEW PRODUCT</button>
-					<button className='download-button' onClick={handleDownloadCSV}>
-						DOWNLOAD CSV
-					</button>
-					<button className='download-button' onClick={handleDownloadPDF}>
-						DOWNLOAD PDF
-					</button>
-				</div>
 			</div>
 
-			<div className='products-table'>
-				<div className='product-table-header'>
+			<div className='allcustomer-buttons-container'>
+				<button className='allcustomer-add-button4'>ADD NEW PRODUCT</button>
+				<button className='allcustomer-download-button' onClick={handleDownloadCSV}>
+					DOWNLOAD CSV
+				</button>
+				<button className='allcustomer-download-button' onClick={handleDownloadPDF}>
+					DOWNLOAD PDF
+				</button>
+			</div>
+
+			<div className='allcustomer-table'>
+				<div className='allcustomer-table-header'>
 					<span>PRODUCT NAME</span>
 					<span>PRICE</span>
 					<span>LISTED ON</span>
@@ -94,25 +93,19 @@ const ProductList = () => {
 
 				{filteredProducts.length > 0 ? (
 					filteredProducts.map((product, index) => (
-						<div
-							key={index}
-							className='product-table-row'
-						>
+						<div key={index} className='allcustomer-table-row'>
 							<span>{product.productName}</span>
 							<span>{product.price}</span>
 							<span>{product.listedOn}</span>
 							<span>
 								<i className='fa fa-eye'></i>
 								<i className='fa fa-pencil'></i>
-								<i
-									className='fa fa-trash'
-									onClick={() => handleDelete(index)}
-								></i>
+								<i className='fa fa-trash' onClick={() => handleDelete(index)}></i>
 							</span>
 						</div>
 					))
 				) : (
-					<div className='no-data'>No products found.</div>
+					<div className='allcustomer-no-data'>No products found.</div>
 				)}
 			</div>
 		</div>

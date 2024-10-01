@@ -4,19 +4,21 @@
  * @format
  */
 
-.location-container {
-	width: 80%;
+ .location-container {
+	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-x: auto; /* Enables horizontal scroll */
 }
 
 .location-search-container {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
+	flex-wrap: wrap; /* Allows search and button to stack on smaller screens */
 }
 
 .location-search-container input {
@@ -55,7 +57,7 @@
 	grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%; /* Make sure rows take the full width */
+	width: 100%;
 	box-sizing: border-box;
 }
 
@@ -93,4 +95,73 @@
 
 .fa-trash {
 	color: #dc3545;
+}
+
+/* Add scroll for table body */
+.location-table-body {
+	max-height: 400px;
+	overflow-y: auto; /* Adds vertical scroll */
+}
+
+.location-table-body::-webkit-scrollbar {
+	width: 10px;
+}
+
+.location-table-body::-webkit-scrollbar-thumb {
+	background-color: #ccc;
+	border-radius: 5px;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Tablet View */
+@media (max-width: 1024px) {
+	.location-search-container input {
+		width: 40%;
+	}
+	.location-table-header,
+	.location-table-row {
+		grid-template-columns: 1fr 1.5fr 1fr 1fr; /* Adjusted column sizes for smaller screens */
+	}
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+	.location-search-container {
+		flex-direction: column; /* Stack search and button vertically */
+		gap: 10px;
+	}
+
+	.location-search-container input {
+		width: 100%; /* Full width on mobile */
+	}
+
+	.locations-table {
+		overflow-x: scroll; /* Adds horizontal scroll for smaller screens */
+	}
+
+	.location-table-header,
+	.location-table-row {
+		grid-template-columns: 1.5fr 2.5fr 1fr; /* Reduced columns for mobile view */
+		grid-auto-flow: column; /* Allow horizontal scrolling */
+		min-width: 600px; /* Ensure a minimum width for table */
+	}
+	
+	.location-table-header span,
+	.location-table-row span {
+		padding: 5px 10px;
+	}
+}
+
+/* Mobile Extra Small View */
+@media (max-width: 480px) {
+	.location-search-container input {
+		width: 100%; /* Full width on very small screens */
+	}
+
+	.location-table-header,
+	.location-table-row {
+		grid-template-columns: 2fr 3fr 1fr; /* Further adjust column sizes */
+		min-width: 500px; /* Ensure enough width for content */
+	}
 }

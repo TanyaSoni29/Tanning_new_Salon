@@ -76,11 +76,11 @@ const ProductList = () => {
   };
 
   return (
-    <div className="product-container">
-      <div className="product-search-container">
+    <div className="products-container">
+      <div className="products-search-container">
         <input
           type="text"
-          placeholder="Search Product"
+          placeholder="Search Products"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -89,8 +89,8 @@ const ProductList = () => {
         </button>
       </div>
 
-      <div className="products-table">
-        <div className="product-table-header">
+      <div className="product-table">
+        <div className="products-table-header">
           <span>NAME</span>
           <span>PRICE</span>
           <span>LISTED ON</span>
@@ -100,7 +100,7 @@ const ProductList = () => {
         {/* Render filtered products */}
         {filteredProducts?.length > 0 ? (
           filteredProducts.map((product) => (
-            <div key={product?.id} className="product-table-row">
+            <div key={product?.id} className="products-table-row">
               <span>{product?.name}</span>
               <span>{product?.price}</span>
               <span>{formatDate(product?.created_at)}</span>
@@ -117,7 +117,7 @@ const ProductList = () => {
             </div>
           ))
         ) : (
-          <div className="product-table-row">
+          <div className="products-table-row">
             <span>No products found.</span>
           </div>
         )}

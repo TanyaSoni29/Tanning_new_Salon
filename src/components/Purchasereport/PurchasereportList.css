@@ -1,10 +1,5 @@
-/**
- * General Layout
- *
- * @format
- */
 
-.product-container {
+.purchasereportlist-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -13,72 +8,118 @@
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.product-search-container {
+/* Search Bar */
+.purchasereportlist-search-container {
+	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px;
 }
 
-.product-search-container input {
-	width: 20%;
+.purchasereportlist-search-container input {
+	width: 100%;
+	max-width: 50%; /* Allow it to take half of the width */
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 20px;
 }
 
-.add-button4 {
-	background-color: #ff9800;
+/* Buttons Container */
+.purchasereportlist-buttons-container {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 15px;
+	margin-top: 10px;
+}
+
+.purchasereportlist-delete-button,
+.purchasereportlist-download-button {
+	flex: 1;
+	background-color: #90ee90; /* Light green for delete and CSV buttons */
 	color: white;
-	padding: 10px 20px;
+	padding: 10px;
 	border: none;
-	border-radius: 8px;
+	border-radius: 6px;
 	cursor: pointer;
 	font-size: 16px;
+	text-align: center;
+	transition: background-color 0.3s ease;
 }
 
-.add-button4:hover {
-	background-color: #000;
+.purchasereportlist-delete-button:hover,
+.purchasereportlist-download-button:hover {
+	background-color: #66bb66; /* Darker green on hover */
+}
+
+.purchasereportlist-add-button4 {
+	background-color: #ff9800; /* Orange for add button */
+	color: white;
+	padding: 12px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+}
+
+.purchasereportlistadd-button4:hover {
+	background-color: #e68900;
 }
 
 /* Table Styles */
-.products-table {
+.purchasereportlist-table {
 	background-color: white;
 	border-radius: 8px;
-	overflow: hidden;
+	overflow-x: auto; /* Enables horizontal scrolling */
 	width: 100%;
+	border: 1px solid #ddd;
 }
 
-.product-table-header,
-.product-table-row {
+.purchasereportlist-table::-webkit-scrollbar {
+	height: 8px; /* Height of horizontal scrollbar */
+}
+
+.purchasereportlist-table::-webkit-scrollbar-thumb {
+	background-color: #ccc;
+	border-radius: 10px;
+}
+
+.purchasereportlist-table::-webkit-scrollbar-track {
+	background-color: #f9f9f9;
+}
+
+.purchasereportlist-table-header,
+.purchasereportlist-table-row {
 	display: grid;
 	grid-template-columns: 2fr 1fr 1.5fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%; /* Make sure rows take the full width */
+	width: 100%;
 	box-sizing: border-box;
+	min-width: 900px; /* Ensures the table has a scrollable width */
 }
 
-.product-table-header {
+.purchasereportlist-table-header {
 	background-color: #ff9800;
 	color: white;
 	font-weight: bold;
 }
 
-.product-table-row {
+.purchasereportlist-table-row {
 	background-color: white;
 }
 
-.product-table-row:hover {
+.purchasereportlist-table-row:hover {
 	background-color: #f1f1f1;
 }
 
-.product-table-row span {
+.purchasereportlist-table-row span {
 	display: flex;
 	align-items: center;
 }
 
-.product-table-row .fa {
+.purchasereportlist-table-row .fa {
 	margin: 0 10px;
 	cursor: pointer;
 }
@@ -102,17 +143,59 @@
 	color: #666;
 }
 
-.download-button {
-	background-color: #28a745;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
-	font-size: 16px;
-	margin-left: 10px;
+/* Responsive Layout */
+@media (max-width: 768px) {
+	.purchasereportlist-buttons-container {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.purchasereportlist-table {
+		overflow-x: auto;
+		width: 100%;
+	}
+
+	.purchasereportlist-table-header,
+	.purchasereportlist-table-row {
+		grid-template-columns: 2fr 1fr 1.5fr 1fr;
+		min-width: 900px; /* Ensure horizontal scrolling on mobile */
+	}
 }
 
-.download-button:hover {
-	background-color: #218838;
+@media (max-width: 480px) {
+	.purchasereportlist-search-container {
+		flex-direction: column;
+		align-items: center;
+		
+	}
+	.purchasereportlist-search-container input {
+		width: 100%;
+		max-width: 90%;
+	}
+	.purchasereportlist-add-button4 {
+		padding: 12px 82px;	
+	}
+	
+
+	.purchasereportlist-buttons-container {
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
+		gap: 10px;
+	}
+
+	.purchasereportlist-delete-button,
+	.purchasereportlist-download-button {
+		width: 48%; /* Make Delete and CSV buttons side by side */
+	}
+
+	.purchasereportlist-table {
+		overflow-x: scroll;
+	}
+
+	.purchasereportlist-table-header,
+	.purchasereportlist-table-row {
+		grid-template-columns: 2fr 1fr 1.5fr 1fr;
+		min-width: 900px; /* Maintain width for horizontal scrolling */
+	}
 }

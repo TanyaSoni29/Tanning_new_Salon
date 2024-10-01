@@ -65,27 +65,27 @@ const ProductList = () => {
 	};
 
 	return (
-		<div className='product-container'>
-			<div className='product-search-container'>
+		<div className='productreportlist-container'>
+			<div className='productreportlist-search-container'>
 				<input
 					type='text'
-					placeholder='Search Product'
+					placeholder='Search productreportlist'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<div>
-					<button className='add-button4'>ADD NEW PRODUCT</button>
-					<button className='download-button' onClick={handleDownloadCSV}>
+				<div className='productreportlist-buttons-container'>
+					<button className='productreportlist-add-button4'>ADD NEW PRODUCT</button>
+					<button className='productreportlist-download-button' onClick={handleDownloadCSV}>
 						DOWNLOAD CSV
 					</button>
-					<button className='download-button' onClick={handleDownloadPDF}>
+					<button className='productreportlist-download-button' onClick={handleDownloadPDF}>
 						DOWNLOAD PDF
 					</button>
 				</div>
 			</div>
 
-			<div className='products-table'>
-				<div className='product-table-header'>
+			<div className='productreportlist-table'>
+				<div className='productreportlist-table-header'>
 					<span>PRODUCT NAME</span>
 					<span>PRICE</span>
 					<span>LISTED ON</span>
@@ -96,7 +96,7 @@ const ProductList = () => {
 					filteredProducts.map((product, index) => (
 						<div
 							key={index}
-							className='product-table-row'
+							className='productreportlist-table-row'
 						>
 							<span>{product.productName}</span>
 							<span>{product.price}</span>
@@ -112,7 +112,7 @@ const ProductList = () => {
 						</div>
 					))
 				) : (
-					<div className='no-data'>No products found.</div>
+					<div className='productreportlist-no-data'>No products found.</div>
 				)}
 			</div>
 		</div>

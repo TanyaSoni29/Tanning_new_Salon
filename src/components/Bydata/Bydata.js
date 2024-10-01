@@ -2,13 +2,13 @@
 
 import React from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
-import ProductList from './BydataList';
+import BydataList from './BydataList';
 
 function Bydata() {
 	return (
 		<div>
 			<HeaderWithSidebar />
-			<ProductList />
+			<BydataList />
 		</div>
 	);
 }

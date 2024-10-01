@@ -4,19 +4,21 @@
  * @format
  */
 
-.user-container {
+ .user-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-x: auto; /* Enables horizontal scroll */
 }
 
 .user-search-container {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
+	flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .user-search-container input {
@@ -55,7 +57,7 @@
 	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%; /* Make sure rows take the full width */
+	width: 100%;
 	box-sizing: border-box;
 }
 
@@ -100,4 +102,59 @@
 	padding: 20px;
 	font-size: 18px;
 	color: #666;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Tablet View */
+@media (max-width: 1024px) {
+	.user-search-container input {
+		width: 40%; /* Increase input width on tablets */
+	}
+
+	.user-table-header,
+	.user-table-row {
+		grid-template-columns: 2fr 1fr 1fr 1fr; /* Adjust the number of columns for tablet */
+	}
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+	.user-search-container {
+		flex-direction: column; /* Stack the search bar and button vertically on mobile */
+		gap: 10px;
+	}
+
+	.user-search-container input {
+		width: 100%; /* Full width input on mobile */
+	}
+
+	.users-table {
+		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
+	}
+
+	.user-table-header,
+	.user-table-row {
+		grid-template-columns: 2fr 2fr 1fr; /* Fewer columns for mobile to fit better */
+		grid-auto-flow: column; /* Allow horizontal scrolling */
+		min-width: 600px; /* Set a minimum width for the table */
+	}
+	
+	.user-table-header span,
+	.user-table-row span {
+		padding: 5px 10px;
+	}
+}
+
+/* Mobile Extra Small View */
+@media (max-width: 480px) {
+	.user-search-container input {
+		width: 100%; /* Full width input on very small screens */
+	}
+
+	.user-table-header,
+	.user-table-row {
+		grid-template-columns: 1.5fr 1.5fr 1fr; /* Further reduced columns for small screens */
+		min-width: 500px; /* Ensure a minimum width for the table */
+	}
 }

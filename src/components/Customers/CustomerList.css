@@ -4,19 +4,21 @@
  * @format
  */
 
-.customer-container {
+ .customer-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-x: auto; /* Enables horizontal scroll for the container */
 }
 
 .customer-search-container {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .customer-search-container input {
@@ -45,17 +47,17 @@
 .customers-table {
 	background-color: white;
 	border-radius: 8px;
-	overflow: hidden;
+	overflow-x: auto; /* Enables horizontal scrolling */
 	width: 100%;
 }
 
 .customer-table-header,
 .customer-table-row {
 	display: grid;
-	grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 200px 200px 150px 150px 150px 200px 150px; /* Fixed column widths */
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%; /* Make sure rows take the full width */
+	width: 100%;
 	box-sizing: border-box;
 }
 
@@ -76,6 +78,7 @@
 .customer-table-row span {
 	display: flex;
 	align-items: center;
+	overflow-wrap: break-word; /* Prevent text overflow in each cell */
 }
 
 .customer-table-row .fa {
@@ -100,4 +103,53 @@
 	padding: 20px;
 	font-size: 18px;
 	color: #666;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Tablet View */
+@media (max-width: 1024px) {
+	.customer-search-container input {
+		width: 40%; /* Increase input width on tablets */
+	}
+
+	.customer-table-header,
+	.customer-table-row {
+		grid-template-columns: 180px 180px 130px 130px 130px 180px 130px; /* Reduce column widths for tablet view */
+	}
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+	.customer-search-container {
+		flex-direction: column; /* Stack search and button vertically on mobile */
+		gap: 10px;
+	}
+
+	.customer-search-container input {
+		width: 100%; /* Full width input on mobile */
+	}
+
+	.customers-table {
+		overflow-x: scroll; /* Ensure horizontal scroll for smaller screens */
+	}
+
+	.customer-table-header,
+	.customer-table-row {
+		grid-template-columns: 150px 150px 100px 100px 100px 150px 100px; /* Fixed column widths for mobile */
+		min-width: 900px; /* Ensure enough width to trigger horizontal scrolling */
+	}
+}
+
+/* Mobile Extra Small View */
+@media (max-width: 480px) {
+	.customer-search-container input {
+		width: 100%; /* Full width input on very small screens */
+	}
+
+	.customer-table-header,
+	.customer-table-row {
+		grid-template-columns: 140px 140px 90px 90px 90px 140px 90px; /* Ensure fixed column widths for small screens */
+		min-width: 800px; /* Ensure enough width for horizontal scrolling */
+	}
 }
