@@ -1,0 +1,88 @@
+/** @format */
+.service-wizard-container {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 80%; /* Responsive width */
+	max-width: 1000px;
+	text-align: center;
+	margin: 50px auto;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+.service-wizard-container .heading {
+	font-size: 32px;
+	font-weight: bold;
+	color: #333;
+}
+
+.service-wizard-container .subheading {
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
+}
+
+/* Full-width tabs */
+.service-wizard-container .step-tabs {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.service-wizard-container .tab {
+	flex: 1;
+	padding: 15px 0;
+	background-color: #d9d9d9;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+}
+
+.service-wizard-container .tab.active {
+	background-color: #ff9800;
+	color: white;
+}
+
+.service-wizard-container .service-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	border: 1px solid #e0e0e0;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Styling the customer information */
+.service-info p {
+    text-align: start;
+	font-size: 16px;
+	color: #555;
+	line-height: 1.5;
+	margin: 10px 0;
+}
+
+/* Style for each data item */
+.service-info p span {
+	font-weight: bold;
+}
+
+.use-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 8px 10px 10px 0px;
+	color: white;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}

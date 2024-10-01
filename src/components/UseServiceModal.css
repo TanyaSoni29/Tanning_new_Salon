@@ -1,0 +1,60 @@
+/** @format */
+
+.use-service-modal-container {
+	width: 20vw;
+	padding: 20px;
+	margin: auto;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.use-service-modal-container .modal-header {
+	background-color: #ff9800;
+	padding: 10px;
+	border-radius: 8px 8px 0 0;
+	text-align: center;
+}
+
+.use-service-modal-container .modal-body {
+	padding: 20px 0;
+}
+
+.use-service-modal-container .service-select {
+	font-size: 14px;
+	height: 45px;
+	width: 100%;
+	border: 1px solid #d3d3d3;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.use-service-modal-container .modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.use-service-modal-containerbutton.confirm-button {
+	background-color: #ff9800;
+	color: white;
+	cursor: pointer;
+}
+.use-service-modal-container button.confirm-button:hover {
+	background-color: #000;
+}
+
+.use-service-modal-container button.cancel-button {
+	background-color: white;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.use-service-modal-container button.cancel-button:hover {
+	background-color: #f1f1f1;
+}
+
