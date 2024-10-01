@@ -2,19 +2,118 @@
 
 // ServiceStep.js
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from './HeaderWithSidebar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import './ServiceStep.css';
+import Modal from '../components/Modal';
+import BuyProductModal from './BuyProductModal';
+import BuyServiceModal from './BuyServiceModal';
+import UseServiceModal from './UseServiceModal';
+import { refreshProduct } from '../slices/productSlice';
+import { refreshService } from '../slices/serviceSlice';
+import { createProductTransaction } from '../service/operations/productAndProductTransaction';
+import {
+	createServiceTransaction,
+	getServiceUseOptions,
+} from '../service/operations/serviceAndServiceTransaction';
+import { refreshCustomers } from '../slices/customerProfile';
 
 const ServiceStep = () => {
 	const navigate = useNavigate();
-	const { customer } = useSelector((state) => state.customer); // Access the selected customer
-	console.log(customer);
+	const dispatch = useDispatch();
+	const [buyProductModal, setBuyProductModal] = useState(false);
+	const [buyServiceModal, setBuyServiceModal] = useState(false);
+	const [useServiceModal, setUseServiceModal] = useState(false);
+	const { customer } = useSelector((state) => state.customer);
+	const { token } = useSelector((state) => state.auth); // Access the selected customer
+	const [serviceUseOptions, setServiceUseOptions] = useState([]);
+	useEffect(() => {
+		dispatch(refreshProduct());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(refreshService());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(refreshCustomers());
+	}, [dispatch]);
+
+	const createProductTransactionOfUser = async (productId, quantity) => {
+		try {
+			const data = {
+				user_id: customer.user.id, // Assuming user data is stored in auth state
+				location_id: customer.profile?.preferred_location, // Replace with the correct location ID
+				product_id: productId,
+				quantity,
+			};
+			await createProductTransaction(token, data);
+			// const { productTransactions } = await getProductTransactionsByUser(token, selectedUser?._id);
+			// setProductTransactions(productTransactions);
+			// console.log("Transaction created", response.data);
+		} catch (err) {
+			console.error('Error creating transaction', err);
+		}
+	}; // Store selected quantities for each product
+
+	const createServiceTransactionOfUser = async (serviceId) => {
+		try {
+			const data = {
+				user_id: customer.user.id,
+				service_id: serviceId, // Assuming user data is stored in auth state
+				location_id: customer.profile?.preferred_location, // Replace with the correct location ID
+				type: 'purchased',
+			};
+			await createServiceTransaction(token, data);
+			dispatch(refreshCustomers());
+		} catch (err) {
+			console.error('Error creating transaction', err);
+		}
+	};
+
+	const createServiceUseTransactionOfUser = async (serviceId) => {
+		try {
+			const data = {
+				user_id: customer.user.id, // Assuming user data is stored in auth state
+				location_id: customer.profile?.preferred_location,
+				service_id: serviceId, // Replace with the correct location ID
+				type: 'used',
+			};
+			await createServiceTransaction(token, data);
+			dispatch(refreshCustomers());
+		} catch (err) {
+			console.error('Error creating transaction', err);
+		}
+	};
+
+	const handleUseServiceModal = async () => {
+		setUseServiceModal(true);
+		try {
+			const response = await getServiceUseOptions(token, customer.user.id);
+			setServiceUseOptions(response);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const closeBuyProductModal = () => {
+		setBuyProductModal(false);
+	};
+
+	const closeBuyServiceModal = () => {
+		setBuyServiceModal(false);
+	};
+
+	const closeUseServiceModal = () => {
+		setUseServiceModal(false);
+	};
+
 	return (
 		<>
 			<HeaderWithSidebar />
-			<div className='wizard-container'>
+			<div className='service-wizard-container'>
 				<h2 className='heading'>Tanning Salon</h2>
 
 				<div className='step-tabs'>
@@ -24,27 +123,100 @@ const ServiceStep = () => {
 					>
 						LOCATION
 					</button>
-					<button className='tab'>ABOUT</button>
+					<button
+						className='tab'
+						onClick={() => navigate('/about')}
+					>
+						ABOUT
+					</button>
 					<button className='tab active'>SERVICE</button>
 				</div>
 
 				{/* Display the selected customer information */}
 				<div className='service-info'>
-					<h3 className='info-heading'>Selected Customer</h3>
 					{customer ? (
 						<div>
-							<p>Name: {customer.user.name}</p>
-							<p>Phone Number: {customer.profile?.phone_number}</p>
-							<p>Gender: {customer.profile?.gender}</p>
-							<p>Available Balance: {customer.profile?.available_balance}</p>
-							<p>Total Spend: {customer.profile?.total_spend}</p>
+							<p>
+								<span>Name:</span> {customer.user.name}
+							</p>
+							<p>
+								<span>Phone Number:</span> {customer.profile?.phone_number}
+							</p>
+							<p>
+								<span>Gender:</span> {customer.profile?.gender}
+							</p>
+							<p>
+								<span>Available Balance:</span>{' '}
+								{customer.profile?.available_balance}
+							</p>
+							<p>
+								<span>Total Spend:</span> {customer.profile?.total_spend}
+							</p>
 						</div>
 					) : (
 						<p>No customer selected</p>
 					)}
+					{customer && (
+						<div className='use-btn'>
+							<button
+								className='confirm-button'
+								onClick={() => setBuyProductModal(true)}
+							>
+								Buy Product
+							</button>
+							<button
+								className='confirm-button'
+								onClick={() => setBuyServiceModal(true)}
+							>
+								Buy Service
+							</button>
+							{customer?.profile?.available_balance > 0 && (
+								<button
+									className='confirm-button'
+									onClick={handleUseServiceModal}
+								>
+									Use Service
+								</button>
+							)}
+						</div>
+					)}
 				</div>
-
-				<button className='submit-button'>Submit</button>
+				{buyProductModal && (
+					<Modal
+						open={buyProductModal}
+						setOpen={setBuyProductModal}
+					>
+						<BuyProductModal
+							onClose={closeBuyProductModal}
+							createProductTransactionOfUser={createProductTransactionOfUser}
+						/>
+					</Modal>
+				)}
+				{buyServiceModal && (
+					<Modal
+						open={buyServiceModal}
+						setOpen={setBuyServiceModal}
+					>
+						<BuyServiceModal
+							createServiceTransactionOfUser={createServiceTransactionOfUser}
+							onClose={closeBuyServiceModal}
+						/>
+					</Modal>
+				)}
+				{useServiceModal && (
+					<Modal
+						open={useServiceModal}
+						setOpen={setUseServiceModal}
+					>
+						<UseServiceModal
+							serviceUseOptions={serviceUseOptions}
+							onClose={closeUseServiceModal}
+							createServiceUseTransactionOfUser={
+								createServiceUseTransactionOfUser
+							}
+						/>
+					</Modal>
+				)}
 			</div>
 		</>
 	);

@@ -15,7 +15,6 @@ const AboutStep = () => {
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
 	const searchRef = useRef(null);
-	console.log(locationIndex);
 	const filteredCustomers = locationIndex
 		? customers
 				.filter((user) => user.profile !== null)

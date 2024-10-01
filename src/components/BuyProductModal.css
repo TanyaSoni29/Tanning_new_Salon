@@ -1,0 +1,106 @@
+/**
+ * Modal container styles
+ *
+ * @format
+ */
+
+.product-modal-container {
+	width: '40%';
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+
+.product-modal-header {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: black;
+	background-color: white;
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.product-modal-container .products-table {
+	width: 100%;
+}
+
+.product-modal-container .products-table-header,
+.products-table-row {
+	display: grid;
+	grid-template-columns: 3fr 1fr 1fr;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+	width: 100%;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.product-modal-container .products-table-header {
+	font-weight: bold;
+	color: #666;
+	background-color: #ff9800;
+}
+
+.product-modal-container .products-table-row {
+	padding: 10px 0;
+}
+
+.product-modal-container .product-name {
+	display: flex;
+	align-items: center;
+}
+
+.product-modal-container .product-image {
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+}
+
+/* Select dropdown for quantity */
+.product-modal-container .quantity-select {
+	width: 60px;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.product-modal-container .modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+.product-modal-container .buy-button,
+.cancel-button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.product-modal-container .buy-button {
+	background-color: #ff9800;
+	color: white;
+	margin-right: 10px;
+    cursor: pointer;
+}
+
+.product-modal-container .buy-button:hover {
+	background-color: #000;
+}
+
+.product-modal-container .cancel-button {
+	background-color: white;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.product-modal-container .cancel-button:hover {
+	background-color: #f1f1f1;
+}
