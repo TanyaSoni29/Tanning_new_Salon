@@ -78,6 +78,9 @@ body {
   border-radius: 2px;
 }
 
+.submenu li {
+  list-style: none;
+}
 /* Hamburger Button */
 .hamburger {
   display: none;

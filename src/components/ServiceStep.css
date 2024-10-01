@@ -84,3 +84,21 @@
 	border-radius: 0.5rem;
 	cursor: pointer;
 }
+
+
+
+@media (max-width: 880px){
+	.service-wizard-container {
+		width: 75%; /* Responsive width */
+		margin-top: 140px;
+		margin-left: 120px;
+	}
+}
+
+@media (max-width: 480px){
+	.service-wizard-container {
+		width: 85%; /* Responsive width */
+		margin-top: 140px;
+		margin-left: 20px;
+	}
+}
