@@ -54,7 +54,7 @@
 .customer-table-header,
 .customer-table-row {
 	display: grid;
-	grid-template-columns: 200px 200px 150px 150px 150px 200px 150px; /* Fixed column widths */
+	grid-template-columns: 150px 170px 180px 180px 200px 250px 150px; /* Fixed column widths */
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
