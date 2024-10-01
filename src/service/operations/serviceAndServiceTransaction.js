@@ -252,7 +252,7 @@ export const getTotalSpend = async (token, userId) => {
 				'Content-Type': 'application/json',
 			}
 		);
-		console.log('Get User Service transactions Api Response..', response);
+		console.log('Get User Total Spend transactions Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch User transactions');
 		// toast.success("User Transactions fetch successfully");

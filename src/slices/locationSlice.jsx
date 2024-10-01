@@ -51,10 +51,7 @@ export function refreshLocation() {
 		const token = getState().auth.token;
 		try {
 			const response = await getAllLocations(token);
-			const sortLocation = response.sort(
-				(a, b) => new Date(b.created_at) - new Date(a.created_at)
-			);
-			dispatch(setLocations(sortLocation));
+			dispatch(setLocations(response));
 		} catch (error) {
 			console.error('Failed to refresh users:', error);
 		}
