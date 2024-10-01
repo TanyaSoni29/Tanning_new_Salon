@@ -10,7 +10,7 @@
 }
 
 .service-modal-container .modal-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	padding: 10px;
 	border-radius: 8px 8px 0 0;
 	text-align: center;
@@ -46,7 +46,7 @@
 }
 
 .service-modal-container button.confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	cursor: pointer;
 }

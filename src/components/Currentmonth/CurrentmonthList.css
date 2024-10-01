@@ -1,3 +1,4 @@
+/** @format */
 
 .currentmonth-container {
 	width: 90%;
@@ -53,7 +54,7 @@
 }
 
 .currentmonth-add-button4 {
-	background-color: #ff9800; /* Orange for add button */
+	background-color: #0c65be; /* Orange for add button */
 	color: white;
 	padding: 12px;
 	border: none;
@@ -101,7 +102,7 @@
 }
 
 .currentmonth-table-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
 }
@@ -166,16 +167,14 @@
 	.currentmonth-search-container {
 		flex-direction: column;
 		align-items: center;
-		
 	}
 	.currentmonth-search-container input {
 		width: 100%;
 		max-width: 90%;
 	}
 	.currentmonth-add-button4 {
-		padding: 12px 82px;	
+		padding: 12px 82px;
 	}
-	
 
 	.currentmonth-buttons-container {
 		flex-direction: row;

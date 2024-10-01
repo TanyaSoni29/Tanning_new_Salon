@@ -42,7 +42,7 @@
 .product-modal-container .products-table-header {
 	font-weight: bold;
 	color: #666;
-	background-color: #ff9800;
+	background-color: #0c65be;
 }
 
 .product-modal-container .products-table-row {
@@ -83,10 +83,10 @@
 }
 
 .product-modal-container .buy-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	margin-right: 10px;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .product-modal-container .buy-button:hover {

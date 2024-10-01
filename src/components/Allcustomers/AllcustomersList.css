@@ -4,7 +4,7 @@
  * @format
  */
 
- .allcustomer-container {
+.allcustomer-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -57,7 +57,7 @@
 
 .allcustomer-add-button4 {
 	flex-grow: 2;
-	background-color: #ff9800; /* Keeping Add button in orange */
+	background-color: #0c65be; /* Keeping Add button in orange */
 	color: white;
 	padding: 12px;
 	border: none;
@@ -106,7 +106,7 @@
 }
 
 .allcustomer-table-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
 }

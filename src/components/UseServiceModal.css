@@ -10,7 +10,7 @@
 }
 
 .use-service-modal-container .modal-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	padding: 10px;
 	border-radius: 8px 8px 0 0;
 	text-align: center;
@@ -38,7 +38,7 @@
 }
 
 .use-service-modal-containerbutton.confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	cursor: pointer;
 }
@@ -57,4 +57,3 @@
 .use-service-modal-container button.cancel-button:hover {
 	background-color: #f1f1f1;
 }
-

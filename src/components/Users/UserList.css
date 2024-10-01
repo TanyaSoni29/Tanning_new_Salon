@@ -4,7 +4,7 @@
  * @format
  */
 
- .user-container {
+.user-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -30,7 +30,7 @@
 }
 
 .add-button3 {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -62,7 +62,7 @@
 }
 
 .user-table-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
 }
@@ -139,7 +139,7 @@
 		grid-auto-flow: column; /* Allow horizontal scrolling */
 		min-width: 600px; /* Set a minimum width for the table */
 	}
-	
+
 	.user-table-header span,
 	.user-table-row span {
 		padding: 5px 10px;

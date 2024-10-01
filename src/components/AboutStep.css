@@ -49,7 +49,7 @@
 }
 
 .tab.active {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .search-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
 	color: white;
@@ -97,7 +97,7 @@
 }
 
 .register-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
 	color: white;
@@ -119,7 +119,7 @@
 }
 
 .navigation-buttons .next-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
 	color: white;
@@ -130,7 +130,7 @@
 }
 
 .navigation-buttons .previous-button1 {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
 	color: white;

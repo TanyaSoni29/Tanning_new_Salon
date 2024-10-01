@@ -49,7 +49,7 @@
 }
 
 .tab.active {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 }
 
@@ -87,12 +87,12 @@
 }
 
 .location:hover {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 }
 
 .location.selected {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 }
 
@@ -108,7 +108,7 @@
 
 /* Next button */
 .next-button1 {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
 	color: white;

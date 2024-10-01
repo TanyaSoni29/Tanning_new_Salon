@@ -40,7 +40,7 @@ body {
 
 /* Yes button */
 .confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -86,7 +86,7 @@ body {
 }
 
 .edit-modal .confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -131,7 +131,7 @@ body {
 
 /* Submit button */
 .add-modal .confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -185,7 +185,7 @@ body {
 }
 
 .modal-container .confirm-button {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	border: none;
 	border-radius: 5px;

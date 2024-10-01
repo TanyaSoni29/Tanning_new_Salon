@@ -1,5 +1,6 @@
+/** @format */
 
- .bydata-container {
+.bydata-container {
 	width: 90%;
 	margin: 20px auto;
 	padding: 20px;
@@ -53,7 +54,7 @@
 }
 
 .bydata-add-button4 {
-	background-color: #ff9800; /* Orange for add button */
+	background-color: #0c65be; /* Orange for add button */
 	color: white;
 	padding: 12px;
 	border: none;
@@ -101,7 +102,7 @@
 }
 
 .bydata-table-header {
-	background-color: #ff9800;
+	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
 }
@@ -166,16 +167,14 @@
 	.bydata-search-container {
 		flex-direction: column;
 		align-items: center;
-		
 	}
 	.bydata-search-container input {
 		width: 100%;
 		max-width: 90%;
 	}
 	.bydata-add-button4 {
-		padding: 12px 82px;	
+		padding: 12px 82px;
 	}
-	
 
 	.bydata-buttons-container {
 		flex-direction: row;
