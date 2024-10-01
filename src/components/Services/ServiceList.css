@@ -1,6 +1,7 @@
  .service-container {
-	width: 90%;
+	width: 70%;
 	margin: 20px auto;
+	margin-left: 340px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
@@ -24,7 +25,7 @@
 }
 
 .add-button {
-	background-color: #e67600;
+	background-color: #0c65be;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -56,7 +57,7 @@
 }
 
 .table-header {
-	background-color: #e67600;
+	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
 }

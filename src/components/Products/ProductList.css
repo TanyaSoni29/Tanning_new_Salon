@@ -1,8 +1,9 @@
 /** @format */
 
 .products-container {
-	width: 90%;
+	width: 70%;
 	margin: 20px auto;
+	margin-left: 340px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;

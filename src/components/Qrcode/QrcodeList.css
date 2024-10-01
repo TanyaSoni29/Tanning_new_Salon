@@ -12,10 +12,11 @@
 	max-width: 700px;
 	margin: 0 auto;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	margin-top: 80px;
   }
   
   h2 {
-	color: #ff8c00;
+	color: #0c65be;
 	margin-bottom: 20px;
   }
   
@@ -33,7 +34,7 @@
 	width: 120px;
 	height: 120px;
 	border-radius: 50%;
-	background-color: #ff8c00;
+	background-color: #0c65be;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -66,7 +67,7 @@
   }
   
   .qr-code-display h3 {
-	color: #ff8c00;
+	color: #0c65be;
 	margin-bottom: 10px;
   }
   
@@ -77,7 +78,7 @@
   
   /* Print Button */
   .next-button {
-	background-color: #ff8c00;
+	background-color: #0c65be;
 	color: white;
 	border: none;
 	padding: 10px 20px;
