@@ -113,8 +113,7 @@
 
 /* Navigation buttons */
 .navigation-buttons {
-	display: flex;
-	justify-content: space-between;
+	text-align: right;
 	margin-top: 20px;
 	text-transform: capitalize;
 }
@@ -127,6 +126,7 @@
 	cursor: pointer;
 	border-radius: 0.5rem;
 	font-size: 16px;
+	margin-left: 10px;
 }
 
 .navigation-buttons .previous-button1 {
