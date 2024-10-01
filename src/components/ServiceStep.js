@@ -180,6 +180,10 @@ const ServiceStep = () => {
 							)}
 						</div>
 					)}
+
+          <div>
+            
+          </div>
 				</div>
 				{buyProductModal && (
 					<Modal
