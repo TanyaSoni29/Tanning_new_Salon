@@ -55,7 +55,7 @@ const AuthForm = () => {
 	return (
 		<div
 			className='auth-container'
-			style={{ backgroundImage: `url(${backgroundImage})` }}
+			// style={{ backgroundImage: `url(${backgroundImage})` }}
 		>
 			<div className='content-wrapper'>
 				<div className='form-container'>
@@ -139,13 +139,13 @@ const AuthForm = () => {
 					</p>
 				</div>
 
-				<div className='image-container'>
+				{/* <div className='image-container'>
 					<img
-						src={tanningSalonImage}
+						// src={tanningSalonImage}
 						alt='Tanning Salon'
 						className='tanning-salon-image'
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

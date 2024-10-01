@@ -11,16 +11,16 @@
   }
   
   /* Wrapper to center content and apply the background blur */
-  .content-wrapper {
+  /* .content-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(10px); /* Blur effect */
-    background-color: rgba(255, 255, 255, 0.2); /* Whiteness */
+    backdrop-filter: blur(10px); 
+    background-color: rgba(255, 255, 255, 0.2); 
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  }
+  } */
   
   /* Form container styling */
   .form-container {
@@ -37,7 +37,7 @@
   /* Form title */
   .form-title {
     font-size: 2rem;
-    color: #ff9800;
+    color: #0c65be;
     margin-bottom: 30px;
     font-weight: bold;
   }
@@ -55,12 +55,12 @@
   }
   
   .input-field:focus {
-    border-color: #ff9800;
+    border-color: #0c65be;
   }
   
   /* Auth button for both sign-in and sign-up */
   .auth-button {
-    background-color: #ff9800;
+    background-color: #0c65be;
     color: white;
     padding: 15px 0;
     border: none;
@@ -84,7 +84,7 @@
   }
   
   .toggle-text a {
-    color: #ff9800;
+    color: #0c65be;
     text-decoration: none;
   }
   
