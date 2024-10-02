@@ -74,7 +74,7 @@ const ProductList = () => {
 			</div>
 
 			<div className='allcustomer-buttons-container'>
-				<button className='allcustomer-add-button4'>ADD NEW PRODUCT</button>
+				<button className='allcustomer-add-button4'>ADD NEW CUSTOMER</button>
 				<button className='allcustomer-download-button' onClick={handleDownloadCSV}>
 					DOWNLOAD CSV
 				</button>

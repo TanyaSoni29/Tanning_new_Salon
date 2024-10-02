@@ -38,7 +38,7 @@
 .serviceused-delete-button,
 .serviceused-download-button {
 	flex: 1;
-	background-color: #90ee90; /* Light green for delete and CSV buttons */
+	background-color: #008080; /* Light green for delete and CSV buttons */
 	color: white;
 	padding: 10px;
 	border: none;
@@ -47,11 +47,7 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
-}
-
-.serviceused-delete-button:hover,
-.serviceused-download-button:hover {
-	background-color: #66bb66; /* Darker green on hover */
+	font-weight: 600;
 }
 
 .serviceused-add-button4 {
@@ -65,9 +61,6 @@
 	transition: background-color 0.3s ease;
 }
 
-.serviceused-add-button4:hover {
-	background-color: #e68900;
-}
 
 /* Table Styles */
 .serviceused-table {

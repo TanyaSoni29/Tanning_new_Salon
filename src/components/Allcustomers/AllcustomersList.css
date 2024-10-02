@@ -1,4 +1,9 @@
-/* Desktop View */
+/**
+ * Desktop View
+ *
+ * @format
+ */
+
 .allcustomer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -35,7 +40,7 @@
 .allcustomer-delete-button,
 .allcustomer-download-button {
 	flex: 1;
-	background-color: #90ee90;
+	background-color: #008080;
 	color: white;
 	padding: 12px;
 	border: none;
@@ -44,12 +49,13 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
+	font-weight: 600;
 }
 
-.allcustomer-delete-button:hover,
+/* .allcustomer-delete-button:hover,
 .allcustomer-download-button:hover {
 	background-color: #66bb66;
-}
+} */
 
 .allcustomer-add-button4 {
 	flex-grow: 2;
@@ -62,10 +68,6 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
-}
-
-.allcustomer-add-button4:hover {
-	background-color: #e68900;
 }
 
 /* Table Styles */

@@ -39,7 +39,7 @@
 .bydata-delete-button,
 .bydata-download-button {
 	flex: 1;
-	background-color: #90ee90; /* Light green for delete and CSV buttons */
+	background-color: #008080; /* Light green for delete and CSV buttons */
 	color: white;
 	padding: 12px;
 	border: none;
@@ -48,11 +48,7 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
-}
-
-.bydata-delete-button:hover,
-.bydata-download-button:hover {
-	background-color: #66bb66; /* Darker green on hover */
+	font-weight: 600;
 }
 
 .bydata-add-button4 {
@@ -66,9 +62,9 @@
 	transition: background-color 0.3s ease;
 }
 
-.bydata-add-button4:hover {
+/* .bydata-add-button4:hover {
 	background-color: #e68900;
-}
+} */
 
 /* Table Styles */
 .bydata-table {

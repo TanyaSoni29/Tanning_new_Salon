@@ -74,7 +74,7 @@ const ProductList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<div className='purchasereportlist-buttons-container'>
-					<button className='purchasereportlist-add-button4'>ADD NEW purchase</button>
+					<button className='purchasereportlist-add-button4'>ADD NEW PURCHASE</button>
 					<button className='purchasereportlist-download-button' onClick={handleDownloadCSV}>
 						DOWNLOAD CSV
 					</button>

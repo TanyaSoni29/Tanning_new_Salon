@@ -38,7 +38,7 @@
 .productreportlist-delete-button,
 .productreportlist-download-button {
 	flex: 1;
-	background-color: #90ee90; /* Light green for delete and CSV buttons */
+	background-color: #008080; /* Light green for delete and CSV buttons */
 	color: white;
 	padding: 10px;
 	border: none;
@@ -47,12 +47,9 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
+	font-weight: 600;
 }
 
-.productreportlist-delete-button:hover,
-.productreportlist-download-button:hover {
-	background-color: #66bb66; /* Darker green on hover */
-}
 
 .productreportlist-add-button4 {
 	background-color: #0c65be; /* Blue for add button */
@@ -65,9 +62,7 @@
 	transition: background-color 0.3s ease;
 }
 
-.productreportlist-add-button4:hover {
-	background-color: #e68900;
-}
+
 
 /* Table Styles */
 .productreportlist-table {

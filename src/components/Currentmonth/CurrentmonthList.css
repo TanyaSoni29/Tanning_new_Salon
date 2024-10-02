@@ -37,7 +37,7 @@
 .currentmonth-delete-button,
 .currentmonth-download-button {
 	flex: 1;
-	background-color: #90ee90; /* Light green for delete and CSV buttons */
+	background-color: #008080; /* Light green for delete and CSV buttons */
 	color: white;
 	padding: 10px;
 	border: none;
@@ -46,12 +46,9 @@
 	font-size: 16px;
 	text-align: center;
 	transition: background-color 0.3s ease;
+	font-weight: 600;
 }
 
-.currentmonth-delete-button:hover,
-.currentmonth-download-button:hover {
-	background-color: #66bb66; /* Darker green on hover */
-}
 
 .currentmonth-add-button4 {
 	background-color: #0c65be; /* Blue for add button */
