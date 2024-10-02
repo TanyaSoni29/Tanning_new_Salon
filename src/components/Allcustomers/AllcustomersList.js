@@ -139,7 +139,7 @@ const CustomerList = () => {
 			<div className='allcustomer-search-container'>
 				<input
 					type='text'
-					placeholder='Search Customer'
+					placeholder='Search'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>

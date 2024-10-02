@@ -14,6 +14,7 @@
 .serviceused-files {
 	display: flex;
 }
+
 /* Search Bar */
 .serviceused-search-container {
 	margin-bottom: 20px;
@@ -26,31 +27,19 @@
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 30px;
+	border-radius: 4px;
 }
 
-/* Buttons Container */
-.serviceused-buttons-container {
+.date-range-inputs {
+	width: 40%;
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
-	gap: 15px;
-	margin-top: 10px;
+	gap: 10px;
 }
 
-.serviceused-delete-button,
-.serviceused-download-button {
-	flex: 1;
-	background-color: #008080; /* Light green for delete and CSV buttons */
-	color: white;
+.location-select select {
 	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-	font-weight: 600;
+	border-radius: 8px;
+	border: 1px solid #ccc;
 }
 
 /* Table Styles */
@@ -78,10 +67,9 @@
 .serviceused-table-header,
 .serviceused-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%;
 	box-sizing: border-box;
 	min-width: 900px; /* Ensures the table has a scrollable width */
 }
@@ -100,54 +88,10 @@
 	background-color: #f1f1f1;
 }
 
-.serviceused-table-row span {
-	display: flex;
-	align-items: center;
-}
-
-.serviceused-table-row .fa {
-	margin: 0 10px;
-	cursor: pointer;
-}
-
-.fa-eye {
-	color: #007bff;
-}
-
-.fa-pencil {
-	color: #28a745;
-}
-
-.fa-trash {
-	color: #dc3545;
-}
-
-.no-data {
-	text-align: center;
-	padding: 20px;
-	font-size: 18px;
-	color: #666;
-}
-
-.date-range-inputs {
-	display: flex;
-	gap: 10px;
-	width: "30%";
-}
-
-.location-select {
-	border-radius: 8px;
-}
-
 /* Responsive Layout for Tablet and Mobile */
 @media (max-width: 1024px) {
 	.serviceused-container {
-		width: 70%;
-		margin-top: 120px;
-		margin-left: 340px;
-	}
-	.serviceused-container {
-		width: 85%; /* Adjust width for tablets */
+		width: 85%;
 		margin-left: 60px;
 	}
 
@@ -155,39 +99,21 @@
 		width: 100%; /* Full width on tablet */
 	}
 
-	.serviceused-buttons-container {
-		justify-content: space-between;
-		gap: 10px;
-		flex-wrap: wrap;
-	}
-
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure horizontal scrolling on tablets */
 	}
 }
 
 @media (max-width: 768px) {
 	.serviceused-container {
-		width: 90%; /* Adjust container width for mobile */
+		width: 90%;
 		margin-left: 20px;
-	}
-
-	.serviceused-buttons-container {
-		flex-direction: column; /* Stack buttons vertically on mobile */
-		gap: 10px;
-		width: 100%; /* Full width */
 	}
 
 	.serviceused-search-container input {
 		width: 100%; /* Full width search bar */
-	}
-
-	.serviceused-delete-button,
-	.serviceused-download-button,
-	.serviceused-add-button4 {
-		width: 100%; /* Full width buttons */
 	}
 
 	.serviceused-table {
@@ -197,7 +123,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -205,30 +131,12 @@
 @media (max-width: 480px) {
 	.serviceused-container {
 		width: 90%;
-		margin-left: 10px; /* Adjust margins for extra small screens */
-	}
-
-	.serviceused-search-container {
-		align-items: center;
+		margin-left: 10px;
 	}
 
 	.serviceused-search-container input {
 		width: 100%; /* Full width search bar */
 		max-width: 100%;
-	}
-
-	.serviceused-buttons-container {
-		flex-direction: column; /* Stack buttons vertically */
-		width: 100%;
-	}
-
-	.serviceused-delete-button,
-	.serviceused-download-button {
-		width: 100%; /* Full width for buttons */
-	}
-
-	.serviceused-add-button4 {
-		width: 100%; /* Full width for add button */
 	}
 
 	.serviceused-table {
@@ -237,7 +145,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure table width remains scrollable */
 	}
 

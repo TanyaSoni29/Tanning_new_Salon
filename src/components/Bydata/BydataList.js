@@ -68,7 +68,7 @@ const BydataList = () => {
 			<div className='bydata-search-container'>
 				<input
 					type='text'
-					placeholder='Search Data'
+					placeholder='Search'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>

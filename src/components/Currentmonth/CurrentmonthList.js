@@ -70,7 +70,7 @@ const ProductList = () => {
 			<div className='currentmonth-search-container'>
 				<input
 					type='text'
-					placeholder='Search currentmonth'
+					placeholder='Search'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>

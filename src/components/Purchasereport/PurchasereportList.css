@@ -3,7 +3,6 @@
 .purchasereportlist-container {
 	width: 70%;
 	margin: 20px auto;
-	margin-left: 340px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
@@ -27,7 +26,7 @@
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 30px;
+	border-radius: 4px;
 }
 
 /* Buttons Container */
@@ -37,21 +36,6 @@
 	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 	gap: 15px;
 	margin-top: 10px;
-}
-
-.purchasereportlist-delete-button,
-.purchasereportlist-download-button {
-	flex: 1;
-	background-color: #008080; /* Light green for delete and CSV buttons */
-	color: white;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-	font-weight: 600;
 }
 
 /* Table Styles */
@@ -79,10 +63,9 @@
 .purchasereportlist-table-header,
 .purchasereportlist-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%;
 	box-sizing: border-box;
 	min-width: 900px; /* Ensures the table has a scrollable width */
 }
@@ -106,47 +89,8 @@
 	align-items: center;
 }
 
-.purchasereportlist-table-row .fa {
-	margin: 0 10px;
-	cursor: pointer;
-}
-
-.fa-eye {
-	color: #007bff;
-}
-
-.fa-pencil {
-	color: #28a745;
-}
-
-.fa-trash {
-	color: #dc3545;
-}
-
-.no-data {
-	text-align: center;
-	padding: 20px;
-	font-size: 18px;
-	color: #666;
-}
-
-.date-range-inputs {
-	display: flex;
-	gap: 10px;
-	width: '30%';
-}
-
-.location-select {
-	border-radius: 8px;
-}
-
 /* Responsive Layout for Tablet and Mobile */
 @media (max-width: 1024px) {
-	.purchasereportlist-container {
-		width: 70%;
-		margin-top: 120px;
-		margin-left: 340px;
-	}
 	.purchasereportlist-container {
 		width: 85%; /* Adjust width for tablets */
 		margin-left: 60px;
@@ -164,7 +108,7 @@
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
 		min-width: 900px; /* Ensure horizontal scrolling on tablets */
 	}
 }
@@ -185,12 +129,6 @@
 		width: 100%; /* Full width search bar */
 	}
 
-	.purchasereportlist-delete-button,
-	.purchasereportlist-download-button,
-	.purchasereportlist-add-button4 {
-		width: 100%; /* Full width buttons */
-	}
-
 	.purchasereportlist-table {
 		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 		width: 100%;
@@ -198,7 +136,7 @@
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -223,22 +161,13 @@
 		width: 100%;
 	}
 
-	.purchasereportlist-delete-button,
-	.purchasereportlist-download-button {
-		width: 100%; /* Full width for buttons */
-	}
-
-	.purchasereportlist-add-button4 {
-		width: 100%; /* Full width for add button */
-	}
-
 	.purchasereportlist-table {
 		overflow-x: scroll; /* Enable horizontal scroll */
 	}
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
 		min-width: 900px; /* Ensure table width remains scrollable */
 	}
 

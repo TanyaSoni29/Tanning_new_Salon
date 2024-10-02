@@ -15,14 +15,12 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	});
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
-
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const uniqueLocations = [
-		'All',
-		...new Set(locations.map((location) => location.name)),
-	];
+	// Extract unique locations for dropdown
+	const uniqueLocations = ['All', ...new Set(locations.map((location) => location.name))];
 
+	// Handle Date Range Change
 	const handleDateRangeChange = (e) => {
 		const { name, value } = e.target;
 		setDateRange((prevRange) => ({
@@ -31,49 +29,33 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 		}));
 	};
 
+	// Handle Location Change
 	const handleLocationChange = (e) => {
 		setSelectedLocation(e.target.value);
 	};
 
-	const filteredTransaction = purchaseServiceTransaction.filter(
-		(transaction) => {
-			const transactionDate = new Date(transaction.transaction.created_at);
-			const isInDateRange =
-				dateRange.startDate && dateRange.endDate
-					? transactionDate >= dateRange.startDate &&
-					  transactionDate <= dateRange.endDate
-					: true;
-			const firstName =
-				transaction?.user_details?.firstName?.toLowerCase() || '';
-			const lastName = transaction?.user_details?.lastName?.toLowerCase() || '';
-			const serviceName = transaction?.service?.name?.toLowerCase() || '';
-			const matchesSearchQuery =
-				`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-				serviceName.includes(searchTerm.toLowerCase());
-			const matchesLocation =
-				selectedLocation === 'All' ||
-				transaction.user_details?.preferred_location?.name === selectedLocation;
+	// Filter Transactions
+	const filteredTransaction = purchaseServiceTransaction.filter((transaction) => {
+		const transactionDate = new Date(transaction.transaction.created_at);
+		const isInDateRange =
+			dateRange.startDate && dateRange.endDate
+				? transactionDate >= dateRange.startDate && transactionDate <= dateRange.endDate
+				: true;
+		const firstName = transaction?.user_details?.firstName?.toLowerCase() || '';
+		const lastName = transaction?.user_details?.lastName?.toLowerCase() || '';
+		const serviceName = transaction?.service?.name?.toLowerCase() || '';
+		const matchesSearchQuery =
+			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+			serviceName.includes(searchTerm.toLowerCase());
+		const matchesLocation =
+			selectedLocation === 'All' || transaction.user_details?.preferred_location?.name === selectedLocation;
 
-			return isInDateRange && matchesSearchQuery && matchesLocation;
-		}
-	);
+		return isInDateRange && matchesSearchQuery && matchesLocation;
+	});
 
-	// const handleDelete = (index) => {
-	// 	const newProducts = [...products];
-	// 	newProducts.splice(index, 1);
-	// 	setProducts(newProducts);
-	// };
-
-	// Function to download CSV
+	// Download CSV
 	const handleDownloadCSV = () => {
-		const headers = [
-			'User Name',
-			'Service Name',
-			'Price',
-			'Quantity',
-			'Location',
-			'Date/Time',
-		];
+		const headers = ['User Name', 'Service Name', 'Price', 'Quantity', 'Location', 'Date/Time'];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
@@ -83,7 +65,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					data.service.price,
 					data.transaction.quantity,
 					data.user_details.preferred_location?.name,
-					data.transaction.created_at,
+					formatDate(data.transaction.created_at),
 				].join(',')
 			),
 		].join('\n');
@@ -92,43 +74,77 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 		saveAs(blob, 'service-purchase.csv');
 	};
 
-	// Function to download PDF
+	// Download PDF
 	const handleDownloadPDF = () => {
-		const doc = new jsPDF();
+		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points (595.28 x 841.89)
+		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
+		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
+		const margin = 40; // Set margin for the document
+		const lineHeight = 20; // Set line height for table rows
+		const headerHeight = 30; // Height for the header
+		let row = margin + headerHeight; // Starting y-position for content
 
-		doc.text('Service Used', 10, 10); // Title of the document
-		let row = 20;
+		// Define the column positions to fit within the page width
+		const columns = {
+			userName: margin, // First column starts from left margin
+			serviceName: margin + 80, // Next column 80pt from the first one
+			price: margin + 220, // Adjust based on previous column widths
+			quantity: margin + 280,
+			location: margin + 340,
+			dateTime: margin + 450, // Adjust this so it fits within the page
+		};
 
-		// Table headers
-		doc.text('Product Name', 10, row);
-		doc.text('Price', 80, row);
-		doc.text('Listed On', 140, row);
-		row += 10;
+		doc.setFontSize(12);
+		doc.setFont('helvetica', 'bold');
+		doc.text('Service Purchase Report', margin, margin); // Title at the top
 
-		// Table content
+		// Add table headers
+		doc.setFontSize(10);
+		doc.text('User Name', columns.userName, row);
+		doc.text('Service', columns.serviceName, row);
+		doc.text('Price', columns.price, row);
+		doc.text('Quantity', columns.quantity, row);
+		doc.text('Location', columns.location, row);
+		doc.text('Date/Time', columns.dateTime, row);
+
+		// Move to the next row for table data
+		row += lineHeight;
+
+		// Reset font for table data
+		doc.setFont('helvetica', 'normal');
+
+		// Loop through filtered transactions and add each row
 		filteredTransaction.forEach((transaction) => {
-			doc.text(
-				`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
-				10,
-				row
-			);
-			doc.text(transaction.service?.name, 10, row);
-			doc.text(
-				`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
-				10,
-				row
-			);
-			doc.text(
-				`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
-				10,
-				row
-			);
-			doc.text(transaction.service.price, 80, row);
-			doc.text(transaction.transaction.created_at, 140, row);
-			row += 10;
+			// Check if adding new row exceeds the page height, and if so, add a new page
+			if (row + lineHeight > pageHeight - margin) {
+				doc.addPage(); // Add new page
+				row = margin + headerHeight; // Reset row for new page
+
+				// Re-add the table headers on the new page
+				doc.setFont('helvetica', 'bold');
+				doc.text('User Name', columns.userName, row);
+				doc.text('Service', columns.serviceName, row);
+				doc.text('Price', columns.price, row);
+				doc.text('Quantity', columns.quantity, row);
+				doc.text('Location', columns.location, row);
+				doc.text('Date/Time', columns.dateTime, row);
+				row += lineHeight;
+				doc.setFont('helvetica', 'normal');
+			}
+
+			// Add transaction data in the respective columns
+			doc.text(`${transaction.user_details.firstName} ${transaction.user_details.lastName}`, columns.userName, row);
+			doc.text(transaction.service?.name, columns.serviceName, row);
+			doc.text(`${transaction.service.price}`, columns.price, row);
+			doc.text(`${transaction.transaction.quantity}`, columns.quantity, row);
+			doc.text(transaction.user_details.preferred_location?.name || 'N/A', columns.location, row);
+			doc.text(formatDate(transaction.transaction.created_at), columns.dateTime, row);
+
+			// Move to the next row
+			row += lineHeight;
 		});
 
-		doc.save('products.pdf');
+		doc.save('service-purchase.pdf'); // Save the generated PDF
 	};
 
 	return (
@@ -136,59 +152,29 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			<div className='purchasereportlist-search-container'>
 				<input
 					type='text'
-					placeholder='Search purchase'
+					placeholder='Search'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<div className='date-range-inputs'>
-					<input
-						type='date'
-						name='startDate'
-						placeholder='Start Date'
-						onChange={handleDateRangeChange}
-					/>
-					<input
-						type='date'
-						name='endDate'
-						placeholder='End Date'
-						onChange={handleDateRangeChange}
-					/>
+					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
+					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
 				</div>
 				<div className='location-select'>
-					<select
-						value={selectedLocation}
-						onChange={handleLocationChange}
-					>
+					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
-							<option
-								key={location}
-								value={location}
-							>
+							<option key={location} value={location}>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='purchasereportlist-files'>
-					<div
-						className='purchasereportlist-download'
-						onClick={handleDownloadCSV}
-					>
-						<FaFileCsv
-							size={45}
-							style={{ color: '#28a745' }}
-						/>{' '}
-						{/* Green for CSV */}
+					<div className='purchasereportlist-download' onClick={handleDownloadCSV}>
+						<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
 					</div>
-					<div
-						className='purchasereportlist-download'
-						onClick={handleDownloadPDF}
-					>
-						<FaFilePdf
-							size={45}
-							style={{ color: '#dc3545' }}
-						/>{' '}
-						{/* Red for PDF */}
+					<div className='purchasereportlist-download' onClick={handleDownloadPDF}>
+						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
 			</div>
@@ -205,13 +191,9 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction) => (
-						<div
-							key={transaction.transaction.id}
-							className='serviceused-table-row'
-						>
+						<div key={transaction.transaction.id} className='purchasereportlist-table-row'>
 							<span>
-								{transaction.user_details?.firstName}{' '}
-								{transaction.user_details?.lastName}
+								{transaction.user_details?.firstName} {transaction.user_details?.lastName}
 							</span>
 							<span>{transaction.service.name}</span>
 							<span>{transaction.service.price}</span>
@@ -224,7 +206,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 						</div>
 					))
 				) : (
-					<div className='purchasereportlist-no-data'>No products found.</div>
+					<div className='purchasereportlist-no-data'>No transactions found.</div>
 				)}
 			</div>
 		</div>
