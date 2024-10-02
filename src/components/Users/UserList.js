@@ -26,12 +26,16 @@ const UserList = () => {
 
 	const filteredUsers = users.filter(
 		(data) =>
-			(data.user.firstName &&
-				data.user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(data.profile?.firstName &&
+				data.profile?.firstName
+					.toLowerCase()
+					.includes(searchTerm.toLowerCase())) ||
 			(data.profile?.phone_number &&
 				data.profile?.phone_number
 					.toLowerCase()
-					.includes(searchTerm.toLowerCase()))
+					.includes(searchTerm.toLowerCase())) ||
+			(data.user?.role &&
+				data.user?.role.toLowerCase().includes(searchTerm.toLowerCase()))
 	);
 	const handleAdd = () => {
 		setIsAddOpen(true);
@@ -124,7 +128,9 @@ const UserList = () => {
 								key={user.user.id}
 								className='user-table-row'
 							>
-								<span>{user.user.name}</span>
+								<span>
+									{user.profile?.firstName} {user.profile?.lastName}
+								</span>
 								<span>{user.user.email}</span>
 								<span>{user.user.role}</span>
 								<span>

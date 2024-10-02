@@ -25,8 +25,8 @@ const CustomerList = () => {
 
 	const filteredCustomers = customers.filter(
 		(data) =>
-			(data.user.firstName &&
-				data.user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(data.profile?.firstName &&
+				data.profile?.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
 			(data.profile?.phone_number &&
 				data.profile?.phone_number
 					.toLowerCase()
@@ -108,9 +108,9 @@ const CustomerList = () => {
 				<div className='customer-table-header'>
 					<span>USER NAME</span>
 					<span>LOCATION</span>
-					<span>PHONE NUMBER</span>
-					<span>MINUTES AVAILABLE</span>
-					<span>TOTAL SPEND MINUTES</span>
+					<span>PHONE</span>
+					<span>MIN. AVAL.</span>
+					<span>TOTAL SPEND</span>
 					<span>LAST PURCHASE</span>
 					<span>ACTION</span>
 				</div>
@@ -118,7 +118,7 @@ const CustomerList = () => {
 				{filteredCustomers.length > 0 ? (
 					filteredCustomers.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) => location.id === customer.profile?.preferred_location
+							(location) => location?.id === customer.profile?.preferred_location
 						);
 						return (
 							<div
@@ -129,7 +129,7 @@ const CustomerList = () => {
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
 								<span>
-									{preferredLocation ? preferredLocation.name : 'N/A'}
+									{preferredLocation ? preferredLocation?.name : 'N/A'}
 								</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
