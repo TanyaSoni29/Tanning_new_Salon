@@ -30,10 +30,10 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 		onClose(); // Close the modal after buying
 	};
 	return (
-		<div className='product-modal-container'>
-			<h2 className='product-modal-header'>Products</h2>
-			<div className='products-table'>
-				<div className='products-table-header'>
+		<div className='Buyproduct-modal-container'>
+			<h2 className='Buyproduct-modal-header'>Products</h2>
+			<div className='Buyproducts-table'>
+				<div className='Buyproducts-table-header'>
 					<span>Product Name</span>
 					<span>Price</span>
 					<span>Quantity</span>
@@ -44,17 +44,17 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 					products.map((product, index) => (
 						<div
 							key={product?.id}
-							className='products-table-row'
+							className='Buyproducts-table-row'
 						>
-							<span className='product-name'>
+							<span className='Buyproduct-name'>
 								<img
 									src={product?.image ? product?.image : ''}
 									alt={product.name}
-									className='product-image'
+									className='Buyproduct-image'
 								/>
 								{product?.name}
 							</span>
-							<span>{product?.price}</span>
+							<span>£{product?.price}</span>
 							<span>
 								<select
 									value={selectedQuantities[index]}
@@ -77,7 +77,7 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 						</div>
 					))
 				) : (
-					<div className='products-table-row'>
+					<div className='Buyproducts-table-row'>
 						<span>No products found.</span>
 					</div>
 				)}
