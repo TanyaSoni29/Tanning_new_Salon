@@ -21,10 +21,10 @@
 .bydata-search-container input {
 	width: 100%;
 	max-width: 50%; /* Allow it to take half of the width */
-	padding: 10px;
+	padding: 5px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 20px;
+	border-radius: 10px;
 }
 
 /* Buttons Container */
@@ -51,20 +51,6 @@
 	font-weight: 600;
 }
 
-.bydata-add-button4 {
-	background-color: #0c65be;
-	color: white;
-	padding: 12px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	transition: background-color 0.3s ease;
-}
-
-/* .bydata-add-button4:hover {
-	background-color: #e68900;
-} */
 
 /* Table Styles */
 .bydata-table {
@@ -91,7 +77,7 @@
 .bydata-table-header,
 .bydata-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1.5fr 1fr;
+	grid-template-columns: 4fr 3fr 1.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;

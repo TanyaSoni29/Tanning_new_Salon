@@ -51,18 +51,6 @@
 }
 
 
-.productreportlist-add-button4 {
-	background-color: #0c65be; /* Blue for add button */
-	color: white;
-	padding: 12px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	transition: background-color 0.3s ease;
-}
-
-
 
 /* Table Styles */
 .productreportlist-table {
@@ -89,7 +77,7 @@
 .productreportlist-table-header,
 .productreportlist-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1.5fr 1fr;
+	grid-template-columns: 4fr 3fr 1.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -195,7 +183,7 @@
 
 	.productreportlist-table-header,
 	.productreportlist-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr;
+		grid-template-columns: 4fr 3fr 1.5fr;
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -236,7 +224,7 @@
 
 	.productreportlist-table-header,
 	.productreportlist-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Maintain column structure */
+		grid-template-columns: 4fr 3fr 1.5fr; /* Maintain column structure */
 		min-width: 900px; /* Ensure table width remains scrollable */
 	}
 

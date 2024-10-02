@@ -74,7 +74,6 @@ const ProductList = () => {
 			</div>
 
 			<div className='allcustomer-buttons-container'>
-				<button className='allcustomer-add-button4'>ADD NEW CUSTOMER</button>
 				<button className='allcustomer-download-button' onClick={handleDownloadCSV}>
 					DOWNLOAD CSV
 				</button>
@@ -88,7 +87,6 @@ const ProductList = () => {
 					<span>PRODUCT NAME</span>
 					<span>PRICE</span>
 					<span>LISTED ON</span>
-					<span>ACTION</span>
 				</div>
 
 				{filteredProducts.length > 0 ? (
@@ -97,11 +95,6 @@ const ProductList = () => {
 							<span>{product.productName}</span>
 							<span>{product.price}</span>
 							<span>{product.listedOn}</span>
-							<span>
-								<i className='fa fa-eye'></i>
-								<i className='fa fa-pencil'></i>
-								<i className='fa fa-trash' onClick={() => handleDelete(index)}></i>
-							</span>
 						</div>
 					))
 				) : (

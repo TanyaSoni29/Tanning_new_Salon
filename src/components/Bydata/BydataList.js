@@ -18,11 +18,11 @@ const BydataList = () => {
 		data.dataName.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
-	const handleDelete = (index) => {
-		const newBydata = [...bydata];
-		newBydata.splice(index, 1);
-		setBydata(newBydata);
-	};
+	// const handleDelete = (index) => {
+	// 	const newBydata = [...bydata];
+	// 	newBydata.splice(index, 1);
+	// 	setBydata(newBydata);
+	// };
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -72,7 +72,6 @@ const BydataList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<div className='bydata-buttons-container'>
-					<button className='bydata-add-button4'>ADD NEW DATA</button>
 					{/* <button className='bydata-delete-button'>DELETE</button> */}
 					<button className='bydata-download-button' onClick={handleDownloadCSV}>
 						DOWNLOAD CSV
@@ -88,7 +87,6 @@ const BydataList = () => {
 					<span>DATA NAME</span>
 					<span>PRICE</span>
 					<span>LISTED ON</span>
-					<span>ACTION</span>
 				</div>
 
 				{filteredBydata.length > 0 ? (
@@ -97,11 +95,6 @@ const BydataList = () => {
 							<span>{data.dataName}</span>
 							<span>{data.price}</span>
 							<span>{data.listedOn}</span>
-							<span>
-								<i className='fa fa-eye'></i>
-								<i className='fa fa-pencil'></i>
-								<i className='fa fa-trash' onClick={() => handleDelete(index)}></i>
-							</span>
 						</div>
 					))
 				) : (
