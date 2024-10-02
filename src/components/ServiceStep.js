@@ -28,17 +28,13 @@ const ServiceStep = () => {
 	const [buyServiceModal, setBuyServiceModal] = useState(false);
 	const [useServiceModal, setUseServiceModal] = useState(false);
 	const { customer } = useSelector((state) => state.customer);
-	const { token } = useSelector((state) => state.auth); // Access the selected customer
+	const { token } = useSelector((state) => state.auth);
+	const { locations } = useSelector((state) => state.location);
+	const [combinedTransactions, setCombinedTransactions] = useState([]); // Access the selected customer
 	const [serviceUseOptions, setServiceUseOptions] = useState([]);
 	useEffect(() => {
 		dispatch(refreshProduct());
-	}, [dispatch]);
-
-	useEffect(() => {
 		dispatch(refreshService());
-	}, [dispatch]);
-
-	useEffect(() => {
 		dispatch(refreshCustomers());
 	}, [dispatch]);
 
@@ -182,8 +178,36 @@ const ServiceStep = () => {
 							)}
 						</div>
 					)}
+				</div>
+				<div className='location-container'>
+					<div className='locations-table'>
+						<div className='location-table-header'>
+							<span>LOCATION NAME</span>
+							<span>ADDRESS</span>
+							<span>POSTCODE</span>
+							<span>PHONE NUMBER</span>
+							<span>ACTION</span>
+						</div>
 
-					<div></div>
+						{/* Render filtered locations */}
+						{locations.length > 0 ? (
+							locations.map((location) => (
+								<div
+									key={location.id}
+									className='location-table-row'
+								>
+									<span>{location.name}</span>
+									<span>{location.address}</span>
+									<span>{location.post_code}</span>
+									<span>{location.phone_number}</span>
+								</div>
+							))
+						) : (
+							<div className='location-table-row'>
+								<span>No locations found.</span>
+							</div>
+						)}
+					</div>
 				</div>
 				{buyProductModal && (
 					<Modal

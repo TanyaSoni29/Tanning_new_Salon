@@ -48,6 +48,7 @@ const userProfileSlice = createSlice({
 export function refreshUser() {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token;
+		// const selectedUserId = getState().user.user?.user.id;
 		try {
 			const response = await getAllUser(token);
 			const users = response.filter((data) => data.user.role !== 'customer');

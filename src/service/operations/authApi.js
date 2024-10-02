@@ -105,6 +105,7 @@ export function getMe(navigate) {
 			toast.error('No token found. Please log in.');
 			dispatch(setToken(null));
 			dispatch(setIsAuth(false));
+			dispatch(setUser(null));
 			navigate('/'); // Redirect to login
 			return;
 		}
