@@ -32,14 +32,18 @@ import './App.css';
 
 const App = () => {
 	const dispatch = useDispatch();
-	const { token, loading } = useSelector((state) => state.auth);
+	const {
+		token,
+		loading,
+		user: loginUser,
+	} = useSelector((state) => state.auth);
 	const navigate = useNavigate();
 	// Fetch user info on app load if token is available
 	useEffect(() => {
 		if (token) {
 			dispatch(getMe(navigate));
 		}
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className='app-container'>
@@ -61,22 +65,59 @@ const App = () => {
 					path='/service'
 					element={<ProtectedRoute element={<ServiceStep />} />}
 				/>
-				<Route
-					path='/location'
-					element={<ProtectedRoute element={<Location />} />}
-				/>
-				<Route
-					path='/users'
-					element={<ProtectedRoute element={<Users />} />}
-				/>
+				{loginUser?.role === 'admin' && (
+					<>
+						<Route
+							path='/location'
+							element={<ProtectedRoute element={<Location />} />}
+						/>
+						<Route
+							path='/users'
+							element={<ProtectedRoute element={<Users />} />}
+						/>
+						<Route
+							path='/services'
+							element={<ProtectedRoute element={<Services />} />}
+						/>
+						<Route
+							path='/allcustomers'
+							element={<ProtectedRoute element={<Allcustomers />} />}
+						/>
+						<Route
+							path='/bydata'
+							element={<ProtectedRoute element={<Bydata />} />}
+						/>
+						<Route
+							path='/currentmonth'
+							element={<ProtectedRoute element={<Currentmonth />} />}
+						/>
+						<Route
+							path='/topcustomers'
+							element={<ProtectedRoute element={<Topcustomers />} />}
+						/>
+						<Route
+							path='/serviceused'
+							element={<ProtectedRoute element={<Serviceused />} />}
+						/>
+						<Route
+							path='/purchasereport'
+							element={<ProtectedRoute element={<Purchasereport />} />}
+						/>
+						<Route
+							path='/productreport'
+							element={<ProtectedRoute element={<Productreport />} />}
+						/>
+						<Route
+							path='/qrcode'
+							element={<ProtectedRoute element={<Qrcode />} />}
+						/>
+					</>
+				)}
 				<Route
 					path='/products'
 					element={<ProtectedRoute element={<Products />} />}
 				/>
-				<Route
-					path='/services'
-					element={<ProtectedRoute element={<Services />} />}
-				/>
+
 				<Route
 					path='/customers'
 					element={<ProtectedRoute element={<Customers />} />}
@@ -85,38 +126,6 @@ const App = () => {
 					path='/transactions'
 					element={<ProtectedRoute element={<Transactions />} />}
 				/> */}
-				<Route
-						path='/allcustomers'
-						element={<Allcustomers />}
-					/>
-					<Route
-						path='/bydata'
-						element={<Bydata />}
-					/>
-					<Route
-						path='/currentmonth'
-						element={<Currentmonth />}
-					/>
-					<Route
-						path='/topcustomers'
-						element={<Topcustomers />}
-					/>
-					<Route
-						path='/serviceused'
-						element={<Serviceused />}
-					/>
-					<Route
-						path='/purchasereport'
-						element={<Purchasereport />}
-					/>
-					<Route
-						path='/productreport'
-						element={<Productreport />}
-					/>
-					<Route
-						path='/qrcode'
-						element={<Qrcode />}
-					/>
 			</Routes>
 		</div>
 	);

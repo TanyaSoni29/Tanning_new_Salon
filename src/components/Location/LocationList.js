@@ -9,8 +9,6 @@ import Modal from '../Modal'; // Assuming deleteLocation API call
 import EditLocationModal from './EditLocationModal';
 import AddLocationModal from './AddLocationModal';
 
-
-
 const LocationList = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
@@ -25,9 +23,12 @@ const LocationList = () => {
 	// Filter locations based on search term
 	const filteredLocations = locations.filter(
 		(location) =>
-			location.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			location.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			location.phone_number.toLowerCase().includes(searchTerm.toLowerCase())
+			(location?.name &&
+				location?.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(location?.address &&
+				location?.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
+			(location?.phone_number &&
+				location?.phone_number.toLowerCase().includes(searchTerm.toLowerCase()))
 	);
 
 	// Function to handle the delete action with API call and Redux update
