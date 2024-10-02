@@ -11,17 +11,19 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
+.purchasereportlist-files {
+	display: flex;
+}
+
 /* Search Bar */
 .purchasereportlist-search-container {
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .purchasereportlist-search-container input {
-	width: 100%;
-	max-width: 50%; /* Takes half of the width on larger screens */
+	width: 40%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -199,7 +201,6 @@
 	}
 
 	.purchasereportlist-search-container {
-		flex-direction: column; /* Stack search bar vertically */
 		align-items: center;
 	}
 

@@ -9,17 +9,18 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
+.serviceused-files{
+	display: flex;
+}
 /* Search Bar */
 .serviceused-search-container {
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .serviceused-search-container input {
-	width: 100%;
-	max-width: 50%; /* Takes half of the width on larger screens */
+	width: 40%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -191,12 +192,11 @@
 
 @media (max-width: 480px) {
 	.serviceused-container {
-		width: 95%;
+		width: 90%;
 		margin-left: 10px; /* Adjust margins for extra small screens */
 	}
 
 	.serviceused-search-container {
-		flex-direction: column; /* Stack search bar vertically */
 		align-items: center;
 	}
 

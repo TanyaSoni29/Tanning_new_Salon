@@ -11,17 +11,18 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
+.Topcustomer-files{
+	display: flex;
+}
 /* Search Bar */
 .Topcustomer-search-container {
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .Topcustomer-search-container input {
-	width: 100%;
-	max-width: 50%; /* Takes half of the width on larger screens */
+	width: 30%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -199,7 +200,6 @@
 	}
 
 	.Topcustomer-search-container {
-		flex-direction: column; /* Stack search bar vertically */
 		align-items: center;
 	}
 

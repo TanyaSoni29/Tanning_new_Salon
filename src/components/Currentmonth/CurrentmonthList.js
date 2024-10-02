@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import './CurrentmonthList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
+import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
 const ProductList = () => {
 	const [products, setProducts] = useState([
@@ -74,13 +75,13 @@ const ProductList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<div>
-				<div className='currentmonth-buttons-container'>
-					<button className='currentmonth-download-button' onClick={handleDownloadCSV}>
-						DOWNLOAD CSV
-					</button>
-					<button className='currentmonth-download-button' onClick={handleDownloadPDF}>
-						DOWNLOAD PDF
-					</button>
+				<div className='currentmonth-files'>
+					<div className='currentmonth-download' onClick={handleDownloadCSV}>
+					<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+				</div>
+				<div className='currentmonth-download' onClick={handleDownloadPDF}>
+					<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+				</div>
 					</div>
 				</div>
 			</div>

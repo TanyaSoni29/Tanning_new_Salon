@@ -9,17 +9,19 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
+.productreportlist-files{
+	display: flex;
+}
+
 /* Search Bar */
 .productreportlist-search-container {
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
 
 .productreportlist-search-container input {
-	width: 100%;
-	max-width: 50%; /* Takes half of the width on larger screens */
+	width: 40%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -195,7 +197,6 @@
 	}
 
 	.productreportlist-search-container {
-		flex-direction: column; /* Stack search bar vertically */
 		align-items: center;
 	}
 

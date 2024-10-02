@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './BydataList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
+import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
 const BydataList = () => {
 	const [bydata, setBydata] = useState([
@@ -71,15 +72,18 @@ const BydataList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<div className='bydata-buttons-container'>
-					{/* <button className='bydata-delete-button'>DELETE</button> */}
-					<button className='bydata-download-button' onClick={handleDownloadCSV}>
-						DOWNLOAD CSV
-					</button>
-					<button className='bydata-download-button' onClick={handleDownloadPDF}>
-						DOWNLOAD PDF
-					</button>
+				<div className='bydata-files'>
+				<div className='bydata-download' onClick={handleDownloadCSV}>
+					<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+					
 				</div>
+				<div className='bydata-download' onClick={handleDownloadPDF}>
+					<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+					
+				</div>
+				</div>
+
+				
 			</div>
 
 			<div className='bydata-table'>

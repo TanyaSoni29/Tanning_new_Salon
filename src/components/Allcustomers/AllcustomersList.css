@@ -1,9 +1,3 @@
-/**
- * Desktop View
- *
- * @format
- */
-
 .allcustomer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -12,44 +6,59 @@
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	overflow-x: auto; /* Allows horizontal scrolling on overflow */
+	overflow-x: auto;
 }
 
 /* Search Bar */
+.files {
+	display: flex;
+}
 .allcustomer-search-container {
 	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	display: flex;
+	justify-content: space-between;
 }
 
 .allcustomer-search-container input {
-	width: 100%;
-	padding: 12px;
+	width: 40%;
+	padding: 4px;
 	font-size: 16px;
 	border: 1px solid #ddd;
-	border-radius: 6px;
+	border-radius: 30px;
+	outline: none;
+	transition: border-color 0.3s ease-in-out;
+}
+
+.allcustomer-search-container input:focus {
+	border-color: #0c65be;
 }
 
 /* Buttons Container */
 .allcustomer-buttons-container {
 	display: flex;
 	justify-content: flex-start;
-	flex-wrap: wrap;
-	gap: 15px;
+	gap: 20px;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
-.allcustomer-delete-button,
-.allcustomer-download-button {
-	flex: 1;
-	background-color: #008080;
-	color: white;
-	padding: 12px;
-	border: none;
-	border-radius: 6px;
+.allcustomer-icon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	cursor: pointer;
-	font-size: 16px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-	font-weight: 600;
+	transition: transform 0.3s ease;
+}
+
+.allcustomer-icon:hover {
+	transform: scale(1.1);
+}
+
+.allcustomer-icon span {
+	margin-top: 5px;
+	font-size: 14px;
 }
 
 /* Table Styles */
@@ -61,23 +70,10 @@
 	border: 1px solid #ddd;
 }
 
-.allcustomer-table::-webkit-scrollbar {
-	height: 8px;
-}
-
-.allcustomer-table::-webkit-scrollbar-thumb {
-	background-color: #ccc;
-	border-radius: 10px;
-}
-
-.allcustomer-table::-webkit-scrollbar-track {
-	background-color: #f9f9f9;
-}
-
 .allcustomer-table-header,
 .allcustomer-table-row {
 	display: grid;
-	grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr; /* Default for desktop view */
+	grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -97,28 +93,6 @@
 	background-color: #f9f9f9;
 }
 
-.allcustomer-table-row span {
-	display: flex;
-	align-items: center;
-}
-
-.allcustomer-table-row .fa {
-	margin: 0 8px;
-	cursor: pointer;
-}
-
-.fa-eye {
-	color: #007bff;
-}
-
-.fa-pencil {
-	color: #28a745;
-}
-
-.fa-trash {
-	color: #dc3545;
-}
-
 .allcustomer-no-data {
 	text-align: center;
 	padding: 20px;
@@ -134,15 +108,8 @@
 	}
 
 	.allcustomer-buttons-container {
-		flex-wrap: wrap;
 		justify-content: center;
-		gap: 10px;
-	}
-
-	/* Adjust table layout for tablets */
-	.allcustomer-table-header,
-	.allcustomer-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr; /* Adjust column ratios for tablets */
+		gap: 15px;
 	}
 }
 
@@ -159,26 +126,15 @@
 		width: 100%;
 	}
 
-	.allcustomer-search-container input {
-		width: 100%;
-	}
-
-	.allcustomer-delete-button,
-	.allcustomer-download-button,
-	.allcustomer-add-button4 {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-
-	.allcustomer-table {
-		overflow-x: auto;
-		width: 100%;
+	.allcustomer-icon {
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: repeat(4, 1fr); /* Equal column widths for mobile */
-		min-width: 700px; /* Ensure horizontal scrolling */
+		grid-template-columns: repeat(4, 1fr);
+		min-width: 700px;
 	}
 }
 
@@ -194,25 +150,10 @@
 		width: 100%;
 	}
 
-	.allcustomer-search-container input {
-		width: 100%;
-	}
-
-	.allcustomer-delete-button,
-	.allcustomer-download-button,
-	.allcustomer-add-button4 {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-
-	.allcustomer-table {
-		overflow-x: scroll;
-	}
-
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;;
-		min-width: 700px; /* Smaller minimum width for extra small devices */
+		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;
+		min-width: 700px;
 	}
 
 	.allcustomer-table-header span,

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import './PurchasereportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
+import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
 const ProductList = () => {
 	const [products, setProducts] = useState([
@@ -73,14 +74,15 @@ const ProductList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<div className='purchasereportlist-buttons-container'>
+				<div className='purchasereportlist-files'>
+
+					<div className='purchasereportlist-download' onClick={handleDownloadCSV}>
+					<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
 					
-					<button className='purchasereportlist-download-button' onClick={handleDownloadCSV}>
-						DOWNLOAD CSV
-					</button>
-					<button className='purchasereportlist-download-button' onClick={handleDownloadPDF}>
-						DOWNLOAD PDF
-					</button>
+				</div>
+				<div className='purchasereportlist-download' onClick={handleDownloadPDF}>
+					<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}	
+				</div>
 				</div>
 			</div>
 
