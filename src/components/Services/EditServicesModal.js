@@ -22,7 +22,7 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 		try {
 			const updatedData = {
 				serviceName: data.serviceName,
-				price: data.price,
+				price: Number(data.price),
 				minutesAvailable: data.minutesAvailable,
 			};
 			const result = await updateService(token, activeService.id, updatedData);

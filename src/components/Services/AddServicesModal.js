@@ -28,7 +28,7 @@ const AddServiceModal = ({ closeAddModal }) => {
 		try {
 			const newService = {
 				serviceName: data.serviceName,
-				price: data.price,
+				price: Number(data.price),
 				minutesAvailable: data.minutesAvailable,
 			};
 			const result = await createService(token, newService);

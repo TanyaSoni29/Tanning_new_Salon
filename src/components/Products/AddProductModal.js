@@ -27,7 +27,7 @@ const AddProductModal = ({ closeAddModal }) => {
 		try {
 			const newLocation = {
 				name: data.name,
-				price: data.price,
+				price: Number(data.price),
 			};
 			const result = await createProduct(token, newLocation);
 			if (result) {
