@@ -34,6 +34,7 @@ export default function BasicCard({ onClose }) {
 				mt={2}
 				display='flex'
 				justifyContent='end'
+				flexWrap='wrap'
 				gap={2}
 			>
 				<button

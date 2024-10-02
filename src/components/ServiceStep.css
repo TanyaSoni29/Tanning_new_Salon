@@ -73,6 +73,7 @@
 
 .use-btn {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	gap: 0.4rem;
@@ -85,9 +86,7 @@
 	cursor: pointer;
 }
 
-
-
-@media (max-width: 880px){
+@media (max-width: 880px) {
 	.service-wizard-container {
 		width: 75%; /* Responsive width */
 		margin-top: 140px;
@@ -95,7 +94,7 @@
 	}
 }
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
 	.service-wizard-container {
 		width: 85%; /* Responsive width */
 		margin-top: 140px;
