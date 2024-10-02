@@ -49,12 +49,19 @@ const customerProfileSlice = createSlice({
 export function refreshCustomers() {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token;
+		const selectedCustomerId = getState().customer.customer?.user.id;
 		try {
 			const response = await getAllUser(token);
 			const customers = response.filter(
-				(data) => data.user.role === 'customer'
+				(data) => data.user?.role === 'customer'
 			);
 			dispatch(setCustomers(customers));
+			const updatedCustomer = customers.find(
+				(customer) => customer?.user.id === selectedCustomerId
+			);
+			if (updatedCustomer) {
+				dispatch(setCustomer(updatedCustomer));
+			}
 		} catch (error) {
 			console.error('Failed to refresh users:', error);
 		}
