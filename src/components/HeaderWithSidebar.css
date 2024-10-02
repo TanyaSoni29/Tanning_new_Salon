@@ -18,7 +18,7 @@ body {
   height: 100%;
   background-color: white;
   color: black;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 0 0px rgba(0, 0, 0, 0.842);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -40,7 +40,7 @@ body {
   align-items: center;
   font-size: 20px;
   font-weight: 600;
-  border-radius: 4px 4px 0 0;
+  border-radius: 0px 0px 0 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -158,7 +158,7 @@ body {
   font-size: 16px;
   font-weight: 600;
   transition: background-color 0.3s ease;
-  border-radius: 4px;
+  border-radius: 0px;
 }
 
 .logout-button i {

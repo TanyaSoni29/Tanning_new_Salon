@@ -28,8 +28,8 @@ const CustomerList = () => {
 			'USER NAME',
 			'LOCATION',
 			'PHONE NUMBER',
-			'MINUTES AVAILABLE',
-			'TOTAL SPEND MINUTES',
+			'MIN AVA',
+			'TOTAL SPEND',
 			'LAST PURCHASE',
 		];
 
@@ -60,36 +60,75 @@ const CustomerList = () => {
 	// Function to download PDF
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF();
-		let row = 20;
+		const pageWidth = doc.internal.pageSize.width; // Get page width
+		const pageHeight = doc.internal.pageSize.height; // Get page height
+		const margin = 10; // Left and right margins
+		const lineHeight = 10; // Adjust line height
+		let row = 10; // Start y-position for the content
 
-		doc.text('Customer List', 10, 10); // Title of the document
+		// Adjust column positions for better spacing (adjusted widths to fit within the page)
+		const columns = {
+			userName: margin, // Start at the left margin
+			location: margin + 35, // 35 units after the user name column
+			phoneNumber: margin + 65, // 50 units after location
+			minutesAvailable: margin + 95, // 50 units after phone number
+			totalSpend: margin + 135, // 40 units after minutes available
+			lastPurchase: margin + 165, // 40 units after total spend (adjust to fit the page)
+		};
 
-		// Table headers
+		// Title of the document
+		doc.text('Customer List', margin, row);
+
+		// Add headers for the table
+		row += lineHeight;
+		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(10);
-		doc.text('USER NAME', 10, row);
-		doc.text('LOCATION', 50, row);
-		doc.text('PHONE NUMBER', 90, row);
-		doc.text('MINUTES AVAILABLE', 130, row);
-		doc.text('TOTAL SPEND', 160, row);
-		doc.text('LAST PURCHASE', 190, row);
-		row += 10;
+		doc.text('Customer Name', columns.userName, row);
+		doc.text('Location', columns.location, row);
+		doc.text('Phone', columns.phoneNumber, row);
+		doc.text('Minutes Avl', columns.minutesAvailable, row);
+		doc.text('Tot Spend', columns.totalSpend, row);
+		doc.text('Last Purchase', columns.lastPurchase, row); // Last Purchase header added
 
-		// Table content
+		// Move to the next row
+		row += lineHeight;
+        
+			doc.setFont('helvetica', 'normal');
 		filteredCustomers.forEach((customer) => {
 			const preferredLocation = locations.find(
 				(location) => location.id === customer.profile?.preferred_location
 			);
+
+			// Check if we need to add a new page
+			if (row >= pageHeight - lineHeight) {
+				doc.addPage(); // Add a new page
+				row = margin; // Reset the row height for the new page
+
+				// Re-add table headers to the new page
+				doc.text('Customer Name', columns.userName, row);
+				doc.text('Location', columns.location, row);
+				doc.text('Phone', columns.phoneNumber, row);
+				doc.text('Minutes Avl', columns.minutesAvailable, row);
+				doc.text('Tot Spend', columns.totalSpend, row);
+				doc.text('Last Purchase', columns.lastPurchase, row);
+
+				row += lineHeight;
+			}
+
+			// Add the customer data
 			doc.text(
 				`${customer.profile?.firstName || ''} ${customer.profile?.lastName || ''}`,
-				10,
+				columns.userName,
 				row
 			);
-			doc.text(preferredLocation ? preferredLocation.name : 'N/A', 50, row);
-			doc.text(customer.profile?.phone_number || 'N/A', 90, row);
-			doc.text(`${customer.profile?.available_balance || '0'}`, 130, row);
-			doc.text(`${customer.profile?.total_spend || '0'}`, 160, row);
-			doc.text(formatDate(customer.profile?.updated_at) || 'N/A', 190, row);
-			row += 10;
+			doc.text(preferredLocation ? preferredLocation.name : 'N/A', columns.location, row);
+			doc.text(customer.profile?.phone_number || 'N/A', columns.phoneNumber, row);
+			doc.text(`${customer.profile?.available_balance || '0'}`, columns.minutesAvailable, row);
+			doc.text(`${customer.profile?.total_spend || '0'}`, columns.totalSpend, row);
+			doc.text(formatDate(customer.profile?.updated_at) || 'N/A', columns.lastPurchase, row); // Last purchase data added
+
+			// Move to the next row
+			row += lineHeight;
 		});
 
 		doc.save('Customers.pdf');
@@ -105,18 +144,15 @@ const CustomerList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 
-				<div class="files">
-				<div className='allcustomer-icon' onClick={handleDownloadCSV}>
-					<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
-					
-				</div>
-				<div className='allcustomer-icon' onClick={handleDownloadPDF}>
-					<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}	
-				</div>
+				<div className="files">
+					<div className='allcustomer-icon' onClick={handleDownloadCSV}>
+						<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+					</div>
+					<div className='allcustomer-icon' onClick={handleDownloadPDF}>
+						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+					</div>
 				</div>
 			</div>
-
-			
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
