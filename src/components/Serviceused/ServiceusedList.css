@@ -1,3 +1,5 @@
+/** @format */
+
 .serviceused-container {
 	width: 70%;
 	margin: 20px auto;
@@ -9,7 +11,7 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
-.serviceused-files{
+.serviceused-files {
 	display: flex;
 }
 /* Search Bar */
@@ -76,7 +78,7 @@
 .serviceused-table-header,
 .serviceused-table-row {
 	display: grid;
-	grid-template-columns: 4fr 3fr 1.5fr;
+	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -127,6 +129,16 @@
 	color: #666;
 }
 
+.date-range-inputs {
+	display: flex;
+	gap: 10px;
+	width: "30%";
+}
+
+.location-select {
+	border-radius: 8px;
+}
+
 /* Responsive Layout for Tablet and Mobile */
 @media (max-width: 1024px) {
 	.serviceused-container {
@@ -151,7 +163,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Maintain layout */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
 		min-width: 900px; /* Ensure horizontal scrolling on tablets */
 	}
 }
@@ -185,7 +197,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -225,7 +237,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Maintain column structure */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
 		min-width: 900px; /* Ensure table width remains scrollable */
 	}
 
