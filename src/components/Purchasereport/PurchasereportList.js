@@ -136,7 +136,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			<div className='purchasereportlist-search-container'>
 				<input
 					type='text'
-					placeholder='Search purchase'
+					placeholder='Search transaction'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
