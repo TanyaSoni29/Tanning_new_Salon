@@ -1,4 +1,4 @@
-/** @format */
+/* General container styling remains the same */
 .service-wizard-container {
 	background-color: white;
 	padding: 20px;
@@ -8,7 +8,12 @@
 	margin: 50px;
 	margin-left: 320px;
 	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	height: 85vh; /* Fixed height, fills 90% of the viewport */
+	overflow: hidden; /* Prevents scrolling inside the container */
+	display: flex;
+	flex-direction: column;
 }
+
 .service-wizard-container .heading {
 	font-size: 32px;
 	font-weight: bold;
@@ -55,6 +60,7 @@
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	flex-grow: 1; /* Allow the service info section to take up available space */
 }
 
 /* Styling the customer information */
@@ -93,12 +99,14 @@
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	flex-grow: 2; /* Allows the transaction container to fill remaining space */
 }
 
+/* Make transaction table responsive with horizontal scroll */
 .transaction-table-wrapper {
-	max-height: 300px; /* Set a fixed maximum height for the table body */
+	max-height: 250px; /* Adjust height for the transaction table */
 	overflow-y: auto; /* Enables vertical scrolling */
-	overflow-x: hidden; /* Disable horizontal scrolling if not needed */
+	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 .transaction-table {
@@ -109,6 +117,7 @@
 	border-collapse: separate;
 }
 
+/* Header styling */
 .transaction-table-header {
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 0.8fr 0.8fr 0.8fr 1fr 1fr;
@@ -165,11 +174,24 @@
 	color: white;
 }
 
+/* Media queries for responsiveness */
 @media (max-width: 880px) {
 	.service-wizard-container {
 		width: 75%; /* Responsive width */
 		margin-top: 140px;
 		margin-left: 120px;
+	}
+
+	/* Make the transaction table font smaller */
+	.transaction-table-header,
+	.transaction-table-row {
+		font-size: 9px;
+	}
+
+	/* Adjust table columns to fit better on smaller screens */
+	.transaction-table-header,
+	.transaction-table-row {
+		grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
 	}
 }
 
@@ -178,5 +200,23 @@
 		width: 85%; /* Responsive width */
 		margin-top: 140px;
 		margin-left: 20px;
+	}
+
+	/* Adjust table columns for mobile view */
+	.transaction-table-header,
+	.transaction-table-row {
+		grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
+		font-size: 6px;
+		padding: 4px 8px;
+	}
+
+	/* Reduce font size and make table scrollable */
+	.transaction-table-wrapper {
+		overflow-x: auto; /* Enable horizontal scrolling on small screens */
+	}
+
+	.transaction-table-header,
+	.transaction-table-row {
+		font-size: 6px;
 	}
 }

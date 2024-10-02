@@ -245,7 +245,7 @@ const ServiceStep = () => {
 							<span>LOCATION</span>
 							<span>PRODUCT / SERVICE</span>
 							<span>PRICE</span>
-							<span>QUANTITY / USED MINUTES</span>
+							<span>QUANTITY</span>
 							<span>TYPE</span>
 							<span>TIME</span>
 						</div>
