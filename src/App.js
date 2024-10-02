@@ -107,10 +107,10 @@ const App = () => {
 							path='/productreport'
 							element={<ProtectedRoute element={<Productreport />} />}
 						/>
-						<Route
+						{/* <Route
 							path='/qrcode'
 							element={<ProtectedRoute element={<Qrcode />} />}
-						/>
+						/> */}
 					</>
 				)}
 				<Route
