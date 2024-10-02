@@ -3,243 +3,118 @@
 .productreportlist-container {
 	width: 70%;
 	margin: 20px auto;
-	margin-left: 340px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	overflow-x: auto; /* Enables horizontal scrolling */
-}
-
-.productreportlist-files {
+	overflow-x: auto;
+  }
+  
+  .productreportlist-files {
 	display: flex;
-}
-
-/* Search Bar */
-.productreportlist-search-container {
-	margin-bottom: 20px;
+	gap: 20px;
+  }
+  
+  .productreportlist-search-container {
 	display: flex;
 	justify-content: space-between;
-}
-
-.productreportlist-search-container input {
-	width: 30%;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+  }
+  
+  .productreportlist-search-container input,
+  .date-range-inputs input,
+  .location-select select {
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-}
-
-/* Buttons Container */
-.productreportlist-buttons-container {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
-	gap: 15px;
-	margin-top: 10px;
-}
-
-.productreportlist-delete-button,
-.productreportlist-download-button {
-	flex: 1;
-	background-color: #008080; /* Light green for delete and CSV buttons */
-	color: white;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-	font-weight: 600;
-}
-
-/* Table Styles */
-.productreportlist-table {
+	margin-right: 10px;
+  }
+  
+  .productreportlist-table {
 	background-color: white;
 	border-radius: 8px;
-	overflow-x: auto; /* Enables horizontal scrolling */
+	overflow-x: auto;
 	width: 100%;
 	border: 1px solid #ddd;
-}
-
-.productreportlist-table::-webkit-scrollbar {
-	height: 8px; /* Height of horizontal scrollbar */
-}
-
-.productreportlist-table::-webkit-scrollbar-thumb {
-	background-color: #ccc;
-	border-radius: 10px;
-}
-
-.productreportlist-table::-webkit-scrollbar-track {
-	background-color: #f9f9f9;
-}
-
-.productreportlist-table-header,
-.productreportlist-table-row {
+  }
+  
+  .productreportlist-table-header,
+  .productreportlist-table-row {
 	display: grid;
 	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
-	width: 100%;
-	box-sizing: border-box;
-	min-width: 900px; /* Ensures the table has a scrollable width */
-}
-
-.productreportlist-table-header {
+	min-width: 900px;
+  }
+  
+  .productreportlist-table-header {
 	background-color: #0c65be;
 	color: white;
 	font-weight: bold;
-}
-
-.productreportlist-table-row {
+  }
+  
+  .productreportlist-table-row {
 	background-color: white;
-}
-
-.productreportlist-table-row:hover {
+  }
+  
+  .productreportlist-table-row:hover {
 	background-color: #f1f1f1;
-}
-
-.productreportlist-table-row span {
-	display: flex;
-	align-items: center;
-}
-
-.productreportlist-table-row .fa {
-	margin: 0 10px;
-	cursor: pointer;
-}
-
-.fa-eye {
-	color: #007bff;
-}
-
-.fa-pencil {
-	color: #28a745;
-}
-
-.fa-trash {
-	color: #dc3545;
-}
-
-.no-data {
+  }
+  
+  .productreportlist-no-data {
 	text-align: center;
 	padding: 20px;
 	font-size: 18px;
 	color: #666;
-}
-
-.date-range-inputs {
-	display: flex;
-	gap: 10px;
-	width: '30%';
-}
-
-.location-select {
-	border-radius: 8px;
-}
-
-/* Responsive Layout for Tablet and Mobile */
-@media (max-width: 1024px) {
+  }
+  
+  @media (max-width: 1024px) {
 	.productreportlist-container {
-		width: 70%;
-		margin-top: 120px;
-		margin-left: 340px;
+	  width: 80%;
 	}
-
-	.productreportlist-search-container input {
-		width: 100%; /* Full width on tablet */
-	}
-
-	.productreportlist-buttons-container {
-		justify-content: space-between;
-		gap: 10px;
-		flex-wrap: wrap;
-	}
-
-	.productreportlist-table-header,
-	.productreportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
-		min-width: 900px; /* Ensure horizontal scrolling on tablets */
-	}
-}
-
-@media (max-width: 768px) {
-	.productreportlist-container {
-		width: 90%; /* Adjust container width for mobile */
-		margin-left: 20px;
-	}
-
-	.productreportlist-buttons-container {
-		flex-direction: column; /* Stack buttons vertically on mobile */
-		gap: 10px;
-		width: 100%; /* Full width */
-	}
-
-	.productreportlist-search-container input {
-		width: 100%; /* Full width search bar */
-	}
-
-	.productreportlist-delete-button,
-	.productreportlist-download-button,
-	.productreportlist-add-button4 {
-		width: 100%; /* Full width buttons */
-	}
-
-	.productreportlist-table {
-		overflow-x: auto; /* Enable horizontal scrolling on mobile */
-		width: 100%;
-	}
-
-	.productreportlist-table-header,
-	.productreportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure horizontal scrolling */
-	}
-}
-
-@media (max-width: 480px) {
-	.productreportlist-container {
-		width: 95%;
-		margin-left: 10px; /* Adjust margins for extra small screens */
-	}
-
+  
 	.productreportlist-search-container {
-		align-items: center;
+	  flex-wrap: wrap;
 	}
-
-	.productreportlist-search-container input {
-		width: 100%; /* Full width search bar */
-		max-width: 100%;
+  
+	.productreportlist-search-container input,
+	.date-range-inputs input,
+	.location-select select {
+	  width: 100%;
+	  margin-bottom: 10px;
 	}
-
-	.productreportlist-buttons-container {
-		flex-direction: column; /* Stack buttons vertically */
-		width: 100%;
-	}
-
-	.productreportlist-delete-button,
-	.productreportlist-download-button {
-		width: 100%; /* Full width for buttons */
-	}
-
-	.productreportlist-add-button4 {
-		width: 100%; /* Full width for add button */
-	}
-
+  
 	.productreportlist-table {
-		overflow-x: scroll; /* Enable horizontal scroll */
+	  overflow-x: scroll;
 	}
-
+  }
+  
+  @media (max-width: 768px) {
+	.productreportlist-container {
+	  width: 90%;
+	}
+  
+	.productreportlist-search-container {
+	  flex-direction: column;
+	}
+  
 	.productreportlist-table-header,
 	.productreportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
-		min-width: 900px; /* Ensure table width remains scrollable */
+	  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+	  min-width: 900px;
 	}
-
-	.productreportlist-table-header span,
-	.productreportlist-table-row span {
-		font-size: 14px; /* Adjust font size for smaller screens */
+  }
+  
+  @media (max-width: 480px) {
+	.productreportlist-container {
+	  width: 95%;
 	}
-}
+  
+	.productreportlist-table-header,
+	.productreportlist-table-row {
+	  font-size: 12px;
+	}
+  }
+  
