@@ -22,7 +22,7 @@
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 30px;
 }
 
 .add-button4 {
@@ -50,7 +50,7 @@
 .products-table-header,
 .products-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr;
+	grid-template-columns: 4fr 3fr 2fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;

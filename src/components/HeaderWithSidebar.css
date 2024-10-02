@@ -92,6 +92,7 @@ body {
   position: fixed;
   top: 10px;
   left: 10px;
+  border-radius: 20px;
   /* z-index: 1001; */
 }
 
