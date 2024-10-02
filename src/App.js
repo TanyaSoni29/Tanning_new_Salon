@@ -43,7 +43,7 @@ const App = () => {
 		if (token) {
 			dispatch(getMe(navigate));
 		}
-	}, [dispatch]);
+	}, [dispatch, token, navigate]);
 
 	return (
 		<div className='app-container'>
