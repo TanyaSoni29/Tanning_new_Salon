@@ -201,7 +201,7 @@ const HeaderWithSidebar = () => {
 															All Customers
 														</NavLink>
 													</li>
-													<li>
+													{/* <li>
 														<NavLink
 															to='/bydata'
 															activeClassName='active'
@@ -224,7 +224,7 @@ const HeaderWithSidebar = () => {
 														>
 															Top Customers
 														</NavLink>
-													</li>
+													</li> */}
 												</ul>
 											)}
 										</li>
