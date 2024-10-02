@@ -20,11 +20,11 @@
 }
 
 .serviceused-search-container input {
-	width: 40%;
+	width: 30%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
-	border-radius: 20px;
+	border-radius: 30px;
 }
 
 /* Buttons Container */
