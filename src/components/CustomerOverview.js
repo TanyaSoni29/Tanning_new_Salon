@@ -25,9 +25,11 @@ function CustomerOverview({ searchQuery, filteredUsers }) {
 	const filterUsers = filteredUsers.filter(
 		(data) =>
 			data?.user.role === 'customer' &&
-			((data?.user.name &&
-				data?.user.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-				(data.profile.phone_number &&
+			((data?.profile?.firstName &&
+				data?.profile?.firstName
+					.toLowerCase()
+					.includes(searchQuery.toLowerCase())) ||
+				(data.profile?.phone_number &&
 					data.profile.phone_number
 						.toLowerCase()
 						.includes(searchQuery.toLowerCase())))

@@ -13,7 +13,7 @@ const LocationList = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { locations } = useSelector((state) => state.location);
-
+	console.log(locations);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
@@ -26,7 +26,7 @@ const LocationList = () => {
 			(location?.name &&
 				location?.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
 			(location?.address &&
-				location?.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
+				location?.address?.toLowerCase().includes(searchTerm.toLowerCase())) ||
 			(location?.phone_number &&
 				location?.phone_number.toLowerCase().includes(searchTerm.toLowerCase()))
 	);
