@@ -77,7 +77,7 @@
 .allcustomer-table-header,
 .allcustomer-table-row {
 	display: grid;
-	grid-template-columns: 6fr 5fr 1.5fr; /* Default for desktop view */
+	grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr; /* Default for desktop view */
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -142,7 +142,7 @@
 	/* Adjust table layout for tablets */
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: 1.5fr 1fr 1.2fr 1fr; /* Adjust column ratios for tablets */
+		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr; /* Adjust column ratios for tablets */
 	}
 }
 
@@ -211,7 +211,7 @@
 
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: 2fr 1fr 1.5fr 1fr;
+		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;;
 		min-width: 700px; /* Smaller minimum width for extra small devices */
 	}
 
