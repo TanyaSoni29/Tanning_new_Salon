@@ -60,7 +60,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
       );
       if (updatedUser) {
         dispatch({
-          type: "profile/updateUser",
+          type: "userProfile/updateUser",
           payload: updatedUser,
         });
       }

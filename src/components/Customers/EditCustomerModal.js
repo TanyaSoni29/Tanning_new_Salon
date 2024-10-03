@@ -34,7 +34,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 		if (!activeUser) {
 			closeEditModal();
 		}
-	}, [activeUser, closeEditModal]);
+	}, []);
 
 	useEffect(() => {
 		dispatch(refreshLocation());
@@ -169,11 +169,11 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 					<Box className='form-row'>
 						<select
-							id='preferred_location'
+							id='location'
 							className='custom-select'
 							value={preferredLocation}
-							onChange={(e) => setPreferredLocation(e.target.value)}
 							{...register('preferred_location', { required: true })}
+							onChange={(e) => setPreferredLocation(e.target.value)}
 							disabled={loading}
 						>
 							<option value=''>Select Location</option>
