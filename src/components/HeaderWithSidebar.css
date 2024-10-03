@@ -26,6 +26,13 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
+/* Sidebar should always be visible on desktop */
+@media (min-width: 981px) {
+  .sidebar {
+    transform: translateX(0); /* Keep the sidebar visible on desktop */
+  }
+}
+
 .sidebar.open {
   transform: translateX(0); /* Sidebar slides in when open */
 }
@@ -54,14 +61,14 @@ body {
 }
 
 .sidebar-menu li {
-  padding: 10px;
+  padding: 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sidebar-menu li:hover {
+/* .sidebar-menu li:hover {
   background-color: #f7f7f7;
-}
+} */
 
 .sidebar-menu li a {
   text-decoration: none;
@@ -78,40 +85,6 @@ body {
   border-radius: 2px;
 }
 
-.submenu li {
-  list-style: none;
-}
-/* Hamburger Button */
-.hamburger {
-  display: none;
-  font-size: 24px;
-  color: white;
-  background-color: #0c65be;
-  padding: 15px;
-  cursor: pointer;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  border-radius: 20px;
-  /* z-index: 1001; */
-}
-
-/* Show the hamburger only on smaller screens */
-@media (max-width: 980px) {
-  .sidebar {
-    transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
-  }
-
-  .sidebar.open {
-    transform: translateX(0); /* Sidebar slides in when open */
-  }
-
-  .hamburger {
-    display: block; /* Show the hamburger in mobile view */
-  }
-}
-
-/* Submenu styling */
 .submenu-item {
   cursor: pointer;
 }
@@ -142,7 +115,37 @@ body {
 
 .submenu li {
   font-size: 14px;
-  padding: 10px 10px;
+  padding: 5px 10px;
+  list-style: none;
+}
+
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  color: white;
+  background-color: #0c65be;
+  padding: 15px;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  border-radius: 20px;
+}
+
+/* Show the hamburger only on smaller screens */
+@media (max-width: 980px) {
+  .sidebar {
+    transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
+  }
+
+  .hamburger {
+    display: block; /* Show the hamburger in mobile view */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Sidebar slides in when open */
+  }
 }
 
 /* Logout Button */
@@ -158,7 +161,6 @@ body {
   font-size: 16px;
   font-weight: 600;
   transition: background-color 0.3s ease;
-  border-radius: 0px;
 }
 
 .logout-button i {

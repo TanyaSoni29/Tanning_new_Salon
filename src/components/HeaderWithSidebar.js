@@ -11,11 +11,8 @@ const HeaderWithSidebar = () => {
 	const navigate = useNavigate();
 	const location = useLocation(); // Use location to get the current URL path
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
-	const [isReportSubmenuOpen, setIsReportSubmenuOpen] = useState(false);
-	const [isCustomersSubmenuOpen, setIsCustomersSubmenuOpen] = useState(false);
-	const [isTransactionsSubmenuOpen, setIsTransactionsSubmenuOpen] =
-		useState(false);
-	const [isSalesSubmenuOpen, setIsSalesSubmenuOpen] = useState(false);
+	const [isCustomersReportSubmenuOpen, setIsCustomersReportSubmenuOpen] = useState(false);
+	const [isTransactionsSubmenuOpen, setIsTransactionsSubmenuOpen] = useState(false);
 	const { user: loginUser } = useSelector((state) => state.auth);
 
 	// Close the sidebar on page navigation
@@ -25,35 +22,23 @@ const HeaderWithSidebar = () => {
 
 	// Handle submenu state based on current URL
 	useEffect(() => {
-		// Check if the current path is related to customers submenu
+		// Check if the current path is related to customers report submenu
 		if (
 			location.pathname.includes('/allcustomers') ||
 			location.pathname.includes('/bydata') ||
 			location.pathname.includes('/currentmonth') ||
 			location.pathname.includes('/topcustomers')
 		) {
-			setIsReportSubmenuOpen(true);
-			setIsCustomersSubmenuOpen(true);
+			setIsCustomersReportSubmenuOpen(true);
 		}
 
 		// Check if the current path is related to transactions submenu
 		if (
-			location.pathname.includes('/serviceused') ||
-			location.pathname.includes('/purchasereport') ||
-			location.pathname.includes('/productreport')
+			location.pathname.includes('/products') ||
+			location.pathname.includes('/services') ||
+			location.pathname.includes('/usage')
 		) {
-			setIsReportSubmenuOpen(true);
 			setIsTransactionsSubmenuOpen(true);
-		}
-
-		// Check if the current path is related to sales submenu
-		if (
-			location.pathname.includes('/purchasereport') ||
-			location.pathname.includes('/productreport')
-		) {
-			setIsReportSubmenuOpen(true);
-			setIsTransactionsSubmenuOpen(true);
-			setIsSalesSubmenuOpen(true);
 		}
 	}, [location]);
 
@@ -61,20 +46,12 @@ const HeaderWithSidebar = () => {
 		setIsSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
 	};
 
-	const toggleReportSubmenu = () => {
-		setIsReportSubmenuOpen(!isReportSubmenuOpen);
-	};
-
-	const toggleCustomersSubmenu = () => {
-		setIsCustomersSubmenuOpen(!isCustomersSubmenuOpen);
+	const toggleCustomersReportSubmenu = () => {
+		setIsCustomersReportSubmenuOpen(!isCustomersReportSubmenuOpen);
 	};
 
 	const toggleTransactionsSubmenu = () => {
 		setIsTransactionsSubmenuOpen(!isTransactionsSubmenuOpen);
-	};
-
-	const toggleSalesSubmenu = () => {
-		setIsSalesSubmenuOpen(!isSalesSubmenuOpen);
 	};
 
 	const handleLogout = () => {
@@ -95,7 +72,7 @@ const HeaderWithSidebar = () => {
 			<div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
 				{/* Sidebar Header */}
 				<div className='sidebar-header'>
-					<h3>Menu</h3>
+					<h3>Tanning Salon</h3>
 					{isSidebarOpen && (
 						<i
 							className='fa fa-times'
@@ -152,156 +129,108 @@ const HeaderWithSidebar = () => {
 							</NavLink>
 						</li>
 					)}
-					<li>
-						<NavLink
-							to='/customers'
-							activeClassName='active'
-						>
-							Customers
-						</NavLink>
-					</li>
+
 					{loginUser?.role === 'admin' && (
 						<li>
-							{/* Report with Submenu */}
+							{/* Customers Report with Submenu */}
 							<div className='submenu-item'>
 								<span
 									className='submenu-title'
-									onClick={toggleReportSubmenu}
+									onClick={toggleCustomersReportSubmenu}
 								>
-									Report
+									Customers Report
 									<i
 										className={`fa ${
-											isReportSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
+											isCustomersReportSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
 										}`}
 									></i>
 								</span>
-								{isReportSubmenuOpen && (
+								{isCustomersReportSubmenuOpen && (
 									<ul className='submenu'>
-										<li className='submenu-item'>
-											<span
-												className='submenu-title'
-												onClick={toggleCustomersSubmenu}
+										<li>
+											<NavLink
+												to='/allcustomers'
+												activeClassName='active'
 											>
-												Customers
-												<i
-													className={`fa ${
-														isCustomersSubmenuOpen
-															? 'fa-chevron-up'
-															: 'fa-chevron-down'
-													}`}
-												></i>
-											</span>
-											{isCustomersSubmenuOpen && (
-												<ul className='submenu'>
-													<li>
-														<NavLink
-															to='/allcustomers'
-															activeClassName='active'
-														>
-															All Customers
-														</NavLink>
-													</li>
-													{/* <li>
-														<NavLink
-															to='/bydata'
-															activeClassName='active'
-														>
-															By Date
-														</NavLink>
-													</li>
-													<li>
-														<NavLink
-															to='/currentmonth'
-															activeClassName='active'
-														>
-															Current Month
-														</NavLink>
-													</li>
-													<li>
-														<NavLink
-															to='/topcustomers'
-															activeClassName='active'
-														>
-															Top Customers
-														</NavLink>
-													</li> */}
-												</ul>
-											)}
+												All Customers
+											</NavLink>
 										</li>
-										<li className='submenu-item'>
-											<span
-												className='submenu-title'
-												onClick={toggleTransactionsSubmenu}
+										<li>
+											<NavLink
+												to='/bydata'
+												activeClassName='active'
 											>
-												Transactions
-												<i
-													className={`fa ${
-														isTransactionsSubmenuOpen
-															? 'fa-chevron-up'
-															: 'fa-chevron-down'
-													}`}
-												></i>
-											</span>
-											{isTransactionsSubmenuOpen && (
-												<ul className='submenu'>
-													<li>
-														<NavLink
-															to='/serviceused'
-															activeClassName='active'
-														>
-															Services Used
-														</NavLink>
-													</li>
-													<li className='submenu-item'>
-														<span
-															className='submenu-title'
-															onClick={toggleSalesSubmenu}
-														>
-															Sales
-															<i
-																className={`fa ${
-																	isSalesSubmenuOpen
-																		? 'fa-chevron-up'
-																		: 'fa-chevron-down'
-																}`}
-															></i>
-														</span>
-														{isSalesSubmenuOpen && (
-															<ul className='submenu'>
-																<li>
-																	<NavLink
-																		to='/purchasereport'
-																		activeClassName='active'
-																	>
-																		Purchase
-																	</NavLink>
-																</li>
-																<li>
-																	<NavLink
-																		to='/productreport'
-																		activeClassName='active'
-																	>
-																		Product
-																	</NavLink>
-																</li>
-															</ul>
-														)}
-													</li>
-												</ul>
-											)}
+												By Data
+											</NavLink>
+										</li>
+										<li>
+											<NavLink
+												to='/currentmonth'
+												activeClassName='active'
+											>
+												Current Month
+											</NavLink>
+										</li>
+										<li>
+											<NavLink
+												to='/topcustomers'
+												activeClassName='active'
+											>
+												Top Customers
+											</NavLink>
 										</li>
 									</ul>
 								)}
 							</div>
 						</li>
 					)}
-					{/* {loginUser?.role === 'admin' && (
+
+					{loginUser?.role === 'admin' && (
 						<li>
-							<NavLink to="/qrcode" activeClassName="active">
-								QRCode
-							</NavLink>
+							{/* Transactions with Submenu */}
+							<div className='submenu-item'>
+								<span
+									className='submenu-title'
+									onClick={toggleTransactionsSubmenu}
+								>
+									Transactions
+									<i
+										className={`fa ${
+											isTransactionsSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
+										}`}
+									></i>
+								</span>
+								{isTransactionsSubmenuOpen && (
+									<ul className='submenu'>
+										<li>
+											<NavLink
+												to='/productreport'
+												activeClassName='active'
+											>
+												Products
+											</NavLink>
+										</li>
+										<li>
+											<NavLink
+												to='/serviceused'
+												activeClassName='active'
+											>
+												Services
+											</NavLink>
+										</li>
+										<li>
+											<NavLink
+												to='/purchasereport'
+												activeClassName='active'
+											>
+												Usage
+											</NavLink>
+										</li>
+									</ul>
+								)}
+							</div>
 						</li>
-					)} */}
+					)}
 				</ul>
 
 				{/* Logout Button */}
