@@ -141,7 +141,7 @@ const ProductList = ({ useServiceTransaction }) => {
 					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
 				</div>
 
-				<div className='location-select'>
+				<div className='servicelocation-select'>
 					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
 							<option key={location} value={location}>
@@ -153,10 +153,10 @@ const ProductList = ({ useServiceTransaction }) => {
 				
 				<div className='serviceused-files'>
 					<div className='serviceused-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+						<FaFileCsv size={35} style={{ color: '#28a745' }} /> {/* Green for CSV */}
 					</div>
 					<div className='serviceused-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+						<FaFilePdf size={35} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
 			

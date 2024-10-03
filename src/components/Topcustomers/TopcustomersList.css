@@ -38,21 +38,6 @@
 	margin-top: 10px;
 }
 
-.Topcustomer-delete-button,
-.Topcustomer-download-button {
-	flex: 1;
-	background-color: #008080; /* Light green for delete and CSV buttons */
-	color: white;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 16px;
-	text-align: center;
-	transition: background-color 0.3s ease;
-	font-weight: 600;
-}
-
 
 /* Table Styles */
 .Topcustomer-table {

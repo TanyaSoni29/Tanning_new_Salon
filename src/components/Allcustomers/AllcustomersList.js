@@ -259,7 +259,7 @@ const CustomerList = () => {
 					<span>Current Month</span>
 				</div>
 
-				<div className='files'>
+				<div className='allcustomer-files'>
 					<div
 						className='allcustomer-icon'
 						onClick={handleDownloadCSV}

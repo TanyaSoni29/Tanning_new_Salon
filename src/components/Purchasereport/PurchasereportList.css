@@ -55,13 +55,14 @@
 	border-radius: 4px;
 }
 
+
 /* Location select dropdown */
-.location-select {
+.purchaselocation-select {
 	width: 100%;
 	max-width: 250px;
 }
 
-.location-select select {
+.purchaselocation-select select {
 	width: 100%;
 	padding: 10px;
 	font-size: 16px;
@@ -124,7 +125,7 @@
 
 	.sedate-range,
 	.purchasereportlist-search-container input,
-	.location-select select {
+	.purchaselocation-select select {
 		width: 100%; /* Full width for all inputs */
 	}
 
@@ -149,7 +150,7 @@
 
 	.purchasereportlist-search-container input,
 	.sedate-range input,
-	.location-select select {
+	.purchaselocation-select select {
 		width: 100%; /* Full width for all inputs */
 	}
 

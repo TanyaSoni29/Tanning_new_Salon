@@ -10,9 +10,10 @@
 }
 
 /* Search Bar */
-.files {
+.allcustomer-files {
 	display: flex;
 }
+
 .filter-customer {
 	display: flex;
 	justify-content: space-between;
@@ -40,17 +41,17 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	max-width: 400px;
+	max-width: 240px;
 	gap: 10px;
 }
 
 .allcustomer-location-select {
-	width: 100%;
+	width: 60%;
 	max-width: 200px;
 }
 
 .allcustomer-location-select select {
-	width: 100%;
+	width: 60%;
 	padding: 8px;
 	border-radius: 4px;
 	border: 1px solid #ccc;

@@ -162,7 +162,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
 					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
 				</div>
-				<div className='location-select'>
+				<div className='purchaselocation-select'>
 					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
 							<option key={location} value={location}>
