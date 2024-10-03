@@ -191,6 +191,7 @@ const ProductList = ({ productTransaction }) => {
 
 	return (
 		<div className='productreportlist-container'>
+			<div className='Filter-product'>
 			<div className='productreportlist-search-container'>
 				<input
 					type='text'
@@ -198,6 +199,7 @@ const ProductList = ({ productTransaction }) => {
 					value={searchTerm}
 					onChange={handleSearchChange}
 				/>
+			</div>
 				<div className='date-range-inputs'>
 					<input
 						type='date'
@@ -247,6 +249,7 @@ const ProductList = ({ productTransaction }) => {
 						/>
 					</div>
 				</div>
+			
 			</div>
 
 			<div className='productreportlist-table'>

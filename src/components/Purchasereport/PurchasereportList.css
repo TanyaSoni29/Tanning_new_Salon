@@ -1,64 +1,81 @@
-/** @format */
-
 .purchasereportlist-container {
 	width: 70%;
-	margin-top: 50px;
+	margin: 20px auto;
 	margin-left: 340px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	overflow-x: auto; /* Enables horizontal scrolling */
+	overflow-x: auto;
 }
 
+/* Flex layout for file icons (CSV, PDF download buttons) */
 .purchasereportlist-files {
 	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: flex-start;
 }
 
-/* Search Bar */
-.purchasereportlist-search-container {
-	margin-bottom: 20px;
+/* Flex layout for filter section */
+.filter-purchase {
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
+	gap: 15px;
+	margin-bottom: 20px;
 }
 
+/* Search bar input */
 .purchasereportlist-search-container input {
-	width: 30%;
+	width: 100%;
+	max-width: 250px;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
 
-/* Buttons Container */
-.purchasereportlist-buttons-container {
+/* Date range inputs layout */
+.sedate-range {
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
-	gap: 15px;
-	margin-top: 10px;
+	gap: 10px;
+	width: 100%;
+	max-width: 500px;
+	flex-wrap: wrap;
 }
 
-/* Table Styles */
+.sedate-range input {
+	padding: 10px;
+	width: 100%;
+	max-width: 240px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* Location select dropdown */
+.location-select {
+	width: 100%;
+	max-width: 250px;
+}
+
+.location-select select {
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+/* Table styling */
 .purchasereportlist-table {
 	background-color: white;
 	border-radius: 8px;
-	overflow-x: auto; /* Enables horizontal scrolling */
 	width: 100%;
+	overflow-x: auto; /* Enable horizontal scrolling */
 	border: 1px solid #ddd;
-}
-
-.purchasereportlist-table::-webkit-scrollbar {
-	height: 8px; /* Height of horizontal scrollbar */
-}
-
-.purchasereportlist-table::-webkit-scrollbar-thumb {
-	background-color: #ccc;
-	border-radius: 10px;
-}
-
-.purchasereportlist-table::-webkit-scrollbar-track {
-	background-color: #f9f9f9;
 }
 
 .purchasereportlist-table-header,
@@ -68,7 +85,7 @@
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
-	min-width: 900px; /* Ensures the table has a scrollable width */
+	min-width: 900px; /* Ensures the table remains scrollable */
 }
 
 .purchasereportlist-table-header {
@@ -85,91 +102,106 @@
 	background-color: #f1f1f1;
 }
 
-.purchasereportlist-table-row span {
-	display: flex;
-	align-items: center;
+.purchasereportlist-no-data {
+	text-align: center;
+	padding: 20px;
+	font-size: 18px;
+	color: #666;
 }
 
-/* Responsive Layout for Tablet and Mobile */
+/* Responsive Layout for Tablet */
 @media (max-width: 1024px) {
 	.purchasereportlist-container {
-		width: 85%; /* Adjust width for tablets */
-		margin-left: 60px;
+		width: 85%; /* Adjust container width for tablets */
+		margin: 50px auto;
 	}
 
-	.purchasereportlist-search-container input {
-		width: 100%; /* Full width on tablet */
+	.filter-purchase {
+		flex-direction: column; /* Stack filters vertically */
+		gap: 20px;
+		align-items: flex-start;
 	}
 
-	.purchasereportlist-buttons-container {
-		justify-content: space-between;
-		gap: 10px;
-		flex-wrap: wrap;
+	.sedate-range,
+	.purchasereportlist-search-container input,
+	.location-select select {
+		width: 100%; /* Full width for all inputs */
 	}
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Maintain layout */
-		min-width: 900px; /* Ensure horizontal scrolling on tablets */
+		min-width: 900px; /* Ensure horizontal scrolling for the table */
 	}
 }
 
+/* Mobile view adjustments */
 @media (max-width: 768px) {
 	.purchasereportlist-container {
 		width: 90%; /* Adjust container width for mobile */
-		margin-left: 20px;
+		margin: 20px auto;
 	}
 
-	.purchasereportlist-buttons-container {
-		flex-direction: column; /* Stack buttons vertically on mobile */
-		gap: 10px;
-		width: 100%; /* Full width */
+	.filter-purchase {
+		flex-direction: column; /* Stack filters vertically */
+		gap: 15px;
+		width: 100%;
 	}
 
-	.purchasereportlist-search-container input {
-		width: 100%; /* Full width search bar */
+	.purchasereportlist-search-container input,
+	.sedate-range input,
+	.location-select select {
+		width: 100%; /* Full width for all inputs */
+	}
+
+	.purchasereportlist-files {
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.purchasereportlist-table {
-		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 		width: 100%;
+		overflow-x: scroll; /* Ensure table can scroll horizontally on mobile */
 	}
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
 		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure horizontal scrolling */
+		min-width: 900px; /* Ensure table columns fit horizontally */
 	}
 }
 
+/* Extra small mobile view */
 @media (max-width: 480px) {
 	.purchasereportlist-container {
 		width: 95%;
-		margin-left: 10px; /* Adjust margins for extra small screens */
+		margin-left: 10px;
 	}
 
-	.purchasereportlist-search-container {
-		align-items: center;
+	.filter-purchase {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
 	}
 
 	.purchasereportlist-search-container input {
-		width: 100%; /* Full width search bar */
-		max-width: 100%;
-	}
-
-	.purchasereportlist-buttons-container {
-		flex-direction: column; /* Stack buttons vertically */
 		width: 100%;
 	}
 
+	.purchasereportlist-files {
+		flex-direction: column;
+		width: 100%;
+		gap: 10px;
+	}
+
 	.purchasereportlist-table {
-		overflow-x: scroll; /* Enable horizontal scroll */
+		width: 100%;
+		overflow-x: scroll;
 	}
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column structure */
-		min-width: 900px; /* Ensure table width remains scrollable */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Keep the column layout */
+		min-width: 900px; /* Ensure table remains scrollable */
 	}
 
 	.purchasereportlist-table-header span,

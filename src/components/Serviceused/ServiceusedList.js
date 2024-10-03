@@ -127,6 +127,7 @@ const ProductList = ({ useServiceTransaction }) => {
 
 	return (
 		<div className='serviceused-container'>
+			<div className='filter-serviceused'>
 			<div className='serviceused-search-container'>
 				<input
 					type='text'
@@ -134,8 +135,8 @@ const ProductList = ({ useServiceTransaction }) => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-
-				<div className='date-range-inputs'>
+            </div>
+				<div className='date-range'>
 					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
 					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
 				</div>
@@ -158,6 +159,7 @@ const ProductList = ({ useServiceTransaction }) => {
 						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
+			
 			</div>
 
 			<div className='serviceused-table'>

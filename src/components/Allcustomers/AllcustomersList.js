@@ -209,6 +209,7 @@ const CustomerList = () => {
 
 	return (
 		<div className='allcustomer-container'>
+			<div className='filter-customer'>
 			<div className='allcustomer-search-container'>
 				<input
 					type='text'
@@ -216,6 +217,7 @@ const CustomerList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
+			</div>	
 				<div className='allcustomer-location-select'>
 					<select
 						value={selectedLocation}
@@ -279,6 +281,7 @@ const CustomerList = () => {
 						{/* Red for PDF */}
 					</div>
 				</div>
+			
 			</div>
 
 			<div className='allcustomer-table'>

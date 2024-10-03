@@ -149,6 +149,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 	return (
 		<div className='purchasereportlist-container'>
+			<div className='filter-purchase'>
 			<div className='purchasereportlist-search-container'>
 				<input
 					type='text'
@@ -156,7 +157,8 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<div className='date-range-inputs'>
+			</div>
+				<div className='sedate-range'>
 					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
 					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
 				</div>
@@ -177,6 +179,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
+			
 			</div>
 
 			<div className='purchasereportlist-table'>

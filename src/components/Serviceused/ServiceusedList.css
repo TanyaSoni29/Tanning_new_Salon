@@ -1,5 +1,3 @@
-/** @format */
-
 .serviceused-container {
 	width: 70%;
 	margin: 20px auto;
@@ -11,35 +9,66 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
-.serviceused-files {
+/* Flexbox layout for filter section */
+.filter-serviceused {
 	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap; /* Allows wrapping for smaller screens */
+	gap: 15px;
+	align-items: flex-start; /* Aligns items to the top */
 }
 
 /* Search Bar */
 .serviceused-search-container {
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: space-between;
+	width: 100%;
+	max-width: 250px; /* Restrict the width on larger screens */
 }
 
 .serviceused-search-container input {
-	width: 30%;
+	width: 100%;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
 
-.date-range-inputs {
-	width: 40%;
-	display: flex;
+/* Date range inputs */
+.date-range {
 	gap: 10px;
+	width: 50%;
+	max-width: 500px;
+}
+
+.date-range input {
+	margin-left: 10px;
+	padding: 10px;
+	width: 100%;
+	max-width: 240px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* Location select dropdown */
+.location-select {
+	width: 100%;
+	max-width: 250px;
 }
 
 .location-select select {
+	width: 100%;
 	padding: 10px;
-	border-radius: 8px;
+	font-size: 16px;
+	border-radius: 4px;
 	border: 1px solid #ccc;
+}
+
+/* File download buttons (CSV, PDF) */
+.serviceused-files {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: flex-start;
 }
 
 /* Table Styles */
@@ -49,19 +78,6 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 	width: 100%;
 	border: 1px solid #ddd;
-}
-
-.serviceused-table::-webkit-scrollbar {
-	height: 8px; /* Height of horizontal scrollbar */
-}
-
-.serviceused-table::-webkit-scrollbar-thumb {
-	background-color: #ccc;
-	border-radius: 10px;
-}
-
-.serviceused-table::-webkit-scrollbar-track {
-	background-color: #f9f9f9;
 }
 
 .serviceused-table-header,
@@ -88,37 +104,71 @@
 	background-color: #f1f1f1;
 }
 
-/* Responsive Layout for Tablet and Mobile */
+.serviceused-no-data {
+	text-align: center;
+	padding: 20px;
+	font-size: 18px;
+	color: #666;
+}
+
+/* Responsive Layout for Tablets and Mobile */
 @media (max-width: 1024px) {
 	.serviceused-container {
 		width: 85%;
-		margin-left: 60px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
-	.serviceused-search-container input {
-		width: 100%; /* Full width on tablet */
+	.filter-serviceused {
+		flex-direction: column; /* Stack filter elements vertically on smaller screens */
+		gap: 15px;
+	}
+
+	.serviceused-search-container,
+	.date-range,
+	.location-select {
+		width: 100%; /* Full width for all inputs on tablets */
 	}
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure horizontal scrolling on tablets */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Maintain column layout */
+		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
 
+/* Mobile view adjustments */
 @media (max-width: 768px) {
 	.serviceused-container {
 		width: 90%;
-		margin-left: 20px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
-	.serviceused-search-container input {
-		width: 100%; /* Full width search bar */
+	.filter-serviceused {
+		flex-direction: column; /* Stack filter elements vertically */
+		gap: 15px;
+		width: 100%;
+	}
+
+	.serviceused-search-container input,
+	.date-range input,
+	.location-select select {
+		width: 100%; /* Full width inputs on mobile */
+	}
+
+	.date-range{
+		margin: 10px;
+	}
+
+	.serviceused-files {
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.serviceused-table {
-		overflow-x: auto; /* Enable horizontal scrolling on mobile */
 		width: 100%;
+		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
 	}
 
 	.serviceused-table-header,
@@ -128,25 +178,43 @@
 	}
 }
 
+/* Extra small mobile view */
 @media (max-width: 480px) {
 	.serviceused-container {
-		width: 90%;
-		margin-left: 10px;
+		width: 95%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.filter-serviceused {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
 	}
 
 	.serviceused-search-container input {
 		width: 100%; /* Full width search bar */
-		max-width: 100%;
+	}
+
+	.date-range,
+	.location-select {
+		width: 100%;
+	}
+
+	.serviceused-files {
+		flex-direction: column;
+		width: 100%;
+		gap: 10px;
 	}
 
 	.serviceused-table {
-		overflow-x: scroll; /* Enable horizontal scroll */
+		overflow-x: auto; /* Enable horizontal scroll */
 	}
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure table width remains scrollable */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Keep the column layout */
+		min-width: 900px; /* Ensure table remains scrollable */
 	}
 
 	.serviceused-table-header span,
