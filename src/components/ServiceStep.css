@@ -120,7 +120,7 @@
 /* Header styling */
 .transaction-table-header {
 	display: grid;
-	grid-template-columns: 1.5fr 1fr 0.8fr 0.8fr 0.8fr 1fr 1fr;
+	grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	background-color: #0c65be;
@@ -135,7 +135,7 @@
 
 .transaction-table-row {
 	display: grid;
-	grid-template-columns: 1.5fr 1fr 0.8fr 0.8fr 0.8fr 1fr 1fr;
+	grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	background-color: white;

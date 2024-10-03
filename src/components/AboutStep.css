@@ -1,4 +1,61 @@
+/**
+ * AboutStep.css
+ *
+ * @format
+ */
 
+/* Adjusting Wizard Container */
+.wizard-container {
+	margin-left: 260px; /* Adjust according to sidebar */
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+/* Other Styles */
+.search-input {
+	padding: 8px;
+	width: 300px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.search-button,
+.register-button {
+	padding: 8px 16px;
+	border: none;
+	background-color: #0c65be;
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.step-tabs {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.tab {
+	padding: 10px 20px;
+	background-color: #f5f5f5;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.tab.active {
+	background-color: #0c65be;
+	color: white;
+}
 
 .wizard-container {
 	background-color: white;
@@ -6,7 +63,7 @@
 	border-radius: 10px;
 	width: 75%; /* Responsive width */
 	text-align: center;
-	margin: 50px ;
+	margin: 50px;
 	margin-top: 120px;
 	margin-left: 320px;
 	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -146,8 +203,7 @@
 	color: white;
 }
 
-
-@media (max-width: 880px){
+@media (max-width: 880px) {
 	.wizard-container {
 		width: 70%; /* Responsive width */
 		margin-top: 140px;
@@ -155,8 +211,7 @@
 	}
 }
 
-
-@media (max-width: 580px){
+@media (max-width: 580px) {
 	.wizard-container {
 		width: 85%; /* Responsive width */
 		margin-top: 140px;

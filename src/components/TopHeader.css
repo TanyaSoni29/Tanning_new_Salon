@@ -1,0 +1,37 @@
+/** @format */
+
+.top-header {
+	display: flex;
+	justify-content: flex-end; /* Align content to the right */
+	padding: 15px 25px;
+	background-color: #f8f9fa;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+	z-index: 100; /* Ensure it stays above other content */
+}
+
+.login-details {
+	display: flex;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 500;
+	color: #333;
+}
+
+.login-details svg {
+	margin-right: 8px;
+}
+
+.login-details span {
+	color: #333;
+}
+
+@media (max-width: 768px) {
+	.top-header {
+		padding: 10px 15px;
+	}
+
+	.login-details {
+		font-size: 14px;
+	}
+}

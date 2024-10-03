@@ -29,6 +29,7 @@ import Purchasereport from './components/Purchasereport/Purchasereport';
 import Productreport from './components/Productreport/Productreport';
 import Qrcode from './components/Qrcode/Qrcode';
 import './App.css';
+import TopHeader from './components/TopHeader';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const App = () => {
 
 	return (
 		<div className='app-container'>
+			{loginUser && <TopHeader />}
 			<Routes>
 				<Route
 					path='/'

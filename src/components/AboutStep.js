@@ -9,9 +9,14 @@ import CustomerOverview from './CustomerOverview';
 import AddCustomerModal from './Customers/AddCustomerModal';
 import Modal from '../components/Modal';
 import { refreshCustomers } from '../slices/customerProfile';
+import StatsHeader from './StatsHeader';
+import { refreshLocation } from '../slices/locationSlice';
+import { refreshUser } from '../slices/userProfileSlice';
+import TopHeader from './TopHeader';
 const AboutStep = () => {
 	const navigate = useNavigate();
 	const { customers } = useSelector((state) => state.customer);
+	const { user: loginUser } = useSelector((state) => state.auth);
 	const { locationIndex } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
@@ -25,6 +30,8 @@ const AboutStep = () => {
 
 	useEffect(() => {
 		dispatch(refreshCustomers());
+		dispatch(refreshLocation());
+		dispatch(refreshUser());
 	}, [dispatch]);
 
 	const filteredCustomers = customers.filter((user) => user.profile !== null);
@@ -49,6 +56,7 @@ const AboutStep = () => {
 	return (
 		<>
 			<HeaderWithSidebar />
+			<StatsHeader />
 			<div className='wizard-container'>
 				{/* <h2 className='heading'>Tanning Salon</h2>
 				<p className='subheading'>

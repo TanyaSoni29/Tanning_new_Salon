@@ -24,6 +24,8 @@ import {
 	getTotalSpend,
 } from '../service/operations/serviceAndServiceTransaction';
 import { refreshCustomers } from '../slices/customerProfile';
+import StatsHeader from './StatsHeader';
+import TopHeader from './TopHeader';
 
 const ServiceStep = () => {
 	const navigate = useNavigate();
@@ -175,6 +177,7 @@ const ServiceStep = () => {
 	return (
 		<>
 			<HeaderWithSidebar />
+			<StatsHeader />
 			<div className='service-wizard-container'>
 				<h2 className='heading'>Tanning Salon</h2>
 
