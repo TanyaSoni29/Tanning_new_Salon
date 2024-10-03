@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './AllcustomersList.css'; // Importing CSS
@@ -9,18 +11,65 @@ import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
-
 	const [searchTerm, setSearchTerm] = useState('');
+	const [dateRange, setDateRange] = useState({
+		startDate: null,
+		endDate: null,
+	});
+	const [selectedLocation, setSelectedLocation] = useState('All');
+	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
+	const uniqueLocations = [
+		'All',
+		...new Set(locations.map((location) => location.name)),
+	];
 
-	const filteredCustomers = customers.filter(
-		(data) =>
-			(data.user.firstName &&
-				data.user.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-			(data.profile?.phone_number &&
-				data.profile?.phone_number
-					.toLowerCase()
-					.includes(searchTerm.toLowerCase()))
-	);
+	const handleDateRangeChange = (e) => {
+		const { name, value } = e.target;
+		setDateRange((prevRange) => ({
+			...prevRange,
+			[name]: value ? new Date(value) : null,
+		}));
+	};
+
+	const handleLocationChange = (e) => {
+		setSelectedLocation(e.target.value);
+	};
+
+	const isInCurrentMonth = (date) => {
+		const now = new Date();
+		const customerDate = new Date(date);
+		return (
+			now.getFullYear() === customerDate.getFullYear() &&
+			now.getMonth() === customerDate.getMonth()
+		);
+	};
+
+	const filteredCustomers = customers.filter((data) => {
+		const CustomerDate = new Date(data.user.created_at);
+		const isInDateRange =
+			dateRange.startDate && dateRange.endDate
+				? CustomerDate >= dateRange.startDate &&
+				  CustomerDate <= dateRange.endDate
+				: true;
+
+		const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
+
+		const firstName = data.profile?.firstName.toLowerCase() || '';
+		const lastName = data?.profile?.lastName?.toLowerCase() || '';
+		const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
+
+		const matchesSearchQuery =
+			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+			phoneNumber.includes(searchTerm.toLowerCase());
+		const preferredLocation = locations.find(
+			(location) => location.id === data.profile?.preferred_location
+		);
+		const matchesLocation =
+			selectedLocation === 'All' ||
+			(preferredLocation && preferredLocation.name === selectedLocation);
+
+		return isInDateRange && matchesSearchQuery && matchesLocation && isInMonth;
+	});
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -41,7 +90,9 @@ const CustomerList = () => {
 					(location) => location.id === customer.profile?.preferred_location
 				);
 				const rowData = [
-					`${customer.profile?.firstName || ''} ${customer.profile?.lastName || ''}`,
+					`${customer.profile?.firstName || ''} ${
+						customer.profile?.lastName || ''
+					}`,
 					preferredLocation ? preferredLocation.name : 'N/A',
 					customer.profile?.phone_number || '',
 					customer.profile?.available_balance || '0',
@@ -92,8 +143,8 @@ const CustomerList = () => {
 
 		// Move to the next row
 		row += lineHeight;
-        
-			doc.setFont('helvetica', 'normal');
+
+		doc.setFont('helvetica', 'normal');
 		filteredCustomers.forEach((customer) => {
 			const preferredLocation = locations.find(
 				(location) => location.id === customer.profile?.preferred_location
@@ -117,15 +168,37 @@ const CustomerList = () => {
 
 			// Add the customer data
 			doc.text(
-				`${customer.profile?.firstName || ''} ${customer.profile?.lastName || ''}`,
+				`${customer.profile?.firstName || ''} ${
+					customer.profile?.lastName || ''
+				}`,
 				columns.userName,
 				row
 			);
-			doc.text(preferredLocation ? preferredLocation.name : 'N/A', columns.location, row);
-			doc.text(customer.profile?.phone_number || 'N/A', columns.phoneNumber, row);
-			doc.text(`${customer.profile?.available_balance || '0'}`, columns.minutesAvailable, row);
-			doc.text(`${customer.profile?.total_spend || '0'}`, columns.totalSpend, row);
-			doc.text(formatDate(customer.profile?.updated_at) || 'N/A', columns.lastPurchase, row); // Last purchase data added
+			doc.text(
+				preferredLocation ? preferredLocation.name : 'N/A',
+				columns.location,
+				row
+			);
+			doc.text(
+				customer.profile?.phone_number || 'N/A',
+				columns.phoneNumber,
+				row
+			);
+			doc.text(
+				`${customer.profile?.available_balance || '0'}`,
+				columns.minutesAvailable,
+				row
+			);
+			doc.text(
+				`${customer.profile?.total_spend || '0'}`,
+				columns.totalSpend,
+				row
+			);
+			doc.text(
+				formatDate(customer.profile?.updated_at) || 'N/A',
+				columns.lastPurchase,
+				row
+			); // Last purchase data added
 
 			// Move to the next row
 			row += lineHeight;
@@ -143,13 +216,67 @@ const CustomerList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
+				<div className='allcustomer-location-select'>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
+						{uniqueLocations.map((location) => (
+							<option
+								key={location}
+								value={location}
+							>
+								{location}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className='allcustomer-date-range-inputs'>
+					<input
+						type='date'
+						name='startDate'
+						placeholder='Start Date'
+						onChange={handleDateRangeChange}
+					/>
+					<input
+						type='date'
+						name='endDate'
+						placeholder='End Date'
+						onChange={handleDateRangeChange}
+					/>
+				</div>
+				<div className='toggle-container'>
+					<label className='switch'>
+						<input
+							type='checkbox'
+							checked={isCurrentMonth}
+							onChange={(e) => setIsCurrentMonth(e.target.checked)}
+						/>
+						<span className='slider round'></span>
+					</label>
+					<span>Current Month</span>
+				</div>
 
-				<div className="files">
-					<div className='allcustomer-icon' onClick={handleDownloadCSV}>
-						<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+				<div className='files'>
+					<div
+						className='allcustomer-icon'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={45}
+							style={{ color: '#28a745' }}
+						/>{' '}
+						{/* Green for CSV */}
 					</div>
-					<div className='allcustomer-icon' onClick={handleDownloadPDF}>
-						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+					<div
+						className='allcustomer-icon'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={45}
+							style={{ color: '#dc3545' }}
+						/>{' '}
+						{/* Red for PDF */}
 					</div>
 				</div>
 			</div>

@@ -28,6 +28,18 @@
 	border-radius: 4px;
 }
 
+.bydata-date-range-inputs {
+	width: 40%;
+	display: flex;
+	gap: 10px;
+}
+
+.bydata-location-select select {
+	padding: 10px;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+}
+
 /* Buttons Container */
 .bydata-buttons-container {
 	display: flex;
