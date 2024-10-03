@@ -99,6 +99,11 @@ const HeaderWithSidebar = () => {
 						</li>
 					)}
 					<li>
+						<NavLink to='/customers' activeClassName='active'>
+							Customers
+						</NavLink>
+					</li>
+					<li>
 						<NavLink to='/products' activeClassName='active'>
 							Products
 						</NavLink>

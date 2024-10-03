@@ -19,7 +19,7 @@ export const locationEndpoints = {
 
 export const userEndpoints = {
 	GET_ALL_USERS: BASE_URL + '/getUser',
-	// CREATE_CUSTOMER_API: BASE_URL + "/createCustomer",
+	GET_CUSTOMERS_BY_LOCATION_DATE: BASE_URL + '/getUserByLocationAndDate',
 	// DELETE_CUSTOMER_API: BASE_URL + "/deleteCustomer",
 	// CREATE_USER_API: BASE_URL + "/createUser",
 	// DELETE_USER_API: BASE_URL + "/deleteUser",

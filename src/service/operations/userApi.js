@@ -4,6 +4,7 @@ import { endpoints, userEndpoints, userProfileEndpoints } from "../api";
 
 const {
   GET_ALL_USERS,
+  GET_CUSTOMERS_BY_LOCATION_DATE,
   // CREATE_CUSTOMER_API,
   // DELETE_CUSTOMER_API,
   // CREATE_USER_API,
@@ -307,3 +308,23 @@ export const getAllUser = async (token) => {
 //   toast.dismiss(toastId);
 //   return result;
 // };
+
+export const getCustomerByDateAndLocation = async (token, data) => {
+  const toastId = toast.loading("Loading...");
+  let result = [];
+  try {
+    const response = await apiConnector("POST", GET_CUSTOMERS_BY_LOCATION_DATE, data, {
+      Authorization: `Bearer ${token}`,
+    });
+    console.log("Get All Customer by date and location Api Response..", response);
+    if (response.status !== 200) throw new Error("Could not fetch Users");
+    result = response.data;
+  } catch (error) {
+    console.log("Get All User Api Error", error);
+    const errorMessage = error.response?.data?.error;
+    toast.error(errorMessage);
+  } finally {
+    toast.dismiss(toastId);
+  }
+  return result;
+};
