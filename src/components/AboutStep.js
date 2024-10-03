@@ -50,10 +50,10 @@ const AboutStep = () => {
 		<>
 			<HeaderWithSidebar />
 			<div className='wizard-container'>
-				<h2 className='heading'>Tanning Salon</h2>
+				{/* <h2 className='heading'>Tanning Salon</h2>
 				<p className='subheading'>
 					This information will let us know more about you.
-				</p>
+				</p> */}
 
 				<div className='step-tabs'>
 					{/* <button
@@ -72,9 +72,9 @@ const AboutStep = () => {
 				</div>
 
 				<div className='about-info'>
-					<h3 className='info-heading'>
+					{/* <h3 className='info-heading'>
 						Let's start with the basic information
-					</h3>
+					</h3> */}
 					<input
 						type='text'
 						className='search-input'

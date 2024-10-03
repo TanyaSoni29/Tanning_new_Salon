@@ -6,6 +6,10 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../service/operations/authApi';
 
+/* Import FontAwesomeIcon and the relevant icons */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpa, faChevronDown, faChevronUp, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 const HeaderWithSidebar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -71,7 +75,10 @@ const HeaderWithSidebar = () => {
 			<div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
 				{/* Sidebar Header */}
 				<div className='sidebar-header'>
-					<h3>Tanning Salon</h3>
+					<h3>
+						{/* Use FontAwesome spa icon */}
+						<FontAwesomeIcon icon={faSpa} /> Tanning Salon
+					</h3>
 					{isSidebarOpen && (
 						<i className='fa fa-times' onClick={toggleSidebar}></i>
 					)}
@@ -124,55 +131,19 @@ const HeaderWithSidebar = () => {
 									className='submenu-title'
 									onClick={toggleCustomersReportSubmenu}
 								>
-									Customers Report
-									<i
-										className={`fa ${
-											isCustomersReportSubmenuOpen
-												? 'fa-chevron-up'
-												: 'fa-chevron-down'
-										}`}></i>
+									Report
+									<FontAwesomeIcon
+										icon={isCustomersReportSubmenuOpen ? faChevronUp : faChevronDown}
+										className="submenu-icon"
+									/>
 								</span>
 								{isCustomersReportSubmenuOpen && (
 									<ul className='submenu'>
 										<li>
 											<NavLink to='/allcustomers' activeClassName='active'>
-												All Customers
+												Customers
 											</NavLink>
 										</li>
-										<li>
-											<NavLink to='/bydata' activeClassName='active'>
-												By Date
-											</NavLink>
-										</li>
-										<li>
-											<NavLink to='/currentmonth' activeClassName='active'>
-												Current Month
-											</NavLink>
-										</li>
-										<li>
-											<NavLink to='/topcustomers' activeClassName='active'>
-												Top Customers
-											</NavLink>
-										</li>
-									</ul>
-								)}
-							</div>
-						</li>
-					)}
-
-					{loginUser?.role === 'admin' && (
-						<li>
-							{/* Transactions with Submenu */}
-							<div className='submenu-item'>
-								<span className='submenu-title' onClick={toggleTransactionsSubmenu}>
-									Transaction
-									<i
-										className={`fa ${
-											isTransactionsSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
-										}`}></i>
-								</span>
-								{isTransactionsSubmenuOpen && (
-									<ul className='submenu'>
 										<li>
 											<NavLink to='/productreport' activeClassName='active'>
 												Products
@@ -197,7 +168,7 @@ const HeaderWithSidebar = () => {
 
 				{/* Logout Button */}
 				<div className='logout-button' onClick={handleLogout}>
-					<i className='fa fa-sign-out-alt'></i>
+					<FontAwesomeIcon icon={faSignOutAlt} />
 					<span>Logout</span>
 				</div>
 			</div>

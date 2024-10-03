@@ -15,19 +15,22 @@ body {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100%;
+  left: 20px; /* Shifting the sidebar slightly inward */
+  top: 20px; /* Top margin */
+  bottom: 10px; /* Bottom margin */
+  width: 250px; /* Slightly reduced width */
+  height: calc(100% - 40px); /* Adjusted height to account for top and bottom margins */
   background-color: white;
   color: black;
-  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.842);
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.842); /* Shadow for elevation */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
   font-family: 'Lato', sans-serif; /* Apply another font to the sidebar for variation */
+  padding: 10px; /* Padding inside the sidebar */
 }
 
 /* Sidebar should always be visible on desktop */
@@ -52,7 +55,7 @@ body {
   font-size: 22px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
-  border-radius: 0px 0px 0 0;
+  border-radius: 12px; /* Rounded header corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -113,8 +116,11 @@ body {
 
 /* Submenu with side grey line */
 .submenu {
-  border-left: 3px solid #d3d3d3; /* Grey side line */
   padding-left: 10px;
+}
+
+.submenu-icon {
+  margin-left: 10px;
 }
 
 .submenu li {
@@ -151,6 +157,12 @@ body {
 /* Show the hamburger only on smaller screens */
 @media (max-width: 980px) {
   .sidebar {
+    left: 0; /* Full width in mobile view */
+    top: 0; /* Full screen on mobile */
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0; /* Remove border radius on mobile */
     transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
   }
 
@@ -177,6 +189,7 @@ body {
   font-weight: 600;
   transition: background-color 0.3s ease;
   font-family: 'Roboto', sans-serif;
+  border-radius: 12px; /* Rounded corners for the logout button */
 }
 
 .logout-button i {
