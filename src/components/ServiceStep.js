@@ -102,8 +102,8 @@ const ServiceStep = () => {
 				getProductTransactionsByUser(token, customer?.user.id),
 			]);
 			console.log({ serviceResponse, productResponse });
-			const serviceData = serviceResponse;
-			const productData = productResponse;
+			const serviceData = serviceResponse?.length > 0 ? serviceResponse : [];
+			const productData = productResponse?.length > 0 ? productResponse : [];
 			console.log({ serviceData: serviceData, productData: productData });
 			// Map and structure service transactions
 			const formattedServiceTransactions = serviceData.map((transaction) => ({
@@ -138,10 +138,15 @@ const ServiceStep = () => {
 			];
 			console.log('combined data transaction', combined);
 			setCombinedTransactions(
-				combined.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+				combined.length > 0
+					? combined.sort(
+							(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+					  )
+					: []
 			);
 		} catch (error) {
 			console.log('Error getting transactions', error);
+			setCombinedTransactions([]);
 		}
 	};
 
@@ -288,7 +293,7 @@ const ServiceStep = () => {
 								))
 							) : (
 								<div className='transaction-table-row'>
-									<span>No locations found.</span>
+									<span>No transaction found.</span>
 								</div>
 							)}
 						</div>
