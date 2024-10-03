@@ -18,12 +18,12 @@ body {
   left: 20px; /* Shifting the sidebar slightly inward */
   top: 20px; /* Top margin */
   bottom: 10px; /* Bottom margin */
-  width: 250px; /* Slightly reduced width */
+  width: 250px; /* Adjusted width */
   height: calc(100% - 40px); /* Adjusted height to account for top and bottom margins */
-  background-color: white;
-  color: black;
+  background-color: #f8f9fa; /* Light background */
+  color: #333; /* Darker text for contrast */
   border-radius: 15px; /* Rounded corners */
-  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.842); /* Shadow for elevation */
+  box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842); /* Shadow for elevation */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,16 +52,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
   border-radius: 12px; /* Rounded header corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-header h3{
+.sidebar-header h3 {
   font-size: 22px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-header h3 svg {
+  margin-right: 10px; /* Add space between icon and text */
 }
 
 /* Sidebar Menu */
@@ -74,15 +80,20 @@ body {
 }
 
 .sidebar-menu li {
-  padding: 5px;
+  padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Underline for main items */
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.sidebar-menu li:hover {
+  background-color: #f1f3f5; /* Light hover background */
+}
+
 .sidebar-menu li a {
   text-decoration: none;
-  color: black;
-  display: block;
+  color: #333; /* Slightly darker text */
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
   font-size: 16px;
   font-weight: 500;
   padding: 8px 20px;
@@ -90,8 +101,13 @@ body {
   font-family: 'Roboto', sans-serif; /* Use Roboto for menu links */
 }
 
+.sidebar-menu li a svg {
+  margin-right: 10px; /* Space between icon and text */
+}
+
 .sidebar-menu li a.active {
   color: #0c65be; /* Change text color only when active */
+  font-weight: 600; /* Make active link bold */
 }
 
 /* Submenu Styling */
@@ -100,15 +116,19 @@ body {
 }
 
 .submenu-title {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
   font-size: 15px;
-  padding: 5px 20px;
-  color: black;
+  padding: 10px 20px;
+  color: #333;
   transition: background-color 0.3s ease;
   font-weight: 600;
   font-family: 'Lato', sans-serif;
+}
+
+.submenu-title svg {
+  margin-right: 10px;
 }
 
 .submenu-title i {
@@ -121,27 +141,38 @@ body {
 
 /* Submenu with side grey line */
 .submenu {
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 .submenu-icon {
-  margin-left: 10px;
+  margin-left: 60px;
 }
 
 .submenu li {
-  font-size: 13px;
-  padding: 5px 20px;
+  font-size: 14px;
+  padding: 8px 20px;
   list-style: none;
   font-family: 'Roboto', sans-serif;
   border-bottom: none; /* Remove underline from submenu items */
 }
 
+.submenu li:hover {
+  background-color: #e9ecef; /* Light hover background for submenu items */
+}
+
 .submenu li a {
   padding: 5px 10px; /* Adjust padding */
+  display: flex;
+  align-items: center;
+}
+
+.submenu li a svg {
+  margin-right: 8px; /* Space between icon and text */
 }
 
 .submenu li a.active {
   color: #0c65be; /* Change text color only when active */
+  font-weight: 600;
 }
 
 /* Hamburger Button */
@@ -159,7 +190,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Show the hamburger only on smaller screens */
 @media (max-width: 980px) {
   .sidebar {
     left: 0; /* Full width in mobile view */
@@ -167,11 +197,6 @@ body {
     bottom: 0;
     border-radius: 0; /* Remove border radius on mobile */
     transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
-  }
-
-  .sidebar-header h3{
-    font-size: 22px;
-    font-weight: 600;
   }
 
   .hamburger {
@@ -200,6 +225,6 @@ body {
   border-radius: 12px; /* Rounded corners for the logout button */
 }
 
-.logout-button i {
+.logouticon{
   margin-right: 10px;
 }
