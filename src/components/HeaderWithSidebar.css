@@ -52,11 +52,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
   border-radius: 12px; /* Rounded header corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header h3{
+  font-size: 22px;
+  font-weight: 600;
 }
 
 /* Sidebar Menu */
@@ -160,10 +165,13 @@ body {
     left: 0; /* Full width in mobile view */
     top: 0; /* Full screen on mobile */
     bottom: 0;
-    width: 100%;
-    height: 100%;
     border-radius: 0; /* Remove border radius on mobile */
     transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
+  }
+
+  .sidebar-header h3{
+    font-size: 22px;
+    font-weight: 600;
   }
 
   .hamburger {
