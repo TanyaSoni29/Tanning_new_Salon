@@ -85,15 +85,15 @@ const App = () => {
 						/>
 						<Route
 							path='/bydata'
-							element={<ProtectedRoute element={<AboutStep />} />}
+							element={<ProtectedRoute element={<Bydata />} />}
 						/>
 						<Route
 							path='/currentmonth'
-							element={<ProtectedRoute element={<AboutStep />} />}
+							element={<ProtectedRoute element={<Currentmonth />} />}
 						/>
 						<Route
 							path='/topcustomers'
-							element={<ProtectedRoute element={<AboutStep />} />}
+							element={<ProtectedRoute element={<Topcustomers />} />}
 						/>
 						<Route
 							path='/serviceused'

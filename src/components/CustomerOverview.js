@@ -24,15 +24,17 @@ function CustomerOverview({ searchQuery, filteredUsers }) {
 	// Filter customers based on the search query
 	const filterUsers = filteredUsers.filter(
 		(data) =>
-			data?.user.role === 'customer' &&
-			((data?.profile?.firstName &&
-				data?.profile?.firstName
-					.toLowerCase()
-					.includes(searchQuery.toLowerCase())) ||
-				(data.profile?.phone_number &&
-					data.profile.phone_number
+			(data?.user.role === 'customer' &&
+				((data?.profile?.firstName &&
+					data?.profile?.firstName
 						.toLowerCase()
-						.includes(searchQuery.toLowerCase())))
+						.includes(searchQuery.toLowerCase())) ||
+					(data.profile?.phone_number &&
+						data.profile.phone_number
+							.toLowerCase()
+							.includes(searchQuery.toLowerCase())))) ||
+			(data.user?.email &&
+				data.user?.email.toLowerCase().includes(searchQuery.toLowerCase()))
 	);
 
 	console.log('filterUsers in CustomerOverview---', filterUsers);
