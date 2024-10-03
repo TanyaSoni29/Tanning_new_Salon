@@ -34,11 +34,13 @@ const HeaderWithSidebar = () => {
 
 		// Check if the current path is related to transactions submenu
 		if (
-			location.pathname.includes('/products') ||
-			location.pathname.includes('/services') ||
-			location.pathname.includes('/usage')
+			location.pathname.includes('/productreport') ||
+			location.pathname.includes('/serviceused') ||
+			location.pathname.includes('/purchasereport')
 		) {
 			setIsTransactionsSubmenuOpen(true);
+		} else {
+			setIsTransactionsSubmenuOpen(false); // Close submenu if not on a transactions route
 		}
 	}, [location]);
 
@@ -61,10 +63,7 @@ const HeaderWithSidebar = () => {
 	return (
 		<div>
 			{/* Hamburger Button (Only in tablet/mobile view) */}
-			<div
-				className='hamburger'
-				onClick={toggleSidebar}
-			>
+			<div className='hamburger' onClick={toggleSidebar}>
 				<i className={`fa ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
 			</div>
 
@@ -74,57 +73,39 @@ const HeaderWithSidebar = () => {
 				<div className='sidebar-header'>
 					<h3>Tanning Salon</h3>
 					{isSidebarOpen && (
-						<i
-							className='fa fa-times'
-							onClick={toggleSidebar}
-						></i>
+						<i className='fa fa-times' onClick={toggleSidebar}></i>
 					)}
 				</div>
 
 				{/* Sidebar Menu */}
 				<ul className='sidebar-menu'>
 					<li>
-						<NavLink
-							to='/about'
-							activeClassName='active'
-						>
+						<NavLink to='/about' activeClassName='active'>
 							Dashboard
 						</NavLink>
 					</li>
 					{loginUser?.role === 'admin' && (
 						<li>
-							<NavLink
-								to='/location'
-								activeClassName='active'
-							>
+							<NavLink to='/location' activeClassName='active'>
 								Location
 							</NavLink>
 						</li>
 					)}
 					{loginUser?.role === 'admin' && (
 						<li>
-							<NavLink
-								to='/users'
-								activeClassName='active'
-							>
+							<NavLink to='/users' activeClassName='active'>
 								Users
 							</NavLink>
 						</li>
 					)}
 					<li>
-						<NavLink
-							to='/products'
-							activeClassName='active'
-						>
+						<NavLink to='/products' activeClassName='active'>
 							Products
 						</NavLink>
 					</li>
 					{loginUser?.role === 'admin' && (
 						<li>
-							<NavLink
-								to='/services'
-								activeClassName='active'
-							>
+							<NavLink to='/services' activeClassName='active'>
 								Services
 							</NavLink>
 						</li>
@@ -141,41 +122,30 @@ const HeaderWithSidebar = () => {
 									Customers Report
 									<i
 										className={`fa ${
-											isCustomersReportSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
-										}`}
-									></i>
+											isCustomersReportSubmenuOpen
+												? 'fa-chevron-up'
+												: 'fa-chevron-down'
+										}`}></i>
 								</span>
 								{isCustomersReportSubmenuOpen && (
 									<ul className='submenu'>
 										<li>
-											<NavLink
-												to='/allcustomers'
-												activeClassName='active'
-											>
+											<NavLink to='/allcustomers' activeClassName='active'>
 												All Customers
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												to='/bydata'
-												activeClassName='active'
-											>
+											<NavLink to='/bydata' activeClassName='active'>
 												By Data
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												to='/currentmonth'
-												activeClassName='active'
-											>
+											<NavLink to='/currentmonth' activeClassName='active'>
 												Current Month
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												to='/topcustomers'
-												activeClassName='active'
-											>
+											<NavLink to='/topcustomers' activeClassName='active'>
 												Top Customers
 											</NavLink>
 										</li>
@@ -189,40 +159,27 @@ const HeaderWithSidebar = () => {
 						<li>
 							{/* Transactions with Submenu */}
 							<div className='submenu-item'>
-								<span
-									className='submenu-title'
-									onClick={toggleTransactionsSubmenu}
-								>
-									Transactions
+								<span className='submenu-title' onClick={toggleTransactionsSubmenu}>
+									Transaction
 									<i
 										className={`fa ${
 											isTransactionsSubmenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'
-										}`}
-									></i>
+										}`}></i>
 								</span>
 								{isTransactionsSubmenuOpen && (
 									<ul className='submenu'>
 										<li>
-											<NavLink
-												to='/productreport'
-												activeClassName='active'
-											>
+											<NavLink to='/productreport' activeClassName='active'>
 												Products
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												to='/serviceused'
-												activeClassName='active'
-											>
+											<NavLink to='/serviceused' activeClassName='active'>
 												Services
 											</NavLink>
 										</li>
 										<li>
-											<NavLink
-												to='/purchasereport'
-												activeClassName='active'
-											>
+											<NavLink to='/purchasereport' activeClassName='active'>
 												Usage
 											</NavLink>
 										</li>
@@ -234,10 +191,7 @@ const HeaderWithSidebar = () => {
 				</ul>
 
 				{/* Logout Button */}
-				<div
-					className='logout-button'
-					onClick={handleLogout}
-				>
+				<div className='logout-button' onClick={handleLogout}>
 					<i className='fa fa-sign-out-alt'></i>
 					<span>Logout</span>
 				</div>
