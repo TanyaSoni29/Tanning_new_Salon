@@ -20,10 +20,10 @@ function TopHeader() {
 		<header className='top-header'>
 			<div className='login-details'>
 				<FaUserCircle
-					size={26}
+					size={28}
 					style={{ marginLeft: '20px' }}
 				/>
-				<span>
+				<span className='topheadname'>
 					{loginUser?.name || 'User'} (<span>{locationName?.name}</span>)
 				</span>{' '}
 				{/* Display User Name */}

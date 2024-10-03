@@ -45,4 +45,23 @@
   .login-details {
     font-size: 14px;
   }
+
+  .user-icon {
+	margin-right: 10px;
+  }
+  
+  .user-info {
+	color: #333;
+	font-size: 20px;
+  }
+  
+  .location-name {
+	font-style: italic;
+	color: #666;
+	margin-left: 5px;
+	font-size: 20px;
+  }
+  .topheadname{
+	font-size: 10px;
+  }
 }
