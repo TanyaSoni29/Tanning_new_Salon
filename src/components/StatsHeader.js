@@ -6,9 +6,7 @@ import { FaUserFriends } from 'react-icons/fa'; // Import necessary icons
 import { MdOutlineToday } from 'react-icons/md'; // Import Today Users Icon
 import { AiFillDollarCircle } from 'react-icons/ai'; // Import Revenue Icon
 import './StatsHeader.css';
-function StatsHeader() {
-	
-
+function StatsHeader({ stats }) {
 	return (
 		<div>
 			<div className='stats-wizard-container'>
@@ -21,8 +19,8 @@ function StatsHeader() {
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>0</h3>
-							<p>Total Users</p>
+							<h3>{stats?.customers}</h3>
+							<p>Total Customers</p>
 						</div>
 					</div>
 					<div className='stat-box'>
@@ -33,8 +31,8 @@ function StatsHeader() {
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>0</h3>
-							<p>Today's Users</p>
+							<h3>{stats?.productTransactionTotalToday}</h3>
+							<p>Today's Product Revenue</p>
 						</div>
 					</div>
 					<div className='stat-box'>
@@ -45,8 +43,8 @@ function StatsHeader() {
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>34k</h3>
-							<p>Revenue</p>
+							<h3>{stats?.serviceTransactionTotalToday}</h3>
+							<p>Today's Service Revenue</p>
 						</div>
 					</div>
 				</div>

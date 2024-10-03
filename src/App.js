@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -30,9 +30,11 @@ import Productreport from './components/Productreport/Productreport';
 import Qrcode from './components/Qrcode/Qrcode';
 import './App.css';
 import TopHeader from './components/TopHeader';
+import { getStats } from './service/operations/statApi';
 
 const App = () => {
 	const dispatch = useDispatch();
+	const [stats, setStats] = useState({});
 	const {
 		token,
 		loading,
@@ -45,6 +47,19 @@ const App = () => {
 			dispatch(getMe(navigate));
 		}
 	}, [dispatch, token]);
+
+	useEffect(() => {
+		async function stats() {
+			try {
+				const response = await getStats(token);
+				console.log('Stats:', response);
+				setStats(response.data);
+			} catch (error) {
+				console.error('Failed to fetch stats:', error);
+			}
+		}
+		stats();
+	}, []);
 
 	return (
 		<div className='app-container'>
@@ -61,11 +76,11 @@ const App = () => {
 				/> */}
 				<Route
 					path='/about'
-					element={<ProtectedRoute element={<AboutStep />} />}
+					element={<ProtectedRoute element={<AboutStep stats={stats} />} />}
 				/>
 				<Route
 					path='/service'
-					element={<ProtectedRoute element={<ServiceStep />} />}
+					element={<ProtectedRoute element={<ServiceStep stats={stats} />} />}
 				/>
 				{loginUser?.role === 'admin' && (
 					<>

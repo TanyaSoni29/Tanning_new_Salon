@@ -13,7 +13,7 @@ import StatsHeader from './StatsHeader';
 import { refreshLocation } from '../slices/locationSlice';
 import { refreshUser } from '../slices/userProfileSlice';
 import TopHeader from './TopHeader';
-const AboutStep = () => {
+const AboutStep = ({stats}) => {
 	const navigate = useNavigate();
 	const { customers } = useSelector((state) => state.customer);
 	const { user: loginUser } = useSelector((state) => state.auth);
@@ -56,7 +56,7 @@ const AboutStep = () => {
 	return (
 		<>
 			<HeaderWithSidebar />
-			<StatsHeader />
+			<StatsHeader stats={stats}/>
 			<div className='wizard-container'>
 				{/* <h2 className='heading'>Tanning Salon</h2>
 				<p className='subheading'>
