@@ -47,10 +47,10 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
         address: data.address,
         post_code: data.post_code,
         phone_number: data.phone_number,
-        gender: data.gender,
+        gender: data.gender || "",
         gdpr_sms_active: data.gdpr_sms_active || false,
         gdpr_email_active: data.gdpr_email_active || false,
-        referred_by: data.referred_by,
+        referred_by: data.referred_by || "",
         preferred_location: data.preferred_location,
       };
       const updatedUser = await updateUserProfile(
@@ -156,7 +156,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
               label="Referred By"
               variant="outlined"
               defaultValue={activeUser.profile?.referred_by}
-              {...register("referred_by", { required: true })}
+              {...register("referred_by")}
               fullWidth
             />
           </Box>
@@ -177,7 +177,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
               id="gender"
               className="custom-select"
               defaultValue={activeUser.profile?.gender}
-              {...register("gender", { required: true })}
+              {...register("gender")}
             >
               <option value="">Select gender</option>
               <option value="Male">Male</option>

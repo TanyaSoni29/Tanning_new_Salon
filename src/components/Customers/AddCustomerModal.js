@@ -46,7 +46,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				gender: data.gender || '',
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
-				referred_by: data.referred_by,
+				referred_by: data.referred_by || "",
 				preferred_location: data.preferred_location,
 				avatar: '',
 				role: 'customer',
@@ -152,7 +152,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						<TextField
 							label='Referred By'
 							variant='outlined'
-							{...register('referred_by', { required: true })}
+							{...register('referred_by')}
 							fullWidth
 						/>
 					</Box>
