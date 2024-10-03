@@ -141,7 +141,7 @@ const HeaderWithSidebar = () => {
 										</li>
 										<li>
 											<NavLink to='/bydata' activeClassName='active'>
-												By Data
+												By Date
 											</NavLink>
 										</li>
 										<li>
