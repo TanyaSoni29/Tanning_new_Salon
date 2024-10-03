@@ -120,8 +120,9 @@
 
 /* Header styling */
 .transaction-table-header {
+  width: 100%;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr .8fr;
   padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #0c65be;
@@ -136,11 +137,19 @@
 
 .transaction-table-row {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr .8fr;
   padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
   background-color: white;
   text-align: start;
+  width: 100%;
+}
+
+.transaction-table-row .price {
+  justify-content: flex-end; /* Align content to the right */
+  text-align: right; /* Add this to ensure alignment inside the span */
+  display: flex; /* Ensure flex is applied */
+  padding-right: 10px; /* Add padding to ensure it's not too close to the edge */
 }
 
 .transaction-table-row:hover {
@@ -192,7 +201,7 @@
   /* Adjust table columns to fit better on smaller screens */
   .transaction-table-header,
   .transaction-table-row {
-    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
+    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr;
   }
 }
 
@@ -206,7 +215,7 @@
   /* Adjust table columns for mobile view */
   .transaction-table-header,
   .transaction-table-row {
-    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
+    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr;
     font-size: 6px;
     padding: 4px 8px;
   }

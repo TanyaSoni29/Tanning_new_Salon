@@ -274,31 +274,25 @@ const ServiceStep = ({ stats }) => {
         <div className="transaction-container">
           <div className="transaction-table">
             <div className="transaction-table-header">
-              <span>USER NAME</span>
-              <span>LOCATION</span>
-              <span>PRODUCT / SERVICE</span>
-              <span>PRICE</span>
-              <span>QUANTITY</span>
+              <span>DATE/TIME</span>
               <span>TYPE</span>
-              <span>TIME</span>
+              <span>PRODUCT / SERVICE</span>
+              <span>QUANTITY</span>
+              <span>PRICE</span>
             </div>
             <div className="transaction-table-wrapper">
               {/* Render filtered locations */}
               {combinedTransactions.length > 0 ? (
                 combinedTransactions.map((transaction) => (
                   <div key={transaction.id} className="transaction-table-row">
-                    <span>
+                    {/* <span>
                       {transaction?.userName ? transaction?.userName : "-"}
-                    </span>
-                    <span>
+                    </span> */}
+                    {/* <span>
                       {transaction?.location ? transaction?.location : "-"}
-                    </span>
+                    </span> */}
                     <span>
-                      {transaction.productName ? transaction?.productName : "-"}
-                    </span>
-                    <span>{transaction?.price ? transaction?.price : "-"}</span>
-                    <span>
-                      {transaction?.quantity ? transaction?.quantity : "-"}
+                      {transaction?.createdAt ? transaction?.createdAt : "-"}
                     </span>
                     <span>
                       <span className={`transaction-type ${transaction?.type}`}>
@@ -312,7 +306,19 @@ const ServiceStep = ({ stats }) => {
                       </span>
                     </span>
                     <span>
-                      {transaction?.createdAt ? transaction?.createdAt : "-"}
+                      {transaction.productName ? transaction?.productName : "-"}
+                    </span>
+                    <span className="price">
+                      {transaction?.quantity ? transaction?.quantity : "-"}
+                    </span>
+                    <span className="price">
+                      {
+                        typeof transaction?.price === "number"
+                          ? `£${transaction.price.toFixed(2)}`
+                          : transaction?.price
+                          ? `£${transaction.price}`
+                          : "-" // If it's a string or not present
+                      }
                     </span>
                   </div>
                 ))
