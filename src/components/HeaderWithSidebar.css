@@ -20,8 +20,8 @@ body {
   bottom: 10px; /* Bottom margin */
   width: 250px; /* Adjusted width */
   height: calc(100% - 40px); /* Adjusted height to account for top and bottom margins */
-  background-color: #f8f9fa; /* Light background */
-  color: #333; /* Darker text for contrast */
+  background: linear-gradient(180deg, #333333  0%, #1b1b1b 100%); /* Gradient background from dark to light */
+  color: #ffffff; /* Lighter text for contrast */
   border-radius: 15px; /* Rounded corners */
   box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842); /* Shadow for elevation */
   display: flex;
@@ -31,7 +31,9 @@ body {
   transition: transform 0.3s ease-in-out;
   font-family: 'Lato', sans-serif; /* Apply another font to the sidebar for variation */
   padding: 10px; /* Padding inside the sidebar */
+  z-index: 100; /* Ensure the sidebar appears on top of other content */
 }
+
 
 /* Sidebar should always be visible on desktop */
 @media (min-width: 981px) {
@@ -46,17 +48,16 @@ body {
 
 /* Sidebar Header */
 .sidebar-header {
-  background-color: #0c65be;
-  color: white;
+  background-color: transparent; /* Remove the blue background */
+  color: rgb(255, 255, 255); /* Change text to white */
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
   font-family: 'Lato', sans-serif;
-  border-radius: 12px; /* Rounded header corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #3d3c3c; /* Add gray bottom border */
 }
 
 .sidebar-header h3 {
@@ -85,13 +86,10 @@ body {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sidebar-menu li:hover {
-  background-color: #f1f3f5; /* Light hover background */
-}
-
+/* Styling for navigation links */
 .sidebar-menu li a {
   text-decoration: none;
-  color: #333; /* Slightly darker text */
+  color: #ffffff; /* Slightly darker text */
   display: flex;
   align-items: center; /* Align icon and text vertically */
   font-size: 16px;
@@ -101,13 +99,17 @@ body {
   font-family: 'Roboto', sans-serif; /* Use Roboto for menu links */
 }
 
+/* Space between icon and text in the sidebar */
 .sidebar-menu li a svg {
-  margin-right: 10px; /* Space between icon and text */
+  margin-right: 10px;
 }
 
+/* Active link styling: background blue and text white */
 .sidebar-menu li a.active {
-  color: #0c65be; /* Change text color only when active */
+  background-color: #0c65be; /* Blue background when active */
+  color: white !important; /* Make text white */
   font-weight: 600; /* Make active link bold */
+  border-radius: 8px; /* Optional: rounded corners for the active link */
 }
 
 /* Submenu Styling */
@@ -116,12 +118,9 @@ body {
 }
 
 .submenu-title {
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
   font-size: 15px;
   padding: 10px 20px;
-  color: #333;
+  color: #ffffff;
   transition: background-color 0.3s ease;
   font-weight: 600;
   font-family: 'Lato', sans-serif;
@@ -133,10 +132,6 @@ body {
 
 .submenu-title i {
   transition: transform 0.3s ease;
-}
-
-.submenu-title i.fa-chevron-up {
-  transform: rotate(180deg);
 }
 
 /* Submenu with side grey line */
@@ -156,10 +151,6 @@ body {
   border-bottom: none; /* Remove underline from submenu items */
 }
 
-.submenu li:hover {
-  background-color: #e9ecef; /* Light hover background for submenu items */
-}
-
 .submenu li a {
   padding: 5px 10px; /* Adjust padding */
   display: flex;
@@ -171,7 +162,8 @@ body {
 }
 
 .submenu li a.active {
-  color: #0c65be; /* Change text color only when active */
+  background-color: #0c65be; /* Blue background for active submenu item */
+  color: white !important; /* White text for active item */
   font-weight: 600;
 }
 
@@ -184,19 +176,22 @@ body {
   padding: 15px;
   cursor: pointer;
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 40px;
+  left: 20px;
   border-radius: 20px;
   font-family: 'Roboto', sans-serif;
+  z-index: 10; /* Ensure hamburger menu appears on top */
 }
 
 @media (max-width: 980px) {
   .sidebar {
-    left: 0; /* Full width in mobile view */
-    top: 0; /* Full screen on mobile */
-    bottom: 0;
-    border-radius: 0; /* Remove border radius on mobile */
-    transform: translateX(-100%); /* Sidebar hidden off-screen by default in mobile view */
+    left: 20px; /* Ensure the sidebar is consistent with desktop */
+    top: 20px; /* Maintain the same top position as desktop */
+    bottom: 20px;
+    width: 250px;
+    border-radius: 15px; /* Keep rounded corners */
+    transform: translateX(-300px); /* Hide off-screen by default in mobile view */
+    transition: transform 0.3s ease-in-out;
   }
 
   .hamburger {
@@ -225,6 +220,6 @@ body {
   border-radius: 12px; /* Rounded corners for the logout button */
 }
 
-.logouticon{
+.logouticon {
   margin-right: 10px;
 }
