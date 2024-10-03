@@ -1,37 +1,48 @@
 /** @format */
 
 .top-header {
-	display: flex;
-	justify-content: flex-end; /* Align content to the right */
-	padding: 15px 25px;
-	background-color: #f8f9fa;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	position: relative;
-	z-index: 100; /* Ensure it stays above other content */
+  display: flex;
+  justify-content: flex-end; /* Shift content to the right */
+  padding: 15px 30px;
+  top: 10px;
+  margin-left: 290px;
+  background-color: #fff;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  position: relative;
+  z-index: 100; /* Ensure it stays above other content */
 }
 
 .login-details {
-	display: flex;
-	align-items: center;
-	font-size: 16px;
-	font-weight: 500;
-	color: #333;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  padding: 10px;
 }
 
-.login-details svg {
-	margin-right: 8px;
+.user-icon {
+  margin-right: 10px;
 }
 
-.login-details span {
-	color: #333;
+.user-info {
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.location-name {
+  font-style: italic;
+  color: #666;
+  margin-left: 5px;
 }
 
 @media (max-width: 768px) {
-	.top-header {
-		padding: 10px 15px;
-	}
+  .top-header {
+    padding: 10px 20px;
+  }
 
-	.login-details {
-		font-size: 14px;
-	}
+  .login-details {
+    font-size: 14px;
+  }
 }

@@ -3,6 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
+import './TopHeader.css';
 
 function TopHeader() {
 	const { user: loginUser } = useSelector((state) => state.auth);
@@ -19,8 +20,8 @@ function TopHeader() {
 		<header className='top-header'>
 			<div className='login-details'>
 				<FaUserCircle
-					size={24}
-					style={{ marginRight: '8px' }}
+					size={26}
+					style={{ marginLeft: '20px' }}
 				/>
 				<span>
 					{loginUser?.name || 'User'} (<span>{locationName?.name}</span>)
