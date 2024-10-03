@@ -29,20 +29,11 @@ const HeaderWithSidebar = () => {
 		// Check if the current path is related to customers report submenu
 		if (
 			location.pathname.includes('/allcustomers') ||
-			location.pathname.includes('/bydata') ||
-			location.pathname.includes('/currentmonth') ||
-			location.pathname.includes('/topcustomers')
-		) {
-			setIsCustomersReportSubmenuOpen(true);
-		}
-
-		// Check if the current path is related to transactions submenu
-		if (
 			location.pathname.includes('/productreport') ||
 			location.pathname.includes('/serviceused') ||
 			location.pathname.includes('/purchasereport')
 		) {
-			setIsTransactionsSubmenuOpen(true);
+			setIsCustomersReportSubmenuOpen(true);
 		} else {
 			setIsTransactionsSubmenuOpen(false); // Close submenu if not on a transactions route
 		}
@@ -54,10 +45,6 @@ const HeaderWithSidebar = () => {
 
 	const toggleCustomersReportSubmenu = () => {
 		setIsCustomersReportSubmenuOpen(!isCustomersReportSubmenuOpen);
-	};
-
-	const toggleTransactionsSubmenu = () => {
-		setIsTransactionsSubmenuOpen(!isTransactionsSubmenuOpen);
 	};
 
 	const handleLogout = () => {
