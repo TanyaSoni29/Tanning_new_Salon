@@ -49,3 +49,7 @@ export const serviceEndpoints = {
 	// GET_ALL_SERVICE_USAGES_API: BASE_URL + "/serviceUsage",
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API: BASE_URL + "/serviceUsage/user",
 };
+
+export const statsEndpoint = {
+	GET_ALL_STATS: BASE_URL + '/stats',
+};
