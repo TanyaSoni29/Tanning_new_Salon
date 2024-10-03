@@ -120,8 +120,16 @@ const AddUserModal = ({ closeAddModal }) => {
 						<TextField
 							label='Password'
 							variant='outlined'
-							{...register('password', { required: true })}
+							{...register('password', {
+								required: 'Password is required',
+								minLength: {
+									value: 6,
+									message: 'Password must be at least 6 characters',
+								},
+							})}
 							fullWidth
+							error={!!errors.password}
+							helperText={errors.password ? errors.password.message : ''}
 						/>
 						<TextField
 							label='Referred By'

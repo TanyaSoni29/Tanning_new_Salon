@@ -46,7 +46,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				gender: data.gender || '',
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
-				referred_by: data.referred_by || "",
+				referred_by: data.referred_by || '',
 				preferred_location: data.preferred_location,
 				avatar: '',
 				role: 'customer',
@@ -128,8 +128,16 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						<TextField
 							label='Password'
 							variant='outlined'
-							{...register('password', { required: true })}
+							{...register('password', {
+								required: 'Password is required',
+								minLength: {
+									value: 6,
+									message: 'Password must be at least 6 characters',
+								},
+							})}
 							fullWidth
+							error={!!errors.password}
+							helperText={errors.password ? errors.password.message : ''}
 						/>
 					</Box>
 
