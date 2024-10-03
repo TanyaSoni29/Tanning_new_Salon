@@ -31,6 +31,7 @@ import Qrcode from './components/Qrcode/Qrcode';
 import './App.css';
 import TopHeader from './components/TopHeader';
 import { getStats } from './service/operations/statApi';
+import { Dashboard } from '@mui/icons-material';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -73,6 +74,10 @@ const App = () => {
 				{/* <Route
 					path='/locationStep'
 					element={<ProtectedRoute element={<LocationStep />} />}
+				/> */}
+				{/* <Route
+					path='/dashboard'
+					element={<ProtectedRoute element={<Dashboard stats={stats} />} />}
 				/> */}
 				<Route
 					path='/about'
