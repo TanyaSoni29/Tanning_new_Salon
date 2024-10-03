@@ -1,222 +1,222 @@
 /* General container styling remains the same */
 .service-wizard-container {
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-	width: 75%; /* Responsive width */
-	text-align: center;
-	margin: 50px;
-	margin-left: 320px;
-	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-	height: 85vh; /* Fixed height, fills 90% of the viewport */
-	overflow: hidden; /* Prevents scrolling inside the container */
-	display: flex;
-	flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 75%; /* Responsive width */
+  text-align: center;
+  margin: 50px;
+  margin-left: 320px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  height: 85vh; /* Fixed height, fills 90% of the viewport */
+  overflow: hidden; /* Prevents scrolling inside the container */
+  display: flex;
+  flex-direction: column;
 }
 
 .service-wizard-container .heading {
-	font-size: 32px;
-	font-weight: bold;
-	color: #333;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
 }
 
 .service-wizard-container .subheading {
-	font-size: 14px;
-	color: #666;
-	margin-bottom: 30px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 30px;
 }
 
 /* Full-width tabs */
 .service-wizard-container .step-tabs {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 30px;
-	width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 .service-wizard-container .tab {
-	flex: 1;
-	padding: 15px 0;
-	background-color: #d9d9d9;
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: bold;
-	color: #333;
-	text-align: center;
+  flex: 1;
+  padding: 15px 0;
+  background-color: #d9d9d9;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
 }
 
 .service-wizard-container .tab.active {
-	background-color: #0c65be;
-	color: white;
+  background-color: #0c65be;
+  color: white;
 }
 
 .service-wizard-container .service-info {
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-	align-items: start;
-	border: 1px solid #e0e0e0;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	flex-grow: 1; /* Allow the service info section to take up available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* Allow the service info section to take up available space */
 }
 
 /* Styling the customer information */
 .service-info p {
-	text-align: start;
-	font-size: 16px;
-	color: #555;
-	line-height: 1.5;
-	margin: 10px 0;
+  text-align: start;
+  font-size: 16px;
+  color: #555;
+  line-height: 1;
+  /* margin: 10px 0; */
 }
 
 /* Style for each data item */
 .service-info p span {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .use-btn {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 0.4rem;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 8px 10px 10px 0px;
-	color: white;
-	border: none;
-	border-radius: 0.5rem;
-	cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px 10px 10px 0px;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .transaction-container {
-	width: 100%;
-	margin: 20px auto;
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	flex-grow: 2; /* Allows the transaction container to fill remaining space */
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 2; /* Allows the transaction container to fill remaining space */
 }
 
 /* Make transaction table responsive with horizontal scroll */
 .transaction-table-wrapper {
-	max-height: 250px; /* Adjust height for the transaction table */
-	overflow-y: auto; /* Enables vertical scrolling */
-	overflow-x: auto; /* Enables horizontal scrolling */
+  max-height: 250px; /* Adjust height for the transaction table */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 .transaction-table {
-	background-color: white;
-	border-radius: 8px;
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: separate;
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
 }
 
 /* Header styling */
 .transaction-table-header {
-	display: grid;
-	grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
-	padding: 10px 20px;
-	border-bottom: 1px solid #e0e0e0;
-	background-color: #0c65be;
-	color: white;
-	font-weight: bold;
-	text-align: start;
-	border-radius: 4px;
-	position: sticky;
-	top: 0;
-	z-index: 10;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #0c65be;
+  color: white;
+  font-weight: bold;
+  text-align: start;
+  border-radius: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .transaction-table-row {
-	display: grid;
-	grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
-	padding: 10px 20px;
-	border-bottom: 1px solid #e0e0e0;
-	background-color: white;
-	text-align: start;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 1fr 1fr;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
+  text-align: start;
 }
 
 .transaction-table-row:hover {
-	background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .transaction-table-row span {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* Transaction Type Styling */
 .transaction-type {
-	font-weight: bold;
-	padding: 5px 10px;
-	border-radius: 5px;
-	display: inline-block;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
 }
 
 .transaction-type.used {
-	background-color: #ff5c5c; /* Red */
-	color: white;
+  background-color: #ff5c5c; /* Red */
+  color: white;
 }
 
 .transaction-type.purchased {
-	background-color: #4caf50; /* Green */
-	color: white;
+  background-color: #4caf50; /* Green */
+  color: white;
 }
 
 .transaction-type.product {
-	background-color: #333; /* Black */
-	color: white;
+  background-color: #333; /* Black */
+  color: white;
 }
 
 /* Media queries for responsiveness */
 @media (max-width: 880px) {
-	.service-wizard-container {
-		width: 75%; /* Responsive width */
-		margin-top: 140px;
-		margin-left: 120px;
-	}
+  .service-wizard-container {
+    width: 75%; /* Responsive width */
+    margin-top: 140px;
+    margin-left: 120px;
+  }
 
-	/* Make the transaction table font smaller */
-	.transaction-table-header,
-	.transaction-table-row {
-		font-size: 9px;
-	}
+  /* Make the transaction table font smaller */
+  .transaction-table-header,
+  .transaction-table-row {
+    font-size: 9px;
+  }
 
-	/* Adjust table columns to fit better on smaller screens */
-	.transaction-table-header,
-	.transaction-table-row {
-		grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
-	}
+  /* Adjust table columns to fit better on smaller screens */
+  .transaction-table-header,
+  .transaction-table-row {
+    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
+  }
 }
 
 @media (max-width: 480px) {
-	.service-wizard-container {
-		width: 85%; /* Responsive width */
-		margin-top: 140px;
-		margin-left: 20px;
-	}
+  .service-wizard-container {
+    width: 85%; /* Responsive width */
+    margin-top: 140px;
+    margin-left: 20px;
+  }
 
-	/* Adjust table columns for mobile view */
-	.transaction-table-header,
-	.transaction-table-row {
-		grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
-		font-size: 6px;
-		padding: 4px 8px;
-	}
+  /* Adjust table columns for mobile view */
+  .transaction-table-header,
+  .transaction-table-row {
+    grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr 0.8fr 0.4fr;
+    font-size: 6px;
+    padding: 4px 8px;
+  }
 
-	/* Reduce font size and make table scrollable */
-	.transaction-table-wrapper {
-		overflow-x: auto; /* Enable horizontal scrolling on small screens */
-	}
+  /* Reduce font size and make table scrollable */
+  .transaction-table-wrapper {
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  }
 
-	.transaction-table-header,
-	.transaction-table-row {
-		font-size: 6px;
-	}
+  .transaction-table-header,
+  .transaction-table-row {
+    font-size: 6px;
+  }
 }

@@ -177,7 +177,7 @@ const ServiceStep = ({ stats }) => {
   return (
     <>
       <HeaderWithSidebar />
-      <StatsHeader stats={stats} />
+      {/* <StatsHeader stats={stats} /> */}
       <div className="service-wizard-container">
         <h2 className="heading">Tanning Salon</h2>
 
@@ -200,23 +200,48 @@ const ServiceStep = ({ stats }) => {
         {/* Display the selected customer information */}
         <div className="service-info">
           {customer ? (
-            <div>
-              <p>
-                <span>Name:</span> {customer.user.name}
-              </p>
-              <p>
-                <span>Phone Number:</span> {customer.profile?.phone_number}
-              </p>
-              <p>
-                <span>Gender:</span> {customer.profile?.gender}
-              </p>
-              <p>
-                <span>Available Balance:</span>{" "}
-                {customer.profile?.available_balance}
-              </p>
-              <p>
-                <span>Total Spend:</span> {customer.profile?.total_spend}
-              </p>
+            <div
+              style={{
+                width: "50%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "start",
+                  padding: "10px",
+                }}
+              >
+                <p>
+                  <span>Name:</span> {customer.user.name}
+                </p>
+                <p>
+                  <span>Phone Number:</span> {customer.profile?.phone_number}
+                </p>
+                <p>
+                  <span>Gender:</span> {customer.profile?.gender}
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "start",
+                  padding: "10px",
+                }}
+              >
+                <p>
+                  <span>Available Balance:</span>{" "}
+                  {customer.profile?.available_balance}
+                </p>
+                <p>
+                  <span>Total Spend:</span> {customer.profile?.total_spend}
+                </p>
+              </div>
             </div>
           ) : (
             <p>No customer selected</p>
