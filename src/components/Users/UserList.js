@@ -12,10 +12,10 @@ import EditUserModal from './EditUserModal';
 
 const UserList = () => {
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.auth);
+	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations } = useSelector((state) => state.location);
-
+	console.log('login User', loginUser);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -147,8 +147,19 @@ const UserList = () => {
 										onClick={() => handleEdit(user)}
 									></i>
 									<i
-										className='fa fa-trash'
-										onClick={() => confirmDelete(user)}
+										className={`fa fa-trash ${
+											loginUser.id === user.user?.id ? 'disabled' : ''
+										}`}
+										onClick={
+											loginUser.id !== user.user?.id
+												? () => confirmDelete(user)
+												: null
+										}
+										style={
+											loginUser.id === user.user?.id
+												? { cursor: 'not-allowed', opacity: 0.5 }
+												: { cursor: 'pointer' }
+										}
 									></i>
 								</span>
 							</div>
