@@ -286,9 +286,9 @@ const CustomerList = () => {
 					<span>USER NAME</span>
 					<span>LOCATION</span>
 					<span>PHONE NUMBER</span>
-					<span>MINUTES AVAILABLE</span>
-					<span>TOTAL SPEND MINUTES</span>
-					<span>LAST PURCHASE</span>
+					<span>MIN. AVAIL.</span>
+					<span>TOTAL SPEND</span>
+					<span>REGISTER ON</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (
@@ -310,7 +310,7 @@ const CustomerList = () => {
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
 								<span>{customer.profile?.total_spend}</span>
-								<span>{formatDate(customer.profile?.updated_at)}</span>
+								<span>{formatDate(customer.profile?.created_at)}</span>
 							</div>
 						);
 					})
