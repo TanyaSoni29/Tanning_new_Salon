@@ -38,7 +38,7 @@ function TopHeader({
 	}, [preferredLocationId, setSelectedLocation]);
 
 	// Check if select should be hidden based on route
-	const hideSelect = ['/users','/about', '/location', '/customers', '/products', '/services', '/allcustomers','/currentmonth','/productreport','/purchasereport','/serviceused'].includes(locationPath);
+	const hideSelect = ['/users', '/location', '/customers', '/products', '/services', '/allcustomers','/currentmonth','/productreport','/purchasereport','/serviceused'].includes(locationPath);
 
 	return (
 		<header className="top-header">
