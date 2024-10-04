@@ -1,6 +1,6 @@
 /* Card styling for the modal */
 .viewcustomer-modal-card {
-	width: 500px;
+	width: 600px;
 	background-color: #fff;
 	border-radius: 10px;
 	position: relative;
@@ -24,58 +24,91 @@
 	padding: 5px;
 }
 
+/* Section Title */
+.viewcustomer-section-title {
+	font-weight: 700;
+	font-size: 18px;
+	color: #0c65be;
+	margin-bottom: 16px;
+}
+
 /* Container for user details */
 .viewcustomer-user-details {
 	display: flex;
 	flex-direction: column;
-	gap: 18px;
+	gap: 12px;
 	align-items: flex-start;
 	justify-content: center;
+}
+
+/* Grid for left and right layout */
+.viewcustomer-grid {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+/* Left and right sides */
+.viewcustomer-left,
+.viewcustomer-right {
+	width: 48%; /* Adjusts each side to take 50% of the width */
 }
 
 /* Flexbox for user info rows - Left and Right layout */
 .viewcustomer-left-right {
 	display: flex;
 	justify-content: space-between;
-	width: 100%;
 	align-items: center;
-	padding: 6px 0;
+	padding: 8px 0;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.viewcustomer-left-right:last-child {
+	border-bottom: none;
 }
 
 .viewcustomer-info-label {
 	font-weight: 600;
 	font-size: 16px;
 	color: #333;
-	width: 35%;
+	width: 40%;
 }
 
 .viewcustomer-info-value {
 	font-weight: 400;
 	font-size: 16px;
 	color: #555;
-	width: 65%;
+	width: 60%;
 }
 
 /* Buttons for minutes balance and total spent */
 .viewcustomer-buttons {
 	display: flex;
-	gap: 10px;
-	margin-top: 20px;
+	justify-content: space-between;
 	width: 100%;
-	justify-content: center;
+	margin-top: 20px;
 }
 
-.viewcustomer-button {
-	background-color: #0c65be;
+.viewcustomer-minutes-button {
+	background-color: #045f09; /* Green for minutes balance */
 	color: #fff;
 	font-weight: 600;
-	padding: 8px 16px;
+	padding: 10px 18px;
+	border-radius: 8px;
+	text-transform: none;
+}
+
+.viewcustomer-spent-button {
+	background-color: #0c65be; /* Orange for total spent */
+	color: #fff;
+	font-weight: 600;
+	padding: 10px 18px;
 	border-radius: 8px;
 	text-transform: none;
 }
 
 .viewcustomer-button:hover {
-	background-color: #004b94;
+	opacity: 0.9;
 }
 
 /* Enhancing card's responsiveness */
@@ -86,13 +119,18 @@
 		margin-top: 60px;
 	}
 
-	.viewcustomer-left-right {
+	.viewcustomer-grid {
 		flex-direction: column;
-		align-items: flex-start;
 	}
 
-	.viewcustomer-info-label,
-	.viewcustomer-info-value {
+	.viewcustomer-left,
+	.viewcustomer-right {
 		width: 100%;
+	}
+
+	.viewcustomer-buttons {
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
 	}
 }

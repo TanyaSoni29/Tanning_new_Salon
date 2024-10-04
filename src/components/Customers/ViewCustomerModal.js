@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
-  const { locations } = useSelector((state) => state.location); // Assume location slice for fetching locations
+  const { locations } = useSelector((state) => state.location);
 
   // Find preferred location
   const preferredLocation = locations.find(
@@ -20,83 +20,107 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
       </IconButton>
 
       <Box className="viewcustomer-user-details">
-        <div className="viewcustomer-left-right">
-          {/* Name */}
-          <Typography variant="h6" className="viewcustomer-info-label">
-            Name:
-          </Typography>
-          <Typography variant="h6" className="viewcustomer-info-value">
-            {activeUser.profile?.firstName + " " + activeUser.profile?.lastName}
-          </Typography>
-        </div>
+        <div className="viewcustomer-section">
+          {/* <Typography variant="h6" className="viewcustomer-section-title">
+            User Information
+          </Typography> */}
 
-        <div className="viewcustomer-left-right">
-          {/* Email */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Email:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.user?.email}
-          </Typography>
-        </div>
+          <div className="viewcustomer-grid">
+            {/* Left Side Information */}
+            <div className="viewcustomer-left">
+              {/* Name */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Name:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.firstName + " " + activeUser.profile?.lastName}
+                </Typography>
+              </div>
 
-        <div className="viewcustomer-left-right">
-          {/* Phone Number */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Phone Number:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.profile?.phone_number}
-          </Typography>
-        </div>
 
-        <div className="viewcustomer-left-right">
-          {/* Role */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Role:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.user?.role}
-          </Typography>
-        </div>
+               {/* Address */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Address:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.address}
+                </Typography>
+              </div>
+              
 
-        <div className="viewcustomer-left-right">
-          {/* Address */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Address:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.profile?.address}
-          </Typography>
-        </div>
+              {/* Phone Number */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Phone Number:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.phone_number}
+                </Typography>
+              </div>
+            </div>
 
-        <div className="viewcustomer-left-right">
-          {/* Post Code */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Post Code:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.profile?.post_code}
-          </Typography>
-        </div>
+            {/* Right Side Information */}
+            <div className="viewcustomer-right">
+              {/* Role */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Role:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.user?.role}
+                </Typography>
+              </div>
 
-        <div className="viewcustomer-left-right">
-          {/* Gender */}
-          <Typography variant="body2" className="viewcustomer-info-label">
-            Gender:
-          </Typography>
-          <Typography variant="body2" className="viewcustomer-info-value">
-            {activeUser.profile?.gender}
-          </Typography>
+              
+
+              {/* Email */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Email:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.user?.email}
+                </Typography>
+              </div>
+
+              {/* Post Code */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Post Code:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.post_code}
+                </Typography>
+              </div>
+
+              {/* Gender */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Gender:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.gender}
+                </Typography>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Buttons for Minutes Balance and Total Spent */}
         <div className="viewcustomer-buttons">
-          <Button variant="contained" className="viewcustomer-button">
+          <Button
+            variant="contained"
+            className="viewcustomer-button viewcustomer-minutes-button"
+          >
             Minutes Balance: {activeUser.profile?.available_balance || 0}
           </Button>
 
-          <Button variant="contained" className="viewcustomer-button">
+          <Button
+            variant="contained"
+            className="viewcustomer-button viewcustomer-spent-button"
+          >
             Total Spent: £{activeUser.profile?.total_spend?.toFixed(2) || 0}
           </Button>
         </div>
