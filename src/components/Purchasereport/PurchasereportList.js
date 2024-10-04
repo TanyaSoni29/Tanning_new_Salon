@@ -17,7 +17,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
 	const getCurrentMonthRange = () => {
 		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 		const today = new Date();
 		return {
 			startDate: startOfMonth,
@@ -72,22 +72,20 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	// Download CSV
 	const handleDownloadCSV = () => {
 		const headers = [
-			'User Name',
 			'Service Name',
-			'Price',
-			'Quantity',
 			'Location',
-			'Date/Time',
+			'Total Value',
+			'Minutes Sold',
+			'Last Sold On',
 		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					// `${data.user_details.firstName} ${data.user_details.lastName}`,
 					data.service_name,
-					data.total_price,
+					data.location?.name || 'N/A',
+					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_quantity,
-					data.location?.name,
 					formatDate(data.date),
 				].join(',')
 			),
@@ -109,12 +107,11 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 		// Define the column positions to fit within the page width
 		const columns = {
-			// userName: margin, // First column starts from left margin
-			serviceName: margin + 80, // Next column 80pt from the first one
-			price: margin + 220, // Adjust based on previous column widths
-			quantity: margin + 280,
-			location: margin + 340,
-			dateTime: margin + 450, // Adjust this so it fits within the page
+			serviceName: margin, // First column starts from the left margin
+			location: margin + 160, // Adjust column width based on content
+			totalValue: margin + 300,
+			minutesSold: margin + 400,
+			lastSoldOn: margin + 500,
 		};
 
 		doc.setFontSize(12);
@@ -123,12 +120,11 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 		// Add table headers
 		doc.setFontSize(10);
-		// doc.text('User Name', columns.userName, row);
-		doc.text('Service', columns.serviceName, row);
-		doc.text('Price', columns.price, row);
-		doc.text('Quantity', columns.quantity, row);
+		doc.text('Service Name', columns.serviceName, row);
 		doc.text('Location', columns.location, row);
-		doc.text('Date/Time', columns.dateTime, row);
+		doc.text('Total Value', columns.totalValue, row);
+		doc.text('Minutes Sold', columns.minutesSold, row);
+		doc.text('Last Sold', columns.lastSoldOn, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -145,23 +141,21 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				// doc.text('User Name', columns.userName, row);
-				doc.text('Service', columns.serviceName, row);
-				doc.text('Price', columns.price, row);
-				doc.text('Quantity', columns.quantity, row);
+				doc.text('Service Name', columns.serviceName, row);
 				doc.text('Location', columns.location, row);
-				doc.text('Date/Time', columns.dateTime, row);
+				doc.text('Total Value', columns.totalValue, row);
+				doc.text('Minutes Sold', columns.minutesSold, row);
+				doc.text('Last Sold On', columns.lastSoldOn, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
 			// Add transaction data in the respective columns
-			// doc.text(`${transaction.user_details.firstName} ${transaction.user_details.lastName}`, columns.userName, row);
 			doc.text(transaction.service_name, columns.serviceName, row);
-			doc.text(`${transaction.total_price}`, columns.price, row);
-			doc.text(`${transaction.total_quantity}`, columns.quantity, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(formatDate(transaction.date), columns.dateTime, row);
+			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
+			doc.text(`${transaction.total_quantity}`, columns.minutesSold, row);
+			doc.text(formatDate(transaction.date), columns.lastSoldOn, row);
 
 			// Move to the next row
 			row += lineHeight;
@@ -239,11 +233,10 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 			<div className='purchasereportlist-table'>
 				<div className='purchasereportlist-table-header'>
-					{/* <span>User Name</span> */}
 					<span>Service Name</span>
 					<span>Location</span>
 					<span>Total Value</span>
-					<span>Minute Sold</span>
+					<span>Minutes Sold</span>
 					<span>Last Sold On</span>
 				</div>
 
@@ -253,17 +246,12 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 							key={i}
 							className='purchasereportlist-table-row'
 						>
-							{/* <span>
-								{transaction.user_details?.firstName}{' '}
-								{transaction.user_details?.lastName}
-							</span> */}
 							<span>{transaction.service_name}</span>
 							<span>{transaction.location?.name}</span>
-							<span>£{transaction.total_price}</span>
+							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_quantity}</span>
 							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.date)}{' '}
-								{/* {transaction.transaction.created_at.split('T')[1].slice(0, 8)} */}
+								{formatDate(transaction.date)}
 							</span>
 						</div>
 					))

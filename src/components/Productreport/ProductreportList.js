@@ -17,7 +17,7 @@ const ProductList = ({ productTransaction }) => {
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
 	const getCurrentMonthRange = () => {
 		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 		const today = new Date();
 		return {
 			startDate: startOfMonth,
@@ -55,8 +55,6 @@ const ProductList = ({ productTransaction }) => {
 		[setSearchTerm]
 	);
 
-	console.log(productTransaction);
-
 	const filteredTransaction = useMemo(() => {
 		return productTransaction.filter((transaction) => {
 			const transactionDate = new Date(transaction.last_transaction_date);
@@ -80,24 +78,20 @@ const ProductList = ({ productTransaction }) => {
 
 	const handleDownloadCSV = () => {
 		const headers = [
-			// 'User Name',
 			'Product Name',
-			'Price',
-			'Quantity',
-			// 'Total',
 			'Location',
-			'Date/Time',
+			'Total Value',
+			'Total Sold',
+			'Last Sold On',
 		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					// `${data.user_details.firstName} ${data.user_details.lastName}`,
 					data.product.name,
-					data.total_price,
+					data.location?.name || 'N/A',
+					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_sold,
-					// data.transaction.quantity * data.product.price,
-					data.location?.name,
 					formatDate(data.last_transaction_date),
 				].join(',')
 			),
@@ -118,13 +112,11 @@ const ProductList = ({ productTransaction }) => {
 
 		// Define the column positions to fit within the page width
 		const columns = {
-			userName: margin, // First column starts from left margin
-			productName: margin + 80, // Next column 80pt from the first one
-			price: margin + 220, // Adjust based on previous column widths
-			quantity: margin + 280,
-			total: margin + 340,
-			location: margin + 450,
-			dateTime: margin + 520, // Adjust this so it fits within the page
+			productName: margin,
+			location: margin + 180,
+			totalValue: margin + 320,
+			totalSold: margin + 440,
+			lastSoldOn: margin + 520,
 		};
 
 		doc.setFontSize(12);
@@ -133,13 +125,11 @@ const ProductList = ({ productTransaction }) => {
 
 		// Add table headers
 		doc.setFontSize(10);
-		// doc.text('User Name', columns.userName, row);
-		doc.text('Product', columns.productName, row);
-		doc.text('Price', columns.price, row);
-		doc.text('Quantity', columns.quantity, row);
-		// doc.text('Total', columns.total, row);
+		doc.text('Product Name', columns.productName, row);
 		doc.text('Location', columns.location, row);
-		doc.text('Date/Time', columns.dateTime, row);
+		doc.text('Total Value', columns.totalValue, row);
+		doc.text('Total Sold', columns.totalSold, row);
+		doc.text('Last Sold On', columns.lastSoldOn, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -156,35 +146,23 @@ const ProductList = ({ productTransaction }) => {
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				// doc.text('User Name', columns.userName, row);
-				doc.text('Product', columns.productName, row);
-				doc.text('Price', columns.price, row);
-				doc.text('Quantity', columns.quantity, row);
-				// doc.text('Total', columns.total, row);
+				doc.text('Product Name', columns.productName, row);
 				doc.text('Location', columns.location, row);
-				doc.text('Date/Time', columns.dateTime, row);
+				doc.text('Total Value', columns.totalValue, row);
+				doc.text('Total Sold', columns.totalSold, row);
+				doc.text('Last Sold On', columns.lastSoldOn, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
 			// Add transaction data in the respective columns
-			// doc.text(
-			// 	`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
-			// 	columns.userName,
-			// 	row
-			// );
 			doc.text(transaction.product?.name, columns.productName, row);
-			doc.text(`${transaction.total_price}`, columns.price, row);
-			doc.text(`${transaction.total_sold}`, columns.quantity, row);
-			// doc.text(
-			// 	`${transaction.transaction.quantity * transaction.product.price}`,
-			// 	columns.total,
-			// 	row
-			// );
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
+			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
+			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
 			doc.text(
 				formatDate(transaction.last_transaction_date),
-				columns.dateTime,
+				columns.lastSoldOn,
 				row
 			);
 
@@ -262,12 +240,10 @@ const ProductList = ({ productTransaction }) => {
 
 			<div className='productreportlist-table'>
 				<div className='productreportlist-table-header'>
-					{/* <span>User Name</span> */}
 					<span>Product Name</span>
 					<span>Location</span>
 					<span>Total Value</span>
 					<span>Total Sold</span>
-					{/* <span>Total</span> */}
 					<span>Last Sold On</span>
 				</div>
 
@@ -277,23 +253,12 @@ const ProductList = ({ productTransaction }) => {
 							key={i}
 							className='productreportlist-table-row'
 						>
-							{/* <span>
-								{transaction.user_details?.firstName}{' '}
-								{transaction.user_details?.lastName}
-							</span> */}
 							<span>{transaction.product.name}</span>
 							<span>{transaction.location.name}</span>
-							<span>£{transaction.total_price}</span>
+							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_sold}</span>
-							{/* <span>
-								{' '}
-								{(
-									transaction.transaction.quantity * transaction.product.price
-								).toFixed(2)}
-							</span> */}
 							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.last_transaction_date)}{' '}
-								{/* {transaction.transaction.created_at.split('T')[1].slice(0, 8)} */}
+								{formatDate(transaction.last_transaction_date)}
 							</span>
 						</div>
 					))
