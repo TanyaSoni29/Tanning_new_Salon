@@ -1,7 +1,7 @@
 .purchasereportlist-container {
 	width: 70%;
 	margin: 20px auto;
-	margin-left: 340px;
+	margin-left: 320px;
 	padding: 20px;
 	background-color: #f9f9f9;
 	border-radius: 8px;
@@ -9,57 +9,48 @@
 	overflow-x: auto;
 }
 
-/* Flex layout for file icons (CSV, PDF download buttons) */
-.purchasereportlist-files {
-	display: flex;
-	gap: 20px;
-	align-items: center;
-	justify-content: flex-start;
-}
-
 /* Flex layout for filter section */
 .filter-purchase {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
-	flex-wrap: wrap; /* Allows wrapping for smaller screens */
+	align-items: center; /* Align vertically */
+	flex-wrap: nowrap; /* Prevent wrapping */
 	gap: 15px;
 	margin-bottom: 20px;
+	overflow: hidden;
 }
 
 /* Search bar input */
 .purchasereportlist-search-container input {
 	width: 100%;
-	max-width: 250px;
+	max-width: 200px;
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	height: 48px; /* Ensure consistent height */
 }
 
 /* Date range inputs layout */
 .sedate-range {
 	display: flex;
 	gap: 10px;
-	width: 100%;
-	max-width: 500px;
-	flex-wrap: wrap;
 }
 
 .sedate-range input {
 	padding: 10px;
 	width: 100%;
-	max-width: 240px;
+	max-width: 180px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	height: 48px; /* Consistent height */
 }
-
 
 /* Location select dropdown */
 .purchaselocation-select {
 	width: 100%;
-	max-width: 250px;
+	max-width: 180px;
 }
 
 .purchaselocation-select select {
@@ -68,6 +59,23 @@
 	font-size: 16px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
+	height: 48px; /* Consistent height */
+}
+
+/* Flex layout for file icons */
+.purchasereportlist-files {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.purchasereportlist-download {
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+.purchasereportlist-download:hover {
+	transform: scale(1.1);
 }
 
 /* Table styling */
@@ -118,15 +126,13 @@
 	}
 
 	.filter-purchase {
-		flex-direction: column; /* Stack filters vertically */
-		gap: 20px;
-		align-items: flex-start;
+		flex-wrap: wrap; /* Allow wrapping on smaller screens */
 	}
 
 	.sedate-range,
 	.purchasereportlist-search-container input,
 	.purchaselocation-select select {
-		width: 100%; /* Full width for all inputs */
+		width: 100%; /* Full width for inputs */
 	}
 
 	.purchasereportlist-table-header,
@@ -151,7 +157,7 @@
 	.purchasereportlist-search-container input,
 	.sedate-range input,
 	.purchaselocation-select select {
-		width: 100%; /* Full width for all inputs */
+		width: 100%; /* Full width for inputs */
 	}
 
 	.purchasereportlist-files {

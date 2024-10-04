@@ -9,17 +9,13 @@
 	overflow-x: auto;
 }
 
-/* Search Bar */
-.currentmon-files {
-	display: flex;
-}
-
+/* Filter Section */
 .currentmon-filter-customer {
 	display: flex;
+	flex-wrap: wrap; /* Allows wrapping on smaller screens */
 	justify-content: space-between;
-	flex-wrap: wrap; /* Makes sure it wraps on smaller screens */
-	gap: 15px; /* Adds space between items */
-	align-items: center; /* Vertically aligns the elements */
+	align-items: center;
+	gap: 20px; /* Add space between elements */
 	margin-bottom: 20px;
 }
 
@@ -27,13 +23,14 @@
 .currentmon-date-range-inputs input,
 .currentmon-location-select select {
 	width: 100%;
-	max-width: 200px; /* Set a max width for wider screens */
+	max-width: 220px; /* More width for better usability */
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	outline: none;
 	transition: border-color 0.3s ease-in-out;
+	height: 48px; /* Consistent height across all inputs */
 }
 
 /* Date range inputs and location dropdown */
@@ -41,21 +38,17 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	max-width: 240px;
+	max-width: 250px;
 	gap: 10px;
 }
 
-.currentmon-location-select {
-	width: 60%;
-	max-width: 200px;
-}
-
 .currentmon-location-select select {
-	width: 60%;
+	width: 100%;
 	padding: 8px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
 	font-size: 16px;
+	height: 48px; /* Consistent height */
 }
 
 /* Toggle Switch CSS */
@@ -63,8 +56,9 @@
 	display: flex;
 	align-items: center;
 	width: 100%;
-	max-width: 200px;
+	max-width: 180px; /* Adjust the width for the toggle switch */
 	gap: 10px;
+	margin-left: 60px;
 }
 
 .switch {
@@ -112,30 +106,21 @@ input:checked + .slider:before {
 	transform: translateX(26px);
 }
 
-/* Buttons */
-.currentmon-buttons-container {
+/* Files Section */
+.currentmon-files {
 	display: flex;
-	justify-content: flex-start;
-	gap: 20px;
+	gap: 10px; /* Adds space between the icons */
 	align-items: center;
-	margin-bottom: 20px;
+	height: 10vh;
 }
 
 .currentmon-icon {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	cursor: pointer;
 	transition: transform 0.3s ease;
 }
 
 .currentmon-icon:hover {
 	transform: scale(1.1);
-}
-
-.currentmon-icon span {
-	margin-top: 5px;
-	font-size: 14px;
 }
 
 /* Table Styles */
@@ -199,16 +184,19 @@ input:checked + .slider:before {
 	}
 
 	.currentmon-filter-customer {
-		flex-direction: column; /* Stack the currentmon-filter section vertically */
-		align-items: flex-start; /* Align items to the start */
+		flex-direction: row;
+		flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+		align-items: center;
 		gap: 10px;
 	}
 
 	.currentmon-search-container,
 	.currentmon-date-range-inputs,
 	.currentmon-location-select,
-	.toggle-container {
-		width: 100%; /* Make all elements take full width */
+	.toggle-container,
+	.currentmon-files {
+		width: 48%; /* Make elements take half width on small screens */
+		max-width: none;
 	}
 
 	.currentmon-buttons-container {
