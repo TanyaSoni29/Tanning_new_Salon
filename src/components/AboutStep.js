@@ -58,6 +58,13 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	const filteredCustomers = customers
 		.filter((user) => {
 			// If a location is selected, filter by location
+			if (isAllLocation) {
+				return (
+					user.profile?.preferred_location === selectedLocation ||
+					user.profile?.preferred_location === 0
+				);
+			}
+
 			if (selectedLocation !== 0) {
 				return user.profile?.preferred_location === selectedLocation;
 			}
@@ -88,6 +95,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	};
 
 	const handleClearFilters = () => {
+		setIsAllLocation(false);
 		setSelectedLocation(0);
 		setSearchQuery('');
 	};
