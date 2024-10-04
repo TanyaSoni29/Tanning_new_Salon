@@ -97,7 +97,7 @@ const ServiceList = () => {
 				<div className='table-header'>
 					<span>Service Name</span>
 					<span>Price</span>
-					<span>Minutes Available</span>
+					<span>Minutes</span>
 					<span>Action</span>
 				</div>
 

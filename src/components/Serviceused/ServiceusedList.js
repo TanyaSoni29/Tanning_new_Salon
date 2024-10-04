@@ -1,6 +1,4 @@
-/** @format */
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ServiceusedList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
@@ -10,10 +8,24 @@ import { useSelector } from 'react-redux';
 
 const ProductList = ({ useServiceTransaction }) => {
 	const [searchTerm, setSearchTerm] = useState('');
-	const [dateRange, setDateRange] = useState({
-		startDate: null,
-		endDate: null,
-	});
+
+	// Helper function to format date for input fields (YYYY-MM-DD)
+	const formatDateForInput = (date) => {
+		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+	};
+
+	// Set the default date range: startDate as the 1st of the current month and endDate as today
+	const getCurrentMonthRange = () => {
+		const now = new Date();
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const today = new Date();
+		return {
+			startDate: startOfMonth,
+			endDate: today,
+		};
+	};
+
+	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
 
@@ -128,17 +140,30 @@ const ProductList = ({ useServiceTransaction }) => {
 	return (
 		<div className='serviceused-container'>
 			<div className='filter-serviceused'>
-			<div className='serviceused-search-container'>
-				<input
-					type='text'
-					placeholder='Search'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-            </div>
+				<div className='serviceused-search-container'>
+					<input
+						type='text'
+						placeholder='Search'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
 				<div className='date-range'>
-					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
-					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
+					{/* Date range inputs with default values set to the current month */}
+					<input
+						type='date'
+						name='startDate'
+						value={formatDateForInput(dateRange.startDate)}
+						placeholder='Start Date'
+						onChange={handleDateRangeChange}
+					/>
+					<input
+						type='date'
+						name='endDate'
+						value={formatDateForInput(dateRange.endDate)}
+						placeholder='End Date'
+						onChange={handleDateRangeChange}
+					/>
 				</div>
 
 				<div className='servicelocation-select'>
@@ -159,7 +184,6 @@ const ProductList = ({ useServiceTransaction }) => {
 						<FaFilePdf size={35} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
-			
 			</div>
 
 			<div className='serviceused-table'>
@@ -192,7 +216,7 @@ const ProductList = ({ useServiceTransaction }) => {
 					<div className='serviceused-no-data'>No transaction found.</div>
 				)}
 			</div>
-		</div>
+			</div>
 	);
 };
 

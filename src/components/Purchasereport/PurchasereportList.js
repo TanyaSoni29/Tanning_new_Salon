@@ -1,6 +1,4 @@
-/** @format */
-
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './PurchasereportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
@@ -9,16 +7,29 @@ import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
 
 const ProductList = ({ purchaseServiceTransaction }) => {
-	const [dateRange, setDateRange] = useState({
-		startDate: null,
-		endDate: null,
-	});
+	// Helper function to format date for input fields (YYYY-MM-DD)
+	const formatDateForInput = (date) => {
+		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+	};
+
+	// Set the default date range: startDate as the 1st of the current month and endDate as today
+	const getCurrentMonthRange = () => {
+		const now = new Date();
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const today = new Date();
+		return {
+			startDate: startOfMonth,
+			endDate: today,
+		};
+	};
+
+	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Extract unique locations for dropdown
-	const uniqueLocations = ['All', ...new Set(locations.map((location) => location.name))];
+	const uniqueLocations = useMemo(() => ['All', ...new Set(locations.map((location) => location.name))], [locations]);
 
 	// Handle Date Range Change
 	const handleDateRangeChange = (e) => {
@@ -150,17 +161,30 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	return (
 		<div className='purchasereportlist-container'>
 			<div className='filter-purchase'>
-			<div className='purchasereportlist-search-container'>
-				<input
-					type='text'
-					placeholder='Search'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-			</div>
+				<div className='purchasereportlist-search-container'>
+					<input
+						type='text'
+						placeholder='Search'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
 				<div className='sedate-range'>
-					<input type='date' name='startDate' placeholder='Start Date' onChange={handleDateRangeChange} />
-					<input type='date' name='endDate' placeholder='End Date' onChange={handleDateRangeChange} />
+					{/* Date range inputs with default values set to the current month */}
+					<input
+						type='date'
+						name='startDate'
+						value={formatDateForInput(dateRange.startDate)}
+						placeholder='Start Date'
+						onChange={handleDateRangeChange}
+					/>
+					<input
+						type='date'
+						name='endDate'
+						value={formatDateForInput(dateRange.endDate)}
+						placeholder='End Date'
+						onChange={handleDateRangeChange}
+					/>
 				</div>
 				<div className='purchaselocation-select'>
 					<select value={selectedLocation} onChange={handleLocationChange}>
@@ -179,15 +203,14 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
 					</div>
 				</div>
-			
-			</div>
+				</div>
 
 			<div className='purchasereportlist-table'>
 				<div className='purchasereportlist-table-header'>
 					<span>User Name</span>
 					<span>Service Name</span>
 					<span>Price</span>
-					<span>Qunatity</span>
+					<span>Quantity</span>
 					<span>Location</span>
 					<span>Date/Time</span>
 				</div>

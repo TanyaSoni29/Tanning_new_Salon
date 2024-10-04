@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useMemo, useCallback } from 'react';
 import './ProductreportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -9,10 +7,23 @@ import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
 
 const ProductList = ({ productTransaction }) => {
-	const [dateRange, setDateRange] = useState({
-		startDate: null,
-		endDate: null,
-	});
+	// Helper function to format date for input fields (YYYY-MM-DD)
+	const formatDateForInput = (date) => {
+		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+	};
+
+	// Set the default date range: startDate as the 1st of the current month and endDate as today
+	const getCurrentMonthRange = () => {
+		const now = new Date();
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const today = new Date();
+		return {
+			startDate: startOfMonth,
+			endDate: today,
+		};
+	};
+
+	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -192,64 +203,48 @@ const ProductList = ({ productTransaction }) => {
 	return (
 		<div className='productreportlist-container'>
 			<div className='Filter-product'>
-			<div className='productreportlist-search-container'>
-				<input
-					type='text'
-					placeholder='Search'
-					value={searchTerm}
-					onChange={handleSearchChange}
-				/>
-			</div>
+				<div className='productreportlist-search-container'>
+					<input
+						type='text'
+						placeholder='Search'
+						value={searchTerm}
+						onChange={handleSearchChange}
+					/>
+				</div>
 				<div className='date-range-inputs'>
+					{/* Date range inputs with default values set to the current month */}
 					<input
 						type='date'
 						name='startDate'
+						value={formatDateForInput(dateRange.startDate)}
 						placeholder='Start Date'
 						onChange={handleDateRangeChange}
 					/>
 					<input
 						type='date'
 						name='endDate'
+						value={formatDateForInput(dateRange.endDate)}
 						placeholder='End Date'
 						onChange={handleDateRangeChange}
 					/>
 				</div>
 				<div className='location-select'>
-					<select
-						value={selectedLocation}
-						onChange={handleLocationChange}
-					>
+					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
-							<option
-								key={location}
-								value={location}
-							>
+							<option key={location} value={location}>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='productreportlist-files'>
-					<div
-						className='productreportlist-download'
-						onClick={handleDownloadCSV}
-					>
-						<FaFileCsv
-							size={45}
-							style={{ color: '#28a745' }}
-						/>
+					<div className='productreportlist-download' onClick={handleDownloadCSV}>
+						<FaFileCsv size={45} style={{ color: '#28a745' }} />
 					</div>
-					<div
-						className='productreportlist-download'
-						onClick={handleDownloadPDF}
-					>
-						<FaFilePdf
-							size={45}
-							style={{ color: '#dc3545' }}
-						/>
+					<div className='productreportlist-download' onClick={handleDownloadPDF}>
+						<FaFilePdf size={45} style={{ color: '#dc3545' }} />
 					</div>
 				</div>
-			
 			</div>
 
 			<div className='productreportlist-table'>
@@ -257,7 +252,7 @@ const ProductList = ({ productTransaction }) => {
 					<span>User Name</span>
 					<span>Product Name</span>
 					<span>Price</span>
-					<span>Qunatity</span>
+					<span>Quantity</span>
 					<span>Total</span>
 					<span>Location</span>
 					<span>Date/Time</span>
@@ -265,22 +260,16 @@ const ProductList = ({ productTransaction }) => {
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction) => (
-						<div
-							key={transaction.transaction.id}
-							className='productreportlist-table-row'
-						>
+						<div key={transaction.transaction.id} className='productreportlist-table-row'>
 							<span>
-								{transaction.user_details?.firstName}{' '}
-								{transaction.user_details?.lastName}
+								{transaction.user_details?.firstName} {transaction.user_details?.lastName}
 							</span>
 							<span>{transaction.product.name}</span>
 							<span>£{transaction.product.price}</span>
 							<span>{transaction.transaction.quantity}</span>
 							<span>
 								{' '}
-								{(
-									transaction.transaction.quantity * transaction.product.price
-								).toFixed(2)}
+								{(transaction.transaction.quantity * transaction.product.price).toFixed(2)}
 							</span>
 							<span>{transaction.user_details.preferred_location?.name}</span>
 							<span style={{ whiteSpace: 'nowrap' }}>
@@ -290,9 +279,7 @@ const ProductList = ({ productTransaction }) => {
 						</div>
 					))
 				) : (
-					<div className='productreportlist-no-data'>
-						No transactions found.
-					</div>
+					<div className='productreportlist-no-data'>No transactions found.</div>
 				)}
 			</div>
 		</div>

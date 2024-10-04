@@ -208,9 +208,9 @@ const CustomerList = () => {
 	};
 
 	return (
-		<div className='allcustomer-container'>
-			<div className='filter-customer'>
-				<div className='allcustomer-search-container'>
+		<div className='currentmon-container'>
+			<div className='currentmon-filter-customer'>
+				<div className='currentmon-search-container'>
 					<input
 						type='text'
 						placeholder='Search'
@@ -218,7 +218,7 @@ const CustomerList = () => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 				</div>
-				<div className='allcustomer-location-select'>
+				<div className='currentmon-location-select'>
 					<select
 						value={selectedLocation}
 						onChange={handleLocationChange}
@@ -233,7 +233,7 @@ const CustomerList = () => {
 						))}
 					</select>
 				</div>
-				<div className='allcustomer-date-range-inputs'>
+				<div className='currentmon-date-range-inputs'>
 					<input
 						type='date'
 						name='startDate'
@@ -259,9 +259,9 @@ const CustomerList = () => {
 					<span>Current Month</span>
 				</div>
 
-				<div className='allcustomer-files'>
+				<div className='currentmon-files'>
 					<div
-						className='allcustomer-icon'
+						className='currentmon-icon'
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
@@ -271,7 +271,7 @@ const CustomerList = () => {
 						{/* Green for CSV */}
 					</div>
 					<div
-						className='allcustomer-icon'
+						className='currentmon-icon'
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
@@ -283,8 +283,8 @@ const CustomerList = () => {
 				</div>
 			</div>
 
-			<div className='allcustomer-table'>
-				<div className='allcustomer-table-header'>
+			<div className='currentmon-table'>
+				<div className='currentmon-table-header'>
 					<span>Customers Name</span>
 					<span>Location</span>
 					<span>Phone Number</span>
@@ -301,7 +301,7 @@ const CustomerList = () => {
 						return (
 							<div
 								key={customer.user.id}
-								className='allcustomer-table-row'
+								className='currentmon-table-row'
 							>
 								<span>
 									{customer.profile?.firstName} {customer.profile?.lastName}
@@ -317,7 +317,7 @@ const CustomerList = () => {
 						);
 					})
 				) : (
-					<div className='allcustomer-no-data'>No customers found.</div>
+					<div className='currentmon-no-data'>No customers found.</div>
 				)}
 			</div>
 		</div>

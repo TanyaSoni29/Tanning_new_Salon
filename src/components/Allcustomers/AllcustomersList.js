@@ -1,6 +1,4 @@
-/** @format */
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './AllcustomersList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -12,16 +10,32 @@ const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [dateRange, setDateRange] = useState({
-		startDate: null,
-		endDate: null,
-	});
+
+	// Set default start date as the 1st day of the current month and end date as today's date
+	const getCurrentMonthRange = () => {
+		const now = new Date();
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+		const today = new Date();
+		return {
+			startDate: startOfMonth,
+			endDate: today,
+		};
+	};
+
+	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 	const uniqueLocations = [
 		'All',
 		...new Set(locations.map((location) => location.name)),
 	];
+
+	// Update dateRange when the checkbox is toggled for "Current Month"
+	useEffect(() => {
+		if (isCurrentMonth) {
+			setDateRange(getCurrentMonthRange());
+		}
+	}, [isCurrentMonth]);
 
 	const handleDateRangeChange = (e) => {
 		const { name, value } = e.target;
@@ -210,14 +224,14 @@ const CustomerList = () => {
 	return (
 		<div className='allcustomer-container'>
 			<div className='filter-customer'>
-			<div className='allcustomer-search-container'>
-				<input
-					type='text'
-					placeholder='Search'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-			</div>	
+				<div className='allcustomer-search-container'>
+					<input
+						type='text'
+						placeholder='Search'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>	
 				<div className='allcustomer-location-select'>
 					<select
 						value={selectedLocation}
@@ -237,17 +251,19 @@ const CustomerList = () => {
 					<input
 						type='date'
 						name='startDate'
+						value={dateRange.startDate?.toISOString().substring(0, 10)}
 						placeholder='Start Date'
 						onChange={handleDateRangeChange}
 					/>
 					<input
 						type='date'
 						name='endDate'
+						value={dateRange.endDate?.toISOString().substring(0, 10)}
 						placeholder='End Date'
 						onChange={handleDateRangeChange}
 					/>
 				</div>
-				<div className='toggle-container'>
+				{/* <div className='allcustomers-toggle-container'>
 					<label className='switch'>
 						<input
 							type='checkbox'
@@ -257,7 +273,7 @@ const CustomerList = () => {
 						<span className='slider round'></span>
 					</label>
 					<span>Current Month</span>
-				</div>
+				</div> */}
 
 				<div className='allcustomer-files'>
 					<div
