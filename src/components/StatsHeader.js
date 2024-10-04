@@ -31,7 +31,7 @@ function StatsHeader({ stats }) {
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>{stats?.serviceTransactionTotalToday}</h3>
+							<h3>{stats?.productTransactionTotalToday}</h3>
 							<p> Sales Today</p>
 						</div>
 					</div>
@@ -43,7 +43,7 @@ function StatsHeader({ stats }) {
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>{stats?.productTransactionTotalToday}</h3>
+							<h3>{stats?.serviceTransactionTotalToday}</h3>
 							<p>Minutes Used Today</p>
 						</div>
 					</div>

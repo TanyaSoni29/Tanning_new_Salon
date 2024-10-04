@@ -47,7 +47,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
 				referred_by: data.referred_by || '',
-				preferred_location: data.preferred_location,
+				preferred_location: data.preferred_location || 0,
 				avatar: '',
 				role: 'customer',
 			};
@@ -172,7 +172,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 							{...register('preferred_location', { required: true })}
 							disabled={loading}
 						>
-							<option value=''>Select location</option>
+							<option value={0}>All</option>
 							{locations.map((location) => (
 								<option
 									key={location.id}

@@ -35,7 +35,7 @@ import { Dashboard } from '@mui/icons-material';
 
 const App = () => {
 	const dispatch = useDispatch();
-	const [selectedLocation, setSelectedLocation] = useState(0);
+	const [selectedLocation, setSelectedLocation] = useState();
 	const [stats, setStats] = useState({});
 	const {
 		token,

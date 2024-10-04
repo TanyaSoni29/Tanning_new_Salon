@@ -32,7 +32,6 @@ function TopHeader({
 				onChange={handleLocationChange}
 				className='location-select'
 			>
-				<option value={0}>All</option>
 				{locations.map((location) => (
 					<option
 						key={location.id}
