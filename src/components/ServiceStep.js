@@ -19,6 +19,7 @@ import {
 } from '../service/operations/productAndProductTransaction';
 import {
 	createServiceTransaction,
+	getAllServices,
 	getServiceTransactionsByUser,
 	getServiceUseOptions,
 	getTotalSpend,
@@ -155,12 +156,14 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	const handleUseServiceModal = async () => {
 		setUseServiceModal(true);
 		try {
-			const response = await getServiceUseOptions(token, customer.user.id);
+			const response = await getAllServices(token, customer.user.id);
 			setServiceUseOptions(response);
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	console.log('serviceUseOption---', serviceUseOptions);
 
 	const closeBuyProductModal = () => {
 		setBuyProductModal(false);
@@ -262,6 +265,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 								<button
 									className='confirm-button'
 									onClick={handleUseServiceModal}
+									disabled={customer?.profile?.available_balance <= 0}
 								>
 									Use Service
 								</button>
@@ -364,6 +368,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 							createServiceUseTransactionOfUser={
 								createServiceUseTransactionOfUser
 							}
+							availableBalance={customer?.profile?.available_balance}
 						/>
 					</Modal>
 				)}

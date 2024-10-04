@@ -49,7 +49,7 @@ export const serviceEndpoints = {
 	GET_ALL_SERVICE_API: BASE_URL + '/services',
 	GET_USE_SERVICE_OPTION: BASE_URL + '/getTransaction',
 	GET_TOTAL_SPEND: BASE_URL + '/totalSpend',
-	GET_SERVICE_REPORT: BASE_URL + '/service-used-report',
+	GET_SERVICE_REPORT: BASE_URL + '/service-purchased-report',
 	GET_SERVICE_USE_REPORT: BASE_URL + '/service-used-report',
 	// GET_ALL_SERVICE_USAGES_API: BASE_URL + "/serviceUsage",
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API: BASE_URL + "/serviceUsage/user",

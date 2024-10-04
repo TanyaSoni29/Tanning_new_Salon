@@ -9,6 +9,7 @@ function UseServiceModal({
 	onClose,
 	serviceUseOptions,
 	createServiceUseTransactionOfUser,
+	availableBalance,
 }) {
 	const [selectedService, setSelectedService] = useState('');
 
@@ -25,12 +26,19 @@ function UseServiceModal({
 		}
 	};
 
-	console.log(serviceUseOptions);
+	console.log('serviceUseOPtion in use ----', serviceUseOptions);
 
-	const uniqueServiceOptions = serviceUseOptions?.filter(
-		(service, index, self) =>
-			index === self.findIndex((s) => s.service_id === service.service_id)
-	);
+	const filteredServiceOptions = serviceUseOptions
+		?.filter((service) => Number(service.minutesAvailable) <= availableBalance) // Filter based on balance
+		?.filter(
+			(
+				service,
+				index,
+				self // Ensure uniqueness by service_id
+			) => index === self.findIndex((s) => s.service_id === service.service_id)
+		);
+
+	console.log('.....', filteredServiceOptions);
 
 	return (
 		<Box className='use-service-modal-container'>
@@ -56,11 +64,11 @@ function UseServiceModal({
 					>
 						Select Service
 					</option>
-					{uniqueServiceOptions?.length > 0 &&
-						uniqueServiceOptions.map((service) => (
+					{filteredServiceOptions?.length > 0 &&
+						filteredServiceOptions.map((service) => (
 							<option
-								key={service?.service_id}
-								value={service?.service_id}
+								key={service?.id}
+								value={service?.id}
 							>
 								{service?.serviceName}
 							</option>
