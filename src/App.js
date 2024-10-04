@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getMe } from './service/operations/authApi';
 import ProtectedRoute from './utils/ProtectedRoute';
+import { Toaster } from 'react-hot-toast';
 import LocationStep from './components/LocationStep';
 import AboutStep from './components/AboutStep';
 import ServiceStep from './components/ServiceStep';

@@ -104,6 +104,8 @@
     width: 100%;
     object-fit: contain;
   }
+
+
   
   /* Responsive Design */
   @media (max-width: 1024px) {

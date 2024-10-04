@@ -91,9 +91,9 @@ const ProductList = () => {
 
       <div className="product-table">
         <div className="products-table-header">
-          <span>Name</span>
+          <span>Product Name</span>
           <span>Price</span>
-          <span>Listed Om</span>
+          <span>Listed On</span>
           <span>Action</span>
         </div>
 

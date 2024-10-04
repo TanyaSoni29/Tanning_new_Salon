@@ -32,35 +32,41 @@ const AuthForm = () => {
 	// Handle form submission
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Prevent form submission
-
-		// Check for password minimum length of 6 characters
-		if (formData.password.length < 6) {
-			toast.error('Password must be at least 6 characters long.');
-			return; // Prevent form submission if password is invalid
-		}
-
+	
+		// Validation for Sign-Up form
 		if (isSignUp) {
-			// Ensure password and confirmPassword match during sign up
+			// Check if password has a minimum length of 6 characters
+			if (formData.password.length < 6) {
+				toast.error('Password must be at least 6 characters long.');
+				console.log('Password too short');
+				return; // Prevent form submission if password length is invalid
+			}
+
+			// Check if password and confirmPassword match
 			if (formData.password !== formData.confirmPassword) {
-				toast.error("Passwords don't match.");
+				 toast.error("Passwords don't match.");
+				console.log('Passwords do not match');
 				return; // Prevent form submission if passwords don't match
 			}
 
-			// Mock success for sign-up (you can add actual sign-up API call here)
+			// Sign-Up logic goes here
 			console.log('Sign Up data:', formData);
 			toast.success('Signed up successfully!');
 		} else {
-			// For sign-in, check if email and password are filled
-			if (formData.email && formData.password) {
-				dispatch(login(formData.email, formData.password, navigate));
-				toast.success('Logged in successfully!');
-			} else {
+			// Validation for Sign-In form
+			if (!formData.email || !formData.password) {
 				toast.error('Please provide email and password.');
+				console.log('Missing email or password');
+				return; // Prevent form submission if email or password is missing
 			}
+
+			// Sign-In logic goes here
+			dispatch(login(formData.email, formData.password, navigate));
+			toast.success('Logged in successfully!');
 			console.log('Sign In data:', formData);
 		}
 
-		// Redirect to /about after form submission
+		// Redirect to / after successful form submission
 		navigate('/');
 	};
 
