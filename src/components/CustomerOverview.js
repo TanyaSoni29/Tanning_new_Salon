@@ -70,8 +70,8 @@ function CustomerOverview({ filteredCustomers }) {
                         : "-"}
                     </td>
                     <td>{data.profile?.available_balance}</td>
-                    <td>{data.profile?.total_spend}</td>
-                    <td>{data.profile?.total_minutes_used}</td>
+                    <td>{data?.total_used_minutes}</td>
+                    <td>£{data?.total_purchased_price?.toFixed(2)}</td>
                     <td>
                       {data?.profile?.updated_at
                         ? formatDate(data?.profile?.updated_at)
