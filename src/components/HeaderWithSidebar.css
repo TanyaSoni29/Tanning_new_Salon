@@ -1,5 +1,5 @@
 /* Importing Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* General Styling */
 * {
@@ -9,66 +9,54 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif; /* Apply Google Font to the entire body */
+  font-family: 'Inter', sans-serif;
 }
 
 /* Sidebar */
 .sidebar {
   position: fixed;
-  left: 20px; /* Shifting the sidebar slightly inward */
-  top: 20px; /* Top margin */
-  bottom: 10px; /* Bottom margin */
-  width: 250px; /* Adjusted width */
-  height: calc(100% - 40px); /* Adjusted height to account for top and bottom margins */
-  background: linear-gradient(180deg, #333333  0%, #1b1b1b 100%); /* Gradient background from dark to light */
-  color: #ffffff; /* Lighter text for contrast */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842); /* Shadow for elevation */
+  left: 20px;
+  top: 20px;
+  bottom: 10px;
+  width: 250px;
+  height: calc(100% - 40px);
+  background: linear-gradient(180deg, #333333 0%, #1b1b1b 100%);
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
-  font-family: 'Lato', sans-serif; /* Apply another font to the sidebar for variation */
-  padding: 10px; /* Padding inside the sidebar */
-  z-index: 100; /* Ensure the sidebar appears on top of other content */
-}
-
-
-/* Sidebar should always be visible on desktop */
-@media (min-width: 981px) {
-  .sidebar {
-    transform: translateX(0); /* Keep the sidebar visible on desktop */
-  }
+  padding: 10px;
+  z-index: 100;
 }
 
 .sidebar.open {
   transform: translateX(0); /* Sidebar slides in when open */
 }
 
-/* Sidebar Header */
 .sidebar-header {
-  background-color: transparent; /* Remove the blue background */
-  color: rgb(255, 255, 255); /* Change text to white */
+  background-color: transparent;
+  color: rgb(255, 255, 255);
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 22px;
-  font-weight: 800;
-  font-family: 'Lato', sans-serif;
-  border-bottom: 1px solid #3d3c3c; /* Add gray bottom border */
+  font-weight: 700;
+  border-bottom: 1px solid #3d3c3c;
 }
 
 .sidebar-header h3 {
   font-size: 22px;
-  font-weight: 600;
   display: flex;
   align-items: center;
 }
 
 .sidebar-header h3 svg {
-  margin-right: 10px; /* Add space between icon and text */
+  margin-right: 10px;
 }
 
 /* Sidebar Menu */
@@ -81,35 +69,33 @@ body {
 }
 
 .sidebar-menu li {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Underline for main items */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for navigation links */
 .sidebar-menu li a {
   text-decoration: none;
-  color: #ffffff; /* Slightly darker text */
+  color: #ffffff;
   display: flex;
-  align-items: center; /* Align icon and text vertically */
-  font-size: 16px;
-  font-weight: 500;
-  padding: 8px 20px;
-  transition: color 0.3s ease;
-  font-family: 'Roboto', sans-serif; /* Use Roboto for menu links */
+  align-items: center;
+  font-size: 15px;
+  padding: 1px 20px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  font-weight: 400;
+  height: 50px;
 }
 
-/* Space between icon and text in the sidebar */
 .sidebar-menu li a svg {
   margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Active link styling: background blue and text white */
 .sidebar-menu li a.active {
-  background-color: #0c65be; /* Blue background when active */
-  color: white !important; /* Make text white */
-  font-weight: 600; /* Make active link bold */
-  border-radius: 8px; /* Optional: rounded corners for the active link */
+  background-color: #0c65be;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
 }
 
 /* Submenu Styling */
@@ -119,52 +105,69 @@ body {
 
 .submenu-title {
   font-size: 15px;
-  padding: 10px 20px;
+  padding: 7px 20px;
   color: #ffffff;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color 0.3s ease;
-  font-weight: 600;
-  font-family: 'Lato', sans-serif;
+  border-radius: 8px;
+}
+
+
+.submenu-title:hover {
+  background-color: #0c65be;
+  color: white;
 }
 
 .submenu-title svg {
-  margin-right: 10px;
-}
-
-.submenu-title i {
-  transition: transform 0.3s ease;
-}
-
-/* Submenu with side grey line */
-.submenu {
-  padding-left: 20px;
+  margin-right: 18px; /* Space between icon and text */
+  font-size: 20px;
 }
 
 .submenu-icon {
-  margin-left: 60px;
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
 }
 
-.submenu li {
-  font-size: 12px;
-  padding: 10px 0px;
+/* .submenu-item:hover .submenu-title {
+  background-color: #0c65be;
+} */
+
+.submenu-title.active .submenu-icon {
+  transform: rotate(180deg); /* Rotate the arrow when submenu is open */
+}
+
+.submenu {
+  padding-left: 20px;
+  margin-top: 10px;
   list-style: none;
-  font-family: 'Roboto', sans-serif;
-  border-bottom: none; /* Remove underline from submenu items */
 }
 
 .submenu li a {
-  padding: 5px 10px; /* Adjust padding */
+  padding: 0px 10px;
+  font-size: 14px;
   display: flex;
   align-items: center;
+  color: #ffffff;
+  transition: color 0.3s ease;
+  font-weight: 400;
 }
 
 .submenu li a svg {
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
 }
 
 .submenu li a.active {
-  background-color: #0c65be; /* Blue background for active submenu item */
-  color: white !important; /* White text for active item */
+  background-color: #0c65be;
+  color: white;
   font-weight: 600;
+  border-radius: 8px;
 }
 
 /* Hamburger Button */
@@ -179,27 +182,26 @@ body {
   top: 40px;
   left: 20px;
   border-radius: 20px;
-  font-family: 'Roboto', sans-serif;
-  z-index: 10; /* Ensure hamburger menu appears on top */
+  z-index: 10;
 }
 
 @media (max-width: 980px) {
   .sidebar {
-    left: 20px; /* Ensure the sidebar is consistent with desktop */
-    top: 20px; /* Maintain the same top position as desktop */
+    left: 20px;
+    top: 20px;
     bottom: 20px;
     width: 250px;
-    border-radius: 15px; /* Keep rounded corners */
-    transform: translateX(-300px); /* Hide off-screen by default in mobile view */
+    border-radius: 15px;
+    transform: translateX(-300px);
     transition: transform 0.3s ease-in-out;
   }
 
   .hamburger {
-    display: block; /* Show the hamburger in mobile view */
+    display: block;
   }
 
   .sidebar.open {
-    transform: translateX(0); /* Sidebar slides in when open */
+    transform: translateX(0);
   }
 }
 
@@ -216,10 +218,9 @@ body {
   font-size: 16px;
   font-weight: 600;
   transition: background-color 0.3s ease;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 12px; /* Rounded corners for the logout button */
+  border-radius: 12px;
 }
 
-.logouticon {
+.logout-button svg {
   margin-right: 10px;
 }
