@@ -110,8 +110,8 @@ const UserList = () => {
 
 			<div className='users-table'>
 				<div className='user-table-header'>
-					<span>Customer Name</span>
-					<span>Customer Email</span>
+					<span>User Name</span>
+					<span>User Email</span>
 					<span>Role</span>
 					<span>Location</span>
 					<span>Phone Number</span>

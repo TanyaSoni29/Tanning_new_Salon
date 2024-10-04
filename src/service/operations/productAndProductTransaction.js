@@ -5,8 +5,11 @@ import { apiConnector } from '../apiConnector';
 import { productEndpoints } from '../api';
 import { setLoading } from '../../slices/productSlice';
 
-const { GET_ALL_PRODUCT_API, GET_ALL_PRODUCT_TRANSACTION_API } =
-	productEndpoints;
+const {
+	GET_ALL_PRODUCT_API,
+	GET_ALL_PRODUCT_TRANSACTION_API,
+	GET_PRODUCT_REPORT,
+} = productEndpoints;
 
 export const createProduct = async (token, data) => {
 	const toastId = toast.loading('Loading...');
@@ -200,6 +203,28 @@ export const getProductTransactionsByUser = async (token, userId) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Get User Product transactions Api Error', error);
+		const errorMessage = error?.response?.data?.error;
+		toast.error(errorMessage);
+	}
+	toast.dismiss(toastId);
+	return result;
+};
+
+export const getProductReport = async (token) => {
+	const toastId = toast.loading('Loading...');
+	let result = null;
+	try {
+		const response = await apiConnector('GET', GET_PRODUCT_REPORT, null, {
+			'Authorization': `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		});
+		console.log('GET_PRODUCT_REPORT Api Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch GET_PRODUCT_REPORT');
+		// toast.success("User Transactions fetch successfully");
+		result = response.data;
+	} catch (error) {
+		console.log('GET_PRODUCT_REPORT Api Error', error);
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}

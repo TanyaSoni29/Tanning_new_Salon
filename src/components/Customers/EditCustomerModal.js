@@ -15,11 +15,13 @@ import { useForm } from 'react-hook-form';
 import { updateUserProfile } from '../../service/operations/userProfileApi';
 import { refreshLocation } from '../../slices/locationSlice';
 import { refreshCustomers } from '../../slices/customerProfile';
+import Modal from '../../components/Modal';
+import ResetPassword from '../ResetPassword';
 
 const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 	const { locations, loading } = useSelector((state) => state.location);
 	const [preferredLocation, setPreferredLocation] = useState('');
-
+	const [resetPasswordModal, setResetPasswordModal] = useState(false);
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
@@ -35,6 +37,15 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 			closeEditModal();
 		}
 	}, []);
+
+	const handleResetPassword = async () => {
+		setResetPasswordModal(true);
+	};
+
+	const closeResetPassword = () => {
+		setResetPasswordModal(false);
+	};
+
 
 	useEffect(() => {
 		dispatch(refreshLocation());
@@ -230,6 +241,13 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 					<Button
 						variant='contained'
 						className='confirm-button'
+						onClick={handleResetPassword}
+					>
+						Reset Password
+					</Button>
+					<Button
+						variant='contained'
+						className='confirm-button'
 						type='submit'
 					>
 						Submit
@@ -243,6 +261,17 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 					</Button>
 				</Box>
 			</form>
+			{activeUser && resetPasswordModal && (
+				<Modal
+					open={resetPasswordModal}
+					setOpen={setResetPasswordModal}
+				>
+					<ResetPassword
+						onClose={closeResetPassword}
+						activeUser={activeUser}
+					/>
+				</Modal>
+			)}
 		</Box>
 	);
 };

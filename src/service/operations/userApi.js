@@ -7,6 +7,7 @@ import { endpoints, userEndpoints, userProfileEndpoints } from '../api';
 const {
 	GET_ALL_USERS,
 	GET_CUSTOMERS_BY_LOCATION_DATE,
+	RESET_PASSWORD_API,
 	// CREATE_CUSTOMER_API,
 	// DELETE_CUSTOMER_API,
 	// CREATE_USER_API,
@@ -63,26 +64,35 @@ export const createUser = async (token, data) => {
 	}
 };
 
-// export const createCustomer = async (token, data) => {
-//   const toastId = toast.loading("Loading...");
-//   try {
-//     const response = await apiConnector("POST", CREATE_CUSTOMER_API, data, {
-//       Authorization: `Bearer ${token}`,
-//       "Content-Type": "application/json",
-//     });
+export const resetPassword = async (token, data) => {
+	const toastId = toast.loading('Loading...');
+	try {
+		const response = await apiConnector(
+			'POST',
+			RESET_PASSWORD_API,
+			{
+				email: data.email,
+				password: data.password,
+			},
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
 
-//     console.log("Create New Customer Api Response..", response);
-//     if (response.status !== 201) throw new Error("Could not create User");
-//     toast.success("Customer created successfully");
-//     return response.data?.data;
-//   } catch (error) {
-//     console.log("Customer User Api Error", error);
-//     const errorMessage = error.response?.data?.message;
-//     toast.error(errorMessage);
-//   } finally {
-//     toast.dismiss(toastId);
-//   }
-// };
+		console.log('Reset Password Api Response..', response);
+		if (response.status !== 201)
+			throw new Error('Could not Reset Password Api');
+		toast.success('Reset Password Api');
+		return response.data?.data;
+	} catch (error) {
+		console.log('Reset Password Api Error', error);
+		const errorMessage = error.response?.data?.message;
+		toast.error(errorMessage);
+	} finally {
+		toast.dismiss(toastId);
+	}
+};
 
 export const getAllUser = async (token) => {
 	const toastId = toast.loading('Loading...');

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useMemo, useCallback } from 'react';
 import './ProductreportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -53,27 +55,24 @@ const ProductList = ({ productTransaction }) => {
 		[setSearchTerm]
 	);
 
+	console.log(productTransaction);
+
 	const filteredTransaction = useMemo(() => {
 		return productTransaction.filter((transaction) => {
-			const transactionDate = new Date(transaction.transaction.created_at);
+			const transactionDate = new Date(transaction.last_transaction_date);
 			const isInDateRange =
 				dateRange.startDate && dateRange.endDate
 					? transactionDate >= dateRange.startDate &&
 					  transactionDate <= dateRange.endDate
 					: true;
 
-			const firstName =
-				transaction?.user_details?.firstName?.toLowerCase() || '';
-			const lastName = transaction?.user_details?.lastName?.toLowerCase() || '';
 			const productName = transaction?.product?.name?.toLowerCase() || '';
 
-			const matchesSearchQuery =
-				`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-				productName.includes(searchTerm.toLowerCase());
+			const matchesSearchQuery = productName.includes(searchTerm.toLowerCase());
 
 			const matchesLocation =
 				selectedLocation === 'All' ||
-				transaction.user_details?.preferred_location?.name === selectedLocation;
+				transaction.location?.name === selectedLocation;
 
 			return isInDateRange && matchesSearchQuery && matchesLocation;
 		});
@@ -81,11 +80,11 @@ const ProductList = ({ productTransaction }) => {
 
 	const handleDownloadCSV = () => {
 		const headers = [
-			'User Name',
+			// 'User Name',
 			'Product Name',
 			'Price',
 			'Quantity',
-			'Total',
+			// 'Total',
 			'Location',
 			'Date/Time',
 		];
@@ -93,13 +92,13 @@ const ProductList = ({ productTransaction }) => {
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					`${data.user_details.firstName} ${data.user_details.lastName}`,
+					// `${data.user_details.firstName} ${data.user_details.lastName}`,
 					data.product.name,
-					data.product.price,
-					data.transaction.quantity,
-					data.transaction.quantity * data.product.price,
-					data.user_details.preferred_location?.name,
-					formatDate(data.transaction.created_at),
+					data.total_price,
+					data.total_sold,
+					// data.transaction.quantity * data.product.price,
+					data.location?.name,
+					formatDate(data.last_transaction_date),
 				].join(',')
 			),
 		].join('\n');
@@ -134,11 +133,11 @@ const ProductList = ({ productTransaction }) => {
 
 		// Add table headers
 		doc.setFontSize(10);
-		doc.text('User Name', columns.userName, row);
+		// doc.text('User Name', columns.userName, row);
 		doc.text('Product', columns.productName, row);
 		doc.text('Price', columns.price, row);
 		doc.text('Quantity', columns.quantity, row);
-		doc.text('Total', columns.total, row);
+		// doc.text('Total', columns.total, row);
 		doc.text('Location', columns.location, row);
 		doc.text('Date/Time', columns.dateTime, row);
 
@@ -157,11 +156,11 @@ const ProductList = ({ productTransaction }) => {
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('User Name', columns.userName, row);
+				// doc.text('User Name', columns.userName, row);
 				doc.text('Product', columns.productName, row);
 				doc.text('Price', columns.price, row);
 				doc.text('Quantity', columns.quantity, row);
-				doc.text('Total', columns.total, row);
+				// doc.text('Total', columns.total, row);
 				doc.text('Location', columns.location, row);
 				doc.text('Date/Time', columns.dateTime, row);
 				row += lineHeight;
@@ -169,26 +168,22 @@ const ProductList = ({ productTransaction }) => {
 			}
 
 			// Add transaction data in the respective columns
-			doc.text(
-				`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
-				columns.userName,
-				row
-			);
+			// doc.text(
+			// 	`${transaction.user_details.firstName} ${transaction.user_details.lastName}`,
+			// 	columns.userName,
+			// 	row
+			// );
 			doc.text(transaction.product?.name, columns.productName, row);
-			doc.text(`${transaction.product.price}`, columns.price, row);
-			doc.text(`${transaction.transaction.quantity}`, columns.quantity, row);
+			doc.text(`${transaction.total_price}`, columns.price, row);
+			doc.text(`${transaction.total_sold}`, columns.quantity, row);
+			// doc.text(
+			// 	`${transaction.transaction.quantity * transaction.product.price}`,
+			// 	columns.total,
+			// 	row
+			// );
+			doc.text(transaction.location?.name || 'N/A', columns.location, row);
 			doc.text(
-				`${transaction.transaction.quantity * transaction.product.price}`,
-				columns.total,
-				row
-			);
-			doc.text(
-				transaction.user_details.preferred_location?.name || 'N/A',
-				columns.location,
-				row
-			);
-			doc.text(
-				formatDate(transaction.transaction.created_at),
+				formatDate(transaction.last_transaction_date),
 				columns.dateTime,
 				row
 			);
@@ -229,57 +224,83 @@ const ProductList = ({ productTransaction }) => {
 					/>
 				</div>
 				<div className='location-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
 						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
+							<option
+								key={location}
+								value={location}
+							>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='productreportlist-files'>
-					<div className='productreportlist-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={45} style={{ color: '#28a745' }} />
+					<div
+						className='productreportlist-download'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={45}
+							style={{ color: '#28a745' }}
+						/>
 					</div>
-					<div className='productreportlist-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={45} style={{ color: '#dc3545' }} />
+					<div
+						className='productreportlist-download'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={45}
+							style={{ color: '#dc3545' }}
+						/>
 					</div>
 				</div>
 			</div>
 
 			<div className='productreportlist-table'>
 				<div className='productreportlist-table-header'>
-					<span>User Name</span>
+					{/* <span>User Name</span> */}
 					<span>Product Name</span>
+					<span>Location</span>
 					<span>Price</span>
 					<span>Quantity</span>
-					<span>Total</span>
-					<span>Location</span>
+					{/* <span>Total</span> */}
 					<span>Date/Time</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (
-					filteredTransaction.map((transaction) => (
-						<div key={transaction.transaction.id} className='productreportlist-table-row'>
-							<span>
-								{transaction.user_details?.firstName} {transaction.user_details?.lastName}
-							</span>
+					filteredTransaction.map((transaction, i) => (
+						<div
+							key={i}
+							className='productreportlist-table-row'
+						>
+							{/* <span>
+								{transaction.user_details?.firstName}{' '}
+								{transaction.user_details?.lastName}
+							</span> */}
 							<span>{transaction.product.name}</span>
-							<span>£{transaction.product.price}</span>
-							<span>{transaction.transaction.quantity}</span>
-							<span>
+							<span>{transaction.location.name}</span>
+							<span>£{transaction.total_price}</span>
+							<span>{transaction.total_sold}</span>
+							{/* <span>
 								{' '}
-								{(transaction.transaction.quantity * transaction.product.price).toFixed(2)}
-							</span>
-							<span>{transaction.user_details.preferred_location?.name}</span>
+								{(
+									transaction.transaction.quantity * transaction.product.price
+								).toFixed(2)}
+							</span> */}
 							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.transaction.created_at)}{' '}
-								{transaction.transaction.created_at.split('T')[1].slice(0, 8)}
+								{formatDate(transaction.last_transaction_date)}{' '}
+								{/* {transaction.transaction.created_at.split('T')[1].slice(0, 8)} */}
 							</span>
 						</div>
 					))
 				) : (
-					<div className='productreportlist-no-data'>No transactions found.</div>
+					<div className='productreportlist-no-data'>
+						No transactions found.
+					</div>
 				)}
 			</div>
 		</div>

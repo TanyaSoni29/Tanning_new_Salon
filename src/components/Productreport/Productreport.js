@@ -4,30 +4,36 @@ import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import ProductList from './ProductreportList';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProductTransactions } from '../../service/operations/productAndProductTransaction';
+import {
+	getAllProductTransactions,
+	getProductReport,
+} from '../../service/operations/productAndProductTransaction';
 import { refreshLocation } from '../../slices/locationSlice';
 function Productreport() {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth);
 	const [productTransaction, setProductTransaction] = useState([]);
 	useEffect(() => {
-		async function getPurchaseServiceTrnsaction() {
+		async function getProductReportData() {
 			try {
-				const response = await getAllProductTransactions(token);
+				const response = await getProductReport(token);
+				console.log(response);
 				setProductTransaction(
 					response.sort(
 						(a, b) =>
-							new Date(b.transaction.created_at) -
-							new Date(a.transaction.created_at)
+							new Date(b.last_transaction_date) -
+							new Date(a.last_transaction_date)
 					)
 				);
 			} catch (error) {
 				console.log(error);
 			}
 		}
-		getPurchaseServiceTrnsaction();
+		getProductReportData();
 		dispatch(refreshLocation());
 	}, []);
+
+	console.log('Product---', productTransaction);
 	return (
 		<div>
 			<HeaderWithSidebar />

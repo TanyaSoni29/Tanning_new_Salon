@@ -21,6 +21,7 @@ export const locationEndpoints = {
 export const userEndpoints = {
 	GET_ALL_USERS: BASE_URL + '/getUser',
 	GET_CUSTOMERS_BY_LOCATION_DATE: BASE_URL + '/getUserByLocationAndDate',
+	RESET_PASSWORD_API: BASE_URL + '/password/reset',
 	// DELETE_CUSTOMER_API: BASE_URL + "/deleteCustomer",
 	// CREATE_USER_API: BASE_URL + "/createUser",
 	// DELETE_USER_API: BASE_URL + "/deleteUser",
@@ -40,6 +41,7 @@ export const userProfileEndpoints = {
 export const productEndpoints = {
 	GET_ALL_PRODUCT_API: BASE_URL + '/products',
 	GET_ALL_PRODUCT_TRANSACTION_API: BASE_URL + '/product-transactions',
+	GET_PRODUCT_REPORT: BASE_URL + "/product-sale-report"
 };
 
 export const serviceEndpoints = {
