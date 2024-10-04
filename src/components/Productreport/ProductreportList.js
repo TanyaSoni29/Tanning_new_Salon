@@ -201,7 +201,7 @@ const ProductList = ({ productTransaction }) => {
 						onChange={handleDateRangeChange}
 					/>
 				</div>
-				<div className='location-select'>
+				<div className='productlocation-select'>
 					<select
 						value={selectedLocation}
 						onChange={handleLocationChange}

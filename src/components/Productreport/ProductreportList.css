@@ -29,7 +29,7 @@
 /* Search container input */
 .productreportlist-search-container input,
 .date-range-inputs input,
-.location-select select {
+.productlocation-select select {
 	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -101,7 +101,7 @@
 
 	.productreportlist-search-container input,
 	.date-range-inputs input,
-	.location-select select {
+	.productlocation-select select {
 		width: 100%;
 	}
 
@@ -125,7 +125,7 @@
 
 	.productreportlist-search-container,
 	.date-range-inputs,
-	.location-select {
+	.productlocation-select {
 		width: 100%; /* Make input fields take full width on smaller screens */
 	}
 
