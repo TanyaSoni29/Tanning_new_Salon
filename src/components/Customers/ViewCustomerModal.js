@@ -1,99 +1,11 @@
-// /** @format */
-
-// import React from "react";
-// import "./ViewCustomerModal.css"; // Importing CSS
-// import { Card, CardMedia, IconButton, Typography, Box } from "@mui/material";
-// import { useSelector } from "react-redux";
-// import CloseIcon from "@mui/icons-material/Close";
-// import { formatDate } from "../../utils/formateDate"; // Assuming you have a utility for formatting the date
-
-// const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
-//   const { locations } = useSelector((state) => state.location); // Assume location slice for fetching locations
-
-//   // Find preferred location
-//   const preferredLocation = locations.find(
-//     (location) => location.id === activeUser.profile?.preferred_location
-//   );
-
-//   return (
-//     <Card className="modal-card">
-//       {/* Close Button */}
-//       <IconButton className="close-button" onClick={closeViewModal}>
-//         <CloseIcon />
-//       </IconButton>
-
-//       <Box className="user-details">
-//         {/* Name */}
-//         <Typography variant="h6">
-//           {activeUser.profile?.firstName + " " + activeUser.profile?.lastName}
-//         </Typography>
-
-//         {/* Email */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.user?.email}
-//         </Typography>
-
-//         {/* Phone Number */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.profile?.phone_number}
-//         </Typography>
-
-//         {/* Role */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.user?.role}
-//         </Typography>
-
-//         {/* Profile Image */}
-//         <CardMedia
-//           component="img"
-//           className="user-image"
-//           image={
-//             activeUser.avatar ||
-//             "https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286"
-//           }
-//           alt={
-//             activeUser.profile?.firstName + " " + activeUser.profile?.lastName
-//           }
-//         />
-
-//         {/* Address */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.profile?.address}
-//         </Typography>
-
-//         {/* Post Code */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.profile?.post_code}
-//         </Typography>
-
-//         {/* Gender */}
-//         <Typography variant="body2" className="text-secondary">
-//           {activeUser.profile?.gender}
-//         </Typography>
-
-//         {/* Preferred Location */}
-//         <Typography variant="h6" className="preferred-location">
-//           Preferred Location: {preferredLocation?.name}
-//         </Typography>
-
-//         {/* Created On */}
-//         <Typography variant="body2" className="text-secondary">
-//           Created On: {formatDate(activeUser.user.created_at)}
-//         </Typography>
-//       </Box>
-//     </Card>
-//   );
-// };
-
-// export default ViewCustomerModal;
 import React from "react";
 import "./ViewCustomerModal.css"; // Importing CSS
-import { Card, IconButton, Typography, Box } from "@mui/material";
+import { Card, IconButton, Typography, Box, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
-  const { locations } = useSelector((state) => state.location); // Assume location slice for fetching locations
+  const { locations } = useSelector((state) => state.location);
 
   // Find preferred location
   const preferredLocation = locations.find(
@@ -101,54 +13,117 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
   );
 
   return (
-    <Card className="modal-card">
+    <Card className="viewcustomer-modal-card">
       {/* Close Button */}
-      <IconButton className="close-button" onClick={closeViewModal}>
+      <IconButton className="viewcustomer-close-button" onClick={closeViewModal}>
         <CloseIcon />
       </IconButton>
 
-      <Box className="user-details">
-        {/* Name and Minutes Balance */}
-        <div className="user-info">
-          <Typography variant="h6" className="info-label">
-            Name:{" "}
-            <Typography variant="h6" component="span" className="info-value">
-              {activeUser.profile?.firstName + " " + activeUser.profile?.lastName}
-            </Typography>
-          </Typography>
+      <Box className="viewcustomer-user-details">
+        <div className="viewcustomer-section">
+          {/* <Typography variant="h6" className="viewcustomer-section-title">
+            User Information
+          </Typography> */}
 
-          <Typography variant="h6" className="info-label">
-            Minutes Balance:{" "}
-            <Typography variant="h6" component="span" className="info-value">
-              {activeUser.profile?.minutes_balance || 0}
-            </Typography>
-          </Typography>
+          <div className="viewcustomer-grid">
+            {/* Left Side Information */}
+            <div className="viewcustomer-left">
+              {/* Name */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Name:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.firstName + " " + activeUser.profile?.lastName}
+                </Typography>
+              </div>
+
+
+               {/* Address */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Address:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.address}
+                </Typography>
+              </div>
+              
+
+              {/* Phone Number */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Phone Number:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.phone_number}
+                </Typography>
+              </div>
+            </div>
+
+            {/* Right Side Information */}
+            <div className="viewcustomer-right">
+              {/* Role */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Role:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.user?.role}
+                </Typography>
+              </div>
+
+              
+
+              {/* Email */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Email:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.user?.email}
+                </Typography>
+              </div>
+
+              {/* Post Code */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Post Code:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.post_code}
+                </Typography>
+              </div>
+
+              {/* Gender */}
+              <div className="viewcustomer-left-right">
+                <Typography variant="body2" className="viewcustomer-info-label">
+                  Gender:
+                </Typography>
+                <Typography variant="body2" className="viewcustomer-info-value">
+                  {activeUser.profile?.gender}
+                </Typography>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Phone Number and Total Spent */}
-        <div className="user-info">
-          <Typography variant="body2" className="info-label">
-            Phone Number:{" "}
-            <Typography variant="body2" component="span" className="info-value">
-              {activeUser.profile?.phone_number}
-            </Typography>
-          </Typography>
+        {/* Buttons for Minutes Balance and Total Spent */}
+        <div className="viewcustomer-buttons">
+          <Button
+            variant="contained"
+            className="viewcustomer-button viewcustomer-minutes-button"
+          >
+            Minutes Balance: {activeUser.profile?.available_balance || 0}
+          </Button>
 
-          <Typography variant="body2" className="info-label">
-            Total Spent:{" "}
-            <Typography variant="body2" component="span" className="info-value">
-              £{activeUser.profile?.total_spent || 0}
-            </Typography>
-          </Typography>
+          <Button
+            variant="contained"
+            className="viewcustomer-button viewcustomer-spent-button"
+          >
+            Total Spent: £{activeUser.profile?.total_spend?.toFixed(2) || 0}
+          </Button>
         </div>
-
-        {/* Gender */}
-        <Typography variant="body2" className="info-label">
-          Gender:{" "}
-          <Typography variant="body2" component="span" className="info-value">
-            {activeUser.profile?.gender}
-          </Typography>
-        </Typography>
       </Box>
     </Card>
   );

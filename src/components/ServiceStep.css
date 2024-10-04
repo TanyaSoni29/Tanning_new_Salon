@@ -61,7 +61,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  flex-grow: 1; /* Allow the service info section to take up available space */
+  /* flex-grow: 1;  */
 }
 
 /* Styling the customer information */
@@ -105,7 +105,7 @@
 
 /* Make transaction table responsive with horizontal scroll */
 .transaction-table-wrapper {
-  max-height: 250px; /* Adjust height for the transaction table */
+  max-height: 400px; /* Adjust height for the transaction table */
   overflow-y: auto; /* Enables vertical scrolling */
   overflow-x: auto; /* Enables horizontal scrolling */
 }
@@ -122,7 +122,7 @@
 .transaction-table-header {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr .8fr;
+  grid-template-columns: 1fr 1fr 1.3fr 1fr 0.5fr;
   padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #0c65be;
@@ -146,7 +146,7 @@
 }
 
 .transaction-table-row .price {
-  justify-content: flex-end; /* Align content to the right */
+  justify-content: center; /* Align content to the right */
   text-align: right; /* Add this to ensure alignment inside the span */
   display: flex; /* Ensure flex is applied */
   padding-right: 10px; /* Add padding to ensure it's not too close to the edge */
