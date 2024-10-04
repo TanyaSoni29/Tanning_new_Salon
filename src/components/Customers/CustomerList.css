@@ -24,6 +24,16 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+.customer-location-select select {
+	width: 100%;
+	max-width: 200px; /* Set a max width for wider screens */
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	outline: none;
+	transition: border-color 0.3s ease-in-out;
+}
 
 .add-button2 {
 	background-color: #0c65be;

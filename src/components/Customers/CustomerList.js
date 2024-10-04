@@ -15,6 +15,7 @@ const CustomerList = () => {
 	const { token } = useSelector((state) => state.auth);
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
+	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const [isAddOpen, setIsAddOpen] = useState(false);
@@ -22,16 +23,32 @@ const CustomerList = () => {
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isViewOpen, setIsViewOpen] = useState(false);
 	const [activeUser, setActiveUser] = useState(null);
+	const uniqueLocations = [
+		'All',
+		...new Set(locations.map((location) => location.name)),
+	];
 
-	const filteredCustomers = customers.filter(
-		(data) =>
-			(data.profile?.firstName &&
-				data.profile?.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-			(data.profile?.phone_number &&
-				data.profile?.phone_number
-					.toLowerCase()
-					.includes(searchTerm.toLowerCase()))
-	);
+	const handleLocationChange = (e) => {
+		setSelectedLocation(e.target.value);
+	};
+
+	const filteredCustomers = customers.filter((data) => {
+		const firstName = data.profile?.firstName.toLowerCase() || '';
+		const lastName = data?.profile?.lastName?.toLowerCase() || '';
+		const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
+
+		const matchesSearchQuery =
+			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+			phoneNumber.includes(searchTerm.toLowerCase());
+		const preferredLocation = locations.find(
+			(location) => location.id === data.profile?.preferred_location
+		);
+		const matchesLocation =
+			selectedLocation === 'All' ||
+			(preferredLocation && preferredLocation.name === selectedLocation);
+
+		return matchesSearchQuery && matchesLocation;
+	});
 
 	const handleAdd = () => {
 		setIsAddOpen(true);
@@ -96,6 +113,21 @@ const CustomerList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
+				<div className='customer-location-select'>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
+						{uniqueLocations.map((location) => (
+							<option
+								key={location}
+								value={location}
+							>
+								{location}
+							</option>
+						))}
+					</select>
+				</div>
 				<button
 					className='add-button2'
 					onClick={() => handleAdd()}
@@ -118,7 +150,8 @@ const CustomerList = () => {
 				{filteredCustomers.length > 0 ? (
 					filteredCustomers.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) => location?.id === customer.profile?.preferred_location
+							(location) =>
+								location?.id === customer.profile?.preferred_location
 						);
 						return (
 							<div
