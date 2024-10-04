@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom'; // Import useLocation from react-router-dom
+import { useLocation } from 'react-router-dom';
 import './TopHeader.css';
 
 function TopHeader({
@@ -25,40 +25,7 @@ function TopHeader({
 	// Filter locations based on the route (logic can be customized)
 	const filteredLocations = locations.filter((location) => {
 		// Example logic: Filter based on route name
-		if (locationPath === '/location') {
-			// Show only specific locations for '/route1'
-			return location.route === '/about';
-		} else if (locationPath === '/users') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/customers') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/products') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/services') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/allcustomers') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/currentmonth') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/productreport') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else if (locationPath === '/purchasereport') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		}  else if (locationPath === '/purchasereport') {
-			// Show only specific locations for '/route2'
-			return location.route === '/about';
-		} else {
-			// Default: Show all locations
-			return true;
-		}
+		return true; // Keep all locations for this example
 	});
 
 	// Find the location name based on the preferred location ID
@@ -70,40 +37,38 @@ function TopHeader({
 		}
 	}, [preferredLocationId, setSelectedLocation]);
 
+	// Check if select should be hidden based on route
+	const hideSelect = ['/users','/about', '/location', '/customers', '/products', '/services', '/allcustomers','/currentmonth','/productreport','/purchasereport','/serviceused'].includes(locationPath);
+
 	return (
-		<header className='top-header'>
-			
+		<header className="top-header">
+			{/* Conditionally apply style to keep the space but hide the element */}
 			<select
 				value={selectedLocation}
 				onChange={handleLocationChange}
-				className='location-select'
+				className="location-select"
+				style={{
+					visibility: hideSelect ? 'hidden' : 'visible',  // Keep space but hide
+					height: hideSelect ? 0 : 'auto',                // Set height to 0 if hidden
+					width: hideSelect ? 0 : 'auto',                 // Set width to 0 if hidden
+					padding: hideSelect ? 0 : 'initial',            // Remove padding when hidden
+				}}
 			>
 				{filteredLocations.map((location) => (
-					<option
-						key={location.id}
-						value={location.id}
-					>
+					<option key={location.id} value={location.id}>
 						{location?.name}
 					</option>
 				))}
 			</select>
 			
-			<div className='login-details'>
-				<FaUserCircle
-					size={28}
-					style={{ marginLeft: '20px' }}
-				/>
-				<span className='topheadname'>
+			<div className="login-details">
+				<FaUserCircle size={28} style={{ marginLeft: '20px' }} />
+				<span className="topheadname">
 					{loginUser?.name || 'User'} (<span>{locationName?.name}</span>)
-				</span>{' '}
-				{/* Display User Name */}
-				{/* Add more user info or logout option */}
+				</span>
 			</div>
 		</header>
 	);
 }
 
 export default TopHeader;
-
-
-
