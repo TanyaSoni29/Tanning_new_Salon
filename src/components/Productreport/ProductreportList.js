@@ -274,7 +274,7 @@ const ProductList = ({ productTransaction }) => {
 								{transaction.user_details?.lastName}
 							</span>
 							<span>{transaction.product.name}</span>
-							<span>{transaction.product.price}</span>
+							<span>£{transaction.product.price}</span>
 							<span>{transaction.transaction.quantity}</span>
 							<span>
 								{' '}

@@ -85,7 +85,7 @@ const HeaderWithSidebar = () => {
                     {loginUser?.role === 'admin' && (
                         <li>
                             <NavLink to='/location' activeClassName='active'>
-                                <FontAwesomeIcon icon={faLocationArrow} /> Location
+                                <FontAwesomeIcon icon={faLocationArrow} /> Locations
                             </NavLink>
                         </li>
                     )}

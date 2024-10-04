@@ -138,13 +138,13 @@ const CustomerList = () => {
 
 			<div className='customers-table'>
 				<div className='customer-table-header'>
-					<span>USER NAME</span>
-					<span>LOCATION</span>
-					<span>PHONE</span>
-					<span>MIN. AVAL.</span>
-					<span>TOTAL SPEND</span>
-					<span>LAST PURCHASE</span>
-					<span>ACTION</span>
+					<span>Customers Name</span>
+					<span>Location</span>
+					<span>Phone</span>
+					<span>Min. Aval.</span>
+					<span>Total Spend</span>
+					<span>Last Purchase</span>
+					<span>Action</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (

@@ -286,12 +286,12 @@ const CustomerList = () => {
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
-					<span>USER NAME</span>
-					<span>LOCATION</span>
-					<span>PHONE NUMBER</span>
-					<span>MIN. AVAIL.</span>
-					<span>TOTAL SPEND</span>
-					<span>REGISTER ON</span>
+					<span>Customers Name</span>
+					<span>Location</span>
+					<span>Phone Number</span>
+					<span>Min. Avail.</span>
+					<span>Total Spent</span>
+					<span>Register On</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (

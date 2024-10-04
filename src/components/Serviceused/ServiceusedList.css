@@ -84,7 +84,7 @@
 .serviceused-table-header,
 .serviceused-table-row {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.8fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;

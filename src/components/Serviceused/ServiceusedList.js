@@ -179,7 +179,7 @@ const ProductList = ({ useServiceTransaction }) => {
 								{transaction.user_details?.firstName} {transaction.user_details?.lastName}
 							</span>
 							<span>{transaction.service.name}</span>
-							<span>{transaction.service.price}</span>
+							<span>£{transaction.service.price}</span>
 							<span>{transaction.transaction.quantity}</span>
 							<span>{transaction.user_details.preferred_location?.name}</span>
 							<span style={{ whiteSpace: 'nowrap' }}>

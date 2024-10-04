@@ -210,14 +210,14 @@ const CustomerList = () => {
 	return (
 		<div className='allcustomer-container'>
 			<div className='filter-customer'>
-			<div className='allcustomer-search-container'>
-				<input
-					type='text'
-					placeholder='Search'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-			</div>	
+				<div className='allcustomer-search-container'>
+					<input
+						type='text'
+						placeholder='Search'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+				</div>
 				<div className='allcustomer-location-select'>
 					<select
 						value={selectedLocation}
@@ -281,17 +281,16 @@ const CustomerList = () => {
 						{/* Red for PDF */}
 					</div>
 				</div>
-			
 			</div>
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
-					<span>USER NAME</span>
-					<span>LOCATION</span>
-					<span>PHONE NUMBER</span>
-					<span>MIN. AVAIL.</span>
-					<span>TOTAL SPEND</span>
-					<span>REGISTER ON</span>
+					<span>Customers Name</span>
+					<span>Location</span>
+					<span>Phone Number</span>
+					<span>Min. Avail.</span>
+					<span>Total Spent</span>
+					<span>Register On</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (
@@ -312,7 +311,7 @@ const CustomerList = () => {
 								</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>{customer.profile?.total_spend}</span>
+								<span>£ {customer.profile?.total_spend}</span>
 								<span>{formatDate(customer.profile?.created_at)}</span>
 							</div>
 						);
