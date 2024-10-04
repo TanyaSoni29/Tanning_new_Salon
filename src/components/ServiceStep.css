@@ -105,7 +105,7 @@
 
 /* Make transaction table responsive with horizontal scroll */
 .transaction-table-wrapper {
-  max-height: 250px; /* Adjust height for the transaction table */
+  max-height: 400px; /* Adjust height for the transaction table */
   overflow-y: auto; /* Enables vertical scrolling */
   overflow-x: auto; /* Enables horizontal scrolling */
 }
