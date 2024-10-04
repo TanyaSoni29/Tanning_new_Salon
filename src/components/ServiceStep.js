@@ -179,7 +179,7 @@ const ServiceStep = ({ stats }) => {
       <HeaderWithSidebar />
       {/* <StatsHeader stats={stats} /> */}
       <div className="service-wizard-container">
-        <h2 className="heading">Tanning Salon</h2>
+        {/* <h2 className="heading">Tanning Salon</h2> */}
 
         <div className="step-tabs">
           {/* <button

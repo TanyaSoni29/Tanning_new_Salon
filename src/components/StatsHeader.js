@@ -25,18 +25,6 @@ function StatsHeader({ stats }) {
 					</div>
 					<div className='stat-box'>
 						<div className='icon-container'>
-							<MdOutlineToday
-								size={40}
-								color='#007bff'
-							/>
-						</div>
-						<div className='stats-info'>
-							<h3>{stats?.productTransactionTotalToday}</h3>
-							<p>Today's Product Revenue</p>
-						</div>
-					</div>
-					<div className='stat-box'>
-						<div className='icon-container'>
 							<AiFillDollarCircle
 								size={40}
 								color='#28a745'
@@ -47,6 +35,30 @@ function StatsHeader({ stats }) {
 							<p>Today's Service Revenue</p>
 						</div>
 					</div>
+					<div className='stat-box'>
+						<div className='icon-container'>
+							<MdOutlineToday
+								size={40}
+								color='#007bff'
+							/>
+						</div>
+						<div className='stats-info'>
+							<h3>{stats?.productTransactionTotalToday}</h3>
+							<p>Today's Product Revenue</p>
+						</div>
+					</div>
+					{/* <div className='stat-box'>
+						<div className='icon-container'>
+							<AiFillDollarCircle
+								size={40}
+								color='#28a745'
+							/>
+						</div>
+						<div className='stats-info'>
+							<h3>{stats?.serviceTransactionTotalToday}</h3>
+							<p>Today's Service Revenue</p>
+						</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
