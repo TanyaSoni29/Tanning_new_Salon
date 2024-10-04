@@ -116,25 +116,31 @@ const CustomerList = () => {
 	return (
 		<div className='customer-container'>
 			<div className='customer-search-container'>
-				<input
-					type='text'
-					placeholder='Search Customer'
-					value={searchTerm}
-					onChange={(e) => setSearchTerm(e.target.value)}
-				/>
-				<div className='customer-location-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
-						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
-								{location}
-							</option>
-						))}
-					</select>
-				</div>
-				<button className='add-button2' onClick={() => handleAdd()}>
-					ADD NEW CUSTOMER
-				</button>
-			</div>
+	<div className='search-location-wrapper'>
+		<input
+			type='text'
+			placeholder='Search Customer'
+			value={searchTerm}
+			onChange={(e) => setSearchTerm(e.target.value)}
+		/>
+		<div className='customer-location-select'>
+			<select value={selectedLocation} onChange={handleLocationChange}>
+				{uniqueLocations.map((location) => (
+					<option key={location} value={location}>
+						{location}
+					</option>
+				))}
+			</select>
+		</div>
+	</div>
+
+	<div className='add-button-wrapper'>
+		<button className='add-button2' onClick={() => handleAdd()}>
+			ADD NEW CUSTOMER
+		</button>
+	</div>
+</div>
+
 
 			<div className='customers-table'>
 				<div className='customer-table-header'>
