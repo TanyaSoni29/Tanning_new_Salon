@@ -1,9 +1,3 @@
-/**
- * eslint-disable react/prop-types
- *
- * @format
- */
-
 /* eslint-disable react/function-component-definition */
 import * as React from 'react';
 import { Typography, Box, Button } from '@mui/material';

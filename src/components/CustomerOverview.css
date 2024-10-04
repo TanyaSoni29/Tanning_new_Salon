@@ -32,11 +32,22 @@
 	margin-bottom: 16px;
 }
 
-.customer-table th,
-.customer-table td {
-	padding: 12px;
+.customer-table th{
+	padding: 12px ;
 	border: 1px solid #ddd;
-	text-align: left;
+	text-align: center;
+}
+
+.customer-table .tdcustomer {
+	padding: 12px ;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+
+.customer-table td {
+	padding: 12px ;
+	border: 1px solid #ddd;
+	text-align: right;
 }
 
 .customer-table th {
