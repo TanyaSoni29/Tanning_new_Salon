@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { FaUserFriends } from 'react-icons/fa'; // Import necessary icons
-import { MdOutlineToday } from 'react-icons/md'; // Import Today Users Icon
-import { AiFillDollarCircle } from 'react-icons/ai'; // Import Revenue Icon
+import { MdOutlineWatch } from 'react-icons/md'; // Import Today Users Icon
+import { AiFillPoundCircle } from 'react-icons/ai'; // Import Revenue Icon
 import './StatsHeader.css';
 function StatsHeader({ stats }) {
 	return (
@@ -25,19 +25,19 @@ function StatsHeader({ stats }) {
 					</div>
 					<div className='stat-box'>
 						<div className='icon-container'>
-							<AiFillDollarCircle
+							<AiFillPoundCircle
 								size={40}
 								color='#28a745'
 							/>
 						</div>
 						<div className='stats-info'>
-							<h3>{stats?.productTransactionTotalToday}</h3>
+							<h3>£{stats?.productTransactionTotalToday}</h3>
 							<p> Sales Today</p>
 						</div>
 					</div>
 					<div className='stat-box'>
 						<div className='icon-container'>
-							<MdOutlineToday
+							<MdOutlineWatch
 								size={40}
 								color='#007bff'
 							/>
