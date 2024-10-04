@@ -35,6 +35,7 @@ import { Dashboard } from '@mui/icons-material';
 
 const App = () => {
 	const dispatch = useDispatch();
+	const [selectedLocation, setSelectedLocation] = useState(0);
 	const [stats, setStats] = useState({});
 	const {
 		token,
@@ -62,9 +63,19 @@ const App = () => {
 		stats();
 	}, []);
 
+	const handleLocationChange = (e) => {
+		setSelectedLocation(Number(e.target.value));
+	};
+
 	return (
 		<div className='app-container'>
-			{loginUser && <TopHeader />}
+			{loginUser && (
+				<TopHeader
+					setSelectedLocation={setSelectedLocation}
+					selectedLocation={selectedLocation}
+					handleLocationChange={handleLocationChange}
+				/>
+			)}
 			<Routes>
 				<Route
 					path='/'
@@ -81,11 +92,21 @@ const App = () => {
 				/> */}
 				<Route
 					path='/about'
-					element={<ProtectedRoute element={<AboutStep stats={stats} />} />}
+					element={
+						<ProtectedRoute
+							element={
+								<AboutStep
+									stats={stats}
+									setSelectedLocation={setSelectedLocation}
+									selectedLocation={selectedLocation}
+								/>
+							}
+						/>
+					}
 				/>
 				<Route
 					path='/service'
-					element={<ProtectedRoute element={<ServiceStep stats={stats} />} />}
+					element={<ProtectedRoute element={<ServiceStep stats={stats} selectedLocation={selectedLocation} />} />}
 				/>
 				{loginUser?.role === 'admin' && (
 					<>

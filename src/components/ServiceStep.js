@@ -27,7 +27,7 @@ import { refreshCustomers } from '../slices/customerProfile';
 import StatsHeader from './StatsHeader';
 import TopHeader from './TopHeader';
 
-const ServiceStep = ({ stats }) => {
+const ServiceStep = ({ stats, selectedLocation }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [buyProductModal, setBuyProductModal] = useState(false);
@@ -49,7 +49,7 @@ const ServiceStep = ({ stats }) => {
 		try {
 			const data = {
 				user_id: customer.user.id, // Assuming user data is stored in auth state
-				location_id: customer.profile?.preferred_location, // Replace with the correct location ID
+				location_id: selectedLocation, // Replace with the correct location ID
 				product_id: productId,
 				quantity,
 			};
@@ -68,7 +68,7 @@ const ServiceStep = ({ stats }) => {
 			const data = {
 				user_id: customer.user.id,
 				service_id: serviceId, // Assuming user data is stored in auth state
-				location_id: customer.profile?.preferred_location, // Replace with the correct location ID
+				location_id: selectedLocation, // Replace with the correct location ID
 				type: 'purchased',
 			};
 			await createServiceTransaction(token, data);
@@ -83,7 +83,7 @@ const ServiceStep = ({ stats }) => {
 		try {
 			const data = {
 				user_id: customer.user.id, // Assuming user data is stored in auth state
-				location_id: customer.profile?.preferred_location,
+				location_id: selectedLocation,
 				service_id: serviceId, // Replace with the correct location ID
 				type: 'used',
 			};

@@ -1,11 +1,15 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import './TopHeader.css';
 
-function TopHeader() {
+function TopHeader({
+	setSelectedLocation,
+	selectedLocation,
+	handleLocationChange,
+}) {
 	const { user: loginUser } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations } = useSelector((state) => state.location);
@@ -16,8 +20,28 @@ function TopHeader() {
 	// Extract the preferred location ID from the logged-in user profile
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 	const locationName = locations.find((l) => l.id === preferredLocationId);
+	useEffect(() => {
+		if (preferredLocationId) {
+			setSelectedLocation(preferredLocationId); // Set the default selected location
+		}
+	}, [preferredLocationId, setSelectedLocation]);
 	return (
 		<header className='top-header'>
+			<select
+				value={selectedLocation}
+				onChange={handleLocationChange}
+				className='location-select'
+			>
+				<option value={0}>All</option>
+				{locations.map((location) => (
+					<option
+						key={location.id}
+						value={location.id}
+					>
+						{location?.name}
+					</option>
+				))}
+			</select>
 			<div className='login-details'>
 				<FaUserCircle
 					size={28}

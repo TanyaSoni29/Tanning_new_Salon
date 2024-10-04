@@ -12,13 +12,13 @@ import { refreshUser } from "../slices/userProfileSlice";
 import StatsHeader from "./StatsHeader";
 import TopHeader from "./TopHeader";
 
-const AboutStep = ({ stats }) => {
+const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
   const navigate = useNavigate();
   const { customers } = useSelector((state) => state.customer);
   const { locations } = useSelector((state) => state.location);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState(0);
+  // const [selectedLocation, setSelectedLocation] = useState(0);
   const dispatch = useDispatch();
   const searchRef = useRef(null);
 
@@ -88,9 +88,9 @@ const AboutStep = ({ stats }) => {
     setSearchQuery("");
   };
 
-  const handleLocationChange = (e) => {
-    setSelectedLocation(Number(e.target.value));
-  };
+  // const handleLocationChange = (e) => {
+  //   setSelectedLocation(Number(e.target.value));
+  // };
 
   return (
     <>
@@ -99,7 +99,7 @@ const AboutStep = ({ stats }) => {
       <div className="wizard-container">
         <div className="filter-container">
           {/* Location Dropdown */}
-          <select
+          {/* <select
             value={selectedLocation}
             onChange={handleLocationChange}
             className="location-select"
@@ -110,7 +110,7 @@ const AboutStep = ({ stats }) => {
                 {location?.name}
               </option>
             ))}
-          </select>
+          </select> */}
 
           {/* Search Input */}
           <input
