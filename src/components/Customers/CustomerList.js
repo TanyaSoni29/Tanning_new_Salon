@@ -161,9 +161,7 @@ const CustomerList = () => {
 								<span>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
-								<span>
-									{preferredLocation ? preferredLocation?.name : 'N/A'}
-								</span>
+								<span>{preferredLocation ? preferredLocation?.name : '-'}</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
 								<span>{customer.profile?.total_spend}</span>
