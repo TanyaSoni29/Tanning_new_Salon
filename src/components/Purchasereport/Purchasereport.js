@@ -4,7 +4,10 @@ import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import ProductList from './PurchasereportList';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllServiceTransactions } from '../../service/operations/serviceAndServiceTransaction';
+import {
+	getAllServiceTransactions,
+	getServicePurchaseReport,
+} from '../../service/operations/serviceAndServiceTransaction';
 import { refreshLocation } from '../../slices/locationSlice';
 
 function Purchasereport() {
@@ -14,27 +17,23 @@ function Purchasereport() {
 		[]
 	);
 	useEffect(() => {
-		async function getPurchaseServiceTrnsaction() {
+		async function getPurchaseServiceReport() {
 			try {
-				const response = await getAllServiceTransactions(token);
+				const response = await getServicePurchaseReport(token);
 				setPurchaseServiceTransaction(
-					response
-						.filter(
-							(transaction) => transaction.transaction.type === 'purchased'
-						)
-						.sort(
-							(a, b) =>
-								new Date(b.transaction.created_at) -
-								new Date(a.transaction.created_at)
-						)
+					response.sort(
+						(a, b) =>
+							new Date(b.date) -
+							new Date(a.date)
+					)
 				);
 			} catch (error) {
 				console.log(error);
 			}
 		}
-		getPurchaseServiceTrnsaction();
+		getPurchaseServiceReport();
 		dispatch(refreshLocation());
-	}, []);
+	}, [dispatch]);
 	return (
 		<div>
 			<HeaderWithSidebar />

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useMemo } from 'react';
 import './PurchasereportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -29,7 +31,10 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Extract unique locations for dropdown
-	const uniqueLocations = useMemo(() => ['All', ...new Set(locations.map((location) => location.name))], [locations]);
+	const uniqueLocations = useMemo(
+		() => ['All', ...new Set(locations.map((location) => location.name))],
+		[locations]
+	);
 
 	// Handle Date Range Change
 	const handleDateRangeChange = (e) => {
@@ -46,37 +51,44 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	};
 
 	// Filter Transactions
-	const filteredTransaction = purchaseServiceTransaction.filter((transaction) => {
-		const transactionDate = new Date(transaction.transaction.created_at);
-		const isInDateRange =
-			dateRange.startDate && dateRange.endDate
-				? transactionDate >= dateRange.startDate && transactionDate <= dateRange.endDate
-				: true;
-		const firstName = transaction?.user_details?.firstName?.toLowerCase() || '';
-		const lastName = transaction?.user_details?.lastName?.toLowerCase() || '';
-		const serviceName = transaction?.service?.name?.toLowerCase() || '';
-		const matchesSearchQuery =
-			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-			serviceName.includes(searchTerm.toLowerCase());
-		const matchesLocation =
-			selectedLocation === 'All' || transaction.user_details?.preferred_location?.name === selectedLocation;
+	const filteredTransaction = purchaseServiceTransaction.filter(
+		(transaction) => {
+			const transactionDate = new Date(transaction.date);
+			const isInDateRange =
+				dateRange.startDate && dateRange.endDate
+					? transactionDate >= dateRange.startDate &&
+					  transactionDate <= dateRange.endDate
+					: true;
+			const serviceName = transaction?.service_name.toLowerCase() || '';
+			const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
+			const matchesLocation =
+				selectedLocation === 'All' ||
+				transaction.location?.name === selectedLocation;
 
-		return isInDateRange && matchesSearchQuery && matchesLocation;
-	});
+			return isInDateRange && matchesSearchQuery && matchesLocation;
+		}
+	);
 
 	// Download CSV
 	const handleDownloadCSV = () => {
-		const headers = ['User Name', 'Service Name', 'Price', 'Quantity', 'Location', 'Date/Time'];
+		const headers = [
+			'User Name',
+			'Service Name',
+			'Price',
+			'Quantity',
+			'Location',
+			'Date/Time',
+		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					`${data.user_details.firstName} ${data.user_details.lastName}`,
-					data.service.name,
-					data.service.price,
-					data.transaction.quantity,
-					data.user_details.preferred_location?.name,
-					formatDate(data.transaction.created_at),
+					// `${data.user_details.firstName} ${data.user_details.lastName}`,
+					data.service_name,
+					data.total_price,
+					data.total_quantity,
+					data.location?.name,
+					formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -97,7 +109,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 		// Define the column positions to fit within the page width
 		const columns = {
-			userName: margin, // First column starts from left margin
+			// userName: margin, // First column starts from left margin
 			serviceName: margin + 80, // Next column 80pt from the first one
 			price: margin + 220, // Adjust based on previous column widths
 			quantity: margin + 280,
@@ -111,7 +123,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 		// Add table headers
 		doc.setFontSize(10);
-		doc.text('User Name', columns.userName, row);
+		// doc.text('User Name', columns.userName, row);
 		doc.text('Service', columns.serviceName, row);
 		doc.text('Price', columns.price, row);
 		doc.text('Quantity', columns.quantity, row);
@@ -133,7 +145,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('User Name', columns.userName, row);
+				// doc.text('User Name', columns.userName, row);
 				doc.text('Service', columns.serviceName, row);
 				doc.text('Price', columns.price, row);
 				doc.text('Quantity', columns.quantity, row);
@@ -144,12 +156,12 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			}
 
 			// Add transaction data in the respective columns
-			doc.text(`${transaction.user_details.firstName} ${transaction.user_details.lastName}`, columns.userName, row);
-			doc.text(transaction.service?.name, columns.serviceName, row);
-			doc.text(`${transaction.service.price}`, columns.price, row);
-			doc.text(`${transaction.transaction.quantity}`, columns.quantity, row);
-			doc.text(transaction.user_details.preferred_location?.name || 'N/A', columns.location, row);
-			doc.text(formatDate(transaction.transaction.created_at), columns.dateTime, row);
+			// doc.text(`${transaction.user_details.firstName} ${transaction.user_details.lastName}`, columns.userName, row);
+			doc.text(transaction.service_name, columns.serviceName, row);
+			doc.text(`${transaction.total_price}`, columns.price, row);
+			doc.text(`${transaction.total_quantity}`, columns.quantity, row);
+			doc.text(transaction.location?.name || 'N/A', columns.location, row);
+			doc.text(formatDate(transaction.date), columns.dateTime, row);
 
 			// Move to the next row
 			row += lineHeight;
@@ -187,52 +199,78 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					/>
 				</div>
 				<div className='purchaselocation-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
 						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
+							<option
+								key={location}
+								value={location}
+							>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='purchasereportlist-files'>
-					<div className='purchasereportlist-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={45} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+					<div
+						className='purchasereportlist-download'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={45}
+							style={{ color: '#28a745' }}
+						/>{' '}
+						{/* Green for CSV */}
 					</div>
-					<div className='purchasereportlist-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={45} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+					<div
+						className='purchasereportlist-download'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={45}
+							style={{ color: '#dc3545' }}
+						/>{' '}
+						{/* Red for PDF */}
 					</div>
 				</div>
-				</div>
+			</div>
 
 			<div className='purchasereportlist-table'>
 				<div className='purchasereportlist-table-header'>
-					<span>User Name</span>
+					{/* <span>User Name</span> */}
 					<span>Service Name</span>
-					<span>Price</span>
-					<span>Quantity</span>
 					<span>Location</span>
-					<span>Date/Time</span>
+					<span>Total Value</span>
+					<span>Minute Sold</span>
+					<span>Last Sold On</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (
-					filteredTransaction.map((transaction) => (
-						<div key={transaction.transaction.id} className='purchasereportlist-table-row'>
-							<span>
-								{transaction.user_details?.firstName} {transaction.user_details?.lastName}
-							</span>
-							<span>{transaction.service.name}</span>
-							<span>£{transaction.service.price}</span>
-							<span>{transaction.transaction.quantity}</span>
-							<span>{transaction.user_details.preferred_location?.name}</span>
+					filteredTransaction.map((transaction, i) => (
+						<div
+							key={i}
+							className='purchasereportlist-table-row'
+						>
+							{/* <span>
+								{transaction.user_details?.firstName}{' '}
+								{transaction.user_details?.lastName}
+							</span> */}
+							<span>{transaction.service_name}</span>
+							<span>{transaction.location?.name}</span>
+							<span>£{transaction.total_price}</span>
+							<span>{transaction.total_quantity}</span>
 							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.transaction.created_at)}{' '}
-								{transaction.transaction.created_at.split('T')[1].slice(0, 8)}
+								{formatDate(transaction.date)}{' '}
+								{/* {transaction.transaction.created_at.split('T')[1].slice(0, 8)} */}
 							</span>
 						</div>
 					))
 				) : (
-					<div className='purchasereportlist-no-data'>No transactions found.</div>
+					<div className='purchasereportlist-no-data'>
+						No transactions found.
+					</div>
 				)}
 			</div>
 		</div>

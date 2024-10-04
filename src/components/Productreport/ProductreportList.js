@@ -265,10 +265,10 @@ const ProductList = ({ productTransaction }) => {
 					{/* <span>User Name</span> */}
 					<span>Product Name</span>
 					<span>Location</span>
-					<span>Price</span>
-					<span>Quantity</span>
+					<span>Total Value</span>
+					<span>Total Sold</span>
 					{/* <span>Total</span> */}
-					<span>Date/Time</span>
+					<span>Last Sold On</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (

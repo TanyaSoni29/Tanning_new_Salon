@@ -31,7 +31,7 @@ function Productreport() {
 		}
 		getProductReportData();
 		dispatch(refreshLocation());
-	}, []);
+	}, [dispatch]);
 
 	console.log('Product---', productTransaction);
 	return (
