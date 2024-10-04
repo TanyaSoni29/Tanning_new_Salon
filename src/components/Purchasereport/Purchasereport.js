@@ -21,11 +21,7 @@ function Purchasereport() {
 			try {
 				const response = await getServicePurchaseReport(token);
 				setPurchaseServiceTransaction(
-					response.sort(
-						(a, b) =>
-							new Date(b.date) -
-							new Date(a.date)
-					)
+					response.sort((a, b) => new Date(b.date) - new Date(a.date))
 				);
 			} catch (error) {
 				console.log(error);

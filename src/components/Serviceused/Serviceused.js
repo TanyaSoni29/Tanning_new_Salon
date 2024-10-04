@@ -4,7 +4,10 @@ import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import ServiceusedList from './ServiceusedList';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllServiceTransactions } from '../../service/operations/serviceAndServiceTransaction';
+import {
+	getAllServiceTransactions,
+	getServiceUseReport,
+} from '../../service/operations/serviceAndServiceTransaction';
 import { refreshLocation } from '../../slices/locationSlice';
 function Serviceused() {
 	const dispatch = useDispatch();
@@ -13,15 +16,9 @@ function Serviceused() {
 	useEffect(() => {
 		async function getServiceTrnsaction() {
 			try {
-				const response = await getAllServiceTransactions(token);
+				const response = await getServiceUseReport(token);
 				setUseServiceTransaction(
-					response
-						.filter((transaction) => transaction.transaction.type === 'used')
-						.sort(
-							(a, b) =>
-								new Date(b.transaction.created_at) -
-								new Date(a.transaction.created_at)
-						)
+					response.sort((a, b) => new Date(b.date) - new Date(a.date))
 				);
 			} catch (error) {
 				console.log(error);

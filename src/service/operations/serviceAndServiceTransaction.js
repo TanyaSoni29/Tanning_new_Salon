@@ -9,7 +9,8 @@ const {
 	GET_ALL_SERVICE_API,
 	GET_USE_SERVICE_OPTION,
 	GET_TOTAL_SPEND,
-	GET_SERVICE_REPORT
+	GET_SERVICE_REPORT,
+	GET_SERVICE_USE_REPORT,
 	// GET_ALL_SERVICE_USAGES_API,
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API,
 } = serviceEndpoints;
@@ -282,6 +283,28 @@ export const getServicePurchaseReport = async (token) => {
 		result = response.data;
 	} catch (error) {
 		console.log('GET_PRODUCT_REPORT Api Error', error);
+		const errorMessage = error?.response?.data?.error;
+		toast.error(errorMessage);
+	}
+	toast.dismiss(toastId);
+	return result;
+};
+
+export const getServiceUseReport = async (token) => {
+	const toastId = toast.loading('Loading...');
+	let result = null;
+	try {
+		const response = await apiConnector('GET', GET_SERVICE_USE_REPORT, null, {
+			'Authorization': `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		});
+		console.log('GET_SERVICE_USE_REPORT Api Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch GET_SERVICE_USE_REPORT');
+		// toast.success("User Transactions fetch successfully");
+		result = response.data;
+	} catch (error) {
+		console.log('GET_SERVICE_USE_REPORT Api Error', error);
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}
