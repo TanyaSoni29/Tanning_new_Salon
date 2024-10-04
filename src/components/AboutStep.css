@@ -17,6 +17,8 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+
+
 /* Flexbox container for filters (Location, Search, Buttons) */
 .filter-container {
   display: flex;
@@ -26,13 +28,84 @@
   margin-bottom: 20px;
 }
 
-.dashboard-toggle-container{
+/* Container for the switch and label */
+.dashboard-toggle-container {
   display: flex;
-	align-items: center;
-	width: 50%;
-	max-width: 200px;
-	gap: 0px;
+  align-items: center;
+  gap: 10px;
+  /* background-color: #ff5e5e; */
+  padding: 7px;
+  border-radius: 4px;
+ 
 }
+
+/* The switch itself */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Hide the default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px; /* Fully rounded slider */
+}
+
+/* Slider before the toggle (unchecked state) */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%; /* Fully rounded handle */
+}
+
+/* When the checkbox is checked */
+input:checked + .slider {
+  background-color: #28a745; /* Green for checked state */
+}
+
+/* Move the handle to the right when checked */
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Rounded corners for the slider */
+.slider.round {
+  border-radius: 24px;
+  border: 0.5px solid rgb(129, 128, 128);
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Text next to the switch */
+.dashboard-toggle-container span {
+  font-size: 16px;
+  color: #000000;
+}
+
 
 .switch {
 	position: relative;

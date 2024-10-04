@@ -118,6 +118,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 
 					{/* Search Input */}
 					<div className='dashboard-toggle-container'>
+          <span className='dashtoggle'>All</span>
 						<label className='switch'>
 							<input
 								type='checkbox'
@@ -126,7 +127,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 							/>
 							<span className='slider round'></span>
 						</label>
-						<span>All</span>
+						
 					</div>
 					<input
 						type='text'
