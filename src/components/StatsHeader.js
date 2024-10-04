@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { FaUserFriends } from 'react-icons/fa'; // Import necessary icons
-import { MdOutlineWatch } from 'react-icons/md'; // Import Today Users Icon
+import { BsClockHistory } from 'react-icons/bs'; // Import Today Users Icon
 import { AiFillPoundCircle } from 'react-icons/ai'; // Import Revenue Icon
 import './StatsHeader.css';
 function StatsHeader({ stats }) {
@@ -37,7 +37,7 @@ function StatsHeader({ stats }) {
 					</div>
 					<div className='stat-box'>
 						<div className='icon-container'>
-							<MdOutlineWatch
+							<BsClockHistory
 								size={40}
 								color='#007bff'
 							/>
