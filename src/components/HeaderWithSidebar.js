@@ -32,6 +32,7 @@ const HeaderWithSidebar = () => {
     useEffect(() => {
         if (
             location.pathname.includes('/allcustomers') ||
+            location.pathname.includes('/currentmonth') ||
             location.pathname.includes('/productreport') ||
             location.pathname.includes('/serviceused') ||
             location.pathname.includes('/purchasereport')
@@ -91,13 +92,13 @@ const HeaderWithSidebar = () => {
                     {loginUser?.role === 'admin' && (
                         <li>
                             <NavLink to='/users' activeClassName='active'>
-                                <FontAwesomeIcon icon={faUsers} /> Users
+                                <FontAwesomeIcon icon={faUser} /> System Users
                             </NavLink>
                         </li>
                     )}
                     <li>
                         <NavLink to='/customers' activeClassName='active'>
-                            <FontAwesomeIcon icon={faUser} /> Customers
+                            <FontAwesomeIcon icon={faUsers} /> Customers
                         </NavLink>
                     </li>
                     <li>
@@ -131,17 +132,22 @@ const HeaderWithSidebar = () => {
                                     <ul className='submenu'>
                                         <li>
                                             <NavLink to='/allcustomers' activeClassName='active'>
-                                                <FontAwesomeIcon icon={faUser} /> Customers
+                                                <FontAwesomeIcon icon={faUser} /> Customers Registered
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to='/currentmonth' activeClassName='active'>
+                                                <FontAwesomeIcon icon={faUser} /> Top Customers
                                             </NavLink>
                                         </li>
                                         <li>
                                             <NavLink to='/productreport' activeClassName='active'>
-                                                <FontAwesomeIcon icon={faBox} /> Products
+                                                <FontAwesomeIcon icon={faBox} /> Product Sales
                                             </NavLink>
                                         </li>
                                         <li>
                                             <NavLink to='/serviceused' activeClassName='active'>
-                                                <FontAwesomeIcon icon={faCog} /> Services
+                                                <FontAwesomeIcon icon={faCog} /> Service Sales
                                             </NavLink>
                                         </li>
                                         <li>

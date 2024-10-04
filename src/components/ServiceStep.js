@@ -233,11 +233,11 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 								}}
 							>
 								<p>
-									<span>Available Balance:</span>{' '}
+									<span>Minutes Balance:</span>{' '}
 									{customer.profile?.available_balance}
 								</p>
 								<p>
-									<span>Total Spend:</span> {customer.profile?.total_spend}
+									<span>Total Spent:</span> {customer.profile?.total_spend}
 								</p>
 							</div>
 						</div>

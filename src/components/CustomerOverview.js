@@ -50,10 +50,11 @@ function CustomerOverview({ filteredCustomers }) {
           <table className="customer-table">
             <thead>
               <tr>
-                <th>Name</th>
+                <th> Customer Name</th>
                 <th>Phone No.</th>
-                <th>Available Balance</th>
-                <th>Total Spend</th>
+                <th>Minutes Balance</th>
+                <th>Total Minutes Used</th>
+                <th>Total Spent</th>
                 <th>Last Used</th>
                 <th>Select</th>
               </tr>
@@ -70,6 +71,7 @@ function CustomerOverview({ filteredCustomers }) {
                     </td>
                     <td>{data.profile?.available_balance}</td>
                     <td>{data.profile?.total_spend}</td>
+                    <td>{data.profile?.total_minutes_used}</td>
                     <td>
                       {data?.profile?.updated_at
                         ? formatDate(data?.profile?.updated_at)

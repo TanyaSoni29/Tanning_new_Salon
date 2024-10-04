@@ -144,8 +144,8 @@ body {
 }
 
 .submenu li {
-  font-size: 14px;
-  padding: 8px 20px;
+  font-size: 12px;
+  padding: 10px 0px;
   list-style: none;
   font-family: 'Roboto', sans-serif;
   border-bottom: none; /* Remove underline from submenu items */
