@@ -48,10 +48,10 @@ const UserList = () => {
 	};
 
 	// Handle opening the view user modal
-	const handleView = (user) => {
-		setActiveUser(user); // Set the active user to be viewed
-		setIsViewOpen(true);
-	};
+	// const handleView = (user) => {
+	// 	setActiveUser(user); // Set the active user to be viewed
+	// 	setIsViewOpen(true);
+	// };
 
 	const handleDelete = async () => {
 		try {
@@ -138,10 +138,10 @@ const UserList = () => {
 								</span>
 								<span>{user.profile?.phone_number}</span>
 								<span>
-									<i
+									{/* <i
 										className='fa fa-eye'
 										onClick={() => handleView(user)}
-									></i>
+									></i> */}
 									<i
 										className='fa fa-pencil'
 										onClick={() => handleEdit(user)}
