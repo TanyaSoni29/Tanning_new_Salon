@@ -32,7 +32,7 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
           <Typography variant="h6" className="viewcustomer-info-label">
             Minutes Balance:{" "}
             <Typography variant="h6" component="span" className="viewcustomer-info-value">
-              {activeUser.profile?.total_spend?.toFixed(2) || 0}
+              {activeUser.profile?.available_balance || 0}
             </Typography>
           </Typography>
         </div>
@@ -49,7 +49,7 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
           <Typography variant="body2" className="viewcustomer-info-label">
             Total Spent:{" "}
             <Typography variant="body2" component="span" className="viewcustomer-info-value">
-              £{activeUser.profile?.total_spent || 0}
+              £{activeUser.profile?.total_spend?.toFixed(2) || 0}
             </Typography>
           </Typography>
         </div>
