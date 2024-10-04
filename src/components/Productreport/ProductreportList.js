@@ -254,13 +254,13 @@ const ProductList = ({ productTransaction }) => {
 
 			<div className='productreportlist-table'>
 				<div className='productreportlist-table-header'>
-					<span>USER NAME</span>
-					<span>PRODUCT NAME</span>
-					<span>PRICE</span>
-					<span>QUANTITY</span>
-					<span>TOTAL</span>
-					<span>LOCATION</span>
-					<span>DATE/TIME</span>
+					<span>User Name</span>
+					<span>Product Name</span>
+					<span>Price</span>
+					<span>Qunatity</span>
+					<span>Total</span>
+					<span>Location</span>
+					<span>Date/Time</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (

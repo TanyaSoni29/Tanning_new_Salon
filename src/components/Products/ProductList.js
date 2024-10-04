@@ -80,21 +80,21 @@ const ProductList = () => {
       <div className="products-search-container">
         <input
           type="text"
-          placeholder="Search Products"
+          placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button className="add-button1" onClick={handleAdd}>
-          ADD NEW Product
+          Add New Product
         </button>
       </div>
 
       <div className="product-table">
         <div className="products-table-header">
-          <span>NAME</span>
-          <span>PRICE</span>
-          <span>LISTED ON</span>
-          <span>ACTION</span>
+          <span>Name</span>
+          <span>Price</span>
+          <span>Listed Om</span>
+          <span>Action</span>
         </div>
 
         {/* Render filtered products */}
@@ -102,7 +102,7 @@ const ProductList = () => {
           filteredProducts.map((product) => (
             <div key={product?.id} className="products-table-row">
               <span>{product?.name}</span>
-              <span>{product?.price}</span>
+              <span>£{product?.price}</span>
               <span>{formatDate(product?.created_at)}</span>
               <span>
                 <i

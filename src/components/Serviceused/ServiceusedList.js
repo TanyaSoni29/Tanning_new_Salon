@@ -164,12 +164,12 @@ const ProductList = ({ useServiceTransaction }) => {
 
 			<div className='serviceused-table'>
 				<div className='serviceused-table-header'>
-					<span>USER NAME</span>
-					<span>SERVICE NAME</span>
-					<span>PRICE</span>
-					<span>QUANTITY</span>
-					<span>LOCATION</span>
-					<span>DATE/TIME</span>
+					<span>User Name</span>
+					<span>Service Name</span>
+					<span>Price</span>
+					<span>Qunatity</span>
+					<span>Location</span>
+					<span>Date/Time</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (

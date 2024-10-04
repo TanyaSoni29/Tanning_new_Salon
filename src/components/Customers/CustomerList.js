@@ -142,7 +142,7 @@ const CustomerList = () => {
 					<span>Location</span>
 					<span>Phone</span>
 					<span>Min. Aval.</span>
-					<span>Total Spend</span>
+					<span>Total Spent</span>
 					<span>Last Purchase</span>
 					<span>Action</span>
 				</div>
@@ -164,7 +164,7 @@ const CustomerList = () => {
 								<span>{preferredLocation ? preferredLocation?.name : '-'}</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>{customer.profile?.total_spend}</span>
+								<span>£{customer.profile?.total_spend?.toFixed(2)}</span>
 								<span>{formatDate(customer.profile?.updated_at)}</span>
 								<span>
 									<i

@@ -81,7 +81,7 @@ const ServiceList = () => {
 			<div className='search-container'>
 				<input
 					type='text'
-					placeholder='Search Service'
+					placeholder='Search'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
@@ -89,16 +89,16 @@ const ServiceList = () => {
 					className='add-button'
 					onClick={handleAdd}
 				>
-					ADD NEW SERVICE
+					Add New Service
 				</button>
 			</div>
 
 			<div className='services-table'>
 				<div className='table-header'>
-					<span>SERVICE NAME</span>
-					<span>PRICE</span>
-					<span>MINUTES AVAILABLE</span>
-					<span>ACTION</span>
+					<span>Service Name</span>
+					<span>Price</span>
+					<span>Minutes Available</span>
+					<span>Action</span>
 				</div>
 
 				{/* Render filtered Services */}
@@ -109,7 +109,7 @@ const ServiceList = () => {
 							className='table-row'
 						>
 							<span>{service?.serviceName}</span>
-							<span>{service?.price}</span>
+							<span>£{service?.price}</span>
 							<span>{service?.minutesAvailable}</span>
 							<span>
 								<i

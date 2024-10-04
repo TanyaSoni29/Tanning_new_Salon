@@ -110,12 +110,12 @@ const UserList = () => {
 
 			<div className='users-table'>
 				<div className='user-table-header'>
-					<span>USER NAME</span>
-					<span>USER EMAIL</span>
-					<span>ROLE</span>
-					<span>LOCATION</span>
-					<span>PHONE NUMBER</span>
-					<span>ACTION</span>
+					<span>Customer Name</span>
+					<span>Customer Email</span>
+					<span>Role</span>
+					<span>Location</span>
+					<span>Phone Number</span>
+					<span>Action</span>
 				</div>
 
 				{filteredUsers.length > 0 ? (
