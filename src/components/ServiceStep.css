@@ -3,14 +3,12 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  width: 75%; /* Responsive width */
+  width: 75%;
   text-align: center;
-  /* margin: 50px; */
-  /* margin-top: 18px; */
   margin-left: 320px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  height: 85vh; /* Fixed height, fills 90% of the viewport */
-  overflow: hidden; /* Prevents scrolling inside the container */
+  height: 85vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -61,19 +59,15 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* flex-grow: 1;  */
 }
 
-/* Styling the customer information */
 .service-info p {
   text-align: start;
   font-size: 16px;
   color: #555;
   line-height: 1;
-  /* margin: 10px 0; */
 }
 
-/* Style for each data item */
 .service-info p span {
   font-weight: bold;
 }
@@ -100,14 +94,13 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  flex-grow: 2; /* Allows the transaction container to fill remaining space */
+  flex-grow: 2;
 }
 
-/* Make transaction table responsive with horizontal scroll */
 .transaction-table-wrapper {
-  max-height: 400px; /* Adjust height for the transaction table */
-  overflow-y: auto; /* Enables vertical scrolling */
-  overflow-x: auto; /* Enables horizontal scrolling */
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .transaction-table {
@@ -118,11 +111,10 @@
   border-collapse: separate;
 }
 
-/* Header styling */
 .transaction-table-header {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1.3fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1.3fr 1fr 0.9fr;
   padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #0c65be;
@@ -135,6 +127,14 @@
   z-index: 10;
 }
 
+.transaction-table-header span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Make the header text a bit larger */
+  padding: 10px; /* Add padding to make the header items more prominent */
+}
+
 .transaction-table-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr .8fr;
@@ -145,23 +145,23 @@
   width: 100%;
 }
 
+.transaction-table-row span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding: 8px;
+}
+
 .transaction-table-row .price {
-  justify-content: center; /* Align content to the right */
-  text-align: right; /* Add this to ensure alignment inside the span */
-  display: flex; /* Ensure flex is applied */
-  padding-right: 10px; /* Add padding to ensure it's not too close to the edge */
+  text-align: right;
+  padding-right: 10px;
 }
 
 .transaction-table-row:hover {
   background-color: #f1f1f1;
 }
 
-.transaction-table-row span {
-  display: flex;
-  align-items: center;
-}
-
-/* Transaction Type Styling */
 .transaction-type {
   font-weight: bold;
   padding: 5px 10px;
@@ -170,35 +170,32 @@
 }
 
 .transaction-type.used {
-  background-color: #ff5c5c; /* Red */
+  background-color: #ff5c5c;
   color: white;
 }
 
 .transaction-type.purchased {
-  background-color: #4caf50; /* Green */
+  background-color: #4caf50;
   color: white;
 }
 
 .transaction-type.product {
-  background-color: #333; /* Black */
+  background-color: #333;
   color: white;
 }
 
-/* Media queries for responsiveness */
 @media (max-width: 880px) {
   .service-wizard-container {
-    width: 75%; /* Responsive width */
+    width: 75%;
     margin-top: 140px;
     margin-left: 120px;
   }
 
-  /* Make the transaction table font smaller */
   .transaction-table-header,
   .transaction-table-row {
     font-size: 9px;
   }
 
-  /* Adjust table columns to fit better on smaller screens */
   .transaction-table-header,
   .transaction-table-row {
     grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr;
@@ -207,12 +204,11 @@
 
 @media (max-width: 480px) {
   .service-wizard-container {
-    width: 85%; /* Responsive width */
+    width: 85%;
     margin-top: 140px;
     margin-left: 20px;
   }
 
-  /* Adjust table columns for mobile view */
   .transaction-table-header,
   .transaction-table-row {
     grid-template-columns: 0.7fr 0.7fr 1fr 0.7fr 0.8fr;
@@ -220,9 +216,8 @@
     padding: 4px 8px;
   }
 
-  /* Reduce font size and make table scrollable */
   .transaction-table-wrapper {
-    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    overflow-x: auto;
   }
 
   .transaction-table-header,
