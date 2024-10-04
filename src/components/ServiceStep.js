@@ -174,15 +174,13 @@ const ServiceStep = ({ stats }) => {
 		setUseServiceModal(false);
 	};
 
-  return (
-    <>
-      <HeaderWithSidebar />
-      {/* <StatsHeader stats={stats} /> */}
-      <div className="service-wizard-container">
-        {/* <h2 className="heading">Tanning Salon</h2> */}
-
-        <div className="step-tabs">
-          {/* <button
+	return (
+		<>
+			<HeaderWithSidebar />
+			{/* <StatsHeader stats={stats} /> */}
+			<div className='service-wizard-container'>
+				{/* <div className='step-tabs'> */}
+				{/* <button
 						onClick={() => navigate('/locationStep')}
 						className='tab'
 					>
@@ -235,11 +233,11 @@ const ServiceStep = ({ stats }) => {
 								}}
 							>
 								<p>
-									<span>Available Balance:</span>{' '}
+									<span>Minutes Balance:</span>{' '}
 									{customer.profile?.available_balance}
 								</p>
 								<p>
-									<span>Total Spend:</span> {customer.profile?.total_spend}
+									<span>Total Spent:</span> {customer.profile?.total_spend}
 								</p>
 							</div>
 						</div>

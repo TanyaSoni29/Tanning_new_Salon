@@ -91,13 +91,13 @@ const HeaderWithSidebar = () => {
                     {loginUser?.role === 'admin' && (
                         <li>
                             <NavLink to='/users' activeClassName='active'>
-                                <FontAwesomeIcon icon={faUsers} /> Users
+                                <FontAwesomeIcon icon={faUser} /> System Users
                             </NavLink>
                         </li>
                     )}
                     <li>
                         <NavLink to='/customers' activeClassName='active'>
-                            <FontAwesomeIcon icon={faUser} /> Customers
+                            <FontAwesomeIcon icon={faUsers} /> Customers
                         </NavLink>
                     </li>
                     <li>
