@@ -179,23 +179,21 @@ const ServiceStep = ({ stats }) => {
 			<HeaderWithSidebar />
 			{/* <StatsHeader stats={stats} /> */}
 			<div className='service-wizard-container'>
-				<h2 className='heading'>Tanning Salon</h2>
-
-				<div className='step-tabs'>
-					{/* <button
+				{/* <div className='step-tabs'> */}
+				{/* <button
 						onClick={() => navigate('/locationStep')}
 						className='tab'
 					>
 						LOCATION
 					</button> */}
-					{/* <button
+				{/* <button
 						className='tab'
 						onClick={() => navigate('/about')}
 					>
 						ABOUT
 					</button>
 					<button className='tab active'>SERVICE</button> */}
-				</div>
+				{/* </div> */}
 
 				{/* Display the selected customer information */}
 				<div className='service-info'>
