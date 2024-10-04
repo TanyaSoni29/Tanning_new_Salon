@@ -20,7 +20,7 @@ function StatsHeader({ stats }) {
 						</div>
 						<div className='stats-info'>
 							<h3>{stats?.customers}</h3>
-							<p>Total Customers</p>
+							<p> Customer Registered </p>
 						</div>
 					</div>
 					<div className='stat-box'>
@@ -32,7 +32,7 @@ function StatsHeader({ stats }) {
 						</div>
 						<div className='stats-info'>
 							<h3>{stats?.serviceTransactionTotalToday}</h3>
-							<p>Today's Service Revenue</p>
+							<p> Sales Today</p>
 						</div>
 					</div>
 					<div className='stat-box'>
@@ -44,7 +44,7 @@ function StatsHeader({ stats }) {
 						</div>
 						<div className='stats-info'>
 							<h3>{stats?.productTransactionTotalToday}</h3>
-							<p>Today's Product Revenue</p>
+							<p>Minutes Used Today</p>
 						</div>
 					</div>
 					{/* <div className='stat-box'>
