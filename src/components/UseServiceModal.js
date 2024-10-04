@@ -35,7 +35,7 @@ function UseServiceModal({
 				service,
 				index,
 				self // Ensure uniqueness by service_id
-			) => index === self.findIndex((s) => s.service_id === service.service_id)
+			) => index === self.findIndex((s) => s.id === service.id)
 		);
 
 	console.log('.....', filteredServiceOptions);
