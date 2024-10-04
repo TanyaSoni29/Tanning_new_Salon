@@ -61,7 +61,7 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
-		const headers = ['Service Name', 'Quantity', 'Location', 'Date/Time'];
+		const headers = ['Service Name', 'Loaction', 'Total Usage', 'Last Used'];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
@@ -78,50 +78,60 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 		saveAs(blob, 'service-used.csv');
 	};
 
-	// Function to download PDF
+	// Function to download PDF with better formatting
 	const handleDownloadPDF = () => {
-		const doc = new jsPDF('p', 'pt', 'a4'); // Create PDF with portrait mode and A4 size
+		const doc = new jsPDF('p', 'pt', 'a4'); // A4 size PDF in portrait mode
+		const pageWidth = doc.internal.pageSize.width;
 		const pageHeight = doc.internal.pageSize.height;
 		const lineHeight = 20;
-		let row = 40; // Start position for content
+		let row = 60; // Start position for content
+		const leftMargin = 20; // Left margin for content
 
+		// Set title
 		doc.setFont('helvetica', 'bold');
-		doc.text('Service Used Report', 20, 20); // Title
+		doc.setFontSize(18);
+		doc.text('Service Used Report', pageWidth / 2, 40, { align: 'center' }); // Centered title
 
-		// Table headers
-		doc.text('Service Name', 20, row);
-		doc.text('Quantity', 200, row);
-		doc.text('Location', 280, row);
-		doc.text('Date/Time', 400, row);
-		row += lineHeight;
+		// Table column headers
+		const headers = ['Service Name', 'Location', 'Total Usage', 'Last Used'];
+		const headerX = [leftMargin, 200, 300, 400]; // Adjusting X positions for columns
+		doc.setFontSize(12);
+		doc.text(headers[0], headerX[0], row);
+		doc.text(headers[1], headerX[1], row);
+		doc.text(headers[2], headerX[2], row);
+		doc.text(headers[3], headerX[3], row);
+		row += lineHeight; // Move to next line
 
-		// Reset font to normal for content
 		doc.setFont('helvetica', 'normal');
+		doc.setFontSize(10);
 
 		filteredTransaction.forEach((transaction) => {
-			// Check if the content exceeds the page, then add a new page
-			if (row > pageHeight - lineHeight) {
+			const transactionDate = formatDate(transaction.date);
+
+			// Check if the content exceeds the page, add a new page if necessary
+			if (row > pageHeight - lineHeight * 2) {
 				doc.addPage();
-				row = 40; // Reset row for the new page
+				row = 60; // Reset row for new page
 
 				// Re-add headers to the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('Service Name', 20, row);
-				doc.text('Quantity', 200, row);
-				doc.text('Location', 280, row);
-				doc.text('Date/Time', 400, row);
-				row += lineHeight;
+				doc.text(headers[0], headerX[0], row);
+				doc.text(headers[1], headerX[1], row);
+				doc.text(headers[2], headerX[2], row);
+				doc.text(headers[3], headerX[3], row);
+				row += lineHeight; // Move to next line
 				doc.setFont('helvetica', 'normal');
 			}
 
 			// Add transaction data
-			doc.text(transaction.service_name, 20, row);
-			doc.text(`${transaction.total_quantity}`, 200, row);
-			doc.text(transaction.location?.name || 'N/A', 280, row);
-			doc.text(formatDate(transaction.date), 400, row);
+			doc.text(transaction.service_name, headerX[0], row); // Service name (left aligned)
+			doc.text(transaction.location?.name || 'N/A', headerX[1], row); // Location
+			doc.text(`${transaction.total_quantity}`, headerX[2], row, { align: 'right' }); // Total Usage (right aligned)
+			doc.text(transactionDate, headerX[3], row); // Last Used
 			row += lineHeight;
 		});
 
+		// Save the PDF
 		doc.save('service-used.pdf');
 	};
 
