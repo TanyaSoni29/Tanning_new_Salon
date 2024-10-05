@@ -12,14 +12,14 @@
 /* File download icons (CSV, PDF) */
 .productreportlist-files {
 	display: flex;
-	gap: 20px;
+	gap: 4px;
 	height: 5vh;
 }
 
 /* Filter product section */
 .Filter-product {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	flex-wrap: wrap; /* Allows the content to wrap on smaller screens */
 	gap: 10px;
 	margin-bottom: 20px;
@@ -35,16 +35,16 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	width: 100%;
-	max-width: 250px; /* Set a max-width for larger screens */
+	max-width: 200px; /* Set a max-width for larger screens */
 	margin-bottom: 10px;
 }
 
 /* Date range inputs */
 .date-range-inputs {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	width: 100%;
-	max-width: 500px;
+	max-width: 400px;
 	gap: 10px;
 }
 
