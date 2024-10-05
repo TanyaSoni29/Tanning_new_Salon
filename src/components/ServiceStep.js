@@ -1,3 +1,4 @@
+/** @format */
 
 // ServiceStep.js
 
@@ -34,10 +35,14 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	const [buyServiceModal, setBuyServiceModal] = useState(false);
 	const [useServiceModal, setUseServiceModal] = useState(false);
 	const { customer } = useSelector((state) => state.customer);
-	const { token } = useSelector((state) => state.auth);
-	const { locations } = useSelector((state) => state.location);
+	const { users } = useSelector((state) => state.userProfile);
+
+	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const [combinedTransactions, setCombinedTransactions] = useState([]); // Access the selected customer
 	const [serviceUseOptions, setServiceUseOptions] = useState([]);
+	const userDetails = users.find((user) => user.user.id === loginUser?.id);
+	const preferredLocationId = userDetails?.profile?.preferred_location;
+
 	useEffect(() => {
 		dispatch(refreshProduct());
 		dispatch(refreshService());
@@ -45,11 +50,13 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 		refreshTransactionOfCustomer();
 	}, [dispatch]);
 
+	console.log('refreshTransactionOfCustomer', loginUser);
+
 	const createProductTransactionOfUser = async (productId, quantity) => {
 		try {
 			const data = {
 				user_id: customer.user.id, // Assuming user data is stored in auth state
-				location_id: selectedLocation, // Replace with the correct location ID
+				location_id: preferredLocationId, // Replace with the correct location ID
 				product_id: productId,
 				quantity,
 			};
@@ -68,7 +75,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 			const data = {
 				user_id: customer.user.id,
 				service_id: serviceId, // Assuming user data is stored in auth state
-				location_id: selectedLocation, // Replace with the correct location ID
+				location_id: preferredLocationId, // Replace with the correct location ID
 				type: 'purchased',
 			};
 			await createServiceTransaction(token, data);
@@ -83,7 +90,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 		try {
 			const data = {
 				user_id: customer.user.id, // Assuming user data is stored in auth state
-				location_id: selectedLocation,
+				location_id: preferredLocationId,
 				service_id: serviceId, // Replace with the correct location ID
 				type: 'used',
 			};

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
@@ -29,7 +31,9 @@ function TopHeader({
 	});
 
 	// Find the location name based on the preferred location ID
-	const locationName = filteredLocations.find((l) => l.id === preferredLocationId);
+	const locationName = filteredLocations.find(
+		(l) => l.id === preferredLocationId
+	);
 
 	useEffect(() => {
 		if (preferredLocationId) {
@@ -38,32 +42,45 @@ function TopHeader({
 	}, [preferredLocationId, setSelectedLocation]);
 
 	// Check if select should be hidden based on route
-	const hideSelect = ['/users', '/location', '/customers', '/products', '/services', '/allcustomers','/currentmonth','/productreport','/purchasereport','/serviceused'].includes(locationPath);
+	const hideSelect = [
+		'/users',
+		'/location',
+		'/customers',
+		'/products',
+		'/services',
+		'/allcustomers',
+		'/currentmonth',
+		'/productreport',
+		'/purchasereport',
+		'/serviceused',
+	].includes(locationPath);
 
 	return (
-		<header className="top-header">
+		<header className='top-header'>
 			{/* Conditionally apply style to keep the space but hide the element */}
 			<select
 				value={selectedLocation}
 				onChange={handleLocationChange}
-				className="location-select"
+				className='location-select'
 				style={{
-					visibility: hideSelect ? 'hidden' : 'visible',  // Keep space but hide
-					height: hideSelect ? 0 : 'auto',                // Set height to 0 if hidden
-					width: hideSelect ? 0 : 'auto',                 // Set width to 0 if hidden
-					padding: hideSelect ? 0 : 'initial',            // Remove padding when hidden
+					visibility: hideSelect ? 'hidden' : 'visible', // Keep space but hide
+					height: hideSelect ? 0 : 'auto', // Set height to 0 if hidden
+					width: hideSelect ? 0 : 'auto', // Set width to 0 if hidden
+					padding: hideSelect ? 0 : 'initial', // Remove padding when hidden
 				}}
 			>
+				<option value={0}>All</option>
 				{filteredLocations.map((location) => (
-					<option key={location.id} value={location.id}>
-						{location?.name}
-					</option>
+					<option value={location.id}>{location?.name}</option>
 				))}
 			</select>
-			
-			<div className="login-details">
-				<FaUserCircle size={28} style={{ marginLeft: '20px' }} />
-				<span className="topheadname">
+
+			<div className='login-details'>
+				<FaUserCircle
+					size={28}
+					style={{ marginLeft: '20px' }}
+				/>
+				<span className='topheadname'>
 					{loginUser?.name || 'User'} (<span>{locationName?.name}</span>)
 				</span>
 			</div>

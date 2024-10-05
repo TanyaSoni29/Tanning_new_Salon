@@ -20,7 +20,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	const { locations } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
-	const [isAllLocation, setIsAllLocation] = useState(false);
+	// const [isAllLocation, setIsAllLocation] = useState(false);
 
 	// const [selectedLocation, setSelectedLocation] = useState(0);
 	const dispatch = useDispatch();
@@ -58,12 +58,12 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	const filteredCustomers = customers
 		.filter((user) => {
 			// If a location is selected, filter by location
-			if (isAllLocation) {
-				return (
-					user.profile?.preferred_location === selectedLocation ||
-					user.profile?.preferred_location === 0
-				);
-			}
+			// if (isAllLocation) {
+			// 	return (
+			// 		user.profile?.preferred_location === selectedLocation ||
+			// 		user.profile?.preferred_location === 0
+			// 	);
+			// }
 
 			if (selectedLocation !== 0) {
 				return user.profile?.preferred_location === selectedLocation;
@@ -95,7 +95,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	};
 
 	const handleClearFilters = () => {
-		setIsAllLocation(false);
+		// setIsAllLocation(false);
 		setSelectedLocation(0);
 		setSearchQuery('');
 	};
@@ -107,7 +107,10 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	return (
 		<>
 			<HeaderWithSidebar />
-			<StatsHeader stats={stats} />
+			<StatsHeader
+				stats={stats}
+				selectedLocation={selectedLocation}
+			/>
 			<div className='wizard-container'>
 				<div className='filter-container'>
 					{/* Location Dropdown */}
@@ -125,8 +128,8 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
           </select> */}
 
 					{/* Search Input */}
-					<div className='dashboard-toggle-container'>
-          <span className='dashtoggle'>All</span>
+					{/* <div className='dashboard-toggle-container'>
+						<span className='dashtoggle'>All</span>
 						<label className='switch'>
 							<input
 								type='checkbox'
@@ -135,8 +138,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 							/>
 							<span className='slider round'></span>
 						</label>
-						
-					</div>
+					</div> */}
 					<input
 						type='text'
 						className='search-input'
