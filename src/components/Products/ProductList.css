@@ -39,6 +39,10 @@
 	background-color: #000;
 }
 
+.productprice{
+	margin-left: 50px;
+}
+
 /* Table Styles */
 .product-table {
 	background-color: white;

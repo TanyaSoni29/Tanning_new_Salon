@@ -46,7 +46,6 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 		setResetPasswordModal(false);
 	};
 
-
 	useEffect(() => {
 		dispatch(refreshLocation());
 	}, [dispatch]);

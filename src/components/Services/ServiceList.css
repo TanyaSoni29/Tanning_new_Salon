@@ -47,6 +47,14 @@
 	width: 100%;
 }
 
+.servicetd{
+	margin-left: 45px;
+}
+
+.servicetd1{
+	margin-left: 70px;
+}
+
 .table-header,
 .table-row {
 	display: grid;

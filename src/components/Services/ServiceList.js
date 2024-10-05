@@ -109,8 +109,8 @@ const ServiceList = () => {
 							className='table-row'
 						>
 							<span>{service?.serviceName}</span>
-							<span>£{service?.price}</span>
-							<span>{service?.minutesAvailable}</span>
+							<span className='servicetd'>£{service?.price}</span>
+							<span className='servicetd1'>{service?.minutesAvailable}</span>
 							<span>
 								<i
 									className='fa fa-pencil'
