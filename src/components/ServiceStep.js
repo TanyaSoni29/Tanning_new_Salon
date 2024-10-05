@@ -27,6 +27,7 @@ import {
 import { refreshCustomers } from '../slices/customerProfile';
 import StatsHeader from './StatsHeader';
 import TopHeader from './TopHeader';
+import { formatDate } from '../utils/formateDate';
 
 const ServiceStep = ({ stats, selectedLocation }) => {
 	const navigate = useNavigate();
@@ -304,7 +305,11 @@ const ServiceStep = ({ stats, selectedLocation }) => {
                       {transaction?.location ? transaction?.location : "-"}
                     </span> */}
 										<span>
-											{transaction?.createdAt ? transaction?.createdAt : '-'}
+											{transaction?.createdAt
+												? `${formatDate(transaction?.createdAt)} ${
+														transaction?.createdAt.split(' ')[1]
+												  }`
+												: '-'}
 										</span>
 										<span>
 											<span className={`transaction-type ${transaction?.type}`}>
