@@ -13,8 +13,6 @@ const ProductList = () => {
   const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
   const { products = [] } = useSelector((state) => state.product); // Ensure products is always an array, defaulting to []
 
-  // console.log('products List---', products);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
@@ -101,10 +99,15 @@ const ProductList = () => {
         {filteredProducts?.length > 0 ? (
           filteredProducts.map((product) => (
             <div key={product?.id} className="products-table-row">
-              <span>{product?.name}</span>
-              <span className="productprice">£{product?.price}</span>
-              <span>{formatDate(product?.created_at)}</span>
-              <span>
+              <span data-label="Product Name">{product?.name}</span>
+              <span data-label="Price" className="productprice">
+                £{product?.price}
+              </span>
+              <span data-label="Listed On">
+                {formatDate(product?.created_at)}
+              </span>
+              <span data-label="Actions">
+                <div className="producaction">
                 <i
                   className="fa fa-pencil"
                   onClick={() => handleEdit(product)}
@@ -113,6 +116,7 @@ const ProductList = () => {
                   className="fa fa-trash"
                   onClick={() => confirmDelete(product)} // Open delete modal
                 ></i>
+                </div>
               </span>
             </div>
           ))

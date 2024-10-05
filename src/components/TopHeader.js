@@ -44,7 +44,7 @@ function TopHeader({
 	const pathHeadings = {
 		'/about': 'Dashboard',
 		'/service': 'Dashboard',
-		'/location': 'Location',
+		'/location': 'Locations',
 		'/users': 'Users',
 		'/customers': 'Customers',
 		'/products': 'Products',

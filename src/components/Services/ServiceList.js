@@ -1,5 +1,4 @@
 /** @format */
-
 import React, { useState } from 'react';
 import './ServiceList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,15 +13,13 @@ const ServiceList = () => {
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { services = [] } = useSelector((state) => state.service); // Ensure Services is always an array, defaulting to []
 
-	// console.log('Services List---', Services);
-
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeService, setActiveService] = useState(null); // Track the Service to be deleted or edited
 
-	// Filter Services based on search term
+	// Filter services based on search term
 	const filteredServices = services?.filter((service) =>
 		service?.serviceName?.toLowerCase().includes(searchTerm.toLowerCase())
 	);
@@ -85,15 +82,13 @@ const ServiceList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button
-					className='add-button'
-					onClick={handleAdd}
-				>
+				<button className='add-button' onClick={handleAdd}>
 					Add New Service
 				</button>
 			</div>
 
 			<div className='services-table'>
+				{/* Hide the header in mobile view */}
 				<div className='table-header'>
 					<span>Service Name</span>
 					<span>Price</span>
@@ -101,25 +96,18 @@ const ServiceList = () => {
 					<span>Action</span>
 				</div>
 
-				{/* Render filtered Services */}
+				{/* Render filtered services */}
 				{filteredServices?.length > 0 ? (
 					filteredServices.map((service) => (
-						<div
-							key={service?.id}
-							className='table-row'
-						>
-							<span>{service?.serviceName}</span>
-							<span className='servicetd'>£{service?.price}</span>
-							<span className='servicetd1'>{service?.minutesAvailable}</span>
-							<span>
-								<i
-									className='fa fa-pencil'
-									onClick={() => handleEdit(service)}
-								></i>
-								<i
-									className='fa fa-trash'
-									onClick={() => confirmDelete(service)} // Open delete modal
-								></i>
+						<div key={service?.id} className='table-row'>
+							<span data-label='Service Name'>{service?.serviceName}</span>
+							<span data-label='Price' className='servicetd'>£{service?.price}</span>
+							<span data-label='Minutes' className='servicetd1'>{service?.minutesAvailable}</span>
+							<span data-label='Action'>
+								<div className='servicelistaction'>
+								<i className='fa fa-pencil' onClick={() => handleEdit(service)}></i>
+								<i className='fa fa-trash' onClick={() => confirmDelete(service)}></i>
+								</div>
 							</span>
 						</div>
 					))
@@ -131,20 +119,13 @@ const ServiceList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal
-					setOpen={setIsAddOpen}
-					open={isAddOpen}
-				>
+				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
 					<AddServiceModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
-			{/* Delete Confirmation Modal/Alert */}
 			{isDeleteOpen && activeService && (
-				<Modal
-					setOpen={setIsDeleteOpen}
-					open={isDeleteOpen}
-				>
+				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
 					<DeleteServiceModal
 						handleDelete={handleDelete}
 						activeService={activeService}
@@ -154,14 +135,8 @@ const ServiceList = () => {
 			)}
 
 			{isEditOpen && activeService && (
-				<Modal
-					setOpen={setIsEditOpen}
-					open={isEditOpen}
-				>
-					<EditServiceModal
-						activeService={activeService}
-						closeEditModal={closeEditModal}
-					/>
+				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
+					<EditServiceModal activeService={activeService} closeEditModal={closeEditModal} />
 				</Modal>
 			)}
 		</div>
@@ -182,10 +157,7 @@ function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 				>
 					Confirm
 				</button>
-				<button
-					className='cancel-button'
-					onClick={closeDeleteModal}
-				>
+				<button className='cancel-button' onClick={closeDeleteModal}>
 					Cancel
 				</button>
 			</div>
