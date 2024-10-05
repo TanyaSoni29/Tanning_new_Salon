@@ -38,17 +38,17 @@ function CustomerOverview({ filteredCustomers }) {
 	}, [filteredCustomers]);
 
 	const getLastUsedServiceDate = (customerId) => {
-		const userTransactions = useServiceTransaction.filter(
-			(transaction) => transaction.user_details.id === customerId
+		const userTransactions = useServiceTransaction?.filter(
+			(transaction) => transaction?.user_details?.id === customerId
 		);
 		if (userTransactions.length > 0) {
 			// Sort transactions by date and return the most recent one
 			const lastTransaction = userTransactions.sort(
 				(a, b) =>
-					new Date(b.transaction.created_at) -
-					new Date(a.transaction.created_at)
+					new Date(b.transaction?.created_at) -
+					new Date(a.transaction?.created_at)
 			)[0];
-			return lastTransaction.transaction.created_at;
+			return lastTransaction.transaction?.created_at;
 		}
 		return null; // If no transactions found
 	};
