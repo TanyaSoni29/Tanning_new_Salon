@@ -32,7 +32,11 @@ const AuthForm = () => {
 	// Handle form submission
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Prevent form submission
-	
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email pattern
+		if (!emailPattern.test(formData.email)) {
+			toast.error('Please enter a valid email address.');
+			return;
+		}
 		// Validation for Sign-Up form
 		if (isSignUp) {
 			// Check if password has a minimum length of 6 characters
@@ -44,7 +48,7 @@ const AuthForm = () => {
 
 			// Check if password and confirmPassword match
 			if (formData.password !== formData.confirmPassword) {
-				 toast.error("Passwords don't match.");
+				toast.error("Passwords don't match.");
 				console.log('Passwords do not match');
 				return; // Prevent form submission if passwords don't match
 			}
