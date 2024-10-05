@@ -8,24 +8,31 @@ import jsPDF from 'jspdf'; // For generating PDFs
 import { formatDate } from '../../utils/formateDate';
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
-const CustomerList = () => {
+const CustomerList = ({
+	customerReportData,
+	selectedLocation,
+	setSelectedLocation,
+	dateRange,
+	setDateRange,
+	getCurrentMonthRange
+}) => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Set default start date as the 1st day of the current month and end date as today's date
-	const getCurrentMonthRange = () => {
-		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-		const today = new Date();
-		return {
-			startDate: startOfMonth,
-			endDate: today,
-		};
-	};
+	// const getCurrentMonthRange = () => {
+	// 	const now = new Date();
+	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+	// 	const today = new Date();
+	// 	return {
+	// 		startDate: startOfMonth,
+	// 		endDate: today,
+	// 	};
+	// };
 
-	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	const [selectedLocation, setSelectedLocation] = useState('All');
+	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
+	// const [selectedLocation, setSelectedLocation] = useState('All');
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 	const uniqueLocations = [
 		'All',

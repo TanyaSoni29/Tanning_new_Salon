@@ -8,6 +8,7 @@ const {
 	GET_ALL_USERS,
 	GET_CUSTOMERS_BY_LOCATION_DATE,
 	RESET_PASSWORD_API,
+	GET_ALL_CUSTOMER_REPORT,
 	// CREATE_CUSTOMER_API,
 	// DELETE_CUSTOMER_API,
 	// CREATE_USER_API,
@@ -99,6 +100,33 @@ export const getAllUser = async (token) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Get All User Api Error', error);
+		const errorMessage = error.response?.data?.error;
+		toast.error(errorMessage);
+	}
+	return result;
+};
+
+export const getAllCustomerReport = async (token, data) => {
+	let result = [];
+	try {
+		const response = await apiConnector(
+			'POST',
+			GET_ALL_CUSTOMER_REPORT,
+			{
+				start_date: data.startDate,
+				end_date: data.endDate,
+				location_id: data.location,
+			},
+			{
+				Authorization: `Bearer ${token}`,
+			}
+		);
+		console.log('getAllCustomerReport Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch getAllCustomerReport');
+		result = response.data;
+	} catch (error) {
+		console.log('getAllCustomerReport Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
