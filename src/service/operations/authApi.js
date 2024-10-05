@@ -20,24 +20,24 @@ const {
 	GET_ME_API,
 } = endpoints;
 
-export function signUp(
-	role,
-	name,
-	email,
-	password,
-	password_confirmation,
-	navigate
-) {
+export function signUp(data, navigate) {
 	return async (dispatch) => {
 		const toastId = toast.loading('Loading...');
 		dispatch(setLoading(true));
 		try {
 			const response = await apiConnector('POST', ADD_CUSTOMER, {
-				role,
-				name,
-				email,
-				password,
-				password_confirmation,
+				firstName: data.firstName || '',
+				lastName: data.lastName || '',
+				email: data.email,
+				password: data.password,
+				password_confirmation: data.confirmPassword,
+				phone_number: data.phone_number,
+				address: data.address || '',
+				preferred_location: data.preferred_location || '',
+				referred_by: data.referred_by || '',
+				gender: data.gender || '',
+				post_code: data.post_code,
+				role: data.role,
 			});
 			console.log('SIGNUP API RESPONSE.........', response);
 

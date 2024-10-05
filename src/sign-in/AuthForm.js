@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 import './AuthForm.css'; // Import the CSS file for styles
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { login } from '../service/operations/authApi';
+import { login, signUp } from '../service/operations/authApi';
 
 const AuthForm = () => {
 	const [isSignUp, setIsSignUp] = useState(false); // State to toggle between SignIn and SignUp forms
@@ -65,8 +65,19 @@ const AuthForm = () => {
 			}
 
 			// Sign-In logic goes here
-			dispatch(login(formData.email, formData.password, navigate));
-			toast.success('Logged in successfully!');
+			if (!isSignUp) {
+				dispatch(login(formData.email, formData.password, navigate));
+				toast.success('Logged in successfully!');
+			} else {
+				const newData = {
+					email: formData.email,
+					password: formData.password,
+					confirmPassword: formData.confirmPassword,
+				};
+				dispatch(signUp(newData, navigate));
+				toast.success('Register successfully!');
+			}
+
 			console.log('Sign In data:', formData);
 		}
 
