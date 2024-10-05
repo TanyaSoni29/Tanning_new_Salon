@@ -98,7 +98,7 @@
 }
 
 .transaction-table-wrapper {
-  max-height: 270px;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: auto;
 }
@@ -114,7 +114,7 @@
 /* Transaction Table Header */
 .transaction-table-header {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(120px, 1.2fr) minmax(120px, 1fr) minmax(120px, 0.7fr);
+  grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(120px, 0.8fr);
   padding: 10px 20px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #0c65be;
