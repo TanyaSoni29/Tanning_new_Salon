@@ -69,8 +69,9 @@ export function login(email, password, navigate) {
 			if (response.status !== 200) {
 				throw new Error(response.data);
 			}
-
-			toast.success('Login Successfully');
+			if (response.status === 200) {
+				toast.success('Login Successfully');
+			}
 			dispatch(setToken(response.data.access_token));
 			dispatch(setIsAuth(true));
 			const expirationTime = Date.now() + response.data.expires_in * 1000; // Convert to milliseconds

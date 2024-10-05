@@ -1,3 +1,5 @@
+/** @format */
+
 .purchasereportlist-container {
 	width: 70%;
 	margin: 20px auto;
@@ -90,7 +92,7 @@
 .purchasereportlist-table-header,
 .purchasereportlist-table-row {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -172,7 +174,7 @@
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
 		min-width: 900px; /* Ensure table columns fit horizontally */
 	}
 }
@@ -207,7 +209,7 @@
 
 	.purchasereportlist-table-header,
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Keep the column layout */
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* Keep the column layout */
 		min-width: 900px; /* Ensure table remains scrollable */
 	}
 

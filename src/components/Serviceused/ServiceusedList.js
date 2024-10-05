@@ -8,28 +8,37 @@ import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { formatDate } from '../../utils/formateDate';
 import { useSelector } from 'react-redux';
 
-const ServiceUsedList = ({ useServiceTransaction }) => {
+const ServiceUsedList = ({
+	useServiceTransaction,
+	selectedLocation,
+	setSelectedLocation,
+	dateRange,
+	setDateRange,
+}) => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	const getCurrentMonthRange = () => {
-		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-		return {
-			startDate: startOfMonth,
-			endDate: now,
-		};
-	};
+	// const getCurrentMonthRange = () => {
+	// 	const now = new Date();
+	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+	// 	return {
+	// 		startDate: startOfMonth,
+	// 		endDate: now,
+	// 	};
+	// };
 
-	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	const [selectedLocation, setSelectedLocation] = useState('All');
+	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
+	// const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
 
 	// Extract unique locations for dropdown
-	const uniqueLocations = ['All', ...new Set(locations.map((location) => location.name))];
+	const uniqueLocations = [
+		'All',
+		...new Set(locations.map((location) => location.name)),
+	];
 
 	// Handle date range changes
 	const handleDateRangeChange = (e) => {
@@ -45,18 +54,20 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 
 	// Filter transactions based on search term, date range, and location
 	const filteredTransaction = useServiceTransaction.filter((transaction) => {
-		const transactionDate = new Date(transaction.date);
-		const isInDateRange =
-			dateRange.startDate && dateRange.endDate
-				? transactionDate >= dateRange.startDate && transactionDate <= dateRange.endDate
-				: true;
+		// const transactionDate = new Date(transaction.date);
+		// const isInDateRange =
+		// 	dateRange.startDate && dateRange.endDate
+		// 		? transactionDate >= dateRange.startDate &&
+		// 		  transactionDate <= dateRange.endDate
+		// 		: true;
 
 		const serviceName = transaction?.service_name?.toLowerCase() || '';
 		const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
 		const matchesLocation =
-			selectedLocation === 'All' || transaction.location?.name === selectedLocation;
+			selectedLocation === 'All' ||
+			transaction.location?.name === selectedLocation;
 
-		return isInDateRange && matchesSearchQuery && matchesLocation;
+		return matchesSearchQuery && matchesLocation;
 	});
 
 	// Function to download CSV
@@ -69,7 +80,7 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 					data.service_name,
 					data.total_quantity,
 					data.location?.name || 'N/A',
-					formatDate(data.date),
+					// formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -99,7 +110,7 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 		doc.text(headers[0], headerX[0], row);
 		doc.text(headers[1], headerX[1], row);
 		doc.text(headers[2], headerX[2], row);
-		doc.text(headers[3], headerX[3], row);
+		// doc.text(headers[3], headerX[3], row);
 		row += lineHeight; // Move to next line
 
 		doc.setFont('helvetica', 'normal');
@@ -118,7 +129,7 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 				doc.text(headers[0], headerX[0], row);
 				doc.text(headers[1], headerX[1], row);
 				doc.text(headers[2], headerX[2], row);
-				doc.text(headers[3], headerX[3], row);
+				// doc.text(headers[3], headerX[3], row);
 				row += lineHeight; // Move to next line
 				doc.setFont('helvetica', 'normal');
 			}
@@ -126,8 +137,10 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 			// Add transaction data
 			doc.text(transaction.service_name, headerX[0], row); // Service name (left aligned)
 			doc.text(transaction.location?.name || 'N/A', headerX[1], row); // Location
-			doc.text(`${transaction.total_quantity}`, headerX[2], row, { align: 'right' }); // Total Usage (right aligned)
-			doc.text(transactionDate, headerX[3], row); // Last Used
+			doc.text(`${transaction.total_quantity}`, headerX[2], row, {
+				align: 'right',
+			}); // Total Usage (right aligned)
+			// doc.text(transactionDate, headerX[3], row); // Last Used
 			row += lineHeight;
 		});
 
@@ -165,9 +178,15 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 				</div>
 
 				<div className='servicelocation-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
 						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
+							<option
+								key={location}
+								value={location}
+							>
 								{location}
 							</option>
 						))}
@@ -175,11 +194,25 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 				</div>
 
 				<div className='serviceused-files'>
-					<div className='serviceused-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={35} style={{ color: '#28a745' }} /> {/* Green for CSV */}
+					<div
+						className='serviceused-download'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={35}
+							style={{ color: '#28a745' }}
+						/>{' '}
+						{/* Green for CSV */}
 					</div>
-					<div className='serviceused-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={35} style={{ color: '#dc3545' }} /> {/* Red for PDF */}
+					<div
+						className='serviceused-download'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={35}
+							style={{ color: '#dc3545' }}
+						/>{' '}
+						{/* Red for PDF */}
 					</div>
 				</div>
 			</div>
@@ -189,16 +222,21 @@ const ServiceUsedList = ({ useServiceTransaction }) => {
 					<span>Service Name</span>
 					<span>Location</span>
 					<span>Total Usage</span>
-					<span>Last Used</span>
+					{/* <span>Last Used</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div key={i} className='serviceused-table-row'>
+						<div
+							key={i}
+							className='serviceused-table-row'
+						>
 							<span>{transaction.service_name}</span>
 							<span>{transaction.location?.name}</span>
 							<span>{transaction.total_quantity}</span>
-							<span style={{ whiteSpace: 'nowrap' }}>{formatDate(transaction.date)}</span>
+							{/* <span style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.date)}
+							</span> */}
 						</div>
 					))
 				) : (

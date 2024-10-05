@@ -8,25 +8,31 @@ import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
 
-const ProductList = ({ purchaseServiceTransaction }) => {
+const ProductList = ({
+	purchaseServiceTransaction,
+	selectedLocation,
+	setSelectedLocation,
+	dateRange,
+	setDateRange,
+}) => {
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => {
 		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 	};
 
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	const getCurrentMonthRange = () => {
-		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-		const today = new Date();
-		return {
-			startDate: startOfMonth,
-			endDate: today,
-		};
-	};
+	// const getCurrentMonthRange = () => {
+	// 	const now = new Date();
+	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+	// 	const today = new Date();
+	// 	return {
+	// 		startDate: startOfMonth,
+	// 		endDate: today,
+	// 	};
+	// };
 
-	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	const [selectedLocation, setSelectedLocation] = useState('All');
+	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
+	// const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -53,19 +59,21 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	// Filter Transactions
 	const filteredTransaction = purchaseServiceTransaction.filter(
 		(transaction) => {
-			const transactionDate = new Date(transaction.date);
-			const isInDateRange =
-				dateRange.startDate && dateRange.endDate
-					? transactionDate >= dateRange.startDate &&
-					  transactionDate <= dateRange.endDate
-					: true;
-			const serviceName = transaction?.service_name.toLowerCase() || '';
-			const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
+			// const transactionDate = new Date(transaction.date);
+			// const isInDateRange =
+			// 	dateRange.startDate && dateRange.endDate
+			// 		? transactionDate >= dateRange.startDate &&
+			// 		  transactionDate <= dateRange.endDate
+			// 		: true;
+			const serviceName = transaction?.service_name?.toLowerCase() || '';
+			const matchesSearchQuery = serviceName?.includes(
+				searchTerm?.toLowerCase()
+			);
 			const matchesLocation =
 				selectedLocation === 'All' ||
 				transaction.location?.name === selectedLocation;
 
-			return isInDateRange && matchesSearchQuery && matchesLocation;
+			return matchesSearchQuery && matchesLocation;
 		}
 	);
 
@@ -76,7 +84,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			'Location',
 			'Total Value',
 			'Minutes Sold',
-			'Last Sold On',
+			// 'Last Sold On',
 		];
 		const csvRows = [
 			headers.join(','), // header row
@@ -86,7 +94,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					data.location?.name || 'N/A',
 					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_quantity,
-					formatDate(data.date),
+					// formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -111,7 +119,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			location: margin + 160, // Adjust column width based on content
 			totalValue: margin + 300,
 			minutesSold: margin + 400,
-			lastSoldOn: margin + 500,
+			// lastSoldOn: margin + 500,
 		};
 
 		doc.setFontSize(12);
@@ -124,7 +132,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 		doc.text('Location', columns.location, row);
 		doc.text('Total Value', columns.totalValue, row);
 		doc.text('Minutes Sold', columns.minutesSold, row);
-		doc.text('Last Sold', columns.lastSoldOn, row);
+		// doc.text('Last Sold', columns.lastSoldOn, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -145,7 +153,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 				doc.text('Location', columns.location, row);
 				doc.text('Total Value', columns.totalValue, row);
 				doc.text('Minutes Sold', columns.minutesSold, row);
-				doc.text('Last Sold On', columns.lastSoldOn, row);
+				// doc.text('Last Sold On', columns.lastSoldOn, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
@@ -153,9 +161,13 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 			// Add transaction data in the respective columns
 			doc.text(transaction.service_name, columns.serviceName, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
+			doc.text(
+				`£${transaction.total_price.toFixed(2)}`,
+				columns.totalValue,
+				row
+			);
 			doc.text(`${transaction.total_quantity}`, columns.minutesSold, row);
-			doc.text(formatDate(transaction.date), columns.lastSoldOn, row);
+			// doc.text(formatDate(transaction.date), columns.lastSoldOn, row);
 
 			// Move to the next row
 			row += lineHeight;
@@ -237,7 +249,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 					<span>Location</span>
 					<span>Total Value</span>
 					<span>Minutes Sold</span>
-					<span>Last Sold On</span>
+					{/* <span>Last Sold On</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
@@ -250,9 +262,9 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 							<span>{transaction.location?.name}</span>
 							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_quantity}</span>
-							<span style={{ whiteSpace: 'nowrap' }}>
+							{/* <span style={{ whiteSpace: 'nowrap' }}>
 								{formatDate(transaction.date)}
-							</span>
+							</span> */}
 						</div>
 					))
 				) : (

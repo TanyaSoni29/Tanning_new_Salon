@@ -35,11 +35,11 @@ function TopHeader({
 		(l) => l.id === preferredLocationId
 	);
 
-	useEffect(() => {
-		if (preferredLocationId) {
-			setSelectedLocation(preferredLocationId); // Set the default selected location
-		}
-	}, [preferredLocationId, setSelectedLocation]);
+	// useEffect(() => {
+	// 	if (preferredLocationId) {
+	// 		setSelectedLocation(preferredLocationId); // Set the default selected location
+	// 	}
+	// }, [preferredLocationId, setSelectedLocation]);
 
 	const pathHeadings = {
 		'/about': 'Dashboard',
@@ -76,7 +76,7 @@ function TopHeader({
 		<header className='top-header'>
 			{heading && <h2 className='page-heading'>{heading}</h2>}
 			{/* Conditionally apply style to keep the space but hide the element */}
-			<select
+			{/* <select
 				value={selectedLocation}
 				onChange={handleLocationChange}
 				className='location-select'
@@ -91,7 +91,7 @@ function TopHeader({
 				{filteredLocations.map((location) => (
 					<option value={location.id}>{location?.name}</option>
 				))}
-			</select>
+			</select> */}
 
 			<div className='login-details'>
 				<FaUserCircle

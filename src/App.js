@@ -37,7 +37,7 @@ import TopCustomer from './components/Currentmonth/Currentmonth';
 
 const App = () => {
 	const dispatch = useDispatch();
-	const [selectedLocation, setSelectedLocation] = useState();
+	const [selectedLocation, setSelectedLocation] = useState(0);
 	const [stats, setStats] = useState({});
 	const {
 		token,
@@ -55,7 +55,8 @@ const App = () => {
 	useEffect(() => {
 		async function stats() {
 			try {
-				const response = await getStats(token, selectedLocation);
+				// const response = await getStats(token, selectedLocation);
+				const response = await getStats(token, 0);
 				console.log('Stats:', response);
 				setStats(response.data);
 			} catch (error) {

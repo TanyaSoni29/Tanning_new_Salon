@@ -35,7 +35,7 @@ function CustomerOverview({ filteredCustomers }) {
 			);
 		}
 		getServiceTransaction();
-	}, [filteredCustomers]);
+	}, []);
 
 	const getLastUsedServiceDate = (customerId) => {
 		const userTransactions =

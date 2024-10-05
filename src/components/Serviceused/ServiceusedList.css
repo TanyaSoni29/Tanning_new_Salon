@@ -1,3 +1,5 @@
+/** @format */
+
 .serviceused-container {
 	width: 70%;
 	margin: 20px auto;
@@ -84,7 +86,7 @@
 .serviceused-table-header,
 .serviceused-table-row {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 0.4fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -133,7 +135,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Maintain column layout */
+		grid-template-columns: 2fr 1fr 1fr; /* Maintain column layout */
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -158,7 +160,7 @@
 		width: 100%; /* Full width inputs on mobile */
 	}
 
-	.date-range{
+	.date-range {
 		margin: 10px;
 	}
 
@@ -174,7 +176,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr;
 		min-width: 900px; /* Ensure horizontal scrolling */
 	}
 }
@@ -214,7 +216,7 @@
 
 	.serviceused-table-header,
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Keep the column layout */
+		grid-template-columns: 2fr 1fr 1fr; /* Keep the column layout */
 		min-width: 900px; /* Ensure table remains scrollable */
 	}
 

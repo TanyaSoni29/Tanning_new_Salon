@@ -240,13 +240,22 @@ export const getTotalSpend = async (token, userId) => {
 	return result;
 };
 
-export const getServicePurchaseReport = async (token) => {
+export const getServicePurchaseReport = async (token, data) => {
 	let result = null;
 	try {
-		const response = await apiConnector('GET', GET_SERVICE_REPORT, null, {
-			'Authorization': `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		});
+		const response = await apiConnector(
+			'POST',
+			GET_SERVICE_REPORT,
+			{
+				start_date: data.start_date,
+				end_date: data.end_date,
+				location_id: data.location_id,
+			},
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
 		console.log('GET_PRODUCT_REPORT Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch GET_PRODUCT_REPORT');
@@ -260,13 +269,22 @@ export const getServicePurchaseReport = async (token) => {
 	return result;
 };
 
-export const getServiceUseReport = async (token) => {
+export const getServiceUseReport = async (token, data) => {
 	let result = null;
 	try {
-		const response = await apiConnector('GET', GET_SERVICE_USE_REPORT, null, {
-			'Authorization': `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		});
+		const response = await apiConnector(
+			'POST',
+			GET_SERVICE_USE_REPORT,
+			{
+				start_date: data.start_date,
+				end_date: data.end_date,
+				location_id: data.location_id,
+			},
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
 		console.log('GET_SERVICE_USE_REPORT Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch GET_SERVICE_USE_REPORT');

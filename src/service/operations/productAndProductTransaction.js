@@ -191,13 +191,22 @@ export const getProductTransactionsByUser = async (token, userId) => {
 	return result;
 };
 
-export const getProductReport = async (token) => {
+export const getProductReport = async (token, data) => {
 	let result = null;
 	try {
-		const response = await apiConnector('GET', GET_PRODUCT_REPORT, null, {
-			'Authorization': `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		});
+		const response = await apiConnector(
+			'POST',
+			GET_PRODUCT_REPORT,
+			{
+				start_date: data.start_date,
+				end_date: data.end_date,
+				location_id: data.location_id,
+			},
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
 		console.log('GET_PRODUCT_REPORT Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch GET_PRODUCT_REPORT');

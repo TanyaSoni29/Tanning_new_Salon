@@ -55,36 +55,53 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	//                 .includes(searchQuery.toLowerCase()))
 	//         );
 
-	const filteredCustomers = customers
-		.filter((user) => {
-			// If a location is selected, filter by location
-			// if (isAllLocation) {
-			// 	return (
-			// 		user.profile?.preferred_location === selectedLocation ||
-			// 		user.profile?.preferred_location === 0
-			// 	);
-			// }
+	// const filteredCustomers = customers
+	// 	.filter((user) => {
+	// 		// If a location is selected, filter by location
+	// 		// if (isAllLocation) {
+	// 		// 	return (
+	// 		// 		user.profile?.preferred_location === selectedLocation ||
+	// 		// 		user.profile?.preferred_location === 0
+	// 		// 	);
+	// 		// }
 
-			if (selectedLocation !== 0) {
-				return user.profile?.preferred_location === selectedLocation;
-			}
-			// If no location is selected, return all users
-			return true;
-		})
-		.filter((user) => {
-			// Filter by search query if provided
-			return (
-				user.profile?.firstName
-					.toLowerCase()
-					.includes(searchQuery.toLowerCase()) ||
-				(user.profile?.phone_number &&
-					user.profile.phone_number
+	// 		if (selectedLocation !== 0) {
+	// 			return user.profile?.preferred_location === selectedLocation;
+	// 		}
+	// 		// If no location is selected, return all users
+	// 		return true;
+	// 	})
+	// 	.filter((user) => {
+	// 		// Filter by search query if provided
+	// 		return (
+	// 			user.profile?.firstName
+	// 				.toLowerCase()
+	// 				.includes(searchQuery.toLowerCase()) ||
+	// 			(user.profile?.phone_number &&
+	// 				user.profile.phone_number
+	// 					.toLowerCase()
+	// 					.includes(searchQuery.toLowerCase())) ||
+	// 			(user.user?.email &&
+	// 				user.user?.email.toLowerCase().includes(searchQuery.toLowerCase()))
+	// 		);
+	// 	});
+
+	const filteredCustomers = searchQuery
+		? customers.filter((user) => {
+				// Filter by search query if provided
+				return (
+					user.profile?.firstName
 						.toLowerCase()
-						.includes(searchQuery.toLowerCase())) ||
-				(user.user?.email &&
-					user.user?.email.toLowerCase().includes(searchQuery.toLowerCase()))
-			);
-		});
+						.includes(searchQuery.toLowerCase()) ||
+					(user.profile?.phone_number &&
+						user.profile.phone_number
+							.toLowerCase()
+							.includes(searchQuery.toLowerCase())) ||
+					(user.user?.email &&
+						user.user?.email.toLowerCase().includes(searchQuery.toLowerCase()))
+				);
+		  })
+		: [];
 
 	console.log(customers, selectedLocation);
 

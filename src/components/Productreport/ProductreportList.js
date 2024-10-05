@@ -8,25 +8,29 @@ import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
 
-const ProductList = ({ productTransaction }) => {
+const ProductList = ({
+	productTransaction,
+	selectedLocation,
+	setSelectedLocation,
+	dateRange,
+	setDateRange,
+}) => {
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => {
 		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 	};
 
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	const getCurrentMonthRange = () => {
-		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-		const today = new Date();
-		return {
-			startDate: startOfMonth,
-			endDate: today,
-		};
-	};
+	// const getCurrentMonthRange = () => {
+	// 	const now = new Date();
+	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
+	// 	const today = new Date();
+	// 	return {
+	// 		startDate: startOfMonth,
+	// 		endDate: today,
+	// 	};
+	// };
 
-	const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const { locations } = useSelector((state) => state.location);
@@ -58,11 +62,11 @@ const ProductList = ({ productTransaction }) => {
 	const filteredTransaction = useMemo(() => {
 		return productTransaction.filter((transaction) => {
 			const transactionDate = new Date(transaction.last_transaction_date);
-			const isInDateRange =
-				dateRange.startDate && dateRange.endDate
-					? transactionDate >= dateRange.startDate &&
-					  transactionDate <= dateRange.endDate
-					: true;
+			// const isInDateRange =
+			// 	dateRange.startDate && dateRange.endDate
+			// 		? transactionDate >= dateRange.startDate &&
+			// 		  transactionDate <= dateRange.endDate
+			// 		: true;
 
 			const productName = transaction?.product?.name?.toLowerCase() || '';
 
@@ -72,7 +76,8 @@ const ProductList = ({ productTransaction }) => {
 				selectedLocation === 'All' ||
 				transaction.location?.name === selectedLocation;
 
-			return isInDateRange && matchesSearchQuery && matchesLocation;
+			// return isInDateRange && matchesSearchQuery && matchesLocation;
+			return matchesSearchQuery && matchesLocation;
 		});
 	}, [productTransaction, dateRange, searchTerm, selectedLocation]);
 
@@ -82,7 +87,7 @@ const ProductList = ({ productTransaction }) => {
 			'Location',
 			'Total Value',
 			'Total Sold',
-			'Last Sold On',
+			// 'Last Sold On',
 		];
 		const csvRows = [
 			headers.join(','), // header row
@@ -92,7 +97,7 @@ const ProductList = ({ productTransaction }) => {
 					data.location?.name || 'N/A',
 					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_sold,
-					formatDate(data.last_transaction_date),
+					// formatDate(data.last_transaction_date),
 				].join(',')
 			),
 		].join('\n');
@@ -116,7 +121,7 @@ const ProductList = ({ productTransaction }) => {
 			location: margin + 180,
 			totalValue: margin + 320,
 			totalSold: margin + 440,
-			lastSoldOn: margin + 520,
+			// lastSoldOn: margin + 520,
 		};
 
 		doc.setFontSize(12);
@@ -129,7 +134,7 @@ const ProductList = ({ productTransaction }) => {
 		doc.text('Location', columns.location, row);
 		doc.text('Total Value', columns.totalValue, row);
 		doc.text('Total Sold', columns.totalSold, row);
-		doc.text('Last Sold On', columns.lastSoldOn, row);
+		// doc.text('Last Sold On', columns.lastSoldOn, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -150,7 +155,7 @@ const ProductList = ({ productTransaction }) => {
 				doc.text('Location', columns.location, row);
 				doc.text('Total Value', columns.totalValue, row);
 				doc.text('Total Sold', columns.totalSold, row);
-				doc.text('Last Sold On', columns.lastSoldOn, row);
+				// doc.text('Last Sold On', columns.lastSoldOn, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
@@ -158,13 +163,17 @@ const ProductList = ({ productTransaction }) => {
 			// Add transaction data in the respective columns
 			doc.text(transaction.product?.name, columns.productName, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
-			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
 			doc.text(
-				formatDate(transaction.last_transaction_date),
-				columns.lastSoldOn,
+				`£${transaction.total_price.toFixed(2)}`,
+				columns.totalValue,
 				row
 			);
+			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
+			// doc.text(
+			// 	formatDate(transaction.last_transaction_date),
+			// 	columns.lastSoldOn,
+			// 	row
+			// );
 
 			// Move to the next row
 			row += lineHeight;
@@ -244,7 +253,7 @@ const ProductList = ({ productTransaction }) => {
 					<span>Location</span>
 					<span>Total Value</span>
 					<span>Total Sold</span>
-					<span>Last Sold On</span>
+					{/* <span>Last Sold On</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
@@ -257,9 +266,9 @@ const ProductList = ({ productTransaction }) => {
 							<span>{transaction.location.name}</span>
 							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_sold}</span>
-							<span style={{ whiteSpace: 'nowrap' }}>
+							{/* <span style={{ whiteSpace: 'nowrap' }}>
 								{formatDate(transaction.last_transaction_date)}
-							</span>
+							</span> */}
 						</div>
 					))
 				) : (

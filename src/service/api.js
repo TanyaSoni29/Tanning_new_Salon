@@ -41,7 +41,7 @@ export const userProfileEndpoints = {
 export const productEndpoints = {
 	GET_ALL_PRODUCT_API: BASE_URL + '/products',
 	GET_ALL_PRODUCT_TRANSACTION_API: BASE_URL + '/product-transactions',
-	GET_PRODUCT_REPORT: BASE_URL + '/product-sale-report',
+	GET_PRODUCT_REPORT: BASE_URL + '/product-saled-report',
 };
 
 export const serviceEndpoints = {
@@ -49,8 +49,8 @@ export const serviceEndpoints = {
 	GET_ALL_SERVICE_API: BASE_URL + '/services',
 	GET_USE_SERVICE_OPTION: BASE_URL + '/getTransaction',
 	GET_TOTAL_SPEND: BASE_URL + '/totalSpend',
-	GET_SERVICE_REPORT: BASE_URL + '/service-purchased-report',
-	GET_SERVICE_USE_REPORT: BASE_URL + '/service-used-report',
+	GET_SERVICE_REPORT: BASE_URL + '/service-purchase-report',
+	GET_SERVICE_USE_REPORT: BASE_URL + '/service-use-report',
 	// GET_ALL_SERVICE_USAGES_API: BASE_URL + "/serviceUsage",
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API: BASE_URL + "/serviceUsage/user",
 };
