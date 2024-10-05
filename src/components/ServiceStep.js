@@ -246,7 +246,8 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 									{customer.profile?.available_balance}
 								</p>
 								<p>
-									<span>Total Spent:</span> {customer.profile?.total_spend}
+									<span>Total Spent:</span> £
+									{customer?.total_service_purchased_price?.toFixed(2)}
 								</p>
 							</div>
 						</div>
@@ -327,7 +328,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 										</span>
 										<span className='price'>
 											{transaction?.quantity ? transaction?.quantity : '-'}
-										</span>								
+										</span>
 										<span>
 											{transaction.productName ? transaction?.productName : '-'}
 										</span>
