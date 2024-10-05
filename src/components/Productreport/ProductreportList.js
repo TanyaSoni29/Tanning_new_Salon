@@ -21,6 +21,7 @@ const ProductList = ({
 	};
 
 	const [searchTerm, setSearchTerm] = useState('');
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 
 	const { locations } = useSelector((state) => state.location);
 
@@ -48,8 +49,18 @@ const ProductList = ({
 		[setSearchTerm]
 	);
 
+	// Handle sorting logic
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	// Sort and filter product transactions
 	const filteredTransaction = useMemo(() => {
-		return productTransaction.filter((transaction) => {
+		const sortedData = productTransaction.filter((transaction) => {
 			const productName = transaction?.product?.name?.toLowerCase() || '';
 			const matchesSearchQuery = productName.includes(searchTerm.toLowerCase());
 			const matchesLocation =
@@ -58,16 +69,28 @@ const ProductList = ({
 
 			return matchesSearchQuery && matchesLocation;
 		});
-	}, [productTransaction, searchTerm, selectedLocation]);
+
+		// Sorting logic
+		if (sortConfig.key) {
+			sortedData.sort((a, b) => {
+				const aValue = a[sortConfig.key] || a.product[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || b.product[sortConfig.key] || '';
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			});
+		}
+
+		return sortedData;
+	}, [productTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	const handleDownloadCSV = () => {
-		const headers = [
-			'Product Name',
-			'Location',
-			'Total Value',
-			'Total Sold',
-			'Date',
-		];
+		const headers = ['Product Name', 'Location', 'Total Value', 'Total Sold', 'Date'];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
@@ -142,17 +165,9 @@ const ProductList = ({
 			// Add transaction data in the respective columns
 			doc.text(transaction.product?.name, columns.productName, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(
-				`£${transaction.total_price.toFixed(2)}`,
-				columns.totalValue,
-				row
-			);
+			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
 			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
-			doc.text(
-				formatDate(transaction.last_transaction_date),
-				columns.lastSoldOn,
-				row
-			);
+			doc.text(formatDate(transaction.last_transaction_date), columns.lastSoldOn, row);
 
 			// Move to the next row
 			row += lineHeight;
@@ -190,57 +205,51 @@ const ProductList = ({
 					/>
 				</div>
 				<div className='productlocation-select'>
-					<select
-						value={selectedLocation}
-						onChange={handleLocationChange}
-					>
+					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
-							<option
-								key={location}
-								value={location}
-							>
+							<option key={location} value={location}>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='productreportlist-files'>
-					<div
-						className='productreportlist-download'
-						onClick={handleDownloadCSV}
-					>
-						<FaFileCsv
-							size={35}
-							style={{ color: '#28a745' }}
-						/>
+					<div className='productreportlist-download' onClick={handleDownloadCSV}>
+						<FaFileCsv size={35} style={{ color: '#28a745' }} />
 					</div>
-					<div
-						className='productreportlist-download'
-						onClick={handleDownloadPDF}
-					>
-						<FaFilePdf
-							size={35}
-							style={{ color: '#dc3545' }}
-						/>
+					<div className='productreportlist-download' onClick={handleDownloadPDF}>
+						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
 					</div>
 				</div>
 			</div>
 
 			<div className='productreportlist-table'>
 				<div className='productreportlist-table-header'>
-					<span>Date</span>
-					<span>Product Name</span>
-					<span>Location</span>
-					<span>Total Value</span>
-					<span>Total Sold</span>
+					<span onClick={() => handleSort('last_transaction_date')}>
+						Date{' '}
+						<i className={`fa fa-caret-${sortConfig.key === 'last_transaction_date' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+					</span>
+					<span onClick={() => handleSort('name')}>
+						Product Name{' '}
+						<i className={`fa fa-caret-${sortConfig.key === 'name' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+					</span>
+					<span onClick={() => handleSort('location')}>
+						Location{' '}
+						<i className={`fa fa-caret-${sortConfig.key === 'location' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+					</span>
+					<span onClick={() => handleSort('total_price')}>
+						Total Value{' '}
+						<i className={`fa fa-caret-${sortConfig.key === 'total_price' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+					</span>
+					<span onClick={() => handleSort('total_sold')}>
+						Total Sold{' '}
+						<i className={`fa fa-caret-${sortConfig.key === 'total_sold' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+					</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div
-							key={i}
-							className='productreportlist-table-row'
-						>
+						<div key={i} className='productreportlist-table-row'>
 							<span style={{ whiteSpace: 'nowrap' }} data-label="Date">
 								{formatDate(transaction.last_transaction_date)}
 							</span>
@@ -251,9 +260,7 @@ const ProductList = ({
 						</div>
 					))
 				) : (
-					<div className='productreportlist-no-data'>
-						No transactions found.
-					</div>
+					<div className='productreportlist-no-data'>No transactions found.</div>
 				)}
 			</div>
 		</div>

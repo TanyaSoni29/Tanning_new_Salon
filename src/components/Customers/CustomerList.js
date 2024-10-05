@@ -29,8 +29,18 @@ const CustomerList = () => {
 	];
 	const [isViewOpen, setIsViewOpen] = useState(false);
 
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
 	const handleLocationChange = (e) => {
 		setSelectedLocation(e.target.value);
+	};
+
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
 	};
 
 	const filteredCustomers = customers.filter((data) => {
@@ -49,6 +59,22 @@ const CustomerList = () => {
 			(preferredLocation && preferredLocation.name === selectedLocation);
 
 		return matchesSearchQuery && matchesLocation;
+	});
+
+	const sortedCustomers = [...filteredCustomers].sort((a, b) => {
+		if (sortConfig.key) {
+			const aValue = a.profile[sortConfig.key] || a[sortConfig.key] || '';
+			const bValue = b.profile[sortConfig.key] || b[sortConfig.key] || '';
+
+			if (aValue < bValue) {
+				return sortConfig.direction === 'asc' ? -1 : 1;
+			}
+			if (aValue > bValue) {
+				return sortConfig.direction === 'asc' ? 1 : -1;
+			}
+			return 0;
+		}
+		return 0;
 	});
 
 	const handleAdd = () => {
@@ -141,19 +167,78 @@ const CustomerList = () => {
 
 			<div className='customers-table'>
 				<div className='customer-table-header'>
-					<span>Customers Name</span>
-					<span>Location</span>
-					<span>Phone</span>
-					<span>Min. Aval.</span>
-					<span>Total Spent</span>
-					<span>Last Purchase</span>
+					<span onClick={() => handleSort('firstName')}>
+						Customers Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('preferred_location')}>
+						Location{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'preferred_location' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('phone_number')}>
+						Phone{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'phone_number' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('available_balance')}>
+						Min. Aval.{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'available_balance' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_service_purchased_price')}>
+						Total Spent{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_service_purchased_price' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('updated_at')}>
+						Last Purchase{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'updated_at' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
 					<span>Action</span>
 				</div>
 
-				{filteredCustomers.length > 0 ? (
-					filteredCustomers.map((customer) => {
+				{sortedCustomers.length > 0 ? (
+					sortedCustomers.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) => location?.id === customer.profile?.preferred_location
+							(location) =>
+								location?.id === customer.profile?.preferred_location
 						);
 						return (
 							<div key={customer.user.id} className='customer-table-row'>
@@ -175,9 +260,18 @@ const CustomerList = () => {
 								</span>
 								<span data-label='Action'>
 									<div className='customerlistaction'>
-									<i className='fa fa-eye' onClick={() => handleView(customer)}></i>
-									<i className='fa fa-pencil' onClick={() => handleEdit(customer)}></i>
-									<i className='fa fa-trash' onClick={() => confirmDelete(customer)}></i>
+										<i
+											className='fa fa-eye'
+											onClick={() => handleView(customer)}
+										></i>
+										<i
+											className='fa fa-pencil'
+											onClick={() => handleEdit(customer)}
+										></i>
+										<i
+											className='fa fa-trash'
+											onClick={() => confirmDelete(customer)}
+										></i>
 									</div>
 								</span>
 							</div>
@@ -196,7 +290,10 @@ const CustomerList = () => {
 
 			{isViewOpen && activeUser && (
 				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
-					<ViewCustomerModal closeViewModal={closeViewModal} activeUser={activeUser} />
+					<ViewCustomerModal
+						closeViewModal={closeViewModal}
+						activeUser={activeUser}
+					/>
 				</Modal>
 			)}
 
@@ -240,16 +337,10 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
+				<button onClick={handleDelete} className='confirm-button'>
 					Confirm
 				</button>
-				<button
-					className='cancel-button'
-					onClick={closeDeleteModal}
-				>
+				<button className='cancel-button' onClick={closeDeleteModal}>
 					Cancel
 				</button>
 			</div>
@@ -270,16 +361,10 @@ function RemainingMinutesWarningModal({
 				minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
-				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
+				<button onClick={handleDelete} className='confirm-button'>
 					Proceed to Delete
 				</button>
-				<button
-					className='cancel-button'
-					onClick={closeWarningModal}
-				>
+				<button className='cancel-button' onClick={closeWarningModal}>
 					Cancel
 				</button>
 			</div>

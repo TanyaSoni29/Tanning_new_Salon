@@ -20,6 +20,23 @@ const LocationList = () => {
 	const [activeLocation, setActiveLocation] = useState(null); // Track the location to be deleted
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
+	// Handle sort toggling between ascending and descending
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	// Function to display the correct icon for sorting
+	const getSortIcon = (key) => {
+		if (sortConfig.key === key) {
+			return sortConfig.direction === 'asc' ? '▲' : '▼';
+		}
+		return '▲'; // Default icon
+	};
+
 	// Sort locations based on the selected header (ascending/descending)
 	const sortedLocations = [...locations].sort((a, b) => {
 		if (sortConfig.key) {
@@ -35,11 +52,6 @@ const LocationList = () => {
 		}
 		return 0;
 	});
-
-	// Handle sort toggling between ascending and descending
-	const handleSort = (key, direction) => {
-		setSortConfig({ key, direction });
-	};
 
 	// Filter locations based on search term
 	const filteredLocations = sortedLocations.filter(
@@ -119,47 +131,27 @@ const LocationList = () => {
 				<div className='location-table-header'>
 					<span>
 						Location Name
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('name', 'asc')}>
-								▲
-							</button>
-							<button className='sort-desc' onClick={() => handleSort('name', 'desc')}>
-								▼
-							</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('name')}>
+							{getSortIcon('name')}
+						</button>
 					</span>
 					<span>
 						Address
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('address', 'asc')}>
-								▲
-							</button>
-							<button className='sort-desc' onClick={() => handleSort('address', 'desc')}>
-								▼
-							</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('address')}>
+							{getSortIcon('address')}
+						</button>
 					</span>
 					<span>
 						Postcode
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('post_code', 'asc')}>
-								▲
-							</button>
-							<button className='sort-desc' onClick={() => handleSort('post_code', 'desc')}>
-								▼
-							</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('post_code')}>
+							{getSortIcon('post_code')}
+						</button>
 					</span>
 					<span>
 						Phone Number
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('phone_number', 'asc')}>
-								▲
-							</button>
-							<button className='sort-desc' onClick={() => handleSort('phone_number', 'desc')}>
-								▼
-							</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('phone_number')}>
+							{getSortIcon('phone_number')}
+						</button>
 					</span>
 					<span>Action</span>
 				</div>

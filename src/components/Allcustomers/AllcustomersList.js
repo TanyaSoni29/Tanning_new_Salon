@@ -19,27 +19,14 @@ const CustomerList = ({
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
-
-	// Set default start date as the 1st day of the current month and end date as today's date
-	// const getCurrentMonthRange = () => {
-	// 	const now = new Date();
-	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-	// 	const today = new Date();
-	// 	return {
-	// 		startDate: startOfMonth,
-	// 		endDate: today,
-	// 	};
-	// };
-
-	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	// const [selectedLocation, setSelectedLocation] = useState('All');
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
+
 	const uniqueLocations = [
 		'All',
 		...new Set(locations.map((location) => location.name)),
 	];
 
-	// Update dateRange when the checkbox is toggled for "Current Month"
 	useEffect(() => {
 		if (isCurrentMonth) {
 			setDateRange(getCurrentMonthRange());
@@ -67,25 +54,51 @@ const CustomerList = ({
 		);
 	};
 
-	const filteredCustomers = customers.filter((data) => {
-		const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
+	// Handle sorting logic
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
 
-		const firstName = data.profile?.firstName.toLowerCase() || '';
-		const lastName = data?.profile?.lastName?.toLowerCase() || '';
-		const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
+	// Sort and filter the customer list
+	const filteredCustomers = customers
+		.filter((data) => {
+			const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
 
-		const matchesSearchQuery =
-			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-			phoneNumber.includes(searchTerm.toLowerCase());
-		const preferredLocation = locations.find(
-			(location) => location.id === data.profile?.preferred_location
-		);
-		const matchesLocation =
-			selectedLocation === 'All' ||
-			(preferredLocation && preferredLocation.name === selectedLocation);
+			const firstName = data.profile?.firstName.toLowerCase() || '';
+			const lastName = data?.profile?.lastName?.toLowerCase() || '';
+			const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
 
-		return matchesSearchQuery && matchesLocation && isInMonth;
-	});
+			const matchesSearchQuery =
+				`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+				phoneNumber.includes(searchTerm.toLowerCase());
+			const preferredLocation = locations.find(
+				(location) => location.id === data.profile?.preferred_location
+			);
+			const matchesLocation =
+				selectedLocation === 'All' ||
+				(preferredLocation && preferredLocation.name === selectedLocation);
+
+			return matchesSearchQuery && matchesLocation && isInMonth;
+		})
+		.sort((a, b) => {
+			if (sortConfig.key) {
+				const aValue = a.profile[sortConfig.key] || a[sortConfig.key] || '';
+				const bValue = b.profile[sortConfig.key] || b[sortConfig.key] || '';
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			}
+			return 0;
+		});
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -98,7 +111,6 @@ const CustomerList = ({
 			'LAST PURCHASE',
 		];
 
-		// Generating the CSV content
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredCustomers.map((customer) => {
@@ -119,7 +131,6 @@ const CustomerList = ({
 			}),
 		].join('\n');
 
-		// Creating a Blob and saving it as CSV
 		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
 		saveAs(blob, 'Customers.csv');
 	};
@@ -127,26 +138,23 @@ const CustomerList = ({
 	// Function to download PDF
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF();
-		const pageWidth = doc.internal.pageSize.width; // Get page width
-		const pageHeight = doc.internal.pageSize.height; // Get page height
-		const margin = 10; // Left and right margins
-		const lineHeight = 10; // Adjust line height
-		let row = 10; // Start y-position for the content
+		const pageWidth = doc.internal.pageSize.width;
+		const pageHeight = doc.internal.pageSize.height;
+		const margin = 10;
+		const lineHeight = 10;
+		let row = 10;
 
-		// Adjust column positions for better spacing (adjusted widths to fit within the page)
 		const columns = {
-			userName: margin, // Start at the left margin
-			location: margin + 35, // 35 units after the user name column
-			phoneNumber: margin + 65, // 50 units after location
-			minutesAvailable: margin + 95, // 50 units after phone number
-			totalSpend: margin + 135, // 40 units after minutes available
-			lastPurchase: margin + 165, // 40 units after total spend (adjust to fit the page)
+			userName: margin,
+			location: margin + 35,
+			phoneNumber: margin + 65,
+			minutesAvailable: margin + 95,
+			totalSpend: margin + 135,
+			lastPurchase: margin + 165,
 		};
 
-		// Title of the document
 		doc.text('Customer List', margin, row);
 
-		// Add headers for the table
 		row += lineHeight;
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(10);
@@ -155,9 +163,8 @@ const CustomerList = ({
 		doc.text('Phone', columns.phoneNumber, row);
 		doc.text('Minutes Avl', columns.minutesAvailable, row);
 		doc.text('Tot Spend', columns.totalSpend, row);
-		doc.text('Last Purchase', columns.lastPurchase, row); // Last Purchase header added
+		doc.text('Last Purchase', columns.lastPurchase, row);
 
-		// Move to the next row
 		row += lineHeight;
 
 		doc.setFont('helvetica', 'normal');
@@ -166,12 +173,10 @@ const CustomerList = ({
 				(location) => location.id === customer.profile?.preferred_location
 			);
 
-			// Check if we need to add a new page
 			if (row >= pageHeight - lineHeight) {
-				doc.addPage(); // Add a new page
-				row = margin; // Reset the row height for the new page
+				doc.addPage();
+				row = margin;
 
-				// Re-add table headers to the new page
 				doc.text('Customer Name', columns.userName, row);
 				doc.text('Location', columns.location, row);
 				doc.text('Phone', columns.phoneNumber, row);
@@ -182,7 +187,6 @@ const CustomerList = ({
 				row += lineHeight;
 			}
 
-			// Add the customer data
 			doc.text(
 				`${customer.profile?.firstName || ''} ${
 					customer.profile?.lastName || ''
@@ -214,9 +218,8 @@ const CustomerList = ({
 				formatDate(customer.profile?.updated_at) || 'N/A',
 				columns.lastPurchase,
 				row
-			); // Last purchase data added
+			);
 
-			// Move to the next row
 			row += lineHeight;
 		});
 
@@ -235,15 +238,9 @@ const CustomerList = ({
 					/>
 				</div>
 				<div className='allcustomer-location-select'>
-					<select
-						value={selectedLocation}
-						onChange={handleLocationChange}
-					>
+					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
-							<option
-								key={location}
-								value={location}
-							>
+							<option key={location} value={location}>
 								{location}
 							</option>
 						))}
@@ -267,35 +264,80 @@ const CustomerList = ({
 				</div>
 
 				<div className='allcustomer-files'>
-					<div
-						className='allcustomer-icon'
-						onClick={handleDownloadCSV}
-					>
-						<FaFileCsv
-							size={35}
-							style={{ color: '#28a745' }}
-						/>
+					<div className='allcustomer-icon' onClick={handleDownloadCSV}>
+						<FaFileCsv size={35} style={{ color: '#28a745' }} />
 					</div>
-					<div
-						className='allcustomer-icon'
-						onClick={handleDownloadPDF}
-					>
-						<FaFilePdf
-							size={35}
-							style={{ color: '#dc3545' }}
-						/>
+					<div className='allcustomer-icon' onClick={handleDownloadPDF}>
+						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
 					</div>
 				</div>
 			</div>
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
-					<span>Customers Name</span>
-					<span>Location</span>
-					<span>Phone Number</span>
-					<span>Min. Avail.</span>
-					<span>Total Spent</span>
-					<span>Register On</span>
+					<span onClick={() => handleSort('firstName')}>
+						Customers Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('preferred_location')}>
+						Location{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'preferred_location' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('phone_number')}>
+						Phone Number{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'phone_number' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('available_balance')}>
+						Min. Avail.{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'available_balance' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_service_purchased_price')}>
+						Total Spent{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_service_purchased_price' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('created_at')}>
+						Register On{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'created_at' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (

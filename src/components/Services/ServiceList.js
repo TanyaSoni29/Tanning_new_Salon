@@ -18,11 +18,37 @@ const ServiceList = () => {
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeService, setActiveService] = useState(null); // Track the Service to be deleted or edited
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 
-	// Filter services based on search term
-	const filteredServices = services?.filter((service) =>
-		service?.serviceName?.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+	// Handle sorting logic
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	// Filter and sort services based on search term and sort configuration
+	const filteredServices = services
+		?.filter((service) =>
+			service?.serviceName?.toLowerCase().includes(searchTerm.toLowerCase())
+		)
+		.sort((a, b) => {
+			if (sortConfig.key) {
+				const aValue = a[sortConfig.key] || a;
+				const bValue = b[sortConfig.key] || b;
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			}
+			return 0;
+		});
 
 	// Function to handle the delete action with API call and Redux update
 	const handleDelete = async (serviceId) => {
@@ -90,13 +116,40 @@ const ServiceList = () => {
 			<div className='services-table'>
 				{/* Hide the header in mobile view */}
 				<div className='table-header'>
-					<span>Service Name</span>
-					<span>Price</span>
-					<span>Minutes</span>
+					<span onClick={() => handleSort('serviceName')}>
+						Service Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('price')}>
+						Price{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'price' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('minutesAvailable')}>
+						Minutes{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'minutesAvailable' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
 					<span>Action</span>
 				</div>
 
-				{/* Render filtered services */}
+				{/* Render filtered and sorted services */}
 				{filteredServices?.length > 0 ? (
 					filteredServices.map((service) => (
 						<div key={service?.id} className='table-row'>
@@ -105,8 +158,8 @@ const ServiceList = () => {
 							<span data-label='Minutes' className='servicetd1'>{service?.minutesAvailable}</span>
 							<span data-label='Action'>
 								<div className='servicelistaction'>
-								<i className='fa fa-pencil' onClick={() => handleEdit(service)}></i>
-								<i className='fa fa-trash' onClick={() => confirmDelete(service)}></i>
+									<i className='fa fa-pencil' onClick={() => handleEdit(service)}></i>
+									<i className='fa fa-trash' onClick={() => confirmDelete(service)}></i>
 								</div>
 							</span>
 						</div>

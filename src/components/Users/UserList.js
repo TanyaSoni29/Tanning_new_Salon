@@ -110,6 +110,14 @@ const UserList = () => {
 		setSortConfig({ key, direction });
 	};
 
+	// Function to display the correct icon for sorting
+	const getSortIcon = (key) => {
+		if (sortConfig.key === key) {
+			return sortConfig.direction === 'asc' ? '▲' : '▼';
+		}
+		return '▲'; // Default icon
+	};
+
 	return (
 		<div className='user-container'>
 			<div className='user-search-container'>
@@ -128,38 +136,33 @@ const UserList = () => {
 				<div className='user-table-header'>
 					<span>
 						User Name
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('profile.firstName')}>▲</button>
-							<button className='sort-desc' onClick={() => handleSort('profile.firstName')}>▼</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('profile.firstName')}>
+							{getSortIcon('profile.firstName')}
+						</button>
 					</span>
 					<span>
 						User Email
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('user.email')}>▲</button>
-							<button className='sort-desc' onClick={() => handleSort('user.email')}>▼</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('user.email')}>
+							{getSortIcon('user.email')}
+						</button>
 					</span>
 					<span>
 						Role
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('user.role')}>▲</button>
-							<button className='sort-desc' onClick={() => handleSort('user.role')}>▼</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('user.role')}>
+							{getSortIcon('user.role')}
+						</button>
 					</span>
 					<span>
 						Location
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('profile.preferred_location')}>▲</button>
-							<button className='sort-desc' onClick={() => handleSort('profile.preferred_location')}>▼</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('profile.preferred_location')}>
+							{getSortIcon('profile.preferred_location')}
+						</button>
 					</span>
 					<span>
 					Phone Number
-						<div className='sort-buttons'>
-							<button className='sort-asc' onClick={() => handleSort('profile.preferred_location')}>▲</button>
-							<button className='sort-desc' onClick={() => handleSort('profile.preferred_location')}>▼</button>
-						</div>
+						<button className='sort-button' onClick={() => handleSort('profile.preferred_location')}>
+							{getSortIcon('profile.preferred_location')}
+						</button>
 					</span>
 					<span>Action</span>
 				</div>
@@ -182,12 +185,12 @@ const UserList = () => {
 								<span data-label='Phone Number'>{user.profile?.phone_number}</span>
 								<span data-label='Action'>
 									<div className='actionusers'>
-									<i className='fa fa-pencil' onClick={() => handleEdit(user)}></i>
-									<i
-										className={`fa fa-trash ${loginUser.id === user.user?.id ? 'disabled' : ''}`}
-										onClick={loginUser.id !== user.user?.id ? () => confirmDelete(user) : null}
-										style={loginUser.id === user.user?.id ? { cursor: 'not-allowed', opacity: 0.5 } : { cursor: 'pointer' }}
-									></i>
+										<i className='fa fa-pencil' onClick={() => handleEdit(user)}></i>
+										<i
+											className={`fa fa-trash ${loginUser.id === user.user?.id ? 'disabled' : ''}`}
+											onClick={loginUser.id !== user.user?.id ? () => confirmDelete(user) : null}
+											style={loginUser.id === user.user?.id ? { cursor: 'not-allowed', opacity: 0.5 } : { cursor: 'pointer' }}
+										></i>
 									</div>
 								</span>
 							</div>
@@ -233,6 +236,6 @@ function DeleteUserModal({ handleDelete, activeUser, closeDeleteModal }) {
 					Cancel
 				</button>
 			</div>
-		</div>
+		 </div>
 	);
 }

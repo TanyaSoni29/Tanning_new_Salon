@@ -20,21 +20,13 @@ const ProductList = ({
 		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 	};
 
-	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	// const getCurrentMonthRange = () => {
-	// 	const now = new Date();
-	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-	// 	const today = new Date();
-	// 	return {
-	// 		startDate: startOfMonth,
-	// 		endDate: today,
-	// 	};
-	// };
-
-	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	// const [selectedLocation, setSelectedLocation] = useState('All');
-	const { locations } = useSelector((state) => state.location);
+	// State for search term
 	const [searchTerm, setSearchTerm] = useState('');
+
+	// State for sorting configuration
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+	const { locations } = useSelector((state) => state.location);
 
 	// Extract unique locations for dropdown
 	const uniqueLocations = useMemo(
@@ -56,15 +48,18 @@ const ProductList = ({
 		setSelectedLocation(e.target.value);
 	};
 
-	// Filter Transactions
-	const filteredTransaction = purchaseServiceTransaction.filter(
-		(transaction) => {
-			// const transactionDate = new Date(transaction.date);
-			// const isInDateRange =
-			// 	dateRange.startDate && dateRange.endDate
-			// 		? transactionDate >= dateRange.startDate &&
-			// 		  transactionDate <= dateRange.endDate
-			// 		: true;
+	// Handle sorting logic
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
+	// Sort and filter transactions
+	const filteredTransaction = useMemo(() => {
+		const sortedData = purchaseServiceTransaction.filter((transaction) => {
 			const serviceName = transaction?.serviceName?.toLowerCase() || '';
 			const matchesSearchQuery = serviceName?.includes(
 				searchTerm?.toLowerCase()
@@ -74,8 +69,26 @@ const ProductList = ({
 				transaction.location?.name === selectedLocation;
 
 			return matchesSearchQuery && matchesLocation;
+		});
+
+		// Sorting logic
+		if (sortConfig.key) {
+			sortedData.sort((a, b) => {
+				const aValue = a[sortConfig.key] || a[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || b[sortConfig.key] || '';
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			});
 		}
-	);
+
+		return sortedData;
+	}, [purchaseServiceTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	// Download CSV
 	const handleDownloadCSV = () => {
@@ -244,33 +257,77 @@ const ProductList = ({
 			</div>
 
 			<div className='purchasereportlist-table'>
-	<div className='purchasereportlist-table-header'>
-		<span>Date</span>
-		<span>Service Name</span>
-		<span>Location</span>
-		<span>Total Value</span>
-		<span>Minutes Sold</span>
-	</div>
+				<div className='purchasereportlist-table-header'>
+					<span onClick={() => handleSort('date')}>
+						Date{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'date' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('serviceName')}>
+						Service Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('location')}>
+						Location{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'location' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_price')}>
+						Total Value{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_price' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_quantity')}>
+						Minutes Sold{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+				</div>
 
-	{filteredTransaction.length > 0 ? (
-		filteredTransaction.map((transaction, i) => (
-			<div key={i} className='purchasereportlist-table-row'>
-				<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
-					{formatDate(transaction.date)}
-				</span>
-				<span data-label="Service Name">{transaction.serviceName}</span>
-				<span data-label="Location">{transaction.location?.name}</span>
-				<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
-				<span data-label="Minutes Sold">{transaction.total_quantity}</span>
+				{filteredTransaction.length > 0 ? (
+					filteredTransaction.map((transaction, i) => (
+						<div key={i} className='purchasereportlist-table-row'>
+							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.date)}
+							</span>
+							<span data-label="Service Name">{transaction.serviceName}</span>
+							<span data-label="Location">{transaction.location?.name}</span>
+							<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
+							<span data-label="Minutes Sold">{transaction.total_quantity}</span>
+						</div>
+					))
+				) : (
+					<div className='purchasereportlist-no-data'>
+						No transactions found.
+					</div>
+				)}
 			</div>
-		))
-	) : (
-		<div className='purchasereportlist-no-data'>
-			No transactions found.
-		</div>
-	)}
-</div>
-
 		</div>
 	);
 };

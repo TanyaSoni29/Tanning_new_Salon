@@ -19,10 +19,37 @@ const ProductList = () => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState(null); // Track the product to be deleted or edited
 
-  // Filter products based on search term
-  const filteredProducts = products?.filter((product) =>
-    product?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  // Handle sorting logic
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  // Filter and sort products based on search term and sort configuration
+  const filteredProducts = products
+    ?.filter((product) =>
+      product?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortConfig.key) {
+        const aValue = a[sortConfig.key] || a;
+        const bValue = b[sortConfig.key] || b;
+
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      }
+      return 0;
+    });
 
   // Function to handle the delete action with API call and Redux update
   const handleDelete = async (productId) => {
@@ -89,13 +116,40 @@ const ProductList = () => {
 
       <div className="product-table">
         <div className="products-table-header">
-          <span>Product Name</span>
-          <span>Price</span>
-          <span>Listed On</span>
+          <span onClick={() => handleSort('name')}>
+            Product Name{" "}
+            <i
+              className={`fa fa-caret-${
+                sortConfig.key === 'name' && sortConfig.direction === 'asc'
+                  ? 'up'
+                  : 'down'
+              }`}
+            ></i>
+          </span>
+          <span onClick={() => handleSort('price')}>
+            Price{" "}
+            <i
+              className={`fa fa-caret-${
+                sortConfig.key === 'price' && sortConfig.direction === 'asc'
+                  ? 'up'
+                  : 'down'
+              }`}
+            ></i>
+          </span>
+          <span onClick={() => handleSort('created_at')}>
+            Listed On{" "}
+            <i
+              className={`fa fa-caret-${
+                sortConfig.key === 'created_at' && sortConfig.direction === 'asc'
+                  ? 'up'
+                  : 'down'
+              }`}
+            ></i>
+          </span>
           <span>Action</span>
         </div>
 
-        {/* Render filtered products */}
+        {/* Render filtered and sorted products */}
         {filteredProducts?.length > 0 ? (
           filteredProducts.map((product) => (
             <div key={product?.id} className="products-table-row">
@@ -108,14 +162,14 @@ const ProductList = () => {
               </span>
               <span data-label="Actions">
                 <div className="producaction">
-                <i
-                  className="fa fa-pencil"
-                  onClick={() => handleEdit(product)}
-                ></i>
-                <i
-                  className="fa fa-trash"
-                  onClick={() => confirmDelete(product)} // Open delete modal
-                ></i>
+                  <i
+                    className="fa fa-pencil"
+                    onClick={() => handleEdit(product)}
+                  ></i>
+                  <i
+                    className="fa fa-trash"
+                    onClick={() => confirmDelete(product)} // Open delete modal
+                  ></i>
                 </div>
               </span>
             </div>

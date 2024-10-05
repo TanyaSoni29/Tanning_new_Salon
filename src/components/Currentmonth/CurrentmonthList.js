@@ -12,6 +12,7 @@ const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 
 	// Get the first day of the current month and today's date
 	const getCurrentMonthStartDate = () => {
@@ -91,6 +92,14 @@ const CustomerList = () => {
 		}
 	};
 
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
+
 	const sortCustomers = (customers) => {
 		// If all toggles are off, return the customers as is
 		if (!isBySpend && !isMinUsed && !isBySale) {
@@ -144,7 +153,21 @@ const CustomerList = () => {
 		return isInDateRange && matchesSearchQuery && matchesLocation && isInMonth;
 	});
 
-	const sortedCustomers = sortCustomers(filteredCustomers);
+	const sortedCustomers = filteredCustomers.sort((a, b) => {
+		if (sortConfig.key) {
+			const aValue = a.profile[sortConfig.key] || a[sortConfig.key] || '';
+			const bValue = b.profile[sortConfig.key] || b[sortConfig.key] || '';
+
+			if (aValue < bValue) {
+				return sortConfig.direction === 'asc' ? -1 : 1;
+			}
+			if (aValue > bValue) {
+				return sortConfig.direction === 'asc' ? 1 : -1;
+			}
+			return 0;
+		}
+		return 0;
+	});
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -399,13 +422,81 @@ const CustomerList = () => {
 
 			<div className='currentmon-table'>
 				<div className='currentmon-table-header'>
-					<span>Customers Name</span>
-					<span>Phone Number</span>
-					<span>Location</span>
-					<span>Min. Avail.</span>
-					<span>Total Min. Used</span>
-					<span>Total Spent</span>
-					<span>Total Sales</span>
+					<span onClick={() => handleSort('firstName')}>
+						Customers Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('phone_number')}>
+						Phone Number{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'phone_number' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('preferred_location')}>
+						Location{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'preferred_location' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('available_balance')}>
+						Min. Avail.{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'available_balance' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_used_minutes')}>
+						Total Min. Used{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_used_minutes' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_service_purchased_price')}>
+						Total Spent{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_service_purchased_price' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_product_purchased_price')}>
+						Total Sales{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_product_purchased_price' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
 				</div>
 
 				{sortedCustomers.length > 0 ? (
@@ -433,7 +524,7 @@ const CustomerList = () => {
 								</span>
 								<span data-label='Total Spent'>
 									£{customer.total_service_purchased_price?.toFixed(2)}
-								</span>
+								 </span>
 								<span data-label='Total Sales'>
 									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>

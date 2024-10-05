@@ -75,20 +75,29 @@
 	margin-left: 5px;
 }
 
-.sort-asc,
+/* .sort-asc,
 .sort-desc {
 	background: transparent;
 	border: none;
 	cursor: pointer;
 	font-size: 10px;
 	color: black;
-}
+} */
 
-.sort-asc:hover,
+/* .sort-asc:hover,
 .sort-desc:hover {
 	color: grey;
-}
+} */
 
+.sort-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 12px;
+	padding: 0;
+	margin-left: 5px;
+  }
+  
 .user-table-row {
 	background-color: white;
 }

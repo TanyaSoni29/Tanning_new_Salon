@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './ServiceusedList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
@@ -16,6 +16,7 @@ const ServiceUsedList = ({
 	setDateRange,
 }) => {
 	const [searchTerm, setSearchTerm] = useState('');
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
@@ -40,16 +41,45 @@ const ServiceUsedList = ({
 	// Handle location change
 	const handleLocationChange = (e) => setSelectedLocation(e.target.value);
 
-	// Filter transactions based on search term, date range, and location
-	const filteredTransaction = useServiceTransaction.filter((transaction) => {
-		const serviceName = transaction?.serviceName?.toLowerCase() || '';
-		const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
-		const matchesLocation =
-			selectedLocation === 'All' ||
-			transaction.location?.name === selectedLocation;
+	// Handle sorting logic
+	const handleSort = (key) => {
+		let direction = 'asc';
+		if (sortConfig.key === key && sortConfig.direction === 'asc') {
+			direction = 'desc';
+		}
+		setSortConfig({ key, direction });
+	};
 
-		return matchesSearchQuery && matchesLocation;
-	});
+	// Filter and sort transactions based on search term, date range, and location
+	const filteredTransaction = useMemo(() => {
+		let sortedData = useServiceTransaction.filter((transaction) => {
+			const serviceName = transaction?.serviceName?.toLowerCase() || '';
+			const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
+			const matchesLocation =
+				selectedLocation === 'All' ||
+				transaction.location?.name === selectedLocation;
+
+			return matchesSearchQuery && matchesLocation;
+		});
+
+		// Sorting logic
+		if (sortConfig.key) {
+			sortedData = sortedData.sort((a, b) => {
+				const aValue = a[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || '';
+
+				if (aValue < bValue) {
+					return sortConfig.direction === 'asc' ? -1 : 1;
+				}
+				if (aValue > bValue) {
+					return sortConfig.direction === 'asc' ? 1 : -1;
+				}
+				return 0;
+			});
+		}
+
+		return sortedData;
+	}, [useServiceTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -158,10 +188,7 @@ const ServiceUsedList = ({
 				</div>
 
 				<div className='servicelocation-select'>
-					<select
-						value={selectedLocation}
-						onChange={handleLocationChange}
-					>
+					<select value={selectedLocation} onChange={handleLocationChange}>
 						{uniqueLocations.map((location) => (
 							<option key={location} value={location}>
 								{location}
@@ -181,30 +208,64 @@ const ServiceUsedList = ({
 			</div>
 
 			<div className='serviceused-table'>
-	<div className='serviceused-table-header'>
-		<span>Date</span>
-		<span>Service Name</span>
-		<span>Location</span>
-		<span>Total Usage</span>
-	</div>
+				<div className='serviceused-table-header'>
+					<span onClick={() => handleSort('date')}>
+						Date{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'date' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('serviceName')}>
+						Service Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('location')}>
+						Location{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'location' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('total_quantity')}>
+						Total Usage{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+				</div>
 
-	{filteredTransaction.length > 0 ? (
-		filteredTransaction.map((transaction, i) => (
-			<div key={i} className='serviceused-table-row'>
-				<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
-					{formatDate(transaction.date)}
-				</span>
-				<span data-label="Service Name">{transaction.serviceName}</span>
-				<span data-label="Location">{transaction.location?.name}</span>
-				<span data-label="Total Usage">{transaction.total_quantity}</span>
+				{filteredTransaction.length > 0 ? (
+					filteredTransaction.map((transaction, i) => (
+						<div key={i} className='serviceused-table-row'>
+							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.date)}
+							</span>
+							<span data-label="Service Name">{transaction.serviceName}</span>
+							<span data-label="Location">{transaction.location?.name}</span>
+							<span data-label="Total Usage">{transaction.total_quantity}</span>
+						</div>
+					))
+				) : (
+					<div className='serviceused-no-data'>No transaction found.</div>
+				)}
 			</div>
-		))
-	) : (
-		<div className='serviceused-no-data'>No transaction found.</div>
-	)}
-</div>
-
-
 		</div>
 	);
 };
