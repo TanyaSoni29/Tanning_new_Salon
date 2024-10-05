@@ -20,17 +20,6 @@ const ProductList = ({
 		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 	};
 
-	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	// const getCurrentMonthRange = () => {
-	// 	const now = new Date();
-	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-	// 	const today = new Date();
-	// 	return {
-	// 		startDate: startOfMonth,
-	// 		endDate: today,
-	// 	};
-	// };
-
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const { locations } = useSelector((state) => state.location);
@@ -61,25 +50,15 @@ const ProductList = ({
 
 	const filteredTransaction = useMemo(() => {
 		return productTransaction.filter((transaction) => {
-			const transactionDate = new Date(transaction.last_transaction_date);
-			// const isInDateRange =
-			// 	dateRange.startDate && dateRange.endDate
-			// 		? transactionDate >= dateRange.startDate &&
-			// 		  transactionDate <= dateRange.endDate
-			// 		: true;
-
 			const productName = transaction?.product?.name?.toLowerCase() || '';
-
 			const matchesSearchQuery = productName.includes(searchTerm.toLowerCase());
-
 			const matchesLocation =
 				selectedLocation === 'All' ||
 				transaction.location?.name === selectedLocation;
 
-			// return isInDateRange && matchesSearchQuery && matchesLocation;
 			return matchesSearchQuery && matchesLocation;
 		});
-	}, [productTransaction, dateRange, searchTerm, selectedLocation]);
+	}, [productTransaction, searchTerm, selectedLocation]);
 
 	const handleDownloadCSV = () => {
 		const headers = [
@@ -262,13 +241,13 @@ const ProductList = ({
 							key={i}
 							className='productreportlist-table-row'
 						>
-							<span style={{ whiteSpace: 'nowrap' }}>
+							<span style={{ whiteSpace: 'nowrap' }} data-label="Date">
 								{formatDate(transaction.last_transaction_date)}
 							</span>
-							<span>{transaction.product.name}</span>
-							<span>{transaction.location.name}</span>
-							<span>£{transaction.total_price.toFixed(2)}</span>
-							<span>{transaction.total_sold}</span>
+							<span data-label="Product Name">{transaction.product.name}</span>
+							<span data-label="Location">{transaction.location.name}</span>
+							<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
+							<span data-label="Total Sold">{transaction.total_sold}</span>
 						</div>
 					))
 				) : (
