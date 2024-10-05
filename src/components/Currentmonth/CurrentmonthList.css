@@ -146,8 +146,8 @@ input:checked + .slider:before {
 }
 
 .currentmon-table-header {
-	background-color: #0c65be;
-	color: white;
+	background-color: #f4f4f4;
+	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
 

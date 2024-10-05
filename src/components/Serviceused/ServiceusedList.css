@@ -3,7 +3,7 @@
 	margin: 20px auto;
 	margin-left: 340px;
 	padding: 20px;
-	background-color: #f9f9f9;
+	background-color: #ffffff;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	overflow-x: auto; /* Enables horizontal scrolling */
@@ -92,8 +92,8 @@
 }
 
 .serviceused-table-header {
-	background-color: #0c65be;
-	color: white;
+	background-color: #f4f4f4;
+	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
 
