@@ -222,7 +222,7 @@ const ProductList = ({ productTransaction }) => {
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
-							size={45}
+							size={35}
 							style={{ color: '#28a745' }}
 						/>
 					</div>
@@ -231,7 +231,7 @@ const ProductList = ({ productTransaction }) => {
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
-							size={45}
+							size={35}
 							style={{ color: '#dc3545' }}
 						/>
 					</div>

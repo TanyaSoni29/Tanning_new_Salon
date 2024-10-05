@@ -13,7 +13,7 @@
 .productreportlist-files {
 	display: flex;
 	gap: 20px;
-	height: 7vh;
+	height: 5vh;
 }
 
 /* Filter product section */

@@ -213,7 +213,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
-							size={45}
+							size={35}
 							style={{ color: '#28a745' }}
 						/>{' '}
 						{/* Green for CSV */}
@@ -223,7 +223,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
-							size={45}
+							size={35}
 							style={{ color: '#dc3545' }}
 						/>{' '}
 						{/* Red for PDF */}
