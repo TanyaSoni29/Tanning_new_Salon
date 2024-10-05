@@ -66,18 +66,18 @@ function CustomerOverview({ filteredCustomers }) {
 							{filteredCustomers.length > 0 ? (
 								filteredCustomers.map((data) => (
 									<tr key={data.user?.id}>
-										<td className='tdcustomer'>{data.profile?.firstName}</td>
-										<td className='tdcustomer'>
+										<td>{data.profile?.firstName}</td>
+										<td>
 											{data.profile?.phone_number
 												? data.profile?.phone_number
 												: '-'}
 										</td>
-										<td className='tdcustomer'>
+										<td>
 											{data.profile?.available_balance}
 										</td>
-										<td className='tdcustomer'>{data?.total_used_minutes}</td>
-										<td>£{data?.total_service_purchased_price?.toFixed(2)}</td>
-										<td className='tdcustomer'>
+										<td>{data?.total_used_minutes}</td>
+										<td className='tdcustomer'>£{data?.total_service_purchased_price?.toFixed(2)}</td>
+										<td>
 											{data?.profile?.updated_at
 												? formatDate(data?.profile?.updated_at)
 												: 'N/A'}
