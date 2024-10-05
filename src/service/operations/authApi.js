@@ -13,6 +13,7 @@ import {
 const {
 	SIGNUP_API,
 	LOGIN_API,
+	ADD_CUSTOMER,
 	UPDATE_PASSWORD_API,
 	RESET_PASSWORD_API,
 	FORGET_PASSWORD_API,
@@ -31,7 +32,7 @@ export function signUp(
 		const toastId = toast.loading('Loading...');
 		dispatch(setLoading(true));
 		try {
-			const response = await apiConnector('POST', SIGNUP_API, {
+			const response = await apiConnector('POST', ADD_CUSTOMER, {
 				role,
 				name,
 				email,
