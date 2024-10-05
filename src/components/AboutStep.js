@@ -96,7 +96,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 
 	const handleClearFilters = () => {
 		// setIsAllLocation(false);
-		setSelectedLocation(0);
+		// setSelectedLocation(0);
 		setSearchQuery('');
 	};
 

@@ -90,14 +90,30 @@ const AddUserModal = ({ closeAddModal }) => {
 						<TextField
 							label='First Name'
 							variant='outlined'
-							{...register('firstName', { required: true })}
+							{...register('firstName', {
+								required: 'First name is required',
+								maxLength: {
+									value: 100,
+									message: 'First name cannot exceed 100 characters',
+								},
+							})}
 							fullWidth
+							error={!!errors.firstName}
+							helperText={errors.firstName ? errors.firstName.message : ''}
 						/>
 						<TextField
 							label='Last Name'
 							variant='outlined'
-							{...register('lastName', { required: true })}
+							{...register('lastName', {
+								required: 'Last name is required',
+								maxLength: {
+									value: 100,
+									message: 'Last name cannot exceed 100 characters',
+								},
+							})}
 							fullWidth
+							error={!!errors.lastName}
+							helperText={errors.lastName ? errors.lastName.message : ''}
 						/>
 					</Box>
 
@@ -105,14 +121,32 @@ const AddUserModal = ({ closeAddModal }) => {
 						<TextField
 							label='Email'
 							variant='outlined'
-							{...register('email', { required: true })}
+							{...register('email', {
+								required: 'Email is required',
+								pattern: {
+									value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+									message: 'Please enter a valid email address',
+								},
+							})}
 							fullWidth
+							error={!!errors.email}
+							helperText={errors.email ? errors.email.message : ''}
 						/>
 						<TextField
 							label='Phone Number'
 							variant='outlined'
-							{...register('phone_number', { required: true })}
+							{...register('phone_number', {
+								required: 'Phone number is required',
+								pattern: {
+									value: /^[0-9]{10,15}$/, // Example: accept numbers of length 10 to 15
+									message: 'Phone number must be between 10 to 15 digits',
+								},
+							})}
 							fullWidth
+							error={!!errors.phone_number}
+							helperText={
+								errors.phone_number ? errors.phone_number.message : ''
+							}
 						/>
 					</Box>
 
@@ -144,6 +178,8 @@ const AddUserModal = ({ closeAddModal }) => {
 						variant='outlined'
 						{...register('address', { required: true })}
 						fullWidth
+						error={!!errors.address}
+						helperText={errors.address ? errors.address.message : ''}
 					/>
 
 					<Box
@@ -155,6 +191,8 @@ const AddUserModal = ({ closeAddModal }) => {
 							variant='outlined'
 							{...register('post_code', { required: true })}
 							fullWidth
+							error={!!errors.post_code}
+							helperText={errors.post_code ? errors.post_code.message : ''}
 						/>
 						<select
 							className='custom-select'
