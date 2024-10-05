@@ -12,7 +12,7 @@
 /* Flex layout for filter section */
 .filter-purchase {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	align-items: center; /* Align vertically */
 	flex-wrap: nowrap; /* Prevent wrapping */
 	gap: 15px;
@@ -65,7 +65,7 @@
 /* Flex layout for file icons */
 .purchasereportlist-files {
 	display: flex;
-	gap: 10px;
+	gap: 5px;
 	align-items: center;
 }
 
