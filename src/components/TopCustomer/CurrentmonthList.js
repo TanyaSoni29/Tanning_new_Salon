@@ -361,7 +361,7 @@ const CustomerList = () => {
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
-							size={30}
+							size={40}
 							style={{ color: '#28a745' }}
 						/>{' '}
 					</div>
@@ -370,7 +370,7 @@ const CustomerList = () => {
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
-							size={30}
+							size={40}
 							style={{ color: '#dc3545' }}
 						/>{' '}
 					</div>
@@ -408,10 +408,10 @@ const CustomerList = () => {
 								<span>{customer.profile?.available_balance}</span>
 								<span>{customer.total_used_minutes?.toFixed(2)}</span>
 								<span>
-									£ {customer.total_service_purchased_price?.toFixed(2)}
+									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
 								<span>
-									£ {customer.total_product_purchased_price?.toFixed(2)}
+									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>
 							</div>
 						);

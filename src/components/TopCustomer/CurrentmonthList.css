@@ -16,7 +16,7 @@
 	flex-wrap: wrap; 
 	/* justify-content: space-between; */
 	align-items: center;
-	gap: 5px; /* Add space between components */
+	gap: 10px; /* Add space between components */
 	margin-bottom: 15px;
 	width: 100%;
 }
@@ -29,12 +29,12 @@
 	width: 100%;
 	min-width: 50px; /* Adjust width for better usability */
 	padding: 6px;
-	font-size: 13px;
+	font-size: 15px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	outline: none;
 	transition: border-color 0.3s ease-in-out;
-	height: 35px; /* Consistent height across all inputs */
+	height: 50px; /* Consistent height across all inputs */
 }
 
 /* Date range inputs and location dropdown */
@@ -51,17 +51,19 @@
 	padding: 6px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
-	font-size: 13px;
-	height: 35px; /* Consistent height */
+	font-size: 15px;
+	height: 50px; /* Consistent height */
 }
 
 /* Toggle Switch CSS */
 .toggle-container {
 	display: flex;
-	align-items: center;
-	gap: 4px; /* Add space between toggle switches */
-	font-size: 12px;
+	flex-direction: column;
+	align-items: left;
+	gap: 2px; /* Add space between toggle switches */
+	font-size: 14px;
 	flex-wrap: wrap; /* Wrap toggles on smaller screens */
+	margin-right: 20px;
 }
 
 .switch {
@@ -114,7 +116,6 @@ input:checked + .slider:before {
 	display: flex;
 	gap: 0px; /* Adds space between the icons */
 	align-items: center;
-	height: 10vh;
 }
 
 .currentmon-icon {
