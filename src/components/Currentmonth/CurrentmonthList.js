@@ -418,19 +418,23 @@ const CustomerList = () => {
 								key={customer.user.id}
 								className='currentmon-table-row'
 							>
-								<span>
+								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
-								<span>{customer.profile?.phone_number}</span>
-								<span>
+								<span data-label='Phone Number'>
+									{customer.profile?.phone_number}
+								</span>
+								<span data-label='Location'>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
-								<span>{customer.profile?.available_balance}</span>
-								<span>{customer.total_used_minutes?.toFixed(2)}</span>
-								<span>
+								<span data-label='Min. Avail.'>{customer.profile?.available_balance}</span>
+								<span data-label='Total Min. Used'>
+									{customer.total_used_minutes?.toFixed(2)}
+								</span>
+								<span data-label='Total Spent'>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
-								<span>
+								<span data-label='Total Sales'>
 									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>
 							</div>

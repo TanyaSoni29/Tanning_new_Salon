@@ -1,5 +1,4 @@
 /** @format */
-
 import React, { useState } from 'react';
 import './CustomerList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,19 +55,16 @@ const CustomerList = () => {
 		setIsAddOpen(true);
 	};
 
-	// Handle opening the edit user modal
 	const handleEdit = (user) => {
-		setActiveUser(user); // Set the active user to be edited
+		setActiveUser(user);
 		setIsEditOpen(true);
 	};
 
-	// Handle opening the view user modal
 	const handleView = (user) => {
-		setActiveUser(user); // Set the active user to be viewed
+		setActiveUser(user);
 		setIsViewOpen(true);
 	};
 
-	// Actual delete function, only called in Delete Confirmation Modal or Warning Modal
 	const handleDelete = async () => {
 		try {
 			const result = await deleteUserProfile(token, activeUser.user.id);
@@ -76,38 +72,35 @@ const CustomerList = () => {
 				dispatch(removeCustomer(activeUser.user.id));
 				dispatch(refreshCustomers());
 				setIsDeleteOpen(false);
-				setIsWarningOpen(false); // Close the warning if it was open
+				setIsWarningOpen(false);
 			}
 		} catch (error) {
 			console.error('Error during user deletion:', error);
 		}
 	};
 
-	// Trigger when delete is requested
 	const confirmDelete = (user) => {
-		setActiveUser(user); // Set the active user to be deleted
-		// Check if minutes are greater than 0
+		setActiveUser(user);
 		if (user.profile.available_balance > 0) {
-			setIsWarningOpen(true); // Show warning for remaining minutes
+			setIsWarningOpen(true);
 		} else {
-			setIsDeleteOpen(true); // Proceed directly to deletion if minutes are 0
+			setIsDeleteOpen(true);
 		}
 	};
 
-	// If the user proceeds after warning, directly delete the customer
 	const closeDeleteModal = () => {
 		setIsDeleteOpen(false);
-		setActiveUser(null); // Reset active user
+		setActiveUser(null);
 	};
 
 	const closeWarningModal = () => {
 		setIsWarningOpen(false);
-		setActiveUser(null); // Reset active user
+		setActiveUser(null);
 	};
 
 	const closeEditModal = () => {
 		setIsEditOpen(false);
-		setActiveUser(null); // Reset active user
+		setActiveUser(null);
 	};
 
 	const closeAddModal = () => {
@@ -129,15 +122,9 @@ const CustomerList = () => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 					<div className='customer-location-select'>
-						<select
-							value={selectedLocation}
-							onChange={handleLocationChange}
-						>
+						<select value={selectedLocation} onChange={handleLocationChange}>
 							{uniqueLocations.map((location) => (
-								<option
-									key={location}
-									value={location}
-								>
+								<option key={location} value={location}>
 									{location}
 								</option>
 							))}
@@ -146,10 +133,7 @@ const CustomerList = () => {
 				</div>
 
 				<div className='add-button-wrapper'>
-					<button
-						className='add-button2'
-						onClick={() => handleAdd()}
-					>
+					<button className='add-button2' onClick={() => handleAdd()}>
 						ADD NEW CUSTOMER
 					</button>
 				</div>
@@ -169,39 +153,32 @@ const CustomerList = () => {
 				{filteredCustomers.length > 0 ? (
 					filteredCustomers.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) =>
-								location?.id === customer.profile?.preferred_location
+							(location) => location?.id === customer.profile?.preferred_location
 						);
 						return (
-							<div
-								key={customer.user.id}
-								className='customer-table-row'
-							>
-								<span>
+							<div key={customer.user.id} className='customer-table-row'>
+								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
-								<span>{preferredLocation ? preferredLocation?.name : '-'}</span>
-								<span>{customer.profile?.phone_number}</span>
-								<span className='customertab'>
+								<span data-label='Location'>
+									{preferredLocation ? preferredLocation?.name : '-'}
+								</span>
+								<span data-label='Phone'>{customer.profile?.phone_number}</span>
+								<span data-label='Min. Aval.' className='customertab'>
 									{customer.profile?.available_balance}
 								</span>
-								<span className='customertab'>
+								<span data-label='Total Spent' className='customertab'>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
-								<span>{formatDate(customer.profile?.updated_at)}</span>
-								<span>
-									<i
-										className='fa fa-eye'
-										onClick={() => handleView(customer)}
-									></i>
-									<i
-										className='fa fa-pencil'
-										onClick={() => handleEdit(customer)}
-									></i>
-									<i
-										className='fa fa-trash'
-										onClick={() => confirmDelete(customer)}
-									></i>
+								<span data-label='Last Purchase'>
+									{formatDate(customer.profile?.updated_at)}
+								</span>
+								<span data-label='Action'>
+									<div className='customerlistaction'>
+									<i className='fa fa-eye' onClick={() => handleView(customer)}></i>
+									<i className='fa fa-pencil' onClick={() => handleEdit(customer)}></i>
+									<i className='fa fa-trash' onClick={() => confirmDelete(customer)}></i>
+									</div>
 								</span>
 							</div>
 						);
@@ -212,32 +189,19 @@ const CustomerList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal
-					setOpen={setIsAddOpen}
-					open={isAddOpen}
-				>
+				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
 					<AddCustomerModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isViewOpen && activeUser && (
-				<Modal
-					setOpen={setIsViewOpen}
-					open={isViewOpen}
-				>
-					<ViewCustomerModal
-						closeViewModal={closeViewModal}
-						activeUser={activeUser}
-					/>
+				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
+					<ViewCustomerModal closeViewModal={closeViewModal} activeUser={activeUser} />
 				</Modal>
 			)}
 
-			{/* Delete Confirmation Modal */}
 			{isDeleteOpen && activeUser && (
-				<Modal
-					setOpen={setIsDeleteOpen}
-					open={isDeleteOpen}
-				>
+				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
 					<DeleteCustomerModal
 						handleDelete={handleDelete}
 						activeUser={activeUser}
@@ -246,14 +210,10 @@ const CustomerList = () => {
 				</Modal>
 			)}
 
-			{/* Additional Warning Modal */}
 			{isWarningOpen && activeUser && (
-				<Modal
-					setOpen={setIsWarningOpen}
-					open={isWarningOpen}
-				>
+				<Modal setOpen={setIsWarningOpen} open={isWarningOpen}>
 					<RemainingMinutesWarningModal
-						handleDelete={handleDelete} // Directly delete the customer from here
+						handleDelete={handleDelete}
 						closeWarningModal={closeWarningModal}
 						activeUser={activeUser}
 					/>
@@ -261,10 +221,7 @@ const CustomerList = () => {
 			)}
 
 			{isEditOpen && activeUser && (
-				<Modal
-					setOpen={setIsEditOpen}
-					open={isEditOpen}
-				>
+				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
 					<EditCustomerModal
 						activeUser={activeUser}
 						closeEditModal={closeEditModal}
@@ -277,6 +234,7 @@ const CustomerList = () => {
 
 export default CustomerList;
 
+// DeleteCustomerModal Component
 function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 	return (
 		<div className='delete-modal'>
@@ -299,7 +257,7 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 	);
 }
 
-// Additional warning modal for remaining minutes
+// RemainingMinutesWarningModal Component
 function RemainingMinutesWarningModal({
 	handleDelete,
 	activeUser,
@@ -312,7 +270,6 @@ function RemainingMinutesWarningModal({
 				minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
-				{/* Directly call handleDelete here to delete */}
 				<button
 					onClick={handleDelete}
 					className='confirm-button'

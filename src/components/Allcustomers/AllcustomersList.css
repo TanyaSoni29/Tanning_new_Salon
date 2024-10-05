@@ -1,3 +1,4 @@
+/* Desktop View */
 .allcustomer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -12,21 +13,17 @@
 /* Search Bar */
 .allcustomer-files {
 	display: flex;
-	gap: 10px; /* Adds space between the icons */
+	gap: 10px;
 	align-items: center;
-	/* justify-content: flex-end; */
 	width: 100%;
-	max-width: 180px; /* Keeps file icons compact */
-	font-size: 10px;
-	height: 20;
+	max-width: 180px;
 }
 
 .filter-customer {
 	display: flex;
-	flex-wrap: wrap; /* Ensures elements wrap on smaller screens */
-	/* justify-content: space-between;  */
-	align-items: center; /* Vertically aligns the elements */
-	gap: 10px; /* Adds space between the items */
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
 	margin-bottom: 20px;
 }
 
@@ -34,7 +31,7 @@
 .allcustomer-date-range-inputs input,
 .allcustomer-location-select select {
 	width: 100%;
-	max-width: 180px; /* Adjusted to ensure elements stay compact */
+	max-width: 180px;
 	padding: 8px;
 	font-size: 16px;
 	border: 1px solid #ddd;
@@ -43,18 +40,16 @@
 	transition: border-color 0.3s ease-in-out;
 }
 
-/* Date range inputs and location dropdown */
 .allcustomer-date-range-inputs {
 	display: flex;
-	/* justify-content: space-between; */
 	width: 100%;
-	max-width: 360px; /* Keeps date range inputs compact */
+	max-width: 360px;
 	gap: 8px;
 }
 
 .allcustomer-location-select {
 	width: 100%;
-	max-width: 180px; /* Keeps location dropdown compact */
+	max-width: 180px;
 }
 
 .allcustomer-location-select select {
@@ -65,89 +60,10 @@
 	font-size: 16px;
 }
 
-/* Toggle Switch CSS */
-.allcustomers-toggle-container {
-	display: flex;
-	align-items: center;
-	width: 50%;
-	max-width: 200px;
-	gap: 0px;
-}
-
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 50px;
-	height: 24px;
-}
-
-.switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	transition: 0.4s;
-	border-radius: 24px;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 18px;
-	width: 18px;
-	left: 4px;
-	bottom: 3px;
-	background-color: white;
-	transition: 0.4s;
-	border-radius: 50%;
-}
-
-input:checked + .slider {
-	background-color: #2196f3;
-}
-
-input:checked + .slider:before {
-	transform: translateX(26px);
-}
-
-/* Buttons */
-.allcustomer-buttons-container {
-	display: flex;
-	justify-content: flex-start;
-	gap: 20px;
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-.allcustomer-icon {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	cursor: pointer;
-	transition: transform 0.3s ease;
-}
-
-.allcustomer-icon:hover {
-	transform: scale(1.1);
-}
-
-.allcustomer-icon span {
-	margin-top: 5px;
-	font-size: 14px;
-}
-
-.customerregtb{
+/* .customerregtb {
 	margin-left: 80px;
-}
+} */
+
 /* Table Styles */
 .allcustomer-table {
 	background-color: white;
@@ -187,19 +103,6 @@ input:checked + .slider:before {
 	color: #666;
 }
 
-/* Responsive Layout for Tablet View */
-@media (max-width: 1024px) {
-	.allcustomer-container {
-		width: 85%;
-		margin-left: 60px;
-	}
-
-	.allcustomer-buttons-container {
-		justify-content: center;
-		gap: 15px;
-	}
-}
-
 /* Mobile View */
 @media (max-width: 768px) {
 	.allcustomer-container {
@@ -209,33 +112,47 @@ input:checked + .slider:before {
 	}
 
 	.filter-customer {
-		flex-direction: column; /* Stack the filter section vertically */
-		align-items: flex-start; /* Align items to the start */
-		gap: 15px; /* Increase gap for better readability */
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
 	}
 
 	.allcustomer-search-container,
 	.allcustomer-date-range-inputs,
 	.allcustomer-location-select,
 	.allcustomer-files {
-		width: 100%; /* Make all elements take full width */
-		max-width: none; /* Remove max-width on smaller screens */
-	}
-
-	.allcustomer-buttons-container {
-		flex-direction: column;
 		width: 100%;
+		max-width: none;
 	}
 
-	.allcustomer-icon {
-		flex-direction: row;
-		justify-content: space-between;
+	.allcustomer-table-header {
+		display: none;
 	}
 
-	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: repeat(4, 1fr);
-		min-width: 700px;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #e0e0e0;
+		border-radius: 8px;
+		padding: 10px;
+		margin-bottom: 20px;
+	}
+
+	.allcustomer-table-row span {
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 0;
+	}
+
+	.allcustomer-table-row span::before {
+		content: attr(data-label);
+		font-weight: bold;
+		color: #333;
+		flex-basis: 40%;
+	}
+
+	.allcustomer-table-row .fa {
+		margin-right: 10px;
 	}
 }
 
@@ -254,12 +171,7 @@ input:checked + .slider:before {
 	.allcustomer-search-container input,
 	.allcustomer-date-range-inputs input,
 	.allcustomer-location-select select {
-		max-width: 100%; /* Full width for mobile */
-	}
-
-	.allcustomer-buttons-container {
-		flex-direction: column;
-		width: 100%;
+		max-width: 100%;
 	}
 
 	.allcustomer-table-header,

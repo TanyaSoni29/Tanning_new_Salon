@@ -13,31 +13,28 @@
 /* Filter Section */
 .currentmon-filter-customer {
 	display: flex;
-	flex-wrap: wrap; 
-	/* justify-content: space-between; */
+	flex-wrap: wrap;
 	align-items: center;
-	gap: 10px; /* Add space between components */
+	gap: 10px;
 	margin-bottom: 15px;
 	width: 100%;
 }
-
 
 /* Input Fields */
 .currentmon-search-container input,
 .currentmon-date-range-inputs input,
 .currentmon-location-select select {
 	width: 100%;
-	min-width: 50px; /* Adjust width for better usability */
+	min-width: 50px;
 	padding: 6px;
 	font-size: 15px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	outline: none;
 	transition: border-color 0.3s ease-in-out;
-	height: 50px; /* Consistent height across all inputs */
+	height: 50px;
 }
 
-/* Date range inputs and location dropdown */
 .currentmon-date-range-inputs {
 	display: flex;
 	justify-content: space-between;
@@ -52,7 +49,7 @@
 	border-radius: 4px;
 	border: 1px solid #ccc;
 	font-size: 15px;
-	height: 50px; /* Consistent height */
+	height: 50px;
 }
 
 /* Toggle Switch CSS */
@@ -60,9 +57,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: left;
-	gap: 2px; /* Add space between toggle switches */
+	gap: 2px;
 	font-size: 14px;
-	flex-wrap: wrap; /* Wrap toggles on smaller screens */
+	flex-wrap: wrap;
 	margin-right: 20px;
 }
 
@@ -114,7 +111,7 @@ input:checked + .slider:before {
 /* Files Section */
 .currentmon-files {
 	display: flex;
-	gap: 0px; /* Adds space between the icons */
+	gap: 0px;
 	align-items: center;
 }
 
@@ -153,6 +150,7 @@ input:checked + .slider:before {
 
 .currentmon-table-row {
 	background-color: white;
+	display: grid;
 }
 
 .currentmon-table-row:hover {
@@ -166,19 +164,6 @@ input:checked + .slider:before {
 	color: #666;
 }
 
-/* Responsive Layout for Tablet View */
-@media (max-width: 1024px) {
-	.currentmon-container {
-		width: 85%;
-		margin-left: 60px;
-	}
-
-	.currentmon-buttons-container {
-		justify-content: center;
-		gap: 15px;
-	}
-}
-
 /* Mobile View */
 @media (max-width: 768px) {
 	.currentmon-container {
@@ -187,70 +172,28 @@ input:checked + .slider:before {
 		margin-top: 120px;
 	}
 
-	.currentmon-filter-customer {
-		flex-direction: row;
-		flex-wrap: wrap; /* Ensures wrapping on smaller screens */
-		align-items: center;
-		gap: 10px;
+	.currentmon-table-header {
+		display: none;
 	}
 
-	.currentmon-search-container,
-	.currentmon-date-range-inputs,
-	.currentmon-location-select,
-	.toggle-container,
-	.currentmon-files {
-		width: 48%; /* Make elements take half width on small screens */
-		max-width: none;
-	}
-
-	.currentmon-buttons-container {
-		flex-direction: column;
-		width: 100%;
-	}
-
-	.currentmon-icon {
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	.currentmon-table-header,
 	.currentmon-table-row {
-		grid-template-columns: repeat(4, 1fr);
-		min-width: 700px;
-	}
-}
-
-/* Mobile Extra Small View */
-@media (max-width: 480px) {
-	.currentmon-container {
-		width: 95%;
-		margin-left: 10px;
-	}
-
-	.currentmon-filter-customer {
+		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		border: 1px solid #e0e0e0;
+		border-radius: 8px;
+		padding: 10px;
+		margin-bottom: 10px;
 	}
 
-	.currentmon-search-container input,
-	.currentmon-date-range-inputs input,
-	.currentmon-location-select select {
-		max-width: 100%; /* Full width for mobile */
-	}
-
-	.currentmon-buttons-container {
-		flex-direction: column;
-		width: 100%;
-	}
-
-	.currentmon-table-header,
-	.currentmon-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr 0.5fr;
-		min-width: 700px;
-	}
-
-	.currentmon-table-header span,
 	.currentmon-table-row span {
-		font-size: 14px;
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 0;
+	}
+
+	.currentmon-table-row span::before {
+		content: attr(data-label);
+		font-weight: bold;
+		color: #333;
 	}
 }

@@ -68,13 +68,6 @@ const CustomerList = ({
 	};
 
 	const filteredCustomers = customers.filter((data) => {
-		// const CustomerDate = new Date(data.user.created_at);
-		// const isInDateRange =
-		// 	dateRange.startDate && dateRange.endDate
-		// 		? CustomerDate >= dateRange.startDate &&
-		// 		  CustomerDate <= dateRange.endDate
-		// 		: true;
-
 		const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
 
 		const firstName = data.profile?.firstName.toLowerCase() || '';
@@ -272,17 +265,6 @@ const CustomerList = ({
 						onChange={handleDateRangeChange}
 					/>
 				</div>
-				{/* <div className='allcustomers-toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
-							checked={isCurrentMonth}
-							onChange={(e) => setIsCurrentMonth(e.target.checked)}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>Current Month</span>
-				</div> */}
 
 				<div className='allcustomer-files'>
 					<div
@@ -292,8 +274,7 @@ const CustomerList = ({
 						<FaFileCsv
 							size={35}
 							style={{ color: '#28a745' }}
-						/>{' '}
-						{/* Green for CSV */}
+						/>
 					</div>
 					<div
 						className='allcustomer-icon'
@@ -302,8 +283,7 @@ const CustomerList = ({
 						<FaFilePdf
 							size={35}
 							style={{ color: '#dc3545' }}
-						/>{' '}
-						{/* Red for PDF */}
+						/>
 					</div>
 				</div>
 			</div>
@@ -328,20 +308,24 @@ const CustomerList = ({
 								key={customer.user.id}
 								className='allcustomer-table-row'
 							>
-								<span>
+								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
-								<span>
+								<span data-label='Location'>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
-								<span>{customer.profile?.phone_number}</span>
-								<span className='customerregtb'>
+								<span data-label='Phone Number'>
+									{customer.profile?.phone_number}
+								</span>
+								<span data-label='Min. Avail.' className='customerregtb'>
 									{customer.profile?.available_balance}
 								</span>
-								<span className='customerregtb'>
+								<span data-label='Total Spent' className='customerregtb'>
 									£{customer?.total_service_purchased_price?.toFixed(2)}
 								</span>
-								<span>{formatDate(customer.profile?.created_at)}</span>
+								<span data-label='Register On'>
+									{formatDate(customer.profile?.created_at)}
+								</span>
 							</div>
 						);
 					})
