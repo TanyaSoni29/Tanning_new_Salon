@@ -182,8 +182,8 @@ const CustomerList = () => {
 								</span>
 								<span>{preferredLocation ? preferredLocation?.name : '-'}</span>
 								<span>{customer.profile?.phone_number}</span>
-								<span>{customer.profile?.available_balance}</span>
-								<span>£{customer.total_used_minutes?.toFixed(2)}</span>
+								<span className='customertab'>{customer.profile?.available_balance}</span>
+								<span className='customertab'>£{customer.total_used_minutes?.toFixed(2)}</span>
 								<span>{formatDate(customer.profile?.updated_at)}</span>
 								<span>
 									<i

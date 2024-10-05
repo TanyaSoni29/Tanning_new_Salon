@@ -102,7 +102,7 @@ const ProductList = () => {
           filteredProducts.map((product) => (
             <div key={product?.id} className="products-table-row">
               <span>{product?.name}</span>
-              <span>£{product?.price}</span>
+              <span className="productprice">£{product?.price}</span>
               <span>{formatDate(product?.created_at)}</span>
               <span>
                 <i

@@ -82,11 +82,15 @@
 .customer-table-header,
 .customer-table-row {
 	display: grid;
-	grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1.2fr 0.8fr;
+	grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 0.8fr 0.6fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.customertab{
+	margin-left: 55px;
 }
 
 .customer-table-header {
@@ -134,9 +138,9 @@
 }
 
 /* Nth-child styling for grid elements (applies to table row spans) */
-.customer-table-row span:nth-child(1) {
-	font-weight: bold; /* Highlight the first column (Customer Name) */
-}
+/* .customer-table-row span:nth-child(1) {
+	font-weight: bold; 
+} */
 
 .customer-table-row span:nth-child(7) {
 	text-align: center; /* Center the last column (Actions) */
