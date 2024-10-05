@@ -32,6 +32,11 @@ const AuthForm = () => {
 	// Handle form submission
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Prevent form submission
+		// const emailPattern = /^[^\s@]+@[^\s@]+\[^\s@]+$/; // Simple email pattern
+		// if (!emailPattern.test(formData.email)) {
+		// 	toast.error('Please enter a valid email address.');
+		// 	return;
+		// }
 		// Validation for Sign-Up form
 		if (isSignUp) {
 			// Check if password has a minimum length of 6 characters
