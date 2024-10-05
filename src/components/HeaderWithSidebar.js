@@ -150,7 +150,7 @@ const HeaderWithSidebar = () => {
 								className='submenu-title'
 								onClick={toggleCustomersReportSubmenu}
 							>
-								<FontAwesomeIcon icon={faFileAlt} /> Report
+								<FontAwesomeIcon icon={faFileAlt} /> Reports
 								<FontAwesomeIcon
 									icon={
 										isCustomersReportSubmenuOpen ? faChevronUp : faChevronDown

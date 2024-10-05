@@ -144,6 +144,8 @@
   background-color: white;
   text-align: start;
   width: 100%;
+  /* font-size: 45px;
+  font-weight: 400; */
 }
 
 .transaction-table-row span {

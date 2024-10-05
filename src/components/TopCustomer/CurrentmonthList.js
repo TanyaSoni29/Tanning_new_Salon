@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './CurrentmonthList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
@@ -12,15 +12,37 @@ const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
+
+	// Get the first day of the current month and today's date
+	const getCurrentMonthStartDate = () => {
+		const now = new Date();
+		return new Date(now.getFullYear(), now.getMonth(), 2); // First day of the current month
+	};
+
+	const getCurrentDate = () => {
+		return new Date(); // Today's date
+	};
+
+	// Set default date range to current month start and today
 	const [dateRange, setDateRange] = useState({
-		startDate: null,
-		endDate: null,
+		startDate: getCurrentMonthStartDate(),
+		endDate: getCurrentDate(),
 	});
+
+	// Update date inputs when component mounts
+	useEffect(() => {
+		setDateRange({
+			startDate: getCurrentMonthStartDate(),
+			endDate: getCurrentDate(),
+		});
+	}, []);
+
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 	const [isBySpend, setIsBySpend] = useState(false);
 	const [isMinUsed, setIsMinUsed] = useState(false);
 	const [isBySale, setIsBySale] = useState(false);
+
 	const uniqueLocations = [
 		'All',
 		...new Set(locations.map((location) => location.name)),
@@ -271,20 +293,20 @@ const CustomerList = () => {
 							>
 								{location}
 							</option>
-						))}
+						))} 
 					</select>
 				</div>
 				<div className='currentmon-date-range-inputs'>
 					<input
 						type='date'
 						name='startDate'
-						placeholder='Start Date'
+						value={dateRange.startDate ? dateRange.startDate.toISOString().split('T')[0] : ''}
 						onChange={handleDateRangeChange}
 					/>
 					<input
 						type='date'
 						name='endDate'
-						placeholder='End Date'
+						value={dateRange.endDate ? dateRange.endDate.toISOString().split('T')[0] : ''}
 						onChange={handleDateRangeChange}
 					/>
 				</div>
@@ -339,20 +361,18 @@ const CustomerList = () => {
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
-							size={35}
+							size={30}
 							style={{ color: '#28a745' }}
 						/>{' '}
-						{/* Green for CSV */}
 					</div>
 					<div
 						className='currentmon-icon'
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
-							size={35}
+							size={30}
 							style={{ color: '#dc3545' }}
 						/>{' '}
-						{/* Red for PDF */}
 					</div>
 				</div>
 			</div>
