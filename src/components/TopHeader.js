@@ -41,6 +41,23 @@ function TopHeader({
 		}
 	}, [preferredLocationId, setSelectedLocation]);
 
+	const pathHeadings = {
+		'/about': 'Dashboard',
+		'/service': 'Dashboard',
+		'/location': 'Location',
+		'/users': 'Users',
+		'/customers': 'Customers',
+		'/products': 'Products',
+		'/services': 'Services',
+		'/allcustomers': 'Customers Report',
+		'/topcustomers': 'Top Customers',
+		'/productreport': 'Product Report',
+		'/purchasereport': 'Service Sale Report',
+		'/serviceused': 'Service Usage Report',
+	};
+
+	const heading = pathHeadings[locationPath] || '';
+
 	// Check if select should be hidden based on route
 	const hideSelect = [
 		'/users',
@@ -57,6 +74,7 @@ function TopHeader({
 
 	return (
 		<header className='top-header'>
+			{heading && <h2 className='page-heading'>{heading}</h2>}
 			{/* Conditionally apply style to keep the space but hide the element */}
 			<select
 				value={selectedLocation}

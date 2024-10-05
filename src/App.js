@@ -108,7 +108,16 @@ const App = () => {
 				/>
 				<Route
 					path='/service'
-					element={<ProtectedRoute element={<ServiceStep stats={stats} selectedLocation={selectedLocation} />} />}
+					element={
+						<ProtectedRoute
+							element={
+								<ServiceStep
+									stats={stats}
+									selectedLocation={selectedLocation}
+								/>
+							}
+						/>
+					}
 				/>
 				{loginUser?.role === 'admin' && (
 					<>
