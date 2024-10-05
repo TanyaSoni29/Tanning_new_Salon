@@ -12,7 +12,6 @@ const {
 } = productEndpoints;
 
 export const createProduct = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector('POST', GET_ALL_PRODUCT_API, data, {
 			'Authorization': `Bearer ${token}`,
@@ -27,13 +26,10 @@ export const createProduct = async (token, data) => {
 		console.log('Create Product Api Error', error);
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllProducts = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector('GET', GET_ALL_PRODUCT_API, null, {
@@ -47,12 +43,10 @@ export const getAllProducts = async (token) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const updateProduct = async (token, productId, data) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -73,12 +67,10 @@ export const updateProduct = async (token, productId, data) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getProduct = async (token, productId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -93,19 +85,16 @@ export const getProduct = async (token, productId) => {
 
 		console.log('Get Product Api Response..', response);
 		if (response.status !== 200) throw new Error('Could not fetch Product');
-		toast.success('Product fetched successfully');
 		result = response.data;
 	} catch (error) {
 		console.log('Get Product Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const deleteProduct = async (token, productId) => {
-	const toastId = toast.loading('Loading...');
 	let result = false;
 	try {
 		const response = await apiConnector(
@@ -126,12 +115,10 @@ export const deleteProduct = async (token, productId) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const createProductTransaction = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector(
 			'POST',
@@ -151,13 +138,10 @@ export const createProductTransaction = async (token, data) => {
 		console.log('Create Product Transaction Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllProductTransactions = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -179,12 +163,10 @@ export const getAllProductTransactions = async (token) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getProductTransactionsByUser = async (token, userId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -206,12 +188,10 @@ export const getProductTransactionsByUser = async (token, userId) => {
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getProductReport = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector('GET', GET_PRODUCT_REPORT, null, {
@@ -228,6 +208,5 @@ export const getProductReport = async (token) => {
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };

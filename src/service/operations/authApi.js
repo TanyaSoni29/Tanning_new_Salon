@@ -22,7 +22,6 @@ const {
 
 export function signUp(data, navigate) {
 	return async (dispatch) => {
-		const toastId = toast.loading('Loading...');
 		dispatch(setLoading(true));
 		try {
 			const response = await apiConnector('POST', ADD_CUSTOMER, {
@@ -51,8 +50,6 @@ export function signUp(data, navigate) {
 			const errorMessage = error.response.data.error;
 			toast.error(errorMessage);
 			navigate('/signup');
-		} finally {
-			toast.dismiss(toastId);
 		}
 		dispatch(setLoading(false));
 	};
@@ -60,7 +57,6 @@ export function signUp(data, navigate) {
 
 export function login(email, password, navigate) {
 	return async (dispatch) => {
-		const toastId = toast.loading('Logging in...');
 		dispatch(setLoading(true));
 		try {
 			const response = await apiConnector('POST', LOGIN_API, {
@@ -92,7 +88,6 @@ export function login(email, password, navigate) {
 			toast.error(errorMessage);
 		}
 		dispatch(setLoading(false));
-		toast.dismiss(toastId);
 	};
 }
 
@@ -110,8 +105,6 @@ export function getMe(navigate) {
 			navigate('/'); // Redirect to login
 			return;
 		}
-
-		const toastId = toast.loading('Fetching current user...');
 		dispatch(setLoading(true));
 
 		try {
@@ -130,8 +123,6 @@ export function getMe(navigate) {
 			// Save user info and mark the user as authenticated
 			dispatch(setUser(response.data));
 			dispatch(setIsAuth(true));
-
-			toast.success('Current Login User Fetched Successfully');
 
 			// Redirect user to locationStep or other relevant page
 			navigate('/about');
@@ -152,7 +143,6 @@ export function getMe(navigate) {
 			navigate('/');
 		} finally {
 			dispatch(setLoading(false));
-			toast.dismiss(toastId);
 		}
 	};
 }
@@ -215,7 +205,6 @@ export function resetPassword(
 	navigate
 ) {
 	return async (dispatch) => {
-		const toastId = toast.loading('Loading...');
 		dispatch(setLoading(true));
 
 		try {
@@ -238,7 +227,6 @@ export function resetPassword(
 			const errorMessage = error.response.data.error;
 			toast.error(errorMessage);
 		}
-		toast.dismiss(toastId);
 		dispatch(setLoading(false));
 	};
 }

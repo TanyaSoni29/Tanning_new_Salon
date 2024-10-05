@@ -16,7 +16,6 @@ const {
 } = serviceEndpoints;
 
 export const createService = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector('POST', GET_ALL_SERVICE_API, data, {
 			'Authorization': `Bearer ${token}`,
@@ -32,32 +31,26 @@ export const createService = async (token, data) => {
 		console.log('Create service Api error...', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllServices = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector('GET', GET_ALL_SERVICE_API, null, {
 			Authorization: `Bearer ${token}`,
 		});
 		if (response.status !== 200) throw new Error('Could not fetch All Service');
-		// toast.success("All Services fetched successfully");
 		result = response.data;
 	} catch (error) {
 		console.log('Fetch all services api error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getServiceById = async (token, serviceId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -71,19 +64,16 @@ export const getServiceById = async (token, serviceId) => {
 		);
 
 		if (response.status !== 200) throw new Error("Couldn't found Service");
-		toast.success('Service fetch successfully');
 		result = response.data;
 	} catch (error) {
 		console.log('Fetch service by id api error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const updateService = async (token, serviceId, data) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -104,12 +94,10 @@ export const updateService = async (token, serviceId, data) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const deleteService = async (token, serviceId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -130,12 +118,10 @@ export const deleteService = async (token, serviceId) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const createServiceTransaction = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector(
 			'POST',
@@ -156,13 +142,10 @@ export const createServiceTransaction = async (token, data) => {
 		console.log('Create service transaction Api error...', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllServiceTransactions = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -177,18 +160,15 @@ export const getAllServiceTransactions = async (token) => {
 		console.log('get All service transaction Api Response...', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch All Service Transaction');
-		// toast.success("All Service Transactions fetched successfully");
 		result = response.data;
 	} catch (error) {
 		console.log('Fetch service transactions api error', error);
 		toast.error('Failed to fetch service transactions');
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getServiceTransactionsByUser = async (token, userId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -203,19 +183,16 @@ export const getServiceTransactionsByUser = async (token, userId) => {
 		console.log('Get User Service transactions Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch User transactions');
-		// toast.success("User Transactions fetch successfully");
 		result = response.data;
 	} catch (error) {
 		console.log('Get User Service transactions Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getServiceUseOptions = async (token, userId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -230,19 +207,16 @@ export const getServiceUseOptions = async (token, userId) => {
 		console.log('Get User Service transactions Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch User transactions');
-		// toast.success("User Transactions fetch successfully");
 		result = response.data;
 	} catch (error) {
 		console.log('Get User Service transactions Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getTotalSpend = async (token, userId) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector(
@@ -257,19 +231,16 @@ export const getTotalSpend = async (token, userId) => {
 		console.log('Get User Total Spend transactions Api Response..', response);
 		if (response.status !== 200)
 			throw new Error('Could not fetch User transactions');
-		// toast.success("User Transactions fetch successfully");
 		result = response.data;
 	} catch (error) {
 		console.log('Get User Service transactions Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getServicePurchaseReport = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector('GET', GET_SERVICE_REPORT, null, {
@@ -286,12 +257,10 @@ export const getServicePurchaseReport = async (token) => {
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 
 export const getServiceUseReport = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = null;
 	try {
 		const response = await apiConnector('GET', GET_SERVICE_USE_REPORT, null, {
@@ -308,7 +277,6 @@ export const getServiceUseReport = async (token) => {
 		const errorMessage = error?.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
 

@@ -7,7 +7,6 @@ import { apiConnector } from '../apiConnector';
 const { GET_ALL_STATS } = statsEndpoint;
 
 export const getStats = async (token, locationId) => {
-	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector(
@@ -25,8 +24,6 @@ export const getStats = async (token, locationId) => {
 		console.log('Get All Locations Api Error', error);
 		const errorMessage = error.response?.data.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 	return result;
 };

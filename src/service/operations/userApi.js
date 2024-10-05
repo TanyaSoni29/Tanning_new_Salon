@@ -23,7 +23,6 @@ const { SIGNUP_API, ADD_CUSTOMER } = endpoints;
 const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
 
 export const createUser = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		// Step 1: Register the user
 		const response = await apiConnector(
@@ -59,13 +58,10 @@ export const createUser = async (token, data) => {
 		console.log('Create User API Error', error);
 		const errorMessage = error.response?.data?.error || 'An error occurred';
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const resetPassword = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector(
 			'POST',
@@ -83,19 +79,16 @@ export const resetPassword = async (token, data) => {
 		console.log('Reset Password Api Response..', response);
 		if (response.status !== 201)
 			throw new Error('Could not Reset Password Api');
-		toast.success('Reset Password Api');
+		toast.success('Password Reset Successfully');
 		return response.data?.data;
 	} catch (error) {
 		console.log('Reset Password Api Error', error);
 		const errorMessage = error.response?.data?.message;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllUser = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector('GET', GET_ALL_USERS, null, {
@@ -108,8 +101,6 @@ export const getAllUser = async (token) => {
 		console.log('Get All User Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 	return result;
 };
@@ -298,7 +289,6 @@ export const getAllUser = async (token) => {
 // };
 
 export const getCustomerByDateAndLocation = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector(
@@ -319,8 +309,6 @@ export const getCustomerByDateAndLocation = async (token, data) => {
 		console.log('Get All User Api Error', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 	return result;
 };

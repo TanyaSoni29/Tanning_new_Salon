@@ -8,7 +8,6 @@ import { userProfileEndpoints } from '../api';
 const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
 
 export const createUserProfile = async (token, data) => {
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector(
 			'POST',
@@ -30,13 +29,10 @@ export const createUserProfile = async (token, data) => {
 		console.log('Create user profile api error....', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 };
 
 export const getAllUserProfiles = async (token) => {
-	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector('GET', GET_ALL_USER_PROFILE_API, null, {
@@ -51,15 +47,13 @@ export const getAllUserProfiles = async (token) => {
 		console.log('Get all user profile api error....', error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
-	} finally {
-		toast.dismiss(toastId);
 	}
 	return result;
 };
 
 export const getUserDetails = async (token, userId) => {
 	let result = null;
-	const toastId = toast.loading('Loading...');
+
 	try {
 		const response = await apiConnector(
 			'GET',
@@ -79,13 +73,13 @@ export const getUserDetails = async (token, userId) => {
 		console.log('Get user details api error....', error);
 		toast.error(error.message);
 	}
-	toast.dismiss(toastId);
+
 	return result;
 };
 
 export const updateUserProfile = async (token, userId, data) => {
 	let result = null;
-	const toastId = toast.loading('Loading...');
+
 	try {
 		const response = await apiConnector(
 			'PUT',
@@ -107,7 +101,7 @@ export const updateUserProfile = async (token, userId, data) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
+
 	return result;
 };
 
@@ -135,7 +129,6 @@ export const updateUserProfile = async (token, userId, data) => {
 
 export const deleteUserProfile = async (token, userId) => {
 	let result = null;
-	const toastId = toast.loading('Loading...');
 	try {
 		const response = await apiConnector(
 			'DELETE',
@@ -156,6 +149,5 @@ export const deleteUserProfile = async (token, userId) => {
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}
-	toast.dismiss(toastId);
 	return result;
 };
