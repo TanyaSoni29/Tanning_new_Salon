@@ -16,7 +16,7 @@ function Allcustomers() {
 	}, [dispatch]);
 }
 
-function Currentmonth() {
+function TopCustomer() {
 	return (
 		<div>
 			<HeaderWithSidebar />
@@ -25,4 +25,4 @@ function Currentmonth() {
 	);
 }
 
-export default Currentmonth;
+export default TopCustomer;
