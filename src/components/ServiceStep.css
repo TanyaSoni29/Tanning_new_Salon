@@ -144,8 +144,6 @@
   background-color: white;
   text-align: start;
   width: 100%;
-  /* font-size: 45px;
-  font-weight: 400; */
 }
 
 .transaction-table-row span {
@@ -154,6 +152,8 @@
   justify-content: center;
   font-size: clamp(10px, 1vw, 12px); /* Responsive font size */
   padding: 8px;
+  font-size: 15px;
+  font-weight: 400;
 }
 
 /* .transaction-table-row .price {
