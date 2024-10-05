@@ -111,7 +111,7 @@ const LocationList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<button className='add-button1' onClick={() => handleAdd()}>
-					ADD NEW LOCATION
+					Add New Location
 				</button>
 			</div>
 
