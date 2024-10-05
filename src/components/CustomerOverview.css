@@ -38,16 +38,20 @@
 	text-align: center;
 }
 
-.customer-table .tdcustomer {
+.customer-table {
 	padding: 12px ;
 	border: 1px solid #ddd;
 	text-align: center;
 }
 
+.tdcustomer {
+	text-align: right;
+}
+
 .customer-table td {
 	padding: 12px ;
 	border: 1px solid #ddd;
-	text-align: right;
+	/* text-align: right; */
 }
 
 .customer-table th {
