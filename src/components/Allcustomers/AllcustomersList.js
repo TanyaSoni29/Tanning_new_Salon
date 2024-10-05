@@ -329,7 +329,7 @@ const CustomerList = () => {
 								</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>£{customer.total_used_minutes?.toFixed(2)}</span>
+								<span>{customer.total_used_minutes?.toFixed(2)}</span>
 								<span>{formatDate(customer.profile?.created_at)}</span>
 							</div>
 						);

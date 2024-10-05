@@ -1,3 +1,5 @@
+/** @format */
+
 .currentmon-container {
 	width: 70%;
 	margin: 20px auto;
@@ -88,7 +90,7 @@
 
 .slider:before {
 	position: absolute;
-	content: "";
+	content: '';
 	height: 18px;
 	width: 18px;
 	left: 4px;
@@ -135,7 +137,7 @@ input:checked + .slider:before {
 .currentmon-table-header,
 .currentmon-table-row {
 	display: grid;
-	grid-template-columns: 1.2fr 1fr 1fr 0.8fr 0.8fr 0.5fr;
+	grid-template-columns: 1.2fr 1fr 1fr 0.8fr 0.8fr 0.5fr 0.5fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -241,7 +243,7 @@ input:checked + .slider:before {
 
 	.currentmon-table-header,
 	.currentmon-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;
+		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr 0.5fr;
 		min-width: 700px;
 	}
 

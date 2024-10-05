@@ -18,6 +18,9 @@ const CustomerList = () => {
 	});
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
+	const [isBySpend, setIsBySpend] = useState(false);
+	const [isMinUsed, setIsMinUsed] = useState(false);
+	const [isBySale, setIsBySale] = useState(false);
 	const uniqueLocations = [
 		'All',
 		...new Set(locations.map((location) => location.name)),
@@ -96,7 +99,7 @@ const CustomerList = () => {
 					preferredLocation ? preferredLocation.name : 'N/A',
 					customer.profile?.phone_number || '',
 					customer.profile?.available_balance || '0',
-					customer.profile?.total_spend || '0',
+					customer.total_used_minutes || '0',
 					formatDate(customer.profile?.updated_at) || 'N/A',
 				];
 				return rowData.join(',');
@@ -190,7 +193,7 @@ const CustomerList = () => {
 				row
 			);
 			doc.text(
-				`${customer.profile?.total_spend || '0'}`,
+				`${customer.total_used_minutes || '0'}`,
 				columns.totalSpend,
 				row
 			);
@@ -258,6 +261,39 @@ const CustomerList = () => {
 					</label>
 					<span>Current Month</span>
 				</div>
+				<div className='toggle-container'>
+					<label className='switch'>
+						<input
+							type='checkbox'
+							checked={isBySpend}
+							onChange={(e) => setIsBySpend(e.target.checked)}
+						/>
+						<span className='slider round'></span>
+					</label>
+					<span>By Spend</span>
+				</div>
+				<div className='toggle-container'>
+					<label className='switch'>
+						<input
+							type='checkbox'
+							checked={isMinUsed}
+							onChange={(e) => setIsMinUsed(e.target.checked)}
+						/>
+						<span className='slider round'></span>
+					</label>
+					<span>By Minutes Used</span>
+				</div>
+				<div className='toggle-container'>
+					<label className='switch'>
+						<input
+							type='checkbox'
+							checked={isBySale}
+							onChange={(e) => setIsBySale(e.target.checked)}
+						/>
+						<span className='slider round'></span>
+					</label>
+					<span>By Sales</span>
+				</div>
 
 				<div className='currentmon-files'>
 					<div
@@ -286,11 +322,12 @@ const CustomerList = () => {
 			<div className='currentmon-table'>
 				<div className='currentmon-table-header'>
 					<span>Customers Name</span>
-					<span>Location</span>
 					<span>Phone Number</span>
+					<span>Location</span>
 					<span>Min. Avail.</span>
+					<span>Total Min. Used</span>
 					<span>Total Spent</span>
-					<span>Register On</span>
+					<span>Total Sales</span>
 				</div>
 
 				{filteredCustomers.length > 0 ? (
@@ -306,13 +343,18 @@ const CustomerList = () => {
 								<span>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
+								<span>{customer.profile?.phone_number}</span>
 								<span>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
-								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>£ {customer.profile?.total_spend?.toFixed(2)}</span>
-								<span>{formatDate(customer.profile?.created_at)}</span>
+								<span>{customer.total_used_minutes?.toFixed(2)}</span>
+								<span>
+									£ {customer.total_service_purchased_price?.toFixed(2)}
+								</span>
+								<span>
+									£ {customer.total_product_purchased_price?.toFixed(2)}
+								</span>
 							</div>
 						);
 					})
