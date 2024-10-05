@@ -328,8 +328,12 @@ const CustomerList = () => {
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
 								<span>{customer.profile?.phone_number}</span>
-								<span className='customerregtb'>{customer.profile?.available_balance}</span>
-								<span className='customerregtb'>{customer.total_used_minutes}</span>
+								<span className='customerregtb'>
+									{customer.profile?.available_balance}
+								</span>
+								<span className='customerregtb'>
+									£{customer?.total_service_purchased_price?.toFixed(2)}
+								</span>
 								<span>{formatDate(customer.profile?.created_at)}</span>
 							</div>
 						);

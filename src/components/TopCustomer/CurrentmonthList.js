@@ -47,6 +47,42 @@ const CustomerList = () => {
 		);
 	};
 
+	const sortCustomers = (customers) => {
+		// If all toggles are off, return the customers as is
+		if (!isBySpend && !isMinUsed && !isBySale) {
+			return customers;
+		}
+
+		// Sort based on toggles
+		return customers.sort((a, b) => {
+			if (isBySpend && isMinUsed && isBySale) {
+				// Sort by spend, minutes used, and sales combined
+				return (
+					b.total_service_purchased_price +
+					b.total_product_purchased_price +
+					b.total_used_minutes -
+					(a.total_service_purchased_price +
+						a.total_product_purchased_price +
+						a.total_used_minutes)
+				);
+			} else if (isBySpend) {
+				// Sort by total spend
+				return (
+					b.total_service_purchased_price - a.total_service_purchased_price
+				);
+			} else if (isMinUsed) {
+				// Sort by total minutes used
+				return b.total_used_minutes - a.total_used_minutes;
+			} else if (isBySale) {
+				// Sort by total sales
+				return (
+					b.total_product_purchased_price - a.total_product_purchased_price
+				);
+			}
+			return 0;
+		});
+	};
+
 	const filteredCustomers = customers.filter((data) => {
 		const CustomerDate = new Date(data.user.created_at);
 		const isInDateRange =
@@ -74,6 +110,8 @@ const CustomerList = () => {
 		return isInDateRange && matchesSearchQuery && matchesLocation && isInMonth;
 	});
 
+	const sortedCustomers = sortCustomers(filteredCustomers);
+
 	// Function to download CSV
 	const handleDownloadCSV = () => {
 		const headers = [
@@ -88,7 +126,7 @@ const CustomerList = () => {
 		// Generating the CSV content
 		const csvRows = [
 			headers.join(','), // header row
-			...filteredCustomers.map((customer) => {
+			...sortedCustomers.map((customer) => {
 				const preferredLocation = locations.find(
 					(location) => location.id === customer.profile?.preferred_location
 				);
@@ -148,7 +186,7 @@ const CustomerList = () => {
 		row += lineHeight;
 
 		doc.setFont('helvetica', 'normal');
-		filteredCustomers.forEach((customer) => {
+		sortedCustomers.forEach((customer) => {
 			const preferredLocation = locations.find(
 				(location) => location.id === customer.profile?.preferred_location
 			);
@@ -330,8 +368,8 @@ const CustomerList = () => {
 					<span>Total Sales</span>
 				</div>
 
-				{filteredCustomers.length > 0 ? (
-					filteredCustomers.map((customer) => {
+				{sortedCustomers.length > 0 ? (
+					sortedCustomers.map((customer) => {
 						const preferredLocation = locations.find(
 							(location) => location.id === customer.profile?.preferred_location
 						);
