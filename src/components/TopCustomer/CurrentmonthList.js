@@ -69,6 +69,28 @@ const CustomerList = () => {
 		);
 	};
 
+	const handleToggleChange = (toggle) => {
+		if (toggle === 'spend') {
+			setIsBySpend(!isBySpend);
+			if (!isBySpend) {
+				setIsMinUsed(false);
+				setIsBySale(false);
+			}
+		} else if (toggle === 'minutes') {
+			setIsMinUsed(!isMinUsed);
+			if (!isMinUsed) {
+				setIsBySpend(false);
+				setIsBySale(false);
+			}
+		} else if (toggle === 'sales') {
+			setIsBySale(!isBySale);
+			if (!isBySale) {
+				setIsBySpend(false);
+				setIsMinUsed(false);
+			}
+		}
+	};
+
 	const sortCustomers = (customers) => {
 		// If all toggles are off, return the customers as is
 		if (!isBySpend && !isMinUsed && !isBySale) {
@@ -77,17 +99,7 @@ const CustomerList = () => {
 
 		// Sort based on toggles
 		return customers.sort((a, b) => {
-			if (isBySpend && isMinUsed && isBySale) {
-				// Sort by spend, minutes used, and sales combined
-				return (
-					b.total_service_purchased_price +
-					b.total_product_purchased_price +
-					b.total_used_minutes -
-					(a.total_service_purchased_price +
-						a.total_product_purchased_price +
-						a.total_used_minutes)
-				);
-			} else if (isBySpend) {
+			if (isBySpend) {
 				// Sort by total spend
 				return (
 					b.total_service_purchased_price - a.total_service_purchased_price
@@ -293,20 +305,28 @@ const CustomerList = () => {
 							>
 								{location}
 							</option>
-						))} 
+						))}
 					</select>
 				</div>
 				<div className='currentmon-date-range-inputs'>
 					<input
 						type='date'
 						name='startDate'
-						value={dateRange.startDate ? dateRange.startDate.toISOString().split('T')[0] : ''}
+						value={
+							dateRange.startDate
+								? dateRange.startDate.toISOString().split('T')[0]
+								: ''
+						}
 						onChange={handleDateRangeChange}
 					/>
 					<input
 						type='date'
 						name='endDate'
-						value={dateRange.endDate ? dateRange.endDate.toISOString().split('T')[0] : ''}
+						value={
+							dateRange.endDate
+								? dateRange.endDate.toISOString().split('T')[0]
+								: ''
+						}
 						onChange={handleDateRangeChange}
 					/>
 				</div>
@@ -325,19 +345,8 @@ const CustomerList = () => {
 					<label className='switch'>
 						<input
 							type='checkbox'
-							checked={isBySpend}
-							onChange={(e) => setIsBySpend(e.target.checked)}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>By Spend</span>
-				</div>
-				<div className='toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
 							checked={isMinUsed}
-							onChange={(e) => setIsMinUsed(e.target.checked)}
+							onChange={() => handleToggleChange('minutes')}
 						/>
 						<span className='slider round'></span>
 					</label>
@@ -347,8 +356,19 @@ const CustomerList = () => {
 					<label className='switch'>
 						<input
 							type='checkbox'
+							checked={isBySpend}
+							onChange={() => handleToggleChange('spend')}
+						/>
+						<span className='slider round'></span>
+					</label>
+					<span>By Spend</span>
+				</div>
+				<div className='toggle-container'>
+					<label className='switch'>
+						<input
+							type='checkbox'
 							checked={isBySale}
-							onChange={(e) => setIsBySale(e.target.checked)}
+							onChange={() => handleToggleChange('sales')}
 						/>
 						<span className='slider round'></span>
 					</label>
