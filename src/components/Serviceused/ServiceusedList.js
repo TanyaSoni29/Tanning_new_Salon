@@ -61,7 +61,7 @@ const ServiceUsedList = ({
 		// 		  transactionDate <= dateRange.endDate
 		// 		: true;
 
-		const serviceName = transaction?.service_name?.toLowerCase() || '';
+		const serviceName = transaction?.serviceName?.toLowerCase() || '';
 		const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
 		const matchesLocation =
 			selectedLocation === 'All' ||
@@ -77,10 +77,10 @@ const ServiceUsedList = ({
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					data.service_name,
+					data.serviceName,
 					data.total_quantity,
 					data.location?.name || 'N/A',
-					// formatDate(data.date),
+					formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -110,7 +110,7 @@ const ServiceUsedList = ({
 		doc.text(headers[0], headerX[0], row);
 		doc.text(headers[1], headerX[1], row);
 		doc.text(headers[2], headerX[2], row);
-		// doc.text(headers[3], headerX[3], row);
+		doc.text(headers[3], headerX[3], row);
 		row += lineHeight; // Move to next line
 
 		doc.setFont('helvetica', 'normal');
@@ -129,18 +129,18 @@ const ServiceUsedList = ({
 				doc.text(headers[0], headerX[0], row);
 				doc.text(headers[1], headerX[1], row);
 				doc.text(headers[2], headerX[2], row);
-				// doc.text(headers[3], headerX[3], row);
+				doc.text(headers[3], headerX[3], row);
 				row += lineHeight; // Move to next line
 				doc.setFont('helvetica', 'normal');
 			}
 
 			// Add transaction data
-			doc.text(transaction.service_name, headerX[0], row); // Service name (left aligned)
+			doc.text(transaction.serviceName, headerX[0], row); // Service name (left aligned)
 			doc.text(transaction.location?.name || 'N/A', headerX[1], row); // Location
 			doc.text(`${transaction.total_quantity}`, headerX[2], row, {
 				align: 'right',
 			}); // Total Usage (right aligned)
-			// doc.text(transactionDate, headerX[3], row); // Last Used
+			doc.text(transactionDate, headerX[3], row); // Last Used
 			row += lineHeight;
 		});
 
@@ -219,10 +219,10 @@ const ServiceUsedList = ({
 
 			<div className='serviceused-table'>
 				<div className='serviceused-table-header'>
+					<span>Date</span>
 					<span>Service Name</span>
 					<span>Location</span>
 					<span>Total Usage</span>
-					{/* <span>Last Used</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
@@ -231,12 +231,12 @@ const ServiceUsedList = ({
 							key={i}
 							className='serviceused-table-row'
 						>
-							<span>{transaction.service_name}</span>
+							<span style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.date)}
+							</span>
+							<span>{transaction.serviceName}</span>
 							<span>{transaction.location?.name}</span>
 							<span>{transaction.total_quantity}</span>
-							{/* <span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.date)}
-							</span> */}
 						</div>
 					))
 				) : (

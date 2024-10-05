@@ -65,7 +65,7 @@ const ProductList = ({
 			// 		? transactionDate >= dateRange.startDate &&
 			// 		  transactionDate <= dateRange.endDate
 			// 		: true;
-			const serviceName = transaction?.service_name?.toLowerCase() || '';
+			const serviceName = transaction?.serviceName?.toLowerCase() || '';
 			const matchesSearchQuery = serviceName?.includes(
 				searchTerm?.toLowerCase()
 			);
@@ -84,17 +84,17 @@ const ProductList = ({
 			'Location',
 			'Total Value',
 			'Minutes Sold',
-			// 'Last Sold On',
+			'Date',
 		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					data.service_name,
+					data.serviceName,
 					data.location?.name || 'N/A',
 					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_quantity,
-					// formatDate(data.date),
+					formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -119,7 +119,7 @@ const ProductList = ({
 			location: margin + 160, // Adjust column width based on content
 			totalValue: margin + 300,
 			minutesSold: margin + 400,
-			// lastSoldOn: margin + 500,
+			date: margin + 500,
 		};
 
 		doc.setFontSize(12);
@@ -132,7 +132,7 @@ const ProductList = ({
 		doc.text('Location', columns.location, row);
 		doc.text('Total Value', columns.totalValue, row);
 		doc.text('Minutes Sold', columns.minutesSold, row);
-		// doc.text('Last Sold', columns.lastSoldOn, row);
+		doc.text('Date', columns.date, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -153,13 +153,13 @@ const ProductList = ({
 				doc.text('Location', columns.location, row);
 				doc.text('Total Value', columns.totalValue, row);
 				doc.text('Minutes Sold', columns.minutesSold, row);
-				// doc.text('Last Sold On', columns.lastSoldOn, row);
+				doc.text('Date', columns.date, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
 			// Add transaction data in the respective columns
-			doc.text(transaction.service_name, columns.serviceName, row);
+			doc.text(transaction.serviceName, columns.serviceName, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
 			doc.text(
 				`£${transaction.total_price.toFixed(2)}`,
@@ -167,7 +167,7 @@ const ProductList = ({
 				row
 			);
 			doc.text(`${transaction.total_quantity}`, columns.minutesSold, row);
-			// doc.text(formatDate(transaction.date), columns.lastSoldOn, row);
+			doc.text(formatDate(transaction.date), columns.date, row);
 
 			// Move to the next row
 			row += lineHeight;
@@ -245,11 +245,11 @@ const ProductList = ({
 
 			<div className='purchasereportlist-table'>
 				<div className='purchasereportlist-table-header'>
+					<span>Date</span>
 					<span>Service Name</span>
 					<span>Location</span>
 					<span>Total Value</span>
 					<span>Minutes Sold</span>
-					{/* <span>Last Sold On</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
@@ -258,13 +258,13 @@ const ProductList = ({
 							key={i}
 							className='purchasereportlist-table-row'
 						>
-							<span>{transaction.service_name}</span>
+							<span style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.date)}
+							</span>
+							<span>{transaction.serviceName}</span>
 							<span>{transaction.location?.name}</span>
 							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_quantity}</span>
-							{/* <span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.date)}
-							</span> */}
 						</div>
 					))
 				) : (
