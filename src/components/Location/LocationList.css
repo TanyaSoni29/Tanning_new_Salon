@@ -61,6 +61,35 @@
 	background-color: #f4f4f4;
 	color: rgb(0, 0, 0);
 	font-weight: bold;
+	cursor: pointer;
+}
+
+.location-table-header span {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+}
+
+.sort-buttons {
+	display: flex;
+	flex-direction: column;
+	margin-top: 5px;
+}
+
+.sort-asc,
+.sort-desc {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	color: #333;
+	font-size: 9px;
+	margin-left: 10px;
+}
+
+.sort-asc:hover,
+.sort-desc:hover {
+	color: grey;
 }
 
 .location-table-row {
@@ -76,15 +105,6 @@
 	align-items: center;
 }
 
-.location-table-row .fa {
-	margin: 0 10px;
-	cursor: pointer;
-}
-
-.fa-eye {
-	color: #007bff;
-}
-
 .fa-pencil {
 	color: #28a745;
 }
@@ -93,44 +113,19 @@
 	color: #dc3545;
 }
 
-/* Add scroll for table body */
-.location-table-body {
-	max-height: 400px;
-	overflow-y: auto; /* Adds vertical scroll */
+/* Action icons */
+.actionicon{
+	display: flex;
+	flex-direction: row;
+}
+.actionicon i {
+	margin: 0 10px;
+	cursor: pointer;
+	color: black;
 }
 
-.location-table-body::-webkit-scrollbar {
-	width: 10px;
-}
-
-.location-table-body::-webkit-scrollbar-thumb {
-	background-color: #ccc;
-	border-radius: 5px;
-}
-
-/* Media Queries for Responsive Design */
-
-/* Tablet View */
-@media (max-width: 1024px) {
-	.location-container {
-		width: 85%; /* Adjust width for smaller screens */
-		margin-left: 60px;
-	}
-
-	.location-search-container input {
-		width: 40%;
-	}
-
-	.location-table-header,
-	.location-table-row {
-		grid-template-columns: 1fr 1.5fr 1fr 1fr; /* Adjusted column sizes for smaller screens */
-		padding: 10px; /* Reduce padding for better fit */
-	}
-
-	/* Ensure the table body is scrollable if content overflows */
-	.locations-table {
-		overflow-x: auto;
-	}
+.actionicon i:hover {
+	color: grey;
 }
 
 /* Mobile View */
@@ -150,21 +145,30 @@
 		width: 100%; /* Full width on mobile */
 	}
 
-	.locations-table {
-		overflow-x: auto; /* Adds horizontal scroll for smaller screens */
+	/* Convert table to column-based layout on mobile */
+	.location-table-header {
+		display: none; /* Hide header row */
 	}
 
-	.location-table-header,
 	.location-table-row {
-		grid-template-columns: 1.5fr 2.5fr 1fr; /* Reduced columns for mobile view */
-		grid-auto-flow: column; /* Allow horizontal scrolling */
-		min-width: 600px; /* Ensure a minimum width for table */
-		padding: 8px; /* Reduce padding for mobile */
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #ddd;
+		margin-bottom: 10px;
+		padding: 10px;
 	}
 
-	.location-table-header span,
 	.location-table-row span {
-		padding: 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		padding: 5px 0;
+		font-size: 14px;
+	}
+
+	.location-table-row span::before {
+		content: attr(data-label); /* Use data-label to display header */
+		font-weight: bold;
+		color: #333;
 	}
 }
 
@@ -181,14 +185,6 @@
 		width: 100%; /* Full width on very small screens */
 	}
 
-	.location-table-header,
-	.location-table-row {
-		grid-template-columns: 2fr 3fr 1fr; /* Further adjust column sizes */
-		min-width: 500px; /* Ensure enough width for content */
-		padding: 5px; /* Minimize padding for extra small screens */
-	}
-
-	.location-table-header span,
 	.location-table-row span {
 		font-size: 14px; /* Reduce font size for small screens */
 	}
