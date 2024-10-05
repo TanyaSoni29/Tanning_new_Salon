@@ -87,7 +87,7 @@ const ProductList = ({
 			'Location',
 			'Total Value',
 			'Total Sold',
-			// 'Last Sold On',
+			'Date',
 		];
 		const csvRows = [
 			headers.join(','), // header row
@@ -97,7 +97,7 @@ const ProductList = ({
 					data.location?.name || 'N/A',
 					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_sold,
-					// formatDate(data.last_transaction_date),
+					formatDate(data.last_transaction_date),
 				].join(',')
 			),
 		].join('\n');
@@ -121,7 +121,7 @@ const ProductList = ({
 			location: margin + 180,
 			totalValue: margin + 320,
 			totalSold: margin + 440,
-			// lastSoldOn: margin + 520,
+			lastSoldOn: margin + 520,
 		};
 
 		doc.setFontSize(12);
@@ -134,7 +134,7 @@ const ProductList = ({
 		doc.text('Location', columns.location, row);
 		doc.text('Total Value', columns.totalValue, row);
 		doc.text('Total Sold', columns.totalSold, row);
-		// doc.text('Last Sold On', columns.lastSoldOn, row);
+		doc.text('Date', columns.lastSoldOn, row);
 
 		// Move to the next row for table data
 		row += lineHeight;
@@ -155,7 +155,7 @@ const ProductList = ({
 				doc.text('Location', columns.location, row);
 				doc.text('Total Value', columns.totalValue, row);
 				doc.text('Total Sold', columns.totalSold, row);
-				// doc.text('Last Sold On', columns.lastSoldOn, row);
+				doc.text('Date', columns.lastSoldOn, row);
 				row += lineHeight;
 				doc.setFont('helvetica', 'normal');
 			}
@@ -169,11 +169,11 @@ const ProductList = ({
 				row
 			);
 			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
-			// doc.text(
-			// 	formatDate(transaction.last_transaction_date),
-			// 	columns.lastSoldOn,
-			// 	row
-			// );
+			doc.text(
+				formatDate(transaction.last_transaction_date),
+				columns.lastSoldOn,
+				row
+			);
 
 			// Move to the next row
 			row += lineHeight;
@@ -249,11 +249,11 @@ const ProductList = ({
 
 			<div className='productreportlist-table'>
 				<div className='productreportlist-table-header'>
+					<span>Date</span>
 					<span>Product Name</span>
 					<span>Location</span>
 					<span>Total Value</span>
 					<span>Total Sold</span>
-					{/* <span>Last Sold On</span> */}
 				</div>
 
 				{filteredTransaction.length > 0 ? (
@@ -262,13 +262,13 @@ const ProductList = ({
 							key={i}
 							className='productreportlist-table-row'
 						>
+							<span style={{ whiteSpace: 'nowrap' }}>
+								{formatDate(transaction.last_transaction_date)}
+							</span>
 							<span>{transaction.product.name}</span>
 							<span>{transaction.location.name}</span>
 							<span>£{transaction.total_price.toFixed(2)}</span>
 							<span>{transaction.total_sold}</span>
-							{/* <span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.last_transaction_date)}
-							</span> */}
 						</div>
 					))
 				) : (

@@ -61,12 +61,12 @@ const CustomerList = () => {
 	};
 
 	const filteredCustomers = customers.filter((data) => {
-		const CustomerDate = new Date(data.user.created_at);
-		const isInDateRange =
-			dateRange.startDate && dateRange.endDate
-				? CustomerDate >= dateRange.startDate &&
-				  CustomerDate <= dateRange.endDate
-				: true;
+		// const CustomerDate = new Date(data.user.created_at);
+		// const isInDateRange =
+		// 	dateRange.startDate && dateRange.endDate
+		// 		? CustomerDate >= dateRange.startDate &&
+		// 		  CustomerDate <= dateRange.endDate
+		// 		: true;
 
 		const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
 
@@ -84,7 +84,7 @@ const CustomerList = () => {
 			selectedLocation === 'All' ||
 			(preferredLocation && preferredLocation.name === selectedLocation);
 
-		return isInDateRange && matchesSearchQuery && matchesLocation && isInMonth;
+		return matchesSearchQuery && matchesLocation && isInMonth;
 	});
 
 	// Function to download CSV
