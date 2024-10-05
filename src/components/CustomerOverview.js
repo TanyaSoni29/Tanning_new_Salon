@@ -31,7 +31,7 @@ function CustomerOverview({ filteredCustomers }) {
 		async function getServiceTransaction() {
 			const response = await getAllServiceTransactions(token);
 			setUseServiceTransaction(
-				response.filter((data) => data.transaction.type === 'used')
+				response.filter((data) => data.transaction?.type === 'used')
 			);
 		}
 		getServiceTransaction();

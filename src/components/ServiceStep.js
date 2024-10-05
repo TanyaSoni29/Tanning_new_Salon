@@ -286,9 +286,9 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 						<div className='transaction-table-header'>
 							<span>DATE/TIME</span>
 							<span>TYPE</span>
+							<span>PRODUCT / SERVICE</span>
 							<span>PRICE</span>
 							<span>QUANTITY</span>
-							<span>PRODUCT / SERVICE</span>
 						</div>
 						<div className='transaction-table-wrapper'>
 							{/* Render filtered locations */}
@@ -322,6 +322,9 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 													: '-'}
 											</span>
 										</span>
+										<span>
+											{transaction.productName ? transaction?.productName : '-'}
+										</span>
 										<span className='price'>
 											{
 												typeof transaction?.price === 'number'
@@ -333,9 +336,6 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 										</span>
 										<span className='price'>
 											{transaction?.quantity ? transaction?.quantity : '-'}
-										</span>
-										<span>
-											{transaction.productName ? transaction?.productName : '-'}
 										</span>
 									</div>
 								))

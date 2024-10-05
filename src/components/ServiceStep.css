@@ -1,159 +1,170 @@
-/* General container styling remains the same */
+/**
+ * General container styling remains the same
+ *
+ * @format
+ */
+
 .service-wizard-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 75%;
-  text-align: center;
-  margin-left: 320px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  height: 85vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 75%;
+	text-align: center;
+	margin-left: 320px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	height: 85vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 .service-wizard-container .heading {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
+	font-size: 32px;
+	font-weight: bold;
+	color: #333;
 }
 
 .service-wizard-container .subheading {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 30px;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 30px;
 }
 
 /* Full-width tabs */
 .service-wizard-container .step-tabs {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	width: 100%;
 }
 
 .service-wizard-container .tab {
-  flex: 1;
-  padding: 15px 0;
-  background-color: #d9d9d9;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
+	flex: 1;
+	padding: 15px 0;
+	background-color: #d9d9d9;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
 }
 
 .service-wizard-container .tab.active {
-  background-color: #0c65be;
-  color: white;
+	background-color: #0c65be;
+	color: white;
 }
 
 .service-wizard-container .service-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  border: 1px solid #e0e0e0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	border: 1px solid #e0e0e0;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .service-info p {
-  text-align: start;
-  font-size: 16px;
-  color: #555;
-  line-height: 1;
+	text-align: start;
+	font-size: 16px;
+	color: #555;
+	line-height: 1;
 }
 
 .service-info p span {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .use-btn {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 8px 10px 10px 0px;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 8px 10px 10px 0px;
+	color: white;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
 }
 
 .transaction-container {
-  width: 100%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  flex-grow: 2;
+	width: 100%;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	flex-grow: 2;
 }
 
 .transaction-table-wrapper {
-  max-height: 350px;
-  overflow-y: auto;
-  overflow-x: auto;
+	max-height: 350px;
+	overflow-y: auto;
+	overflow-x: auto;
 }
 
 .transaction-table {
-  background-color: white;
-  border-radius: 8px;
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: separate;
+	background-color: white;
+	border-radius: 8px;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: separate;
 }
 
 /* Transaction Table Header */
 .transaction-table-header {
-  display: grid;
-  grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(120px, 0.8fr);
-  padding: 10px 20px;
-  border-bottom: 1px solid #e0e0e0;
-  background-color: #0c65be;
-  color: white;
-  font-weight: bold;
-  text-align: start;
-  border-radius: 4px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+	display: grid;
+	grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
+			120px,
+			0.8fr
+		) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: #0c65be;
+	color: white;
+	font-weight: bold;
+	text-align: start;
+	border-radius: 4px;
+	position: sticky;
+	top: 0;
+	z-index: 10;
 }
 
 .transaction-table-header span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(10px, 1vw, 14px); /* Responsive font size */
-  padding: 10px; /* Add padding to make the header items more prominent */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: clamp(10px, 1vw, 14px); /* Responsive font size */
+	padding: 10px; /* Add padding to make the header items more prominent */
 }
 
 /* Transaction Table Row */
 .transaction-table-row {
-  display: grid;
-  grid-template-columns: minmax(120px, 0.9fr) minmax(150px, 0.5fr) minmax(120px, 1.4fr) minmax(120px, 0.5fr) minmax(80px, 0.5fr);
-  padding: 10px 20px;
-  border-bottom: 1px solid #e0e0e0;
-  background-color: white;
-  text-align: start;
-  width: 100%;
+	display: grid;
+	grid-template-columns:  minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
+    120px,
+    0.8fr
+  ) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	background-color: white;
+	text-align: start;
+	width: 100%;
 }
 
 .transaction-table-row span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(10px, 1vw, 12px); /* Responsive font size */
-  padding: 8px;
-  font-size: 15px;
-  font-weight: 400;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: clamp(10px, 1vw, 12px); /* Responsive font size */
+	padding: 8px;
+	font-size: 15px;
+	font-weight: 400;
 }
 
 /* .transaction-table-row .price {
@@ -168,58 +179,64 @@
 
 /* Row hover effect */
 .transaction-table-row:hover {
-  background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 /* Transaction type styles */
 .transaction-type {
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: inline-block;
+	font-weight: bold;
+	padding: 5px 10px;
+	border-radius: 5px;
+	display: inline-block;
 }
 
 .transaction-type.used {
-  background-color: #ff5c5c;
-  color: white;
+	background-color: #ff5c5c;
+	color: white;
 }
 
 .transaction-type.purchased {
-  background-color: #4caf50;
-  color: white;
+	background-color: #4caf50;
+	color: white;
 }
 
 .transaction-type.product {
-  background-color: #333;
-  color: white;
+	background-color: #333;
+	color: white;
 }
 
 /* Responsive styles for smaller screens */
 @media (max-width: 880px) {
-  .service-wizard-container {
-    width: 75%;
-    margin-top: 140px;
-    margin-left: 120px;
-  }
+	.service-wizard-container {
+		width: 75%;
+		margin-top: 140px;
+		margin-left: 120px;
+	}
 
-  .transaction-table-header,
-  .transaction-table-row {
-    grid-template-columns: minmax(80px, 0.7fr) minmax(100px, 0.7fr) minmax(120px, 1fr) minmax(80px, 0.7fr) minmax(50px, 0.8fr);
-    font-size: clamp(8px, 1vw, 10px);
-  }
+	.transaction-table-header,
+	.transaction-table-row {
+		grid-template-columns:  minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
+			120px,
+			0.8fr
+		) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
+		font-size: clamp(8px, 1vw, 10px);
+	}
 }
 
 @media (max-width: 480px) {
-  .service-wizard-container {
-    width: 85%;
-    margin-top: 140px;
-    margin-left: 20px;
-  }
+	.service-wizard-container {
+		width: 85%;
+		margin-top: 140px;
+		margin-left: 20px;
+	}
 
-  .transaction-table-header,
-  .transaction-table-row {
-    grid-template-columns: minmax(60px, 0.7fr) minmax(70px, 0.7fr) minmax(100px, 1fr) minmax(60px, 0.7fr) minmax(40px, 0.8fr);
-    font-size: clamp(6px, 1vw, 8px);
-    padding: 4px 8px;
-  }
+	.transaction-table-header,
+	.transaction-table-row {
+		grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
+			120px,
+			0.8fr
+		) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
+		font-size: clamp(6px, 1vw, 8px);
+		padding: 4px 8px;
+	}
 }
