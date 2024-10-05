@@ -49,7 +49,7 @@ function TopHeader({
 		'/products',
 		'/services',
 		'/allcustomers',
-		'/currentmonth',
+		'/topcustomers',
 		'/productreport',
 		'/purchasereport',
 		'/serviceused',
