@@ -14,7 +14,6 @@
 /* Flex layout for filter section */
 .filter-purchase {
 	display: flex;
-	/* justify-content: space-between; */
 	align-items: center; /* Align vertically */
 	flex-wrap: nowrap; /* Prevent wrapping */
 	gap: 15px;
@@ -167,15 +166,43 @@
 		width: 100%;
 	}
 
-	.purchasereportlist-table {
-		width: 100%;
-		overflow-x: scroll; /* Ensure table can scroll horizontally on mobile */
+	/* Hide the header for mobile view */
+	.purchasereportlist-table-header {
+		display: none;
 	}
 
-	.purchasereportlist-table-header,
+	/* Stack rows vertically for mobile view */
 	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure table columns fit horizontally */
+		display: block;
+		padding: 20px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+	}
+
+	.purchasereportlist-table-row span {
+		display: block; /* Each field appears in its own block */
+		padding: 12px 0;
+		border-bottom: 1px solid #f1f1f1;
+	}
+
+	.purchasereportlist-table-row span:last-child {
+		border-bottom: none;
+	}
+
+	/* Add labels before each field for mobile view */
+	.purchasereportlist-table-row span:before {
+		content: attr(data-label); /* Use data-label to show the field name */
+		font-weight: bold;
+		display: inline-block;
+		width: 300px; /* Adjust the label width */
+		color: #555;
+		margin-right: 10px;
+	}
+
+	.purchasereportlist-table {
+		width: 100%;
+		overflow-x: hidden;
 	}
 }
 
@@ -207,14 +234,13 @@
 		overflow-x: scroll;
 	}
 
-	.purchasereportlist-table-header,
-	.purchasereportlist-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* Keep the column layout */
-		min-width: 900px; /* Ensure table remains scrollable */
-	}
-
 	.purchasereportlist-table-header span,
 	.purchasereportlist-table-row span {
 		font-size: 14px; /* Adjust font size for smaller screens */
+	}
+
+	.purchasereportlist-table-row span:before {
+		width: 150px;
+		margin-right: 20px; /* Add more spacing for better readability */
 	}
 }

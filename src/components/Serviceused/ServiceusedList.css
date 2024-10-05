@@ -14,7 +14,6 @@
 /* Flexbox layout for filter section */
 .filter-serviceused {
 	display: flex;
-	/* justify-content: space-between; */
 	flex-wrap: wrap; /* Allows wrapping for smaller screens */
 	gap: 4px;
 	align-items: flex-start; /* Aligns items to the top */
@@ -78,7 +77,6 @@
 .serviceused-table {
 	background-color: white;
 	border-radius: 8px;
-	overflow-x: auto; /* Enables horizontal scrolling */
 	width: 100%;
 	border: 1px solid #ddd;
 }
@@ -115,32 +113,6 @@
 }
 
 /* Responsive Layout for Tablets and Mobile */
-@media (max-width: 1024px) {
-	.serviceused-container {
-		width: 85%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.filter-serviceused {
-		flex-direction: column; /* Stack filter elements vertically on smaller screens */
-		gap: 15px;
-	}
-
-	.serviceused-search-container,
-	.date-range,
-	.servicelocation-select {
-		width: 100%; /* Full width for all inputs on tablets */
-	}
-
-	.serviceused-table-header,
-	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Maintain column layout */
-		min-width: 900px; /* Ensure horizontal scrolling */
-	}
-}
-
-/* Mobile view adjustments */
 @media (max-width: 768px) {
 	.serviceused-container {
 		width: 90%;
@@ -169,15 +141,43 @@
 		width: 100%;
 	}
 
-	.serviceused-table {
-		width: 100%;
-		overflow-x: scroll; /* Enable horizontal scrolling on mobile */
+	/* Hide table header in mobile view */
+	.serviceused-table-header {
+		display: none;
 	}
 
-	.serviceused-table-header,
+	/* Stack rows column-wise in mobile */
 	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr;
-		min-width: 900px; /* Ensure horizontal scrolling */
+		display: block; /* Make each row a block element */
+		padding: 15px;
+		margin-bottom: 10px;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+	}
+
+	.serviceused-table-row span {
+		display: block; /* Display each field as its own block */
+		padding: 12px 0;
+		border-bottom: 1px solid #f1f1f1;
+	}
+
+	.serviceused-table-row span:last-child {
+		border-bottom: none;
+	}
+
+	/* Add labels before each field */
+	.serviceused-table-row span:before {
+		content: attr(data-label); /* Use data-label attribute to create labels */
+		font-weight: bold;
+		display: inline-block;
+		width: 250px; /* Adjust width for the label */
+		color: #555;
+		margin-right: 20px; /* Add more space between label and data */
+	}
+
+	.serviceused-table {
+		width: 100%;
+		overflow-x: hidden; /* Remove horizontal scrolling */
 	}
 }
 
@@ -210,18 +210,13 @@
 		gap: 10px;
 	}
 
-	.serviceused-table {
-		overflow-x: auto; /* Enable horizontal scroll */
-	}
-
-	.serviceused-table-header,
-	.serviceused-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Keep the column layout */
-		min-width: 900px; /* Ensure table remains scrollable */
-	}
-
-	.serviceused-table-header span,
 	.serviceused-table-row span {
 		font-size: 14px; /* Adjust font size for smaller screens */
+	}
+
+	/* Keep more space between labels and data */
+	.serviceused-table-row span:before {
+		width: 150px;
+		margin-right: 25px;
 	}
 }

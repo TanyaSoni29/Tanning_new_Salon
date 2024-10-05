@@ -9,7 +9,7 @@ import { formatDate } from '../../utils/formateDate';
 import { useSelector } from 'react-redux';
 
 const ServiceUsedList = ({
-	useServiceTransaction,
+	useServiceTransaction = [], // Add a default value of an empty array to avoid null errors
 	selectedLocation,
 	setSelectedLocation,
 	dateRange,
@@ -20,18 +20,6 @@ const ServiceUsedList = ({
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
 
-	// Set the default date range: startDate as the 1st of the current month and endDate as today
-	// const getCurrentMonthRange = () => {
-	// 	const now = new Date();
-	// 	const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
-	// 	return {
-	// 		startDate: startOfMonth,
-	// 		endDate: now,
-	// 	};
-	// };
-
-	// const [dateRange, setDateRange] = useState(getCurrentMonthRange());
-	// const [selectedLocation, setSelectedLocation] = useState('All');
 	const { locations } = useSelector((state) => state.location);
 
 	// Extract unique locations for dropdown
@@ -54,13 +42,6 @@ const ServiceUsedList = ({
 
 	// Filter transactions based on search term, date range, and location
 	const filteredTransaction = useServiceTransaction.filter((transaction) => {
-		// const transactionDate = new Date(transaction.date);
-		// const isInDateRange =
-		// 	dateRange.startDate && dateRange.endDate
-		// 		? transactionDate >= dateRange.startDate &&
-		// 		  transactionDate <= dateRange.endDate
-		// 		: true;
-
 		const serviceName = transaction?.serviceName?.toLowerCase() || '';
 		const matchesSearchQuery = serviceName.includes(searchTerm.toLowerCase());
 		const matchesLocation =
@@ -72,7 +53,7 @@ const ServiceUsedList = ({
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
-		const headers = ['Service Name', 'Loaction', 'Total Usage', 'Last Used'];
+		const headers = ['Service Name', 'Location', 'Total Usage', 'Last Used'];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
@@ -160,7 +141,6 @@ const ServiceUsedList = ({
 					/>
 				</div>
 				<div className='date-range'>
-					{/* Date range inputs with default values set to the current month */}
 					<input
 						type='date'
 						name='startDate'
@@ -183,10 +163,7 @@ const ServiceUsedList = ({
 						onChange={handleLocationChange}
 					>
 						{uniqueLocations.map((location) => (
-							<option
-								key={location}
-								value={location}
-							>
+							<option key={location} value={location}>
 								{location}
 							</option>
 						))}
@@ -194,55 +171,40 @@ const ServiceUsedList = ({
 				</div>
 
 				<div className='serviceused-files'>
-					<div
-						className='serviceused-download'
-						onClick={handleDownloadCSV}
-					>
-						<FaFileCsv
-							size={35}
-							style={{ color: '#28a745' }}
-						/>{' '}
-						{/* Green for CSV */}
+					<div className='serviceused-download' onClick={handleDownloadCSV}>
+						<FaFileCsv size={35} style={{ color: '#28a745' }} />
 					</div>
-					<div
-						className='serviceused-download'
-						onClick={handleDownloadPDF}
-					>
-						<FaFilePdf
-							size={35}
-							style={{ color: '#dc3545' }}
-						/>{' '}
-						{/* Red for PDF */}
+					<div className='serviceused-download' onClick={handleDownloadPDF}>
+						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
 					</div>
 				</div>
 			</div>
 
 			<div className='serviceused-table'>
-				<div className='serviceused-table-header'>
-					<span>Date</span>
-					<span>Service Name</span>
-					<span>Location</span>
-					<span>Total Usage</span>
-				</div>
+	<div className='serviceused-table-header'>
+		<span>Date</span>
+		<span>Service Name</span>
+		<span>Location</span>
+		<span>Total Usage</span>
+	</div>
 
-				{filteredTransaction.length > 0 ? (
-					filteredTransaction.map((transaction, i) => (
-						<div
-							key={i}
-							className='serviceused-table-row'
-						>
-							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.date)}
-							</span>
-							<span>{transaction.serviceName}</span>
-							<span>{transaction.location?.name}</span>
-							<span>{transaction.total_quantity}</span>
-						</div>
-					))
-				) : (
-					<div className='serviceused-no-data'>No transaction found.</div>
-				)}
+	{filteredTransaction.length > 0 ? (
+		filteredTransaction.map((transaction, i) => (
+			<div key={i} className='serviceused-table-row'>
+				<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+					{formatDate(transaction.date)}
+				</span>
+				<span data-label="Service Name">{transaction.serviceName}</span>
+				<span data-label="Location">{transaction.location?.name}</span>
+				<span data-label="Total Usage">{transaction.total_quantity}</span>
 			</div>
+		))
+	) : (
+		<div className='serviceused-no-data'>No transaction found.</div>
+	)}
+</div>
+
+
 		</div>
 	);
 };

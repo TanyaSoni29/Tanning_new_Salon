@@ -244,35 +244,33 @@ const ProductList = ({
 			</div>
 
 			<div className='purchasereportlist-table'>
-				<div className='purchasereportlist-table-header'>
-					<span>Date</span>
-					<span>Service Name</span>
-					<span>Location</span>
-					<span>Total Value</span>
-					<span>Minutes Sold</span>
-				</div>
+	<div className='purchasereportlist-table-header'>
+		<span>Date</span>
+		<span>Service Name</span>
+		<span>Location</span>
+		<span>Total Value</span>
+		<span>Minutes Sold</span>
+	</div>
 
-				{filteredTransaction.length > 0 ? (
-					filteredTransaction.map((transaction, i) => (
-						<div
-							key={i}
-							className='purchasereportlist-table-row'
-						>
-							<span style={{ whiteSpace: 'nowrap' }}>
-								{formatDate(transaction.date)}
-							</span>
-							<span>{transaction.serviceName}</span>
-							<span>{transaction.location?.name}</span>
-							<span>£{transaction.total_price.toFixed(2)}</span>
-							<span>{transaction.total_quantity}</span>
-						</div>
-					))
-				) : (
-					<div className='purchasereportlist-no-data'>
-						No transactions found.
-					</div>
-				)}
+	{filteredTransaction.length > 0 ? (
+		filteredTransaction.map((transaction, i) => (
+			<div key={i} className='purchasereportlist-table-row'>
+				<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+					{formatDate(transaction.date)}
+				</span>
+				<span data-label="Service Name">{transaction.serviceName}</span>
+				<span data-label="Location">{transaction.location?.name}</span>
+				<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
+				<span data-label="Minutes Sold">{transaction.total_quantity}</span>
 			</div>
+		))
+	) : (
+		<div className='purchasereportlist-no-data'>
+			No transactions found.
+		</div>
+	)}
+</div>
+
 		</div>
 	);
 };

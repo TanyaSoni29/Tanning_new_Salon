@@ -118,15 +118,17 @@
 	}
 
 	.productreportlist-table-row span {
-		display: flex;
-		justify-content: space-between;
+		display: block;
 		padding: 8px 0;
 	}
 
 	.productreportlist-table-row span::before {
-		content: attr(data-label);
+		content: attr(data-label); /* Use data-label attribute to create labels */
 		font-weight: bold;
-		color: #333;
+		display: inline-block;
+		width: 250px; /* Adjust width for the label */
+		color: #555;
+		margin-right: 20px; /* Add more space between label and data */
 	}
 }
 
