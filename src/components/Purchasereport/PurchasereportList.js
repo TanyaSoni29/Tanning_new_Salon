@@ -17,7 +17,7 @@ const ProductList = ({ purchaseServiceTransaction }) => {
 	// Set the default date range: startDate as the 1st of the current month and endDate as today
 	const getCurrentMonthRange = () => {
 		const now = new Date();
-		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+		const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 2);
 		const today = new Date();
 		return {
 			startDate: startOfMonth,
