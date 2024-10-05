@@ -6,13 +6,18 @@ import { apiConnector } from '../apiConnector';
 
 const { GET_ALL_STATS } = statsEndpoint;
 
-export const getStats = async (token) => {
+export const getStats = async (token, locationId) => {
 	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
-		const response = await apiConnector('GET', GET_ALL_STATS, null, {
-			Authorization: `Bearer ${token}`,
-		});
+		const response = await apiConnector(
+			'GET',
+			`${GET_ALL_STATS}/${locationId}`,
+			null,
+			{
+				Authorization: `Bearer ${token}`,
+			}
+		);
 		console.log('Get All Locations Api Response..', response);
 		if (response.status !== 200) throw new Error('Could not fetch Locations');
 		result = response?.data;

@@ -6,8 +6,7 @@ import { FaUserFriends } from 'react-icons/fa'; // Import necessary icons
 import { BsClockHistory } from 'react-icons/bs'; // Import Today Users Icon
 import { AiFillPoundCircle } from 'react-icons/ai'; // Import Revenue Icon
 import './StatsHeader.css';
-function StatsHeader({ stats, selectedLocation }) {
-	console.log(selectedLocation);
+function StatsHeader({ stats }) {
 	return (
 		<div>
 			<div className='stats-wizard-container'>

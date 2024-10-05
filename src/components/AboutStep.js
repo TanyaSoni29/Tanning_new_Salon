@@ -107,10 +107,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	return (
 		<>
 			<HeaderWithSidebar />
-			<StatsHeader
-				stats={stats}
-				selectedLocation={selectedLocation}
-			/>
+			<StatsHeader stats={stats} />
 			<div className='wizard-container'>
 				<div className='filter-container'>
 					{/* Location Dropdown */}

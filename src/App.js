@@ -54,7 +54,7 @@ const App = () => {
 	useEffect(() => {
 		async function stats() {
 			try {
-				const response = await getStats(token);
+				const response = await getStats(token, selectedLocation);
 				console.log('Stats:', response);
 				setStats(response.data);
 			} catch (error) {
@@ -62,7 +62,7 @@ const App = () => {
 			}
 		}
 		stats();
-	}, []);
+	}, [selectedLocation]);
 
 	const handleLocationChange = (e) => {
 		setSelectedLocation(Number(e.target.value));
