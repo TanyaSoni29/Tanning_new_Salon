@@ -63,6 +63,32 @@
 	font-weight: bold;
 }
 
+.user-table-header span {
+	display: flex;
+	align-items: center;
+	/* justify-content: space-between; */
+}
+
+.sort-buttons {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5px;
+}
+
+.sort-asc,
+.sort-desc {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	font-size: 10px;
+	color: black;
+}
+
+.sort-asc:hover,
+.sort-desc:hover {
+	color: grey;
+}
+
 .user-table-row {
 	background-color: white;
 }
@@ -81,10 +107,6 @@
 	cursor: pointer;
 }
 
-.fa-eye {
-	color: #007bff;
-}
-
 .fa-pencil {
 	color: #28a745;
 }
@@ -100,87 +122,66 @@
 	color: #666;
 }
 
-/* Media Queries for Responsive Design */
-
-/* Tablet View */
-@media (max-width: 1024px) {
-	.user-container {
-		width: 85%; /* Adjust width for smaller screens */
-		margin-left: 60px;
-	}
-
-	.user-search-container input {
-		width: 40%; /* Increase input width on tablets */
-	}
-
-	.user-table-header,
-	.user-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr; /* Adjust the number of columns for tablet */
-		padding: 10px; /* Reduce padding for better fit */
-	}
-
-	/* Ensure the table body is scrollable if content overflows */
-	.users-table {
-		overflow-x: auto;
-	}
-}
+/* Responsive Design */
 
 /* Mobile View */
 @media (max-width: 768px) {
 	.user-container {
-		width: 90%; /* Adjust container width for mobile */
+		width: 90%;
 		margin-left: 20px;
 		margin-top: 120px;
 	}
 
 	.user-search-container {
-		flex-direction: column; /* Stack the search bar and button vertically on mobile */
+		flex-direction: column;
 		gap: 10px;
 	}
 
 	.user-search-container input {
-		width: 100%; /* Full width input on mobile */
+		width: 100%;
 	}
 
-	.users-table {
-		overflow-x: auto; /* Enable horizontal scrolling on mobile */
+	/* Convert table to column-based layout on mobile */
+	.user-table-header {
+		display: none; /* Hide header row */
 	}
 
-	.user-table-header,
 	.user-table-row {
-		grid-template-columns: 2fr 2fr 1fr; /* Fewer columns for mobile to fit better */
-		grid-auto-flow: column; /* Allow horizontal scrolling */
-		min-width: 600px; /* Set a minimum width for the table */
-		padding: 8px; /* Reduce padding for mobile */
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #ddd;
+		margin-bottom: 10px;
+		padding: 10px;
 	}
 
-	.user-table-header span,
 	.user-table-row span {
-		padding: 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		padding: 5px 0;
+		font-size: 14px;
+	}
+
+	.user-table-row span::before {
+		content: attr(data-label); /* Use data-label to display header */
+		font-weight: bold;
+		color: #333;
 	}
 }
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
 	.user-container {
-		width: 95%; /* Almost full width */
-		margin-left: 10px;
+		width: 95%;
+		margin: 20px auto;
 		margin-top: 120px;
+		margin-left: 10px;
 	}
 
 	.user-search-container input {
-		width: 100%; /* Full width input on very small screens */
+		width: 100%;
 	}
 
-	.user-table-header,
-	.user-table-row {
-		grid-template-columns: 1.5fr 1.5fr 1fr; /* Further reduced columns for small screens */
-		min-width: 500px; /* Ensure a minimum width for the table */
-		padding: 5px; /* Minimize padding for extra small screens */
-	}
-
-	.user-table-header span,
 	.user-table-row span {
-		font-size: 14px; /* Reduce font size for small screens */
+		font-size: 14px;
 	}
 }
