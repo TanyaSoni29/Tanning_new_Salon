@@ -28,15 +28,15 @@ function UseServiceModal({
 
 	console.log('serviceUseOPtion in use ----', serviceUseOptions);
 
-	const filteredServiceOptions = serviceUseOptions
-		?.filter((service) => Number(service.minutesAvailable) <= availableBalance) // Filter based on balance
-		?.filter(
-			(
-				service,
-				index,
-				self // Ensure uniqueness by service_id
-			) => index === self.findIndex((s) => s.id === service.id)
-		);
+	const filteredServiceOptions = serviceUseOptions;
+	// ?.filter((service) => Number(service.minutesAvailable) <= availableBalance) // Filter based on balance
+	// ?.filter(
+	// 	(
+	// 		service,
+	// 		index,
+	// 		self // Ensure uniqueness by service_id
+	// 	) => index === self.findIndex((s) => s.id === service.id)
+	// );
 
 	console.log('.....', filteredServiceOptions);
 
@@ -69,8 +69,12 @@ function UseServiceModal({
 							<option
 								key={service?.id}
 								value={service?.id}
+								disabled={Number(service?.minutesAvailable) > availableBalance} // Disable if required minutes exceed available balance
 							>
-								{service?.serviceName}
+								{service?.serviceName}{' '}
+								{Number(service?.minutesAvailable) > availableBalance
+									? '(Not enough balance)'
+									: ''}
 							</option>
 						))}
 				</select>
