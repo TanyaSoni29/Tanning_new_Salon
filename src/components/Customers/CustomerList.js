@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './CustomerList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +24,10 @@ const CustomerList = () => {
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [isWarningOpen, setIsWarningOpen] = useState(false); // Warning for remaining minutes
 	const [activeUser, setActiveUser] = useState(null);
-	const uniqueLocations = ['All', ...new Set(locations.map((location) => location.name))];
+	const uniqueLocations = [
+		'All',
+		...new Set(locations.map((location) => location.name)),
+	];
 	const [isViewOpen, setIsViewOpen] = useState(false);
 
 	const handleLocationChange = (e) => {
@@ -116,31 +121,39 @@ const CustomerList = () => {
 	return (
 		<div className='customer-container'>
 			<div className='customer-search-container'>
-	<div className='search-location-wrapper'>
-		<input
-			type='text'
-			placeholder='Search Customer'
-			value={searchTerm}
-			onChange={(e) => setSearchTerm(e.target.value)}
-		/>
-		<div className='customer-location-select'>
-			<select value={selectedLocation} onChange={handleLocationChange}>
-				{uniqueLocations.map((location) => (
-					<option key={location} value={location}>
-						{location}
-					</option>
-				))}
-			</select>
-		</div>
-	</div>
+				<div className='search-location-wrapper'>
+					<input
+						type='text'
+						placeholder='Search Customer'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
+					<div className='customer-location-select'>
+						<select
+							value={selectedLocation}
+							onChange={handleLocationChange}
+						>
+							{uniqueLocations.map((location) => (
+								<option
+									key={location}
+									value={location}
+								>
+									{location}
+								</option>
+							))}
+						</select>
+					</div>
+				</div>
 
-	<div className='add-button-wrapper'>
-		<button className='add-button2' onClick={() => handleAdd()}>
-			ADD NEW CUSTOMER
-		</button>
-	</div>
-</div>
-
+				<div className='add-button-wrapper'>
+					<button
+						className='add-button2'
+						onClick={() => handleAdd()}
+					>
+						ADD NEW CUSTOMER
+					</button>
+				</div>
+			</div>
 
 			<div className='customers-table'>
 				<div className='customer-table-header'>
@@ -156,22 +169,35 @@ const CustomerList = () => {
 				{filteredCustomers.length > 0 ? (
 					filteredCustomers.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) => location?.id === customer.profile?.preferred_location
+							(location) =>
+								location?.id === customer.profile?.preferred_location
 						);
 						return (
-							<div key={customer.user.id} className='customer-table-row'>
+							<div
+								key={customer.user.id}
+								className='customer-table-row'
+							>
 								<span>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
 								<span>{preferredLocation ? preferredLocation?.name : '-'}</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>£{customer.profile?.total_spend?.toFixed(2)}</span>
+								<span>£{customer.total_used_minutes?.toFixed(2)}</span>
 								<span>{formatDate(customer.profile?.updated_at)}</span>
 								<span>
-									<i className='fa fa-eye' onClick={() => handleView(customer)}></i>
-									<i className='fa fa-pencil' onClick={() => handleEdit(customer)}></i>
-									<i className='fa fa-trash' onClick={() => confirmDelete(customer)}></i>
+									<i
+										className='fa fa-eye'
+										onClick={() => handleView(customer)}
+									></i>
+									<i
+										className='fa fa-pencil'
+										onClick={() => handleEdit(customer)}
+									></i>
+									<i
+										className='fa fa-trash'
+										onClick={() => confirmDelete(customer)}
+									></i>
 								</span>
 							</div>
 						);
@@ -182,20 +208,32 @@ const CustomerList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddCustomerModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isViewOpen && activeUser && (
-				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
-					<ViewCustomerModal closeViewModal={closeViewModal} activeUser={activeUser} />
+				<Modal
+					setOpen={setIsViewOpen}
+					open={isViewOpen}
+				>
+					<ViewCustomerModal
+						closeViewModal={closeViewModal}
+						activeUser={activeUser}
+					/>
 				</Modal>
 			)}
 
 			{/* Delete Confirmation Modal */}
 			{isDeleteOpen && activeUser && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
 					<DeleteCustomerModal
 						handleDelete={handleDelete}
 						activeUser={activeUser}
@@ -206,7 +244,10 @@ const CustomerList = () => {
 
 			{/* Additional Warning Modal */}
 			{isWarningOpen && activeUser && (
-				<Modal setOpen={setIsWarningOpen} open={isWarningOpen}>
+				<Modal
+					setOpen={setIsWarningOpen}
+					open={isWarningOpen}
+				>
 					<RemainingMinutesWarningModal
 						handleDelete={handleDelete} // Directly delete the customer from here
 						closeWarningModal={closeWarningModal}
@@ -216,8 +257,14 @@ const CustomerList = () => {
 			)}
 
 			{isEditOpen && activeUser && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
-					<EditCustomerModal activeUser={activeUser} closeEditModal={closeEditModal} />
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditCustomerModal
+						activeUser={activeUser}
+						closeEditModal={closeEditModal}
+					/>
 				</Modal>
 			)}
 		</div>
@@ -231,31 +278,47 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button onClick={handleDelete} className='confirm-button'>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
-				</div>
 			</div>
+		</div>
 	);
 }
 
 // Additional warning modal for remaining minutes
-function RemainingMinutesWarningModal({ handleDelete, activeUser, closeWarningModal }) {
+function RemainingMinutesWarningModal({
+	handleDelete,
+	activeUser,
+	closeWarningModal,
+}) {
 	return (
 		<div className='warning-modal'>
 			<p style={{ color: 'red' }}>
-				{activeUser.user.name} has {activeUser.profile.available_balance} minutes remaining. Are you sure you
-				want to delete this customer?
+				{activeUser.user.name} has {activeUser.profile.available_balance}{' '}
+				minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
 				{/* Directly call handleDelete here to delete */}
-				<button onClick={handleDelete} className='confirm-button'>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
 					Proceed to Delete
 				</button>
-				<button className='cancel-button' onClick={closeWarningModal}>
+				<button
+					className='cancel-button'
+					onClick={closeWarningModal}
+				>
 					Cancel
 				</button>
 			</div>

@@ -23,7 +23,7 @@ import Services from './components/Services/Services';
 import Users from './components/Users/Users';
 import Allcustomers from './components/Allcustomers/Allcustomers';
 import Bydata from './components/Bydata/Bydata';
-import Currentmonth from './components/Currentmonth/Currentmonth';
+import Currentmonth from './components/TopCustomer/Currentmonth';
 import Topcustomers from './components/Topcustomers/Topcustomers';
 import Serviceused from './components/Serviceused/Serviceused';
 import Purchasereport from './components/Purchasereport/Purchasereport';
@@ -33,6 +33,7 @@ import './App.css';
 import TopHeader from './components/TopHeader';
 import { getStats } from './service/operations/statApi';
 import { Dashboard } from '@mui/icons-material';
+import TopCustomer from './components/TopCustomer/Currentmonth';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -132,13 +133,13 @@ const App = () => {
 							element={<ProtectedRoute element={<Bydata />} />}
 						/>
 						<Route
-							path='/currentmonth'
-							element={<ProtectedRoute element={<Currentmonth />} />}
+							path='/topcustomers'
+							element={<ProtectedRoute element={<TopCustomer />} />}
 						/>
-						<Route
+						{/* <Route
 							path='/topcustomers'
 							element={<ProtectedRoute element={<Topcustomers />} />}
-						/>
+						/> */}
 						<Route
 							path='/serviceused'
 							element={<ProtectedRoute element={<Serviceused />} />}

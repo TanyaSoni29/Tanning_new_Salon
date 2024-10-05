@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './AllcustomersList.css'; // Importing CSS
@@ -110,7 +112,7 @@ const CustomerList = () => {
 					preferredLocation ? preferredLocation.name : 'N/A',
 					customer.profile?.phone_number || '',
 					customer.profile?.available_balance || '0',
-					customer.profile?.total_spend || '0',
+					customer.total_used_minutes || '0',
 					formatDate(customer.profile?.updated_at) || 'N/A',
 				];
 				return rowData.join(',');
@@ -204,7 +206,7 @@ const CustomerList = () => {
 				row
 			);
 			doc.text(
-				`${customer.profile?.total_spend || '0'}`,
+				`${customer.total_used_minutes || '0'}`,
 				columns.totalSpend,
 				row
 			);
@@ -231,7 +233,7 @@ const CustomerList = () => {
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
-				</div>	
+				</div>
 				<div className='allcustomer-location-select'>
 					<select
 						value={selectedLocation}
@@ -297,7 +299,6 @@ const CustomerList = () => {
 						{/* Red for PDF */}
 					</div>
 				</div>
-			
 			</div>
 
 			<div className='allcustomer-table'>
@@ -328,7 +329,7 @@ const CustomerList = () => {
 								</span>
 								<span>{customer.profile?.phone_number}</span>
 								<span>{customer.profile?.available_balance}</span>
-								<span>£{customer.profile?.total_spend?.toFixed(2)}</span>
+								<span>£{customer.total_used_minutes?.toFixed(2)}</span>
 								<span>{formatDate(customer.profile?.created_at)}</span>
 							</div>
 						);
