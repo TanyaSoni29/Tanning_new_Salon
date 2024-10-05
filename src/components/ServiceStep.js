@@ -284,11 +284,11 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				<div className='transaction-container'>
 					<div className='transaction-table'>
 						<div className='transaction-table-header'>
-							<span>DATE/TIME</span>
-							<span>TYPE</span>
-							<span>PRODUCT / SERVICE</span>
-							<span>PRICE</span>
-							<span>QUANTITY</span>
+							<span>Date/Time</span>
+							<span>Type</span>
+							<span>Product / Service</span>
+							<span>Price</span>
+							<span>Quantity</span>
 						</div>
 						<div className='transaction-table-wrapper'>
 							{/* Render filtered locations */}

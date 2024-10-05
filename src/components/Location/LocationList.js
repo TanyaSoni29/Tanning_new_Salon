@@ -99,11 +99,11 @@ const LocationList = () => {
 
 			<div className='locations-table'>
 				<div className='location-table-header'>
-					<span>LOCATION NAME</span>
-					<span>ADDRESS</span>
-					<span>POSTCODE</span>
-					<span>PHONE NUMBER</span>
-					<span>ACTION</span>
+					<span>Location Name</span>
+					<span>Address</span>
+					<span>Postcode</span>
+					<span>Phone Number</span>
+					<span>Action</span>
 				</div>
 
 				{/* Render filtered locations */}
