@@ -113,7 +113,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				productName: transaction?.service?.name,
 				userName: `${transaction.user_details?.firstName} ${transaction.user_details?.lastName}`,
 				quantity: transaction?.transaction?.quantity,
-				price: transaction?.service?.price,
+				price: Number(transaction?.service?.price),
 				location: transaction.user_details?.preferred_location?.name,
 				type: transaction.transaction?.type === 'used' ? 'used' : 'purchased',
 				createdAt: transaction.transaction?.created_at,
@@ -124,7 +124,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				productName: transaction?.product?.productName,
 				userName: `${transaction.user?.firstName} ${transaction.user?.lastName}`,
 				quantity: transaction?.quantity,
-				price: transaction?.product?.price,
+				price: Number(transaction?.product?.price),
 				location: transaction?.location?.name,
 				type: transaction?.product?.type
 					? transaction?.product?.type
@@ -339,7 +339,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 											className='tbprice'
 										>
 											{typeof transaction?.price === 'number'
-												? `£${transaction.price.toFixed(2)}`
+												? `£${transaction?.price.toFixed(2)}`
 												: '-'}
 										</span>
 										<span
