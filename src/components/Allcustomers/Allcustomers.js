@@ -6,6 +6,7 @@ import ProductList from './AllcustomersList';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshCustomers } from '../../slices/customerProfile';
 import { refreshLocation } from '../../slices/locationSlice';
+import { getAllCustomerReport } from '../../service/operations/userApi';
 
 function Allcustomers() {
 	const getCurrentMonthRange = () => {
@@ -37,8 +38,8 @@ function Allcustomers() {
 					location_id: selectedLocation === 'All' ? '' : locationId.id,
 				};
 
-				const response = await getCustomerReport(token, newData);
-				setCustomerReportData(response);
+				const response = await getAllCustomerReport(token, newData);
+				setCustomerReportData(response.data);
 			} catch (error) {
 				console.log(error);
 			}

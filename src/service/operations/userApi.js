@@ -113,9 +113,9 @@ export const getAllCustomerReport = async (token, data) => {
 			'POST',
 			GET_ALL_CUSTOMER_REPORT,
 			{
-				start_date: data.startDate,
-				end_date: data.endDate,
-				location_id: data.location,
+				start_date: data.start_date,
+				end_date: data.end_date,
+				location_id: data.location_id,
 			},
 			{
 				Authorization: `Bearer ${token}`,

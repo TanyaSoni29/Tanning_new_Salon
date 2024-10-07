@@ -270,7 +270,8 @@ const ProductList = ({
 						Service Name{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+								sortConfig.key === 'serviceName' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -290,7 +291,8 @@ const ProductList = ({
 						Total Value{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_price' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_price' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -300,7 +302,8 @@ const ProductList = ({
 						Minutes Sold{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_quantity' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -310,14 +313,24 @@ const ProductList = ({
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div key={i} className='purchasereportlist-table-row'>
-							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+						<div
+							key={i}
+							className='purchasereportlist-table-row'
+						>
+							<span
+								data-label='Date'
+								style={{ whiteSpace: 'nowrap' }}
+							>
 								{formatDate(transaction.date)}
 							</span>
-							<span data-label="Service Name">{transaction.serviceName}</span>
-							<span data-label="Location">{transaction.location?.name}</span>
-							<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
-							<span data-label="Minutes Sold">{transaction.total_quantity}</span>
+							<span data-label='Service Name'>{transaction.serviceName}</span>
+							<span data-label='Location'>{transaction.location?.name}</span>
+							<span data-label='Total Value'>
+								£{transaction.total_price.toFixed(2)}
+							</span>
+							<span data-label='Minutes Sold'>
+								{transaction.total_quantity}
+							</span>
 						</div>
 					))
 				) : (
