@@ -131,7 +131,7 @@ export function getMe(navigate) {
 
 			const errorMessage =
 				error?.response?.data?.error || 'Failed to fetch user';
-			// toast.error(errorMessage);
+			toast.error(errorMessage);
 
 			// Log user out on failure
 			dispatch(setToken(null));

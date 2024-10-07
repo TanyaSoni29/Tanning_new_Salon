@@ -39,7 +39,7 @@ function CustomerOverview({ filteredCustomers }) {
 
 	const getLastUsedServiceDate = (customerId) => {
 		const userTransactions =
-			useServiceTransaction.length > 0 &&
+			useServiceTransaction?.length > 0 &&
 			useServiceTransaction?.filter(
 				(transaction) => transaction?.user_details?.id === customerId
 			);
