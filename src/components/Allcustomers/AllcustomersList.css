@@ -1,4 +1,9 @@
-/* Desktop View */
+/**
+ * Desktop View
+ *
+ * @format
+ */
+
 .allcustomer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -76,7 +81,7 @@
 .allcustomer-table-header,
 .allcustomer-table-row {
 	display: grid;
-	grid-template-columns: 1.3fr 1.3fr 1.3fr 1fr 1fr 0.6fr;
+	grid-template-columns: 1.3fr 1.3fr 1.3fr 1fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -176,7 +181,7 @@
 
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr 1.5fr 1fr;
+		grid-template-columns: 1fr 0.9fr 1fr 1.2fr;
 		min-width: 500px;
 	}
 
@@ -184,6 +189,4 @@
 	.allcustomer-table-row span {
 		font-size: 14px;
 	}
-
-	
 }
