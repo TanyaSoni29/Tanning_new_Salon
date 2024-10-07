@@ -107,6 +107,9 @@
 	margin: 0 10px;
 	cursor: pointer;
 }
+.customertab{
+	margin-left: 55px;
+}
 
 .no-data {
 	text-align: center;
@@ -164,6 +167,10 @@
 
 	.customer-table-row .fa {
 		margin-right: 10px;
+	}
+
+	.customertab{
+		margin-left: 0px;
 	}
 }
 

@@ -118,6 +118,9 @@
 	font-size: 18px;
 	color: #666;
 }
+.purchasevalu{
+	margin-left: 65px;
+}
 
 /* Responsive Layout for Tablet */
 @media (max-width: 1024px) {
@@ -203,6 +206,9 @@
 	.purchasereportlist-table {
 		width: 100%;
 		overflow-x: hidden;
+	}
+	.purchasevalu{
+		margin-left: 0px;
 	}
 }
 

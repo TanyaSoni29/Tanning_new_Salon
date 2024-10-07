@@ -421,10 +421,10 @@ const CustomerList = () => {
 								<span data-label='Total Min. Used'>
 									{customer.total_used_minutes?.toFixed(2)}
 								</span>
-								<span data-label='Total Spent'>
+								<span data-label='Total Spent' className='topcustomerspent'>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								 </span>
-								<span data-label='Total Sales'>
+								<span data-label='Total Sales' className='topcustomerspent'>
 									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>
 							</div>

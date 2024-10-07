@@ -84,6 +84,9 @@
 	font-size: 18px;
 	color: #666;
 }
+.productvalu {
+	margin-left: 65px;
+}
 
 /* Mobile View */
 @media (max-width: 768px) {
@@ -129,6 +132,9 @@
 		width: 170px; /* Adjust width for the label */
 		color: #555;
 		margin-right: 20px; /* Add more space between label and data */
+	}
+	.productvalu {
+		margin-left: 0px;
 	}
 }
 

@@ -107,6 +107,9 @@
 	font-size: 18px;
 	color: #666;
 }
+.customerregtb{
+	margin-left: 65px;
+}
 
 /* Mobile View */
 @media (max-width: 768px) {
@@ -158,6 +161,9 @@
 
 	.allcustomer-table-row .fa {
 		margin-right: 10px;
+	}
+	.customerregtb{
+		margin-left: 0px;
 	}
 }
 

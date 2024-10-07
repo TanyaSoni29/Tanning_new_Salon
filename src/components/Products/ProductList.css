@@ -92,7 +92,10 @@
   .fa-trash {
 	color: #dc3545;
   }
-  
+  .productprice{
+	margin-left: 55px;
+  }
+
   .no-data {
 	text-align: center;
 	padding: 20px;
@@ -181,6 +184,9 @@
 	.products-table-header {
 	  display: none; /* Keep the header hidden, but add labels for each row */
 	}
+	.productprice{
+		margin-left: 0px;
+	  }
   }
   
   /* Mobile Extra Small View */

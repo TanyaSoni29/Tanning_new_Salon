@@ -333,10 +333,10 @@ const ProductList = ({
 							</span>
 							<span data-label='Product Name'>{transaction.product.name}</span>
 							<span data-label='Location'>{transaction.location.name}</span>
-							<span data-label='Total Value'>
+							<span data-label='Total Value' className='productvalu'>
 								£{transaction.total_price.toFixed(2)}
 							</span>
-							<span data-label='Total Sold'>{transaction.total_sold}</span>
+							<span data-label='Total Sold'  className='productvalu'>{transaction.total_sold}</span>
 						</div>
 					))
 				) : (
