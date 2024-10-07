@@ -87,7 +87,7 @@ const AboutStep = ({ stats, selectedLocation, setSelectedLocation }) => {
 	// 	});
 
 	const filteredCustomers = searchQuery
-		? customers.filter((user) => {
+		? customers?.filter((user) => {
 				// Filter by search query if provided
 				return (
 					user.profile?.firstName

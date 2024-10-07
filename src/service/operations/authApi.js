@@ -69,9 +69,8 @@ export function login(email, password, navigate) {
 			if (response.status !== 200) {
 				throw new Error(response.data);
 			}
-			if (response.status === 200) {
-				toast.success('Login Successfully');
-			}
+			toast.success('Login Successfully');
+
 			dispatch(setToken(response.data.access_token));
 			dispatch(setIsAuth(true));
 			const expirationTime = Date.now() + response.data.expires_in * 1000; // Convert to milliseconds
@@ -132,7 +131,7 @@ export function getMe(navigate) {
 
 			const errorMessage =
 				error?.response?.data?.error || 'Failed to fetch user';
-			toast.error(errorMessage);
+			// toast.error(errorMessage);
 
 			// Log user out on failure
 			dispatch(setToken(null));
