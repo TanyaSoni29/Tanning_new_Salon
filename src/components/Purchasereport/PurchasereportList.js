@@ -116,7 +116,7 @@ const ProductList = ({
 		saveAs(blob, 'service-purchase.csv');
 	};
 
-	// Download PDF with proper formatting
+	// Download PDF with proper formatting and gridlines
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points (595.28 x 841.89)
 		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
@@ -124,67 +124,81 @@ const ProductList = ({
 		const margin = 40; // Set margin for the document
 		const rowHeight = 20; // Set row height for table rows
 		const headerHeight = 30; // Height for the header
+		const cellPadding = 5; // Padding inside each cell
 		let currentY = margin + headerHeight; // Starting y-position for content
 
 		// Define column widths and positions
-		const columns = {
-			date: margin,
-			serviceName: margin + 100,
-			location: margin + 250,
-			totalValue: margin + 400,
-			minutesSold: margin + 500,
-		};
+		const colWidths = [80, 140, 120, 100, 100]; // Widths for Date, Service Name, Location, Total Value, Minutes Sold
 
+		// Draw table headers
+		const headers = ['Date', 'Service Name', 'Location', 'Total Value', 'Minutes Sold'];
+		
 		// Set title
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(18);
 		doc.text('Service Purchase Report', pageWidth / 2, margin, { align: 'center' });
 
-		// Table headers
+		// Draw the table header row
 		doc.setFontSize(12);
 		doc.setFont('helvetica', 'bold');
-		doc.text('Date', columns.date, currentY);
-		doc.text('Service Name', columns.serviceName, currentY);
-		doc.text('Location', columns.location, currentY);
-		doc.text('Total Value', columns.totalValue, currentY);
-		doc.text('Minutes Sold', columns.minutesSold, currentY);
-
-		// Move to the next row for table data
+		drawTableRow(doc, headers, currentY, colWidths);
 		currentY += rowHeight;
 
 		// Reset font for table data
 		doc.setFont('helvetica', 'normal');
 
 		// Loop through filtered transactions and add each row
-		filteredTransaction.forEach((transaction) => {
-			// Check if adding new row exceeds the page height, and if so, add a new page
+		filteredTransaction.forEach((transaction, index) => {
+			const row = [
+				formatDate(transaction.date),
+				transaction.serviceName,
+				transaction.location?.name || 'N/A',
+				`£${transaction.total_price.toFixed(2)}`,
+				transaction.total_quantity.toString(), // Ensure it's a string
+			];
+
+			// Check if adding a new row exceeds the page height, and if so, add a new page
 			if (currentY + rowHeight > pageHeight - margin) {
 				doc.addPage(); // Add new page
 				currentY = margin + headerHeight; // Reset row for new page
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('Date', columns.date, currentY);
-				doc.text('Service Name', columns.serviceName, currentY);
-				doc.text('Location', columns.location, currentY);
-				doc.text('Total Value', columns.totalValue, currentY);
-				doc.text('Minutes Sold', columns.minutesSold, currentY);
+				drawTableRow(doc, headers, currentY, colWidths);
 				currentY += rowHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
-			// Add transaction data
-			doc.text(formatDate(transaction.date), columns.date, currentY);
-			doc.text(transaction.serviceName, columns.serviceName, currentY);
-			doc.text(transaction.location?.name || 'N/A', columns.location, currentY);
-			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, currentY);
-			doc.text(`${transaction.total_quantity}`, columns.minutesSold, currentY);
-
-			// Move to the next row
+			// Draw the current row
+			drawTableRow(doc, row, currentY, colWidths);
 			currentY += rowHeight;
 		});
 
 		doc.save('service-purchase.pdf'); // Save the generated PDF
+	};
+
+	// Function to draw a single row with borders
+	const drawTableRow = (doc, rowData, y, colWidths) => {
+		const startX = 40; // Left margin for the table
+		let currentX = startX;
+
+		rowData.forEach((data, index) => {
+			const colWidth = colWidths[index];
+
+			// Convert the data to a string to avoid errors
+			const text = String(data);
+
+			// Draw the cell borders
+			doc.rect(currentX, y, colWidth, 20); // Draw the rectangle for each cell
+			
+			// Center the text inside the cell horizontally and vertically
+			const textWidth = doc.getTextWidth(text);
+			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textY = y + 15; // Center vertically within the cell
+			doc.text(text, textX, textY); // Draw the text
+
+			currentX += colWidth; // Move to the next column
+		});
 	};
 
 	return (
@@ -270,8 +284,7 @@ const ProductList = ({
 						Service Name{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'serviceName' &&
-								sortConfig.direction === 'asc'
+								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -291,8 +304,7 @@ const ProductList = ({
 						Total Value{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_price' &&
-								sortConfig.direction === 'asc'
+								sortConfig.key === 'total_price' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -302,8 +314,7 @@ const ProductList = ({
 						Minutes Sold{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_quantity' &&
-								sortConfig.direction === 'asc'
+								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -313,29 +324,19 @@ const ProductList = ({
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div
-							key={i}
-							className='purchasereportlist-table-row'
-						>
-							<span
-								data-label='Date'
-								style={{ whiteSpace: 'nowrap' }}
-							>
+						<div key={i} className='purchasereportlist-table-row'>
+							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
 								{formatDate(transaction.date)}
 							</span>
-							<span data-label='Service Name'>{transaction.serviceName}</span>
-							<span data-label='Location'>{transaction.location?.name}</span>
-							<span data-label='Total Value'>
-								£{transaction.total_price.toFixed(2)}
-							</span>
-							<span data-label='Minutes Sold'>
-								{transaction.total_quantity}
-							</span>
+							<span data-label="Service Name">{transaction.serviceName}</span>
+							<span data-label="Location">{transaction.location?.name}</span>
+							<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
+							<span data-label="Minutes Sold">{transaction.total_quantity}</span>
 						</div>
 					))
 				) : (
 					<div className='purchasereportlist-no-data'>
-						No service transactions found.
+						No transactions found.
 					</div>
 				)}
 			</div>
