@@ -122,7 +122,7 @@
 
 	.filter-serviceused {
 		flex-direction: column; /* Stack filter elements vertically */
-		gap: 15px;
+		gap: 5px;
 		width: 100%;
 	}
 
@@ -133,12 +133,17 @@
 	}
 
 	.date-range {
-		margin: 10px;
+		margin: 10px 0px;
+	}
+     
+	.date-range input {
+		margin-left: 1px;
+		padding: 6px;
 	}
 
 	.serviceused-files {
 		justify-content: space-between;
-		width: 100%;
+		width: 50%;
 	}
 
 	/* Hide table header in mobile view */
@@ -190,23 +195,24 @@
 	}
 
 	.filter-serviceused {
-		flex-direction: column;
+		flex-direction: flex;
 		align-items: flex-start;
-		gap: 15px;
+		gap: 1px;
 	}
 
 	.serviceused-search-container input {
-		width: 100%; /* Full width search bar */
+		width: 50%; /* Full width search bar */
 	}
 
 	.date-range,
 	.servicelocation-select {
-		width: 100%;
+		display: flex;
+		width: 37%;
 	}
 
 	.serviceused-files {
-		flex-direction: column;
-		width: 100%;
+		flex-direction: flex;
+		width: 10%;
 		gap: 10px;
 	}
 
