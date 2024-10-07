@@ -105,11 +105,11 @@
 	align-items: center;
 }
 
-.fa-pencil {
+.actionicon .fa-pencil {
 	color: #28a745;
 }
 
-.fa-trash {
+.actionicon .fa-trash {
 	color: #dc3545;
 }
 
