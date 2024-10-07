@@ -1,39 +1,48 @@
-/**
- * General mobile-first styling (default)
- *
- * @format
- */
+/** @format */
 
+/* General mobile-first styling */
 body {
 	font-family: Arial, sans-serif;
 	background-size: cover;
+	font-size: 10px;
+	margin: 0; /* Remove body margin */
+	overflow: hidden; /* Prevent body scrolling */
 }
 
 .addCustomer-modal-container {
 	width: 100%;
-	max-width: 500px;
+	max-width: 400px;
+	height: 80vh; /* Use 80% of the viewport height */
+	overflow-y: auto; /* Enable vertical scrolling for content overflow */
 	padding: 16px;
 	margin: auto;
-	margin-top: 10%;
+	margin-top: 5%;
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	box-sizing: border-box;
+	font-size: 10px;
+	position: relative; /* Ensure proper positioning */
+}
+
+/* Add padding to modal content */
+.addCustomer-modal-container form {
+	padding-bottom: 16px;
 }
 
 /* Form Row */
 .addCustomer-modal-container .form-row {
 	display: flex;
-	flex-direction: column; /* Stack items vertically by default */
-	gap: 16px;
-	margin-bottom: 16px;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 12px;
 }
 
 /* Custom Select */
 .addCustomer-modal-container .custom-select {
-	height: 50px;
-	padding: 8px;
-	font-size: 14px;
+	height: 36px;
+	padding: 6px;
+	font-size: 12px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	width: 100%;
@@ -41,20 +50,38 @@ body {
 	box-sizing: border-box;
 }
 
+/* TextField input styles */
+.addCustomer-modal-container .MuiTextField-root {
+	width: 100%;
+}
+
+.addCustomer-modal-container .MuiOutlinedInput-root {
+	font-size: 12px; /* Adjust font size for mobile view */
+	height: 36px; /* Adjust height for smaller inputs */
+}
+
+.addCustomer-modal-container .MuiInputLabel-root {
+	font-size: 12px; /* Adjust label font size */
+}
+
+.addCustomer-modal-container .MuiFormHelperText-root {
+	font-size: 10px; /* Make helper text smaller for mobile */
+}
+
 /* Button Row */
 .addCustomer-modal-container .button-row {
-	margin-top: 16px;
+	margin-top: 12px;
 	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
+	flex-direction: column;
+	gap: 12px; /* Spacing between buttons */
 }
 
 .addCustomer-modal-container .confirm-button,
 .cancel-button {
 	width: 100%;
 	border-radius: 5px;
-	padding: 5px 10px;
-	font-size: 10px;
+	padding: 8px;
+	font-size: 12px;
 	cursor: pointer;
 }
 
@@ -78,40 +105,84 @@ body {
 	background-color: #f1f1f1;
 }
 
-/* Larger screens (Tablet and Desktop) */
+/* Tablet and larger screens */
 @media (min-width: 768px) {
+	body {
+		font-size: 14px; /* Increase base font size for larger screens */
+	}
+
 	.addCustomer-modal-container {
 		width: 100%;
-		max-width: 700px; /* Increased width for larger screens */
+		max-width: 600px; /* Increased width for tablet */
+		height: 80vh; /* Maintain the modal height */
+		padding: 24px;
+		margin-top: 5%;
+		font-size: 12px;
 	}
 
 	.addCustomer-modal-container .form-row {
 		flex-direction: row; /* Arrange form fields horizontally */
-	}
-
-	.addCustomer-modal-container .confirm-button,
-	.cancel-button {
-		width: auto; /* Allow buttons to resize based on their content */
-	}
-
-	.addCustomer-modal-container .button-row {
-		justify-content: flex-end;
-	}
-}
-
-/* Even larger screens (Desktop, larger monitors) */
-@media (min-width: 1024px) {
-	.addCustomer-modal-container {
-		max-width: 800px;
-	}
-
-	.addCustomer-modal-container .form-row {
 		gap: 20px;
 	}
 
 	.addCustomer-modal-container .confirm-button,
 	.cancel-button {
-		padding: 8px 15px;
-		font-size: 13px;
+		width: auto;
+		font-size: 14px; /* Adjust font size */
+		padding: 12px 20px;
+	}
+
+	.addCustomer-modal-container .button-row {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+
+	/* TextField input styles */
+	.addCustomer-modal-container .MuiOutlinedInput-root {
+		font-size: 14px;
+		height: 40px; /* Slightly larger height for tablets */
+	}
+
+	.addCustomer-modal-container .MuiInputLabel-root {
+		font-size: 14px;
+	}
+
+	.addCustomer-modal-container .MuiFormHelperText-root {
+		font-size: 12px;
+	}
+}
+
+/* Larger screens (desktop and larger) */
+@media (min-width: 1024px) {
+	body {
+		font-size: 16px; /* Further increase base font size for desktops */
+	}
+
+	.addCustomer-modal-container {
+		max-width: 700px; /* Increased width for larger screens */
+	}
+
+	.addCustomer-modal-container .form-row {
+		gap: 24px;
+	}
+
+	.addCustomer-modal-container .confirm-button,
+	.cancel-button {
+		padding: 12px 24px;
+		font-size: 16px;
+	}
+
+	/* TextField input styles */
+	.addCustomer-modal-container .MuiOutlinedInput-root {
+		font-size: 16px;
+		height: 48px; /* Larger input height for desktops */
+	}
+
+	.addCustomer-modal-container .MuiInputLabel-root {
+		font-size: 16px;
+	}
+
+	.addCustomer-modal-container .MuiFormHelperText-root {
+		font-size: 14px;
 	}
 }
