@@ -29,15 +29,27 @@ function CustomerOverview({ filteredCustomers }) {
 
 	useEffect(() => {
 		async function getServiceTransaction() {
-			const response = await getAllServiceTransactions(token);
-			setUseServiceTransaction(
-				response.filter((data) => data.transaction?.type === 'used')
-			);
+			try {
+				const response = await getAllServiceTransactions(token);
+				if (Array.isArray(response)) {
+					setUseServiceTransaction(
+						response.filter((data) => data.transaction?.type === 'used')
+					);
+				} else {
+					// If response is not an array, log the response for debugging or set an empty array
+					console.error('Unexpected response format:', response);
+					setUseServiceTransaction([]); // Set an empty array if response is not what you expect
+				}
+			} catch (error) {
+				console.error('Error fetching service transactions:', error);
+				setUseServiceTransaction([]); // Set an empty array in case of error
+			}
 		}
 		getServiceTransaction();
 	}, []);
 
 	const getLastUsedServiceDate = (customerId) => {
+		if (!Array.isArray(useServiceTransaction)) return null;
 		const userTransactions =
 			useServiceTransaction?.length > 0 &&
 			useServiceTransaction?.filter(
