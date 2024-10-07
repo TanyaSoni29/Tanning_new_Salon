@@ -75,7 +75,7 @@ const CustomerList = ({
 			return 0;
 		});
 
-	// Function to download CSV
+	// Function to download CSV (with UTF-8 BOM to ensure proper encoding)
 	const handleDownloadCSV = () => {
 		const headers = ['LOCATION', 'WEEK NO.', 'COUNT', 'TOTAL SPENT'];
 
@@ -92,7 +92,8 @@ const CustomerList = ({
 			}),
 		].join('\n');
 
-		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
+		// Add UTF-8 BOM for encoding support to handle special characters properly
+		const blob = new Blob([`\uFEFF${csvRows}`], { type: 'text/csv;charset=utf-8;' });
 		saveAs(blob, 'Customers.csv');
 	};
 
@@ -240,8 +241,7 @@ const CustomerList = ({
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('week_no')}>
 						Week No.{' '}
@@ -250,8 +250,7 @@ const CustomerList = ({
 								sortConfig.key === 'week_no' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('total_registered_customers')}>
 						Count{' '}
@@ -261,8 +260,7 @@ const CustomerList = ({
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('spent')}>
 						Total Spent{' '}
@@ -271,8 +269,7 @@ const CustomerList = ({
 								sortConfig.key === 'spent' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 				</div>
 
@@ -281,8 +278,7 @@ const CustomerList = ({
 						return (
 							<div
 								key={i}
-								className='allcustomer-table-row'
-							>
+								className='allcustomer-table-row'>
 								<span data-label='Location'>
 									{customer?.location_name !== 'All'
 										? customer?.location_name
@@ -290,20 +286,17 @@ const CustomerList = ({
 								</span>
 								<span
 									data-label='Week No.'
-									className='customerregtb'
-								>
+									className='customerregtb'>
 									{customer?.week_no || '-'}
 								</span>
 								<span
 									data-label='Count'
-									className='customerregtb'
-								>
+									className='customerregtb'>
 									{customer?.total_registered_customers || '-'}
 								</span>
 								<span
 									data-label='Total Spent'
-									className='customerregtb'
-								>
+									className='customerregtb'>
 									£{customer?.spent?.toFixed(2) || '0.00'}
 								</span>
 							</div>
