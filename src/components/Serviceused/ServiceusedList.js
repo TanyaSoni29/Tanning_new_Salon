@@ -266,7 +266,7 @@ const ServiceUsedList = ({
 							</span>
 							<span data-label='Service Name'>{transaction.serviceName}</span>
 							<span data-label='Location'>{transaction.location?.name}</span>
-							<span data-label='Total Usage'>{transaction.total_quantity}</span>
+							<span data-label='Total Usage' className='totalUse'>{transaction.total_quantity}</span>
 						</div>
 					))
 				) : (

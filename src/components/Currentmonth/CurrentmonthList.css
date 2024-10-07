@@ -1,4 +1,9 @@
-/* Main Container */
+/**
+ * Main Container
+ *
+ * @format
+ */
+
 .currentmon-container {
 	width: 72%;
 	margin: 20px auto;
@@ -136,7 +141,7 @@ input:checked + .slider:before {
 .currentmon-table-header,
 .currentmon-table-row {
 	display: grid;
-	grid-template-columns: 1.2fr 1fr 1fr 0.8fr 0.8fr 0.6fr 0.5fr;
+	grid-template-columns: 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 0.8fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -163,8 +168,10 @@ input:checked + .slider:before {
 	font-size: 18px;
 	color: #666;
 }
-.topcustomerspent{
-	margin-left: 60px;
+.topcustomerspent {
+	display: flex;
+	justify-content: end;
+	width: 90%;
 }
 
 /* Mobile View */
@@ -175,32 +182,30 @@ input:checked + .slider:before {
 		margin-top: 120px;
 	}
 
-	
-/* Filter Section */
-.currentmon-filter-customer {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 4px;
-	margin-bottom: 15px;
-	width: 35%;
-}
+	/* Filter Section */
+	.currentmon-filter-customer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px;
+		margin-bottom: 15px;
+		width: 35%;
+	}
 
 	/* Input Fields */
-.currentmon-search-container input,
-.currentmon-date-range-inputs input,
-.currentmon-location-select select {
-	width: 50%;
-	min-width: 150px;
-	padding: 6px;
-	font-size: 15px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	outline: none;
-	transition: border-color 0.3s ease-in-out;
-	height: 50px;
-}
-
+	.currentmon-search-container input,
+	.currentmon-date-range-inputs input,
+	.currentmon-location-select select {
+		width: 50%;
+		min-width: 150px;
+		padding: 6px;
+		font-size: 15px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s ease-in-out;
+		height: 50px;
+	}
 
 	.currentmon-table-header {
 		display: none;
@@ -226,8 +231,9 @@ input:checked + .slider:before {
 		font-weight: bold;
 		color: #333;
 	}
-	.topcustomerspent{
-		margin-left: 0px;
+	.topcustomerspent {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
 	}
-	
 }

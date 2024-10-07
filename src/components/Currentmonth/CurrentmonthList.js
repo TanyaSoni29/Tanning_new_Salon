@@ -241,7 +241,7 @@ const CustomerList = () => {
 
 			// Center the text inside the cell horizontally and vertically
 			const textWidth = doc.getTextWidth(text);
-			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textX = currentX + colWidth / 2 - textWidth / 2; // Center horizontally
 			const textY = y + 15; // Center vertically within the cell
 			doc.text(text, textX, textY); // Draw the text
 
@@ -335,7 +335,8 @@ const CustomerList = () => {
 						Phone Number{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'phone_number' && sortConfig.direction === 'asc'
+								sortConfig.key === 'phone_number' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -417,14 +418,28 @@ const CustomerList = () => {
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
-								<span data-label='Min. Avail.'>{customer.profile?.available_balance}</span>
-								<span data-label='Total Min. Used'>
+								<span
+									data-label='Min. Avail.'
+									className='topcustomerspent'
+								>
+									{customer.profile?.available_balance}
+								</span>
+								<span
+									data-label='Total Min. Used'
+									className='topcustomerspent'
+								>
 									{customer.total_used_minutes?.toFixed(2)}
 								</span>
-								<span data-label='Total Spent' className='topcustomerspent'>
+								<span
+									data-label='Total Spent'
+									className='topcustomerspent'
+								>
 									£{customer.total_service_purchased_price?.toFixed(2)}
-								 </span>
-								<span data-label='Total Sales' className='topcustomerspent'>
+								</span>
+								<span
+									data-label='Total Sales'
+									className='topcustomerspent'
+								>
 									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>
 							</div>

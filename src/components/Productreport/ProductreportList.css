@@ -1,3 +1,5 @@
+/** @format */
+
 .productreportlist-container {
 	width: 70%;
 	margin-top: 20px;
@@ -85,7 +87,9 @@
 	color: #666;
 }
 .productvalu {
-	margin-left: 65px;
+	display: flex;
+	justify-content: end;
+	width: 90%;
 }
 
 /* Mobile View */
@@ -134,7 +138,9 @@
 		margin-right: 20px; /* Add more space between label and data */
 	}
 	.productvalu {
-		margin-left: 0px;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
 	}
 }
 
