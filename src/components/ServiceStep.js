@@ -35,8 +35,6 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const [combinedTransactions, setCombinedTransactions] = useState([]);
 	const [serviceUseOptions, setServiceUseOptions] = useState([]);
-	const [sortColumn, setSortColumn] = useState('createdAt'); // Default sort column
-	const [sortDirection, setSortDirection] = useState('asc'); // Default sort direction
 
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
@@ -160,23 +158,6 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 		}
 	};
 
-	const handleSort = (column) => {
-		const newDirection =
-			sortColumn === column && sortDirection === 'asc' ? 'dsc' : 'asc';
-		setSortColumn(column);
-		setSortDirection(newDirection);
-
-		const sortedTransactions = [...combinedTransactions].sort((a, b) => {
-			if (newDirection === 'asc') {
-				return a[column] > b[column] ? 1 : -1;
-			} else {
-				return a[column] < b[column] ? 1 : -1;
-			}
-		});
-
-		setCombinedTransactions(sortedTransactions);
-	};
-
 	const closeBuyProductModal = () => {
 		setBuyProductModal(false);
 	};
@@ -269,44 +250,11 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				<div className='transaction-container'>
 					<div className='transaction-table'>
 						<div className='transaction-table-header'>
-							<span onClick={() => handleSort('createdAt')}>
-								Date/Time
-								<span className='sort-icon'>
-									{sortColumn === 'createdAt' && sortDirection === 'asc'
-										? '▲'
-										: '▼'}
-								</span>
-							</span>
-							<span onClick={() => handleSort('type')}>
-								Type
-								<span className='sort-icon'>
-									{sortColumn === 'type' && sortDirection === 'asc' ? '▲' : '▼'}
-								</span>
-							</span>
-							<span onClick={() => handleSort('productName')}>
-								Product / Service
-								<span className='sort-icon'>
-									{sortColumn === 'productName' && sortDirection === 'asc'
-										? '▲'
-										: '▼'}
-								</span>
-							</span>
-							<span onClick={() => handleSort('price')}>
-								Price
-								<span className='sort-icon'>
-									{sortColumn === 'price' && sortDirection === 'asc'
-										? '▲'
-										: '▼'}
-								</span>
-							</span>
-							<span onClick={() => handleSort('quantity')}>
-								Quantity
-								<span className='sort-icon'>
-									{sortColumn === 'quantity' && sortDirection === 'asc'
-										? '▲'
-										: '▼'}
-								</span>
-							</span>
+							<span>Date/Time</span>
+							<span>Type</span>
+							<span>Product / Service</span>
+							<span>Price</span>
+							<span>Quantity</span>
 						</div>
 						<div className='transaction-table-wrapper'>
 							{combinedTransactions.length > 0 ? (
@@ -326,9 +274,11 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 											<span className={`transaction-type ${transaction?.type}`}>
 												{transaction?.type
 													? transaction?.type === 'used'
-														? 'Used Min.'
-														: 'Service'
-													: '-'}
+													? 'Used Min.'
+													: transaction?.type === 'product'
+													? 'Product'
+													: 'Service'
+												: '-'}
 											</span>
 										</span>
 										<span data-label='Product / Service'>
