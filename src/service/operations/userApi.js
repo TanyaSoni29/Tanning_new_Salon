@@ -78,13 +78,13 @@ export const resetPassword = async (token, data) => {
 		);
 
 		console.log('Reset Password Api Response..', response);
-		if (response.status !== 201)
+		if (response.status !== 200)
 			throw new Error('Could not Reset Password Api');
 		toast.success('Password Reset Successfully');
-		return response.data?.data;
+		return response.data;
 	} catch (error) {
 		console.log('Reset Password Api Error', error);
-		const errorMessage = error.response?.data?.message;
+		const errorMessage = error.response?.data.message;
 		toast.error(errorMessage);
 	}
 };

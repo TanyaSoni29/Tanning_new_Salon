@@ -29,6 +29,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 		register,
 		handleSubmit,
 		reset,
+		setValue,
 		formState: { errors, isSubmitSuccessful },
 	} = useForm();
 
@@ -51,10 +52,10 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (activeUser?.profile?.preferred_location && locations.length > 0) {
-			setPreferredLocation(activeUser.profile.preferred_location);
+		if (activeUser?.profile?.preferred_location) {
+			setValue('preferred_location', activeUser.profile.preferred_location); // Set preferred_location with ID
 		}
-	}, [activeUser, locations]);
+	}, [activeUser, setValue]);
 
 	const handleSubmitForm = async (data) => {
 		try {
@@ -219,9 +220,9 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 						<select
 							id='location'
 							className='custom-select'
-							value={preferredLocation}
+							defaultValue={activeUser.profile?.preferred_location}
 							{...register('preferred_location', { required: true })}
-							onChange={(e) => setPreferredLocation(e.target.value)}
+							// onChange={(e) => setPreferredLocation(e.target.value)}
 							disabled={loading}
 						>
 							<option value=''>Select Location</option>

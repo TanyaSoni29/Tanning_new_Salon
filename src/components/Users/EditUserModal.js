@@ -24,6 +24,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 		register,
 		handleSubmit,
 		reset,
+		setValue,
 		formState: { errors, isSubmitSuccessful },
 	} = useForm();
 
@@ -38,10 +39,10 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (activeUser?.profile?.preferred_location && locations.length > 0) {
-			setPreferredLocation(activeUser.profile.preferred_location);
+		if (activeUser?.profile?.preferred_location) {
+			setValue('preferred_location', activeUser.profile.preferred_location); // Set preferred_location with ID
 		}
-	}, [activeUser, locations]);
+	}, [activeUser, setValue]);
 
 	const handleResetPassword = async () => {
 		setResetPasswordModal(true);
@@ -246,9 +247,9 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						<select
 							id='location'
 							className='custom-select'
-							value={preferredLocation}
+							defaultValue={activeUser.profile?.preferred_location}
 							{...register('preferred_location', { required: true })}
-							onChange={(e) => setPreferredLocation(e.target.value)}
+							// onChange={(e) => setPreferredLocation(e.target.value)}
 							disabled={loading}
 						>
 							<option value=''>Select location</option>
