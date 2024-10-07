@@ -126,7 +126,7 @@
   
   @media (max-width: 768px) {
     .form-container {
-      width: 80%;
+      width: 100%;
     }
   
     .image-container {

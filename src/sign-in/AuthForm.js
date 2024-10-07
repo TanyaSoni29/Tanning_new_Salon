@@ -142,12 +142,11 @@ const AuthForm = () => {
 							</>
 						) : (
 							<>
-								Don’t have an account?{' '}
+							
 								<a
 									href='#'
 									onClick={toggleForm}
 								>
-									Sign up
 								</a>
 							</>
 						)}
