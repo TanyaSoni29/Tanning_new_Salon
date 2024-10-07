@@ -108,7 +108,7 @@
 	cursor: pointer;
 }
 .customertab{
-	margin-right: 55px;
+	display: inline-block;
 }
 
 .no-data {
@@ -170,8 +170,8 @@
 	}
 
 	.customertab{
-		margin-left: 0px;
-	}
+	display: inline-block;
+}
 }
 
 /* Mobile Extra Small View */

@@ -136,6 +136,7 @@ const CustomerList = () => {
 	const closeViewModal = () => {
 		setIsViewOpen(false);
 	};
+	const isMobile = window.innerWidth <= 700;
 
 	return (
 		<div className='customer-container'>
@@ -148,9 +149,15 @@ const CustomerList = () => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 					<div className='customer-location-select'>
-						<select value={selectedLocation} onChange={handleLocationChange}>
+						<select
+							value={selectedLocation}
+							onChange={handleLocationChange}
+						>
 							{uniqueLocations.map((location) => (
-								<option key={location} value={location}>
+								<option
+									key={location}
+									value={location}
+								>
 									{location}
 								</option>
 							))}
@@ -159,7 +166,10 @@ const CustomerList = () => {
 				</div>
 
 				<div className='add-button-wrapper'>
-					<button className='add-button2' onClick={() => handleAdd()}>
+					<button
+						className='add-button2'
+						onClick={() => handleAdd()}
+					>
 						ADD NEW CUSTOMER
 					</button>
 				</div>
@@ -210,7 +220,10 @@ const CustomerList = () => {
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('total_service_purchased_price')}>
+					<span
+						onClick={() => handleSort('total_service_purchased_price')}
+						className='customertab'
+					>
 						Total Spent{' '}
 						<i
 							className={`fa fa-caret-${
@@ -225,7 +238,8 @@ const CustomerList = () => {
 						Last Purchase{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'updated_at' && sortConfig.direction === 'asc'
+								sortConfig.key === 'updated_at' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -241,7 +255,10 @@ const CustomerList = () => {
 								location?.id === customer.profile?.preferred_location
 						);
 						return (
-							<div key={customer.user.id} className='customer-table-row'>
+							<div
+								key={customer.user.id}
+								className='customer-table-row'
+							>
 								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
@@ -249,12 +266,20 @@ const CustomerList = () => {
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
 								<span data-label='Phone'>{customer.profile?.phone_number}</span>
-								<span data-label='Min. Aval.' className='customertab'>
+								<span data-label='Min. Aval.'>
 									{customer.profile?.available_balance}
 								</span>
-								<span data-label='Total Spent' className='customertab'>
+								<span
+									data-label='Total Spent'
+									style={{
+										display: 'inline-block',
+										width: isMobile ? '100%' : '50%', // 100% width if mobile, otherwise 50%
+										textAlign: isMobile ? 'left' : 'right', // Align left on mobile, right otherwise
+									}}
+								>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
+
 								<span data-label='Last Purchase'>
 									{formatDate(customer.profile?.updated_at)}
 								</span>
@@ -283,13 +308,19 @@ const CustomerList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddCustomerModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isViewOpen && activeUser && (
-				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
+				<Modal
+					setOpen={setIsViewOpen}
+					open={isViewOpen}
+				>
 					<ViewCustomerModal
 						closeViewModal={closeViewModal}
 						activeUser={activeUser}
@@ -298,7 +329,10 @@ const CustomerList = () => {
 			)}
 
 			{isDeleteOpen && activeUser && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
 					<DeleteCustomerModal
 						handleDelete={handleDelete}
 						activeUser={activeUser}
@@ -308,7 +342,10 @@ const CustomerList = () => {
 			)}
 
 			{isWarningOpen && activeUser && (
-				<Modal setOpen={setIsWarningOpen} open={isWarningOpen}>
+				<Modal
+					setOpen={setIsWarningOpen}
+					open={isWarningOpen}
+				>
 					<RemainingMinutesWarningModal
 						handleDelete={handleDelete}
 						closeWarningModal={closeWarningModal}
@@ -318,7 +355,10 @@ const CustomerList = () => {
 			)}
 
 			{isEditOpen && activeUser && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
 					<EditCustomerModal
 						activeUser={activeUser}
 						closeEditModal={closeEditModal}
@@ -337,10 +377,16 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button onClick={handleDelete} className='confirm-button'>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
 			</div>
@@ -361,10 +407,16 @@ function RemainingMinutesWarningModal({
 				minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
-				<button onClick={handleDelete} className='confirm-button'>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
 					Proceed to Delete
 				</button>
-				<button className='cancel-button' onClick={closeWarningModal}>
+				<button
+					className='cancel-button'
+					onClick={closeWarningModal}
+				>
 					Cancel
 				</button>
 			</div>
