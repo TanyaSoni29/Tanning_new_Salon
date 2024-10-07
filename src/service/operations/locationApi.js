@@ -107,6 +107,7 @@ export const deleteLocation = async (token, locationId) => {
 		result = true;
 	} catch (error) {
 		console.log('Delete Location Api Error', error);
+		toast.error(error.response.data.message)
 	}
 	return result;
 };
