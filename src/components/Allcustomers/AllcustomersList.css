@@ -78,14 +78,22 @@
 	border: 1px solid #ddd;
 }
 
-.allcustomer-table-header,
-.allcustomer-table-row {
+.allcustomer-table-header{
 	display: grid;
-	grid-template-columns: 1.5fr 1.5fr 1.5fr 1.5fr;
+	grid-template-columns: 2fr 2fr 1.5fr 1fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
 }
+
+.allcustomer-table-row {
+	display: grid;
+	grid-template-columns: 2fr 2.1fr 1.7fr 0.8fr;
+	padding: 12px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	box-sizing: border-box;
+}
+
 
 .allcustomer-table-header {
 	background-color: #f4f4f4;
@@ -109,8 +117,8 @@
 }
 .customerregtb {
 	display: flex;
-	justify-content: end;
-	width: 40%;
+	justify-content: center;
+	width: 30%;
 }
 
 /* Mobile View */

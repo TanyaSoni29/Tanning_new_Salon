@@ -207,9 +207,9 @@ body {
 
 /* Logout Button */
 .logout-button {
-  background-color: #0c65be;
+  background-color: #f42819;
   color: white;
-  padding: 15px 20px;
+  padding: 12px 15px;
   text-align: center;
   cursor: pointer;
   display: flex;

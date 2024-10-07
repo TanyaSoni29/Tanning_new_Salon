@@ -120,8 +120,8 @@
 }
 .purchasevalu {
 	display: flex;
-	justify-content: end;
-	width: 70%;
+	justify-content: center;
+	width: 60%;
 }
 
 /* Responsive Layout for Tablet */

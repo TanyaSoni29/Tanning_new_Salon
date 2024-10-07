@@ -79,10 +79,18 @@
 	overflow-x: auto;
 }
 
-.customer-table-header,
+.customer-table-header {
+	display: grid;
+	grid-template-columns: 1.3fr 1fr 1fr 0.7fr 1fr 0.8fr 0.6fr;
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
 .customer-table-row {
 	display: grid;
-	grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 0.8fr 0.6fr;
+	grid-template-columns: 1.3fr 1fr 1fr 0.8fr 1fr 0.6fr 0.6fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -113,13 +121,13 @@
 	cursor: pointer;
 }
 .customertab {
-	margin-right: 55px;
 	display: flex;
-	justify-content: end;
+	justify-content: center;
 }
 .min-avail {
 	display: flex;
 	justify-content: center;
+	
 }
 
 .no-data {

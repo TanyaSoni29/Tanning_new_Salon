@@ -39,17 +39,30 @@ export default function BasicCard({ onClose }) {
 			>
 				<Button
 					variant='contained'
-					color='primary'
 					onClick={handleNo}
-					sx={{ width: { xs: '100%', sm: 'auto' } }} // Full-width on mobile
+					sx={{
+						width: { xs: '100%', sm: 'auto' }, // Full-width on mobile
+						backgroundColor: 'red', // Red background for "No" button
+						color: '#fff', // White text color for better contrast
+						'&:hover': {
+							backgroundColor: 'darkred', // Darker shade on hover
+						},
+					}}
 				>
 					No
 				</Button>
 				<Button
 					variant='outlined'
-					color='secondary'
 					onClick={onClose}
-					sx={{ width: { xs: '100%', sm: 'auto' } }} // Full-width on mobile
+					sx={{
+						width: { xs: '100%', sm: 'auto' }, // Full-width on mobile
+						borderColor: 'green', // Green border for "Yes" button
+						color: 'green', // Green text color
+						'&:hover': {
+							backgroundColor: 'lightgreen', // Light green background on hover
+							borderColor: 'green',
+						},
+					}}
 				>
 					Yes
 				</Button>

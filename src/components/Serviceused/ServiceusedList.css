@@ -114,7 +114,7 @@
 
 .totalUse {
 	display: flex;
-	justify-content: end;
+	justify-content: center;
 }
 
 /* Responsive Layout for Tablets and Mobile */

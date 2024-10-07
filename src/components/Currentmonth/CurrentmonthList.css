@@ -170,7 +170,7 @@ input:checked + .slider:before {
 }
 .topcustomerspent {
 	display: flex;
-	justify-content: end;
+	justify-content: center;
 	width: 90%;
 }
 

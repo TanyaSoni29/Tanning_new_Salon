@@ -100,8 +100,8 @@
 
 .productPrice {
 	display: flex;
-	justify-content: end;
-	width: 40%;
+	justify-content: center;
+	width: 25%;
 }
 
 .no-data {

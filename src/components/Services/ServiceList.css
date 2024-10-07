@@ -54,8 +54,8 @@
 
 .servicetd {
 	display: flex;
-	justify-content: end;
-	width: 40%;
+	justify-content: center;
+	width: 30%;
 }
 
 .table-header,
