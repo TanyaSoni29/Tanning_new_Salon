@@ -172,6 +172,33 @@ input:checked + .slider:before {
 		margin-top: 120px;
 	}
 
+	
+/* Filter Section */
+.currentmon-filter-customer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 15px;
+	width: 35%;
+}
+
+	/* Input Fields */
+.currentmon-search-container input,
+.currentmon-date-range-inputs input,
+.currentmon-location-select select {
+	width: 50%;
+	min-width: 150px;
+	padding: 6px;
+	font-size: 15px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	outline: none;
+	transition: border-color 0.3s ease-in-out;
+	height: 50px;
+}
+
+
 	.currentmon-table-header {
 		display: none;
 	}

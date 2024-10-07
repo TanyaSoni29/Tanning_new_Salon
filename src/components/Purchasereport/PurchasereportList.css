@@ -224,8 +224,8 @@
 	}
 
 	.purchasereportlist-files {
-		flex-direction: column;
-		width: 100%;
+		flex-direction: flex;
+		width: 10%;
 		gap: 10px;
 	}
 

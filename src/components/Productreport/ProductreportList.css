@@ -126,7 +126,7 @@
 		content: attr(data-label); /* Use data-label attribute to create labels */
 		font-weight: bold;
 		display: inline-block;
-		width: 250px; /* Adjust width for the label */
+		width: 170px; /* Adjust width for the label */
 		color: #555;
 		margin-right: 20px; /* Add more space between label and data */
 	}

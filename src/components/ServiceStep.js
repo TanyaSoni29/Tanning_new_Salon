@@ -1,7 +1,5 @@
 /** @format */
 
-// ServiceStep.js
-
 import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from './HeaderWithSidebar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,12 +19,9 @@ import {
 	createServiceTransaction,
 	getAllServices,
 	getServiceTransactionsByUser,
-	getServiceUseOptions,
 	getTotalSpend,
 } from '../service/operations/serviceAndServiceTransaction';
 import { refreshCustomers } from '../slices/customerProfile';
-import StatsHeader from './StatsHeader';
-import TopHeader from './TopHeader';
 import { formatDate } from '../utils/formateDate';
 
 const ServiceStep = ({ stats, selectedLocation }) => {
@@ -63,13 +58,10 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 			};
 			await createProductTransaction(token, data);
 			refreshTransactionOfCustomer();
-			// const { productTransactions } = await getProductTransactionsByUser(token, selectedUser?._id);
-			// setProductTransactions(productTransactions);
-			// console.log("Transaction created", response.data);
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
-	}; // Store selected quantities for each product
+	};
 
 	const createServiceTransactionOfUser = async (serviceId) => {
 		try {
@@ -115,6 +107,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 			const serviceData = serviceResponse?.length > 0 ? serviceResponse : [];
 			const productData = productResponse?.length > 0 ? productResponse : [];
 			console.log({ serviceData: serviceData, productData: productData });
+
 			// Map and structure service transactions
 			const formattedServiceTransactions = serviceData.map((transaction) => ({
 				id: transaction.transaction.id,
@@ -137,7 +130,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				location: transaction?.location?.name,
 				type: transaction?.product?.type
 					? transaction?.product?.type
-					: 'product', // Assuming all product transactions are "Product"
+					: 'product',
 				createdAt: transaction?.created_at,
 			}));
 
@@ -187,25 +180,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	return (
 		<>
 			<HeaderWithSidebar />
-			{/* <StatsHeader stats={stats} /> */}
 			<div className='service-wizard-container'>
-				{/* <div className='step-tabs'> */}
-				{/* <button
-						onClick={() => navigate('/locationStep')}
-						className='tab'
-					>
-						LOCATION
-					</button> */}
-				{/* <button
-						className='tab'
-						onClick={() => navigate('/about')}
-					>
-						ABOUT
-					</button>
-					<button className='tab active'>SERVICE</button> */}
-				{/* </div> */}
-
-				{/* Display the selected customer information */}
 				<div className='service-info'>
 					{customer ? (
 						<div
@@ -291,27 +266,20 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 							<span>Quantity</span>
 						</div>
 						<div className='transaction-table-wrapper'>
-							{/* Render filtered locations */}
 							{combinedTransactions.length > 0 ? (
 								combinedTransactions.map((transaction) => (
 									<div
 										key={transaction.id}
 										className='transaction-table-row'
 									>
-										{/* <span>
-                      {transaction?.userName ? transaction?.userName : "-"}
-                    </span> */}
-										{/* <span>
-                      {transaction?.location ? transaction?.location : "-"}
-                    </span> */}
-										<span>
+										<span data-label='Date/Time'>
 											{transaction?.createdAt
 												? `${formatDate(transaction?.createdAt)} ${
 														transaction?.createdAt.split(' ')[1]
 												  }`
 												: '-'}
 										</span>
-										<span>
+										<span data-label='Type'>
 											<span className={`transaction-type ${transaction?.type}`}>
 												{transaction?.type
 													? transaction?.type === 'used'
@@ -322,19 +290,23 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 													: '-'}
 											</span>
 										</span>
-										<span>
+										<span data-label='Product / Service'>
 											{transaction.productName ? transaction?.productName : '-'}
 										</span>
-										<span className='price'>
-											{
-												typeof transaction?.price === 'number'
-													? `£${transaction.price.toFixed(2)}`
-													: transaction?.price
-													? `£${transaction.price}`
-													: '-' // If it's a string or not present
-											}
+										<span
+											data-label='Price'
+											className='price'
+										>
+											{typeof transaction?.price === 'number'
+												? `£${transaction.price.toFixed(2)}`
+												: transaction?.price
+												? `£${transaction.price}`
+												: '-'}
 										</span>
-										<span className='price'>
+										<span
+											data-label='Quantity'
+											className='price'
+										>
 											{transaction?.quantity ? transaction?.quantity : '-'}
 										</span>
 									</div>

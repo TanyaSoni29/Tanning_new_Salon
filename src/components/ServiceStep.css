@@ -1,8 +1,4 @@
-/**
- * General container styling remains the same
- *
- * @format
- */
+/** @format */
 
 .service-wizard-container {
 	background-color: white;
@@ -28,31 +24,6 @@
 	font-size: 14px;
 	color: #666;
 	margin-bottom: 30px;
-}
-
-/* Full-width tabs */
-.service-wizard-container .step-tabs {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 30px;
-	width: 100%;
-}
-
-.service-wizard-container .tab {
-	flex: 1;
-	padding: 15px 0;
-	background-color: #d9d9d9;
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: bold;
-	color: #333;
-	text-align: center;
-}
-
-.service-wizard-container .tab.active {
-	background-color: #0c65be;
-	color: white;
 }
 
 .service-wizard-container .service-info {
@@ -140,16 +111,17 @@
 	align-items: center;
 	justify-content: center;
 	font-size: clamp(10px, 1vw, 14px); /* Responsive font size */
-	padding: 10px; /* Add padding to make the header items more prominent */
+	padding: 10px;
+	font-size: 15px;
 }
 
-/* Transaction Table Row */
 .transaction-table-row {
 	display: grid;
-	grid-template-columns:  minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
-    120px,
-    0.8fr
-  ) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
+	grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
+		120px,
+		0.8fr
+	)
+		minmax(120px, 1.2fr) minmax(120px, 1.2fr);
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	background-color: white;
@@ -161,28 +133,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: clamp(10px, 1vw, 12px); /* Responsive font size */
+	font-size: 15px; /* Responsive font size */
 	padding: 8px;
-	font-size: 15px;
-	font-weight: 400;
+	font-weight: 500;
 }
 
-/* .transaction-table-row .price {
-  text-align: right;
-  padding-right: 10px;
-} */
-
-/* .transaction-table-row .transprice {
-  text-align: right;
-  margin-left: ;
-} */
-
-/* Row hover effect */
 .transaction-table-row:hover {
 	background-color: #f1f1f1;
 }
 
-/* Transaction type styles */
 .transaction-type {
 	font-weight: bold;
 	padding: 5px 10px;
@@ -205,38 +164,43 @@
 	color: white;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 880px) {
+/* Responsive styles for mobile view */
+@media (max-width: 768px) {
 	.service-wizard-container {
-		width: 75%;
-		margin-top: 140px;
-		margin-left: 120px;
+		width: 100%;
+		margin-left: 0;
 	}
 
-	.transaction-table-header,
+	.transaction-table-header {
+		display: none;
+	}
+
 	.transaction-table-row {
-		grid-template-columns:  minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
-			120px,
-			0.8fr
-		) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
-		font-size: clamp(8px, 1vw, 10px);
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #e0e0e0;
+		margin-bottom: 15px;
+		padding: 10px;
+	}
+
+	.transaction-table-row span {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px;
+		font-size: 14px;
+	}
+
+	.transaction-table-row span::before {
+		content: attr(data-label);
+		flex: 1;
+		font-weight: bold;
 	}
 }
 
+/* Adjustments for small devices */
 @media (max-width: 480px) {
-	.service-wizard-container {
-		width: 85%;
-		margin-top: 140px;
-		margin-left: 20px;
-	}
-
-	.transaction-table-header,
-	.transaction-table-row {
-		grid-template-columns: minmax(120px, 1fr) minmax(150px, 0.8fr) minmax(
-			120px,
-			0.8fr
-		) minmax(120px, 1.2fr) minmax(120px, 1.2fr);
-		font-size: clamp(6px, 1vw, 8px);
-		padding: 4px 8px;
+	.transaction-table-row span {
+		font-size: 12px;
 	}
 }
