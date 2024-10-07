@@ -268,7 +268,7 @@ const CustomerList = () => {
 								<span data-label='Phone'>{customer.profile?.phone_number}</span>
 								<span
 									data-label='Min. Aval.'
-									className='min-avail'
+									className='customertab'
 								>
 									{customer.profile?.available_balance}
 								</span>

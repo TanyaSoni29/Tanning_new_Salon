@@ -154,7 +154,7 @@ const ProductList = () => {
           filteredProducts.map((product) => (
             <div key={product?.id} className="products-table-row">
               <span data-label="Product Name">{product?.name}</span>
-              <span data-label="Price" className="productprice">
+              <span data-label="Price" className="productPrice">
                 £{product?.price}
               </span>
               <span data-label="Listed On">

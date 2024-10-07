@@ -108,7 +108,10 @@ const ServiceList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button' onClick={handleAdd}>
+				<button
+					className='add-button'
+					onClick={handleAdd}
+				>
 					Add New Service
 				</button>
 			</div>
@@ -120,7 +123,19 @@ const ServiceList = () => {
 						Service Name{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+								sortConfig.key === 'serviceName' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('minutesAvailable')}>
+						Minutes{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'minutesAvailable' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -136,30 +151,39 @@ const ServiceList = () => {
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('minutesAvailable')}>
-						Minutes{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'minutesAvailable' && sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
 					<span>Action</span>
 				</div>
 
 				{/* Render filtered and sorted services */}
 				{filteredServices?.length > 0 ? (
 					filteredServices.map((service) => (
-						<div key={service?.id} className='table-row'>
+						<div
+							key={service?.id}
+							className='table-row'
+						>
 							<span data-label='Service Name'>{service?.serviceName}</span>
-							<span data-label='Price' className='servicetd'>£{service?.price}</span>
-							<span data-label='Minutes' className='servicetd1'>{service?.minutesAvailable}</span>
+							<span
+								data-label='Minutes'
+								className='servicetd'
+							>
+								{service?.minutesAvailable}
+							</span>
+							<span
+								data-label='Price'
+								className='servicetd'
+							>
+								£{service?.price}
+							</span>
 							<span data-label='Action'>
 								<div className='servicelistaction'>
-									<i className='fa fa-pencil' onClick={() => handleEdit(service)}></i>
-									<i className='fa fa-trash' onClick={() => confirmDelete(service)}></i>
+									<i
+										className='fa fa-pencil'
+										onClick={() => handleEdit(service)}
+									></i>
+									<i
+										className='fa fa-trash'
+										onClick={() => confirmDelete(service)}
+									></i>
 								</div>
 							</span>
 						</div>
@@ -172,13 +196,19 @@ const ServiceList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddServiceModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isDeleteOpen && activeService && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
 					<DeleteServiceModal
 						handleDelete={handleDelete}
 						activeService={activeService}
@@ -188,8 +218,14 @@ const ServiceList = () => {
 			)}
 
 			{isEditOpen && activeService && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
-					<EditServiceModal activeService={activeService} closeEditModal={closeEditModal} />
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditServiceModal
+						activeService={activeService}
+						closeEditModal={closeEditModal}
+					/>
 				</Modal>
 			)}
 		</div>
@@ -210,7 +246,10 @@ function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
 			</div>
