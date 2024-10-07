@@ -263,7 +263,7 @@ const ServiceUsedList = ({
 						</div>
 					))
 				) : (
-					<div className='serviceused-no-data'>No transaction found.</div>
+					<div className='serviceused-no-data'>No service transaction found.</div>
 				)}
 			</div>
 		</div>

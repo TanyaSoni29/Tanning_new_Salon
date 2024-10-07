@@ -90,7 +90,13 @@ const ProductList = ({
 	}, [productTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	const handleDownloadCSV = () => {
-		const headers = ['Product Name', 'Location', 'Total Value', 'Total Sold', 'Date'];
+		const headers = [
+			'Product Name',
+			'Location',
+			'Total Value',
+			'Total Sold',
+			'Date',
+		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
@@ -165,9 +171,17 @@ const ProductList = ({
 			// Add transaction data in the respective columns
 			doc.text(transaction.product?.name, columns.productName, row);
 			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, row);
+			doc.text(
+				`£${transaction.total_price.toFixed(2)}`,
+				columns.totalValue,
+				row
+			);
 			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
-			doc.text(formatDate(transaction.last_transaction_date), columns.lastSoldOn, row);
+			doc.text(
+				formatDate(transaction.last_transaction_date),
+				columns.lastSoldOn,
+				row
+			);
 
 			// Move to the next row
 			row += lineHeight;
@@ -205,20 +219,38 @@ const ProductList = ({
 					/>
 				</div>
 				<div className='productlocation-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
 						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
+							<option
+								key={location}
+								value={location}
+							>
 								{location}
 							</option>
 						))}
 					</select>
 				</div>
 				<div className='productreportlist-files'>
-					<div className='productreportlist-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={35} style={{ color: '#28a745' }} />
+					<div
+						className='productreportlist-download'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={35}
+							style={{ color: '#28a745' }}
+						/>
 					</div>
-					<div className='productreportlist-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
+					<div
+						className='productreportlist-download'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={35}
+							style={{ color: '#dc3545' }}
+						/>
 					</div>
 				</div>
 			</div>
@@ -227,40 +259,83 @@ const ProductList = ({
 				<div className='productreportlist-table-header'>
 					<span onClick={() => handleSort('last_transaction_date')}>
 						Date{' '}
-						<i className={`fa fa-caret-${sortConfig.key === 'last_transaction_date' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'last_transaction_date' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('name')}>
 						Product Name{' '}
-						<i className={`fa fa-caret-${sortConfig.key === 'name' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'name' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('location')}>
 						Location{' '}
-						<i className={`fa fa-caret-${sortConfig.key === 'location' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'location' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('total_price')}>
 						Total Value{' '}
-						<i className={`fa fa-caret-${sortConfig.key === 'total_price' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_price' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('total_sold')}>
 						Total Sold{' '}
-						<i className={`fa fa-caret-${sortConfig.key === 'total_sold' && sortConfig.direction === 'asc' ? 'up' : 'down'}`}></i>
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'total_sold' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 				</div>
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div key={i} className='productreportlist-table-row'>
-							<span style={{ whiteSpace: 'nowrap' }} data-label="Date">
+						<div
+							key={i}
+							className='productreportlist-table-row'
+						>
+							<span
+								style={{ whiteSpace: 'nowrap' }}
+								data-label='Date'
+							>
 								{formatDate(transaction.last_transaction_date)}
 							</span>
-							<span data-label="Product Name">{transaction.product.name}</span>
-							<span data-label="Location">{transaction.location.name}</span>
-							<span data-label="Total Value">£{transaction.total_price.toFixed(2)}</span>
-							<span data-label="Total Sold">{transaction.total_sold}</span>
+							<span data-label='Product Name'>{transaction.product.name}</span>
+							<span data-label='Location'>{transaction.location.name}</span>
+							<span data-label='Total Value'>
+								£{transaction.total_price.toFixed(2)}
+							</span>
+							<span data-label='Total Sold'>{transaction.total_sold}</span>
 						</div>
 					))
 				) : (
-					<div className='productreportlist-no-data'>No transactions found.</div>
+					<div className='productreportlist-no-data'>
+						No product transactions found.
+					</div>
 				)}
 			</div>
 		</div>

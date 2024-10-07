@@ -9,16 +9,16 @@ import { formatDate } from '../../utils/formateDate';
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
 const CustomerList = ({
-	customerReportData,
+	customerReportData = [],
 	selectedLocation,
 	setSelectedLocation,
 	dateRange,
 	setDateRange,
-	getCurrentMonthRange
+	getCurrentMonthRange,
 }) => {
-	const { customers } = useSelector((state) => state.customer);
+	// const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
-	const [searchTerm, setSearchTerm] = useState('');
+	// const [searchTerm, setSearchTerm] = useState('');
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 
@@ -45,14 +45,14 @@ const CustomerList = ({
 		setSelectedLocation(e.target.value);
 	};
 
-	const isInCurrentMonth = (date) => {
-		const now = new Date();
-		const customerDate = new Date(date);
-		return (
-			now.getFullYear() === customerDate.getFullYear() &&
-			now.getMonth() === customerDate.getMonth()
-		);
-	};
+	// const isInCurrentMonth = (date) => {
+	// 	const now = new Date();
+	// 	const customerDate = new Date(date);
+	// 	return (
+	// 		now.getFullYear() === customerDate.getFullYear() &&
+	// 		now.getMonth() === customerDate.getMonth()
+	// 	);
+	// };
 
 	// Handle sorting logic
 	const handleSort = (key) => {
@@ -64,25 +64,27 @@ const CustomerList = ({
 	};
 
 	// Sort and filter the customer list
-	const filteredCustomers = customers
-		.filter((data) => {
-			const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
+	const filteredCustomers = customerReportData
+		?.filter((data) => {
+			// const isInMonth =
+			// 	!isCurrentMonth || isInCurrentMonth(data.user.created_at);
 
-			const firstName = data.profile?.firstName.toLowerCase() || '';
-			const lastName = data?.profile?.lastName?.toLowerCase() || '';
-			const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
+			// const firstName = data.profile?.firstName.toLowerCase() || '';
+			// const lastName = data?.profile?.lastName?.toLowerCase() || '';
+			// const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
 
-			const matchesSearchQuery =
-				`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-				phoneNumber.includes(searchTerm.toLowerCase());
-			const preferredLocation = locations.find(
-				(location) => location.id === data.profile?.preferred_location
-			);
+			// const matchesSearchQuery =
+			// 	`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+			// 	phoneNumber.includes(searchTerm.toLowerCase());
+			// const preferredLocation = locations.find(
+			// 	(location) => location.id === data.profile?.preferred_location
+			// );
 			const matchesLocation =
 				selectedLocation === 'All' ||
-				(preferredLocation && preferredLocation.name === selectedLocation);
+				(data?.location_name && data?.location_name === selectedLocation);
 
-			return matchesSearchQuery && matchesLocation && isInMonth;
+			// return matchesSearchQuery && matchesLocation && isInMonth;
+			return matchesLocation;
 		})
 		.sort((a, b) => {
 			if (sortConfig.key) {
@@ -102,30 +104,25 @@ const CustomerList = ({
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
-		const headers = [
-			'USER NAME',
-			'LOCATION',
-			'PHONE NUMBER',
-			'MIN AVA',
-			'TOTAL SPEND',
-			'LAST PURCHASE',
-		];
+		const headers = ['LOCATION', 'WEEK NO.', 'COUNT', 'TOTAL SPENT'];
 
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredCustomers.map((customer) => {
-				const preferredLocation = locations.find(
-					(location) => location.id === customer.profile?.preferred_location
-				);
+				// const preferredLocation = locations.find(
+				// 	(location) => location.id === customer.profile?.preferred_location
+				// );
 				const rowData = [
-					`${customer.profile?.firstName || ''} ${
-						customer.profile?.lastName || ''
-					}`,
-					preferredLocation ? preferredLocation.name : 'N/A',
-					customer.profile?.phone_number || '',
-					customer.profile?.available_balance || '0',
-					customer.total_used_minutes || '0',
-					formatDate(customer.profile?.updated_at) || 'N/A',
+					// `${customer.profile?.firstName || ''} ${
+					// 	customer.profile?.lastName || ''
+					// }`,
+					customer?.location_name ? customer?.location_name : 'N/A',
+					// customer.profile?.phone_number || '',
+					// customer.profile?.available_balance || '0',
+					customer.week_no || '0',
+					customer?.total_registered_customers || '0',
+					customer.spent || '0',
+					// formatDate(customer.profile?.updated_at) || 'N/A',
 				];
 				return rowData.join(',');
 			}),
@@ -145,12 +142,11 @@ const CustomerList = ({
 		let row = 10;
 
 		const columns = {
-			userName: margin,
-			location: margin + 35,
-			phoneNumber: margin + 65,
-			minutesAvailable: margin + 95,
-			totalSpend: margin + 135,
-			lastPurchase: margin + 165,
+			// userName: margin,
+			location_name: margin + 35,
+			week_no: margin + 65,
+			total_registered_customers: margin + 95,
+			spent: margin + 135,
 		};
 
 		doc.text('Customer List', margin, row);
@@ -158,67 +154,69 @@ const CustomerList = ({
 		row += lineHeight;
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(10);
-		doc.text('Customer Name', columns.userName, row);
-		doc.text('Location', columns.location, row);
-		doc.text('Phone', columns.phoneNumber, row);
-		doc.text('Minutes Avl', columns.minutesAvailable, row);
-		doc.text('Tot Spend', columns.totalSpend, row);
-		doc.text('Last Purchase', columns.lastPurchase, row);
+		// doc.text('Customer Name', columns.userName, row);
+		doc.text('Location', columns.location_name, row);
+		doc.text('Week No.', columns.week_no, row);
+		doc.text('Count', columns.total_registered_customers, row);
+		doc.text('Total Spent', columns.spent, row);
+		// doc.text('Last Purchase', columns.lastPurchase, row);
 
 		row += lineHeight;
 
 		doc.setFont('helvetica', 'normal');
 		filteredCustomers.forEach((customer) => {
-			const preferredLocation = locations.find(
-				(location) => location.id === customer.profile?.preferred_location
-			);
+			// const preferredLocation = locations.find(
+			// 	(location) => location.id === customer.profile?.preferred_location
+			// );
 
 			if (row >= pageHeight - lineHeight) {
 				doc.addPage();
 				row = margin;
 
-				doc.text('Customer Name', columns.userName, row);
-				doc.text('Location', columns.location, row);
-				doc.text('Phone', columns.phoneNumber, row);
-				doc.text('Minutes Avl', columns.minutesAvailable, row);
-				doc.text('Tot Spend', columns.totalSpend, row);
-				doc.text('Last Purchase', columns.lastPurchase, row);
+				// doc.text('Customer Name', columns.userName, row);
+				doc.text('Location', columns.location_name, row);
+				doc.text('Week No.', columns.week_no, row);
+				doc.text('Count', columns.total_registered_customers, row);
+				doc.text('Total Spent', columns.spent, row);
+				// doc.text('Last Purchase', columns.lastPurchase, row);
 
 				row += lineHeight;
 			}
 
+			// doc.text(
+			// 	`${customer.profile?.firstName || ''} ${
+			// 		customer.profile?.lastName || ''
+			// 	}`,
+			// 	columns.userName,
+			// 	row
+			// );
 			doc.text(
-				`${customer.profile?.firstName || ''} ${
-					customer.profile?.lastName || ''
-				}`,
-				columns.userName,
+				customer?.location_name ? customer?.location_name : 'N/A',
+				columns.location_name,
 				row
 			);
+			// doc.text(
+			// 	customer.profile?.phone_number || 'N/A',
+			// 	columns.phoneNumber,
+			// 	row
+			// );
+			// doc.text(
+			// 	`${customer.profile?.available_balance || '0'}`,
+			// 	columns.minutesAvailable,
+			// 	row
+			// );
+			doc.text(`${customer.week_no || '0'}`, columns.week_no, row);
 			doc.text(
-				preferredLocation ? preferredLocation.name : 'N/A',
-				columns.location,
+				`${customer.total_registered_customers || '0'}`,
+				columns.total_registered_customers,
 				row
 			);
-			doc.text(
-				customer.profile?.phone_number || 'N/A',
-				columns.phoneNumber,
-				row
-			);
-			doc.text(
-				`${customer.profile?.available_balance || '0'}`,
-				columns.minutesAvailable,
-				row
-			);
-			doc.text(
-				`${customer.total_used_minutes || '0'}`,
-				columns.totalSpend,
-				row
-			);
-			doc.text(
-				formatDate(customer.profile?.updated_at) || 'N/A',
-				columns.lastPurchase,
-				row
-			);
+			doc.text(`£${customer.spent?.toFixed(2) || '0.00'}`, columns.spent, row);
+			// doc.text(
+			// 	formatDate(customer.profile?.updated_at) || 'N/A',
+			// 	columns.lastPurchase,
+			// 	row
+			// );
 
 			row += lineHeight;
 		});
@@ -229,23 +227,14 @@ const CustomerList = ({
 	return (
 		<div className='allcustomer-container'>
 			<div className='filter-customer'>
-				<div className='allcustomer-search-container'>
+				{/* <div className='allcustomer-search-container'>
 					<input
 						type='text'
 						placeholder='Search'
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
-				</div>
-				<div className='allcustomer-location-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
-						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
-								{location}
-							</option>
-						))}
-					</select>
-				</div>
+				</div> */}
 				<div className='allcustomer-date-range-inputs'>
 					<input
 						type='date'
@@ -262,20 +251,47 @@ const CustomerList = ({
 						onChange={handleDateRangeChange}
 					/>
 				</div>
+				<div className='allcustomer-location-select'>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
+						{uniqueLocations.map((location) => (
+							<option
+								key={location}
+								value={location}
+							>
+								{location}
+							</option>
+						))}
+					</select>
+				</div>
 
 				<div className='allcustomer-files'>
-					<div className='allcustomer-icon' onClick={handleDownloadCSV}>
-						<FaFileCsv size={35} style={{ color: '#28a745' }} />
+					<div
+						className='allcustomer-icon'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={35}
+							style={{ color: '#28a745' }}
+						/>
 					</div>
-					<div className='allcustomer-icon' onClick={handleDownloadPDF}>
-						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
+					<div
+						className='allcustomer-icon'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={35}
+							style={{ color: '#dc3545' }}
+						/>
 					</div>
 				</div>
 			</div>
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
-					<span onClick={() => handleSort('firstName')}>
+					{/* <span onClick={() => handleSort('firstName')}>
 						Customers Name{' '}
 						<i
 							className={`fa fa-caret-${
@@ -284,95 +300,102 @@ const CustomerList = ({
 									: 'down'
 							}`}
 						></i>
-					</span>
-					<span onClick={() => handleSort('preferred_location')}>
+					</span> */}
+					<span onClick={() => handleSort('location_name')}>
 						Location{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'preferred_location' &&
+								sortConfig.key === 'location_name' &&
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('phone_number')}>
-						Phone Number{' '}
+					<span onClick={() => handleSort('week_no')}>
+						Week No.{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'phone_number' && sortConfig.direction === 'asc'
+								sortConfig.key === 'week_no' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('available_balance')}>
-						Min. Avail.{' '}
+					<span onClick={() => handleSort('total_registered_customers')}>
+						Count{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'available_balance' &&
-								sortConfig.direction === 'asc'
+								sortConfig.key === 'count' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('total_service_purchased_price')}>
+					<span onClick={() => handleSort('spent')}>
 						Total Spent{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_service_purchased_price' &&
+								sortConfig.key === 'spent' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					{/* <span onClick={() => handleSort('created_at')}>
+						Register On{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'created_at' &&
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
 						></i>
-					</span>
-					<span onClick={() => handleSort('created_at')}>
-						Register On{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'created_at' && sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
+					</span> */}
 				</div>
 
 				{filteredCustomers.length > 0 ? (
-					filteredCustomers.map((customer) => {
-						const preferredLocation = locations.find(
+					filteredCustomers.map((customer, i) => {
+						{
+							/* const preferredLocation = locations.find(
 							(location) => location.id === customer.profile?.preferred_location
-						);
+						); */
+						}
 						return (
 							<div
-								key={customer.user.id}
+								key={i}
 								className='allcustomer-table-row'
 							>
-								<span data-label='Customer Name'>
+								{/* <span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
-								</span>
+								</span> */}
 								<span data-label='Location'>
-									{preferredLocation ? preferredLocation.name : 'N/A'}
+									{customer?.location_name !== 'All'
+										? customer?.location_name
+										: '-'}
 								</span>
-								<span data-label='Phone Number'>
-									{customer.profile?.phone_number}
+								<span data-label='Week No.'>{customer?.week_no || '-'}</span>
+								<span
+									data-label='Count'
+									className='customerregtb'
+								>
+									{customer?.total_registered_customers || '-'}
 								</span>
-								<span data-label='Min. Avail.' className='customerregtb'>
-									{customer.profile?.available_balance}
+								<span
+									data-label='Total Spent'
+									className='customerregtb'
+								>
+									£{customer?.spent?.toFixed(2) || '0.00'}
 								</span>
-								<span data-label='Total Spent' className='customerregtb'>
-									£{customer?.total_service_purchased_price?.toFixed(2)}
-								</span>
-								<span data-label='Register On'>
+								{/* <span data-label='Register On'>
 									{formatDate(customer.profile?.created_at)}
-								</span>
+								</span> */}
 							</div>
 						);
 					})
 				) : (
-					<div className='allcustomer-no-data'>No customers found.</div>
+					<div className='allcustomer-no-data'>No Data found.</div>
 				)}
 			</div>
 		</div>
