@@ -47,11 +47,11 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 							className='Buyproducts-table-row'
 						>
 							<span className='Buyproduct-name'>
-								<img
+								{/* <img
 									src={product?.image ? product?.image : ''}
 									alt={product.name}
 									className='Buyproduct-image'
-								/>
+								/> */}
 								{product?.name}
 							</span>
 							<span>£{product?.price}</span>
