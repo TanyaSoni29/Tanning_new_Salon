@@ -165,7 +165,7 @@ const CustomerList = ({
 
 			// Center the text inside the cell horizontally and vertically
 			const textWidth = doc.getTextWidth(text);
-			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textX = currentX + colWidth / 2 - textWidth / 2; // Center horizontally
 			const textY = y + (isHeader ? 18 : 15); // Adjust vertically for headers
 			doc.text(text, textX, textY); // Draw the text
 
@@ -288,7 +288,12 @@ const CustomerList = ({
 										? customer?.location_name
 										: '-'}
 								</span>
-								<span data-label='Week No.'>{customer?.week_no || '-'}</span>
+								<span
+									data-label='Week No.'
+									className='customerregtb'
+								>
+									{customer?.week_no || '-'}
+								</span>
 								<span
 									data-label='Count'
 									className='customerregtb'

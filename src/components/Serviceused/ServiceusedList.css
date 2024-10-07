@@ -112,6 +112,11 @@
 	color: #666;
 }
 
+.totalUse {
+	display: flex;
+	justify-content: end;
+}
+
 /* Responsive Layout for Tablets and Mobile */
 @media (max-width: 768px) {
 	.serviceused-container {
@@ -135,7 +140,7 @@
 	.date-range {
 		margin: 10px 0px;
 	}
-     
+
 	.date-range input {
 		margin-left: 1px;
 		padding: 6px;
@@ -183,6 +188,11 @@
 	.serviceused-table {
 		width: 100%;
 		overflow-x: hidden; /* Remove horizontal scrolling */
+	}
+
+	.totalUse {
+		display: flex;
+		justify-content: space-between;
 	}
 }
 

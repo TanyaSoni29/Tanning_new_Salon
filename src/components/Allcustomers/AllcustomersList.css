@@ -81,7 +81,7 @@
 .allcustomer-table-header,
 .allcustomer-table-row {
 	display: grid;
-	grid-template-columns: 1.5fr 1.5fr 1.5fr 0.7fr;
+	grid-template-columns: 1.5fr 1.5fr 1.5fr 1.5fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
@@ -107,8 +107,10 @@
 	font-size: 18px;
 	color: #666;
 }
-.customerregtb{
-	margin-left: 65px;
+.customerregtb {
+	display: flex;
+	justify-content: end;
+	width: 40%;
 }
 
 /* Mobile View */
@@ -162,8 +164,10 @@
 	.allcustomer-table-row .fa {
 		margin-right: 10px;
 	}
-	.customerregtb{
-		margin-left: 0px;
+	.customerregtb {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
 	}
 }
 
@@ -187,7 +191,7 @@
 
 	.allcustomer-table-header,
 	.allcustomer-table-row {
-		grid-template-columns: 1fr 0.9fr 1fr 1.2fr;
+		grid-template-columns: 1fr 0.9fr 1fr 1fr;
 		min-width: 500px;
 	}
 

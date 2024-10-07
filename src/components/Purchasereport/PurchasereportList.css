@@ -118,8 +118,10 @@
 	font-size: 18px;
 	color: #666;
 }
-.purchasevalu{
-	margin-left: 65px;
+.purchasevalu {
+	display: flex;
+	justify-content: end;
+	width: 70%;
 }
 
 /* Responsive Layout for Tablet */
@@ -207,8 +209,10 @@
 		width: 100%;
 		overflow-x: hidden;
 	}
-	.purchasevalu{
-		margin-left: 0px;
+	.purchasevalu {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
 	}
 }
 
