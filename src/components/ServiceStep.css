@@ -166,6 +166,11 @@
 .tbprice{
 	margin-left: 85px;
 }
+.sort-icon {
+	margin-left: 1px;
+	cursor: pointer;
+  }
+  
 
 /* Responsive styles for mobile view */
 @media (max-width: 768px) {
