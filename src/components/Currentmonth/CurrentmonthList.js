@@ -61,69 +61,12 @@ const CustomerList = () => {
 		setSelectedLocation(e.target.value);
 	};
 
-	const isInCurrentMonth = (date) => {
-		const now = new Date();
-		const customerDate = new Date(date);
-		return (
-			now.getFullYear() === customerDate.getFullYear() &&
-			now.getMonth() === customerDate.getMonth()
-		);
-	};
-
-	const handleToggleChange = (toggle) => {
-		if (toggle === 'spend') {
-			setIsBySpend(!isBySpend);
-			if (!isBySpend) {
-				setIsMinUsed(false);
-				setIsBySale(false);
-			}
-		} else if (toggle === 'minutes') {
-			setIsMinUsed(!isMinUsed);
-			if (!isMinUsed) {
-				setIsBySpend(false);
-				setIsBySale(false);
-			}
-		} else if (toggle === 'sales') {
-			setIsBySale(!isBySale);
-			if (!isBySale) {
-				setIsBySpend(false);
-				setIsMinUsed(false);
-			}
-		}
-	};
-
 	const handleSort = (key) => {
 		let direction = 'asc';
 		if (sortConfig.key === key && sortConfig.direction === 'asc') {
 			direction = 'desc';
 		}
 		setSortConfig({ key, direction });
-	};
-
-	const sortCustomers = (customers) => {
-		// If all toggles are off, return the customers as is
-		if (!isBySpend && !isMinUsed && !isBySale) {
-			return customers;
-		}
-
-		// Sort based on toggles
-		return customers.sort((a, b) => {
-			if (isBySpend) {
-				// Sort by total spend
-				return (
-					b.total_service_purchased_price - a.total_service_purchased_price
-				);
-			} else if (isMinUsed) {
-				// Sort by total minutes used
-				return b.total_used_minutes - a.total_used_minutes;
-			} else if (isBySale) {
-				// Sort by total sales
-				return (
-					b.total_product_purchased_price - a.total_product_purchased_price
-				);
-			}
-			return 0;
-		});
 	};
 
 	const filteredCustomers = customers.filter((data) => {
@@ -133,8 +76,6 @@ const CustomerList = () => {
 				? CustomerDate >= dateRange.startDate &&
 				  CustomerDate <= dateRange.endDate
 				: true;
-
-		const isInMonth = !isCurrentMonth || isInCurrentMonth(data.user.created_at);
 
 		const firstName = data.profile?.firstName.toLowerCase() || '';
 		const lastName = data?.profile?.lastName?.toLowerCase() || '';
@@ -150,7 +91,7 @@ const CustomerList = () => {
 			selectedLocation === 'All' ||
 			(preferredLocation && preferredLocation.name === selectedLocation);
 
-		return isInDateRange && matchesSearchQuery && matchesLocation && isInMonth;
+		return isInDateRange && matchesSearchQuery && matchesLocation;
 	});
 
 	const sortedCustomers = filteredCustomers.sort((a, b) => {
@@ -172,12 +113,14 @@ const CustomerList = () => {
 	// Function to download CSV
 	const handleDownloadCSV = () => {
 		const headers = [
-			'USER NAME',
-			'LOCATION',
-			'PHONE NUMBER',
-			'MIN AVA',
-			'TOTAL SPEND',
-			'LAST PURCHASE',
+			'Customer Name',
+			'Phone Number',
+			'Location',
+			'Min Available',
+			'Total Min',
+			'Total Spent',
+			'Total Sales',
+			'Last Purchase',
 		];
 
 		// Generating the CSV content
@@ -191,10 +134,12 @@ const CustomerList = () => {
 					`${customer.profile?.firstName || ''} ${
 						customer.profile?.lastName || ''
 					}`,
-					preferredLocation ? preferredLocation.name : 'N/A',
 					customer.profile?.phone_number || '',
+					preferredLocation ? preferredLocation.name : 'N/A',
 					customer.profile?.available_balance || '0',
 					customer.total_used_minutes || '0',
+					`£${customer.total_service_purchased_price?.toFixed(2)}` || '£0.00',
+					`£${customer.total_product_purchased_price?.toFixed(2)}` || '£0.00',
 					formatDate(customer.profile?.updated_at) || 'N/A',
 				];
 				return rowData.join(',');
@@ -208,101 +153,100 @@ const CustomerList = () => {
 
 	// Function to download PDF
 	const handleDownloadPDF = () => {
-		const doc = new jsPDF();
-		const pageWidth = doc.internal.pageSize.width; // Get page width
-		const pageHeight = doc.internal.pageSize.height; // Get page height
-		const margin = 10; // Left and right margins
-		const lineHeight = 10; // Adjust line height
-		let row = 10; // Start y-position for the content
+		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points
+		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
+		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
+		const margin = 40; // Set margin for the document
+		const rowHeight = 20; // Set row height for table rows
+		const cellPadding = 5; // Padding inside each cell
+		let currentY = margin + 30; // Starting y-position for content
 
-		// Adjust column positions for better spacing (adjusted widths to fit within the page)
-		const columns = {
-			userName: margin, // Start at the left margin
-			location: margin + 35, // 35 units after the user name column
-			phoneNumber: margin + 65, // 50 units after location
-			minutesAvailable: margin + 95, // 50 units after phone number
-			totalSpend: margin + 135, // 40 units after minutes available
-			lastPurchase: margin + 165, // 40 units after total spend (adjust to fit the page)
-		};
+		// Define column widths and positions
+		const colWidths = [120, 100, 100, 80, 80, 80, 80, 100]; // Widths for the columns
 
-		// Title of the document
-		doc.text('Customer List', margin, row);
-
-		// Add headers for the table
-		row += lineHeight;
+		// Set title
 		doc.setFont('helvetica', 'bold');
-		doc.setFontSize(10);
-		doc.text('Customer Name', columns.userName, row);
-		doc.text('Location', columns.location, row);
-		doc.text('Phone', columns.phoneNumber, row);
-		doc.text('Minutes Avl', columns.minutesAvailable, row);
-		doc.text('Tot Spend', columns.totalSpend, row);
-		doc.text('Last Purchase', columns.lastPurchase, row); // Last Purchase header added
+		doc.setFontSize(18);
+		doc.text('Customer Report', pageWidth / 2, margin, { align: 'center' });
 
-		// Move to the next row
-		row += lineHeight;
+		// Table headers
+		const headers = [
+			'Customer Name',
+			'Phone Number',
+			'Location',
+			'Min Available',
+			'Total Min',
+			'Total Spent',
+			'Total Sales',
+			'Last Purchase',
+		];
+		doc.setFontSize(12);
+		doc.setFont('helvetica', 'bold');
+		drawTableRow(doc, headers, currentY, colWidths);
+		currentY += rowHeight;
 
+		// Reset font for table data
 		doc.setFont('helvetica', 'normal');
+
+		// Loop through filtered transactions and add each row
 		sortedCustomers.forEach((customer) => {
-			const preferredLocation = locations.find(
-				(location) => location.id === customer.profile?.preferred_location
-			);
-
-			// Check if we need to add a new page
-			if (row >= pageHeight - lineHeight) {
-				doc.addPage(); // Add a new page
-				row = margin; // Reset the row height for the new page
-
-				// Re-add table headers to the new page
-				doc.text('Customer Name', columns.userName, row);
-				doc.text('Location', columns.location, row);
-				doc.text('Phone', columns.phoneNumber, row);
-				doc.text('Minutes Avl', columns.minutesAvailable, row);
-				doc.text('Tot Spend', columns.totalSpend, row);
-				doc.text('Last Purchase', columns.lastPurchase, row);
-
-				row += lineHeight;
-			}
-
-			// Add the customer data
-			doc.text(
+			const row = [
 				`${customer.profile?.firstName || ''} ${
 					customer.profile?.lastName || ''
 				}`,
-				columns.userName,
-				row
-			);
-			doc.text(
-				preferredLocation ? preferredLocation.name : 'N/A',
-				columns.location,
-				row
-			);
-			doc.text(
 				customer.profile?.phone_number || 'N/A',
-				columns.phoneNumber,
-				row
-			);
-			doc.text(
+				locations.find(
+					(location) => location.id === customer.profile?.preferred_location
+				)?.name || 'N/A',
 				`${customer.profile?.available_balance || '0'}`,
-				columns.minutesAvailable,
-				row
-			);
-			doc.text(
 				`${customer.total_used_minutes || '0'}`,
-				columns.totalSpend,
-				row
-			);
-			doc.text(
+				`£${customer.total_service_purchased_price?.toFixed(2)}`,
+				`£${customer.total_product_purchased_price?.toFixed(2)}`,
 				formatDate(customer.profile?.updated_at) || 'N/A',
-				columns.lastPurchase,
-				row
-			); // Last purchase data added
+			];
 
-			// Move to the next row
-			row += lineHeight;
+			// Check if adding new row exceeds the page height, and if so, add a new page
+			if (currentY + rowHeight > pageHeight - margin) {
+				doc.addPage(); // Add new page
+				currentY = margin + 30; // Reset row for new page
+
+				// Re-add the table headers on the new page
+				doc.setFont('helvetica', 'bold');
+				drawTableRow(doc, headers, currentY, colWidths);
+				currentY += rowHeight;
+				doc.setFont('helvetica', 'normal');
+			}
+
+			// Draw the current row
+			drawTableRow(doc, row, currentY, colWidths);
+			currentY += rowHeight;
 		});
 
-		doc.save('Customers.pdf');
+		doc.save('Customers.pdf'); // Save the generated PDF
+	};
+
+	// Function to draw a single row with borders and centered text
+	const drawTableRow = (doc, rowData, y, colWidths) => {
+		const startX = 40; // Left margin for the table
+		let currentX = startX;
+
+		rowData.forEach((data, index) => {
+			const colWidth = colWidths[index];
+
+			// Convert the data to a string to avoid errors
+			const text = String(data);
+
+			// Draw the cell borders
+			doc.rect(currentX, y, colWidth, 20); // Draw the rectangle for each cell
+
+			// Center the text inside the cell horizontally and vertically
+			const textWidth = doc.getTextWidth(text);
+			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textY = y + 15; // Center vertically within the cell
+			doc.text(text, textX, textY); // Draw the text
+
+			currentX += colWidth; // Move to the next column
+		});
 	};
 
 	return (
@@ -353,51 +297,6 @@ const CustomerList = () => {
 						onChange={handleDateRangeChange}
 					/>
 				</div>
-				<div className='toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
-							checked={isCurrentMonth}
-							onChange={(e) => setIsCurrentMonth(e.target.checked)}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>Current Month</span>
-				</div>
-				<div className='toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
-							checked={isMinUsed}
-							onChange={() => handleToggleChange('minutes')}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>By Minutes Used</span>
-				</div>
-				<div className='toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
-							checked={isBySpend}
-							onChange={() => handleToggleChange('spend')}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>By Spend</span>
-				</div>
-				<div className='toggle-container'>
-					<label className='switch'>
-						<input
-							type='checkbox'
-							checked={isBySale}
-							onChange={() => handleToggleChange('sales')}
-						/>
-						<span className='slider round'></span>
-					</label>
-					<span>By Sales</span>
-				</div>
-
 				<div className='currentmon-files'>
 					<div
 						className='currentmon-icon'

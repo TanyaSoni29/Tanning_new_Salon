@@ -25,6 +25,7 @@ const ProductList = ({
 
 	const { locations } = useSelector((state) => state.location);
 
+	// Extract unique locations for dropdown
 	const uniqueLocations = useMemo(
 		() => ['All', ...new Set(locations.map((location) => location.name))],
 		[locations]
@@ -89,6 +90,7 @@ const ProductList = ({
 		return sortedData;
 	}, [productTransaction, searchTerm, selectedLocation, sortConfig]);
 
+	// Download CSV
 	const handleDownloadCSV = () => {
 		const headers = [
 			'Product Name',
@@ -114,80 +116,85 @@ const ProductList = ({
 		saveAs(blob, 'product-purchase.csv');
 	};
 
+	// Download PDF with proper formatting and gridlines
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points
 		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
 		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
-		const margin = 10; // Set margin for the document
-		const lineHeight = 20; // Set line height for table rows
-		const headerHeight = 30; // Height for the header
-		let row = margin + headerHeight; // Starting y-position for content
+		const margin = 40; // Set margin for the document
+		const rowHeight = 20; // Set row height for table rows
+		let currentY = margin + 30; // Starting y-position for content
 
-		// Define the column positions to fit within the page width
-		const columns = {
-			productName: margin,
-			location: margin + 180,
-			totalValue: margin + 320,
-			totalSold: margin + 440,
-			lastSoldOn: margin + 520,
-		};
+		// Define column widths and positions
+		const colWidths = [140, 120, 100, 80, 100]; // Widths for Product Name, Location, Total Value, Total Sold, Date
 
+		// Set title
+		doc.setFont('helvetica', 'bold');
+		doc.setFontSize(18);
+		doc.text('Product Purchase Report', pageWidth / 2, margin, { align: 'center' });
+
+		// Table headers
+		const headers = ['Product Name', 'Location', 'Total Value', 'Total Sold', 'Date'];
 		doc.setFontSize(12);
 		doc.setFont('helvetica', 'bold');
-		doc.text('Product Purchase Report', margin, margin); // Title at the top
-
-		// Add table headers
-		doc.setFontSize(10);
-		doc.text('Product Name', columns.productName, row);
-		doc.text('Location', columns.location, row);
-		doc.text('Total Value', columns.totalValue, row);
-		doc.text('Total Sold', columns.totalSold, row);
-		doc.text('Date', columns.lastSoldOn, row);
-
-		// Move to the next row for table data
-		row += lineHeight;
+		drawTableRow(doc, headers, currentY, colWidths);
+		currentY += rowHeight;
 
 		// Reset font for table data
 		doc.setFont('helvetica', 'normal');
 
 		// Loop through filtered transactions and add each row
 		filteredTransaction.forEach((transaction) => {
+			const row = [
+				transaction.product?.name,
+				transaction.location?.name || 'N/A',
+				`£${transaction.total_price.toFixed(2)}`,
+				transaction.total_sold.toString(),
+				formatDate(transaction.last_transaction_date),
+			];
+
 			// Check if adding new row exceeds the page height, and if so, add a new page
-			if (row + lineHeight > pageHeight - margin) {
+			if (currentY + rowHeight > pageHeight - margin) {
 				doc.addPage(); // Add new page
-				row = margin + headerHeight; // Reset row for new page
+				currentY = margin + 30; // Reset row for new page
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('Product Name', columns.productName, row);
-				doc.text('Location', columns.location, row);
-				doc.text('Total Value', columns.totalValue, row);
-				doc.text('Total Sold', columns.totalSold, row);
-				doc.text('Date', columns.lastSoldOn, row);
-				row += lineHeight;
+				drawTableRow(doc, headers, currentY, colWidths);
+				currentY += rowHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
-			// Add transaction data in the respective columns
-			doc.text(transaction.product?.name, columns.productName, row);
-			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(
-				`£${transaction.total_price.toFixed(2)}`,
-				columns.totalValue,
-				row
-			);
-			doc.text(`${transaction.total_sold}`, columns.totalSold, row);
-			doc.text(
-				formatDate(transaction.last_transaction_date),
-				columns.lastSoldOn,
-				row
-			);
-
-			// Move to the next row
-			row += lineHeight;
+			// Draw the current row
+			drawTableRow(doc, row, currentY, colWidths);
+			currentY += rowHeight;
 		});
 
 		doc.save('product-purchase.pdf'); // Save the generated PDF
+	};
+
+	// Function to draw a single row with borders
+	const drawTableRow = (doc, rowData, y, colWidths) => {
+		const startX = 40; // Left margin for the table
+		let currentX = startX;
+
+		rowData.forEach((data, index) => {
+			const colWidth = colWidths[index];
+
+			// Convert the data to a string to avoid errors
+			const text = String(data);
+
+			// Draw the cell borders
+			doc.rect(currentX, y, colWidth, 20); // Draw the rectangle for each cell
+			
+			// Center the text inside the cell horizontally and vertically
+			const textWidth = doc.getTextWidth(text);
+			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textY = y + 15; // Center vertically within the cell
+			doc.text(text, textX, textY); // Draw the text
+
+			currentX += colWidth; // Move to the next column
+		});
 	};
 
 	return (

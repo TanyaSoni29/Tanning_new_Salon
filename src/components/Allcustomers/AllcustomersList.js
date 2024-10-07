@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import './AllcustomersList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
-import { formatDate } from '../../utils/formateDate';
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 
 const CustomerList = ({
@@ -16,9 +15,7 @@ const CustomerList = ({
 	setDateRange,
 	getCurrentMonthRange,
 }) => {
-	// const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
-	// const [searchTerm, setSearchTerm] = useState('');
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 
@@ -45,15 +42,6 @@ const CustomerList = ({
 		setSelectedLocation(e.target.value);
 	};
 
-	// const isInCurrentMonth = (date) => {
-	// 	const now = new Date();
-	// 	const customerDate = new Date(date);
-	// 	return (
-	// 		now.getFullYear() === customerDate.getFullYear() &&
-	// 		now.getMonth() === customerDate.getMonth()
-	// 	);
-	// };
-
 	// Handle sorting logic
 	const handleSort = (key) => {
 		let direction = 'asc';
@@ -66,30 +54,15 @@ const CustomerList = ({
 	// Sort and filter the customer list
 	const filteredCustomers = customerReportData
 		?.filter((data) => {
-			// const isInMonth =
-			// 	!isCurrentMonth || isInCurrentMonth(data.user.created_at);
-
-			// const firstName = data.profile?.firstName.toLowerCase() || '';
-			// const lastName = data?.profile?.lastName?.toLowerCase() || '';
-			// const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
-
-			// const matchesSearchQuery =
-			// 	`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-			// 	phoneNumber.includes(searchTerm.toLowerCase());
-			// const preferredLocation = locations.find(
-			// 	(location) => location.id === data.profile?.preferred_location
-			// );
 			const matchesLocation =
 				selectedLocation === 'All' ||
 				(data?.location_name && data?.location_name === selectedLocation);
-
-			// return matchesSearchQuery && matchesLocation && isInMonth;
 			return matchesLocation;
 		})
 		.sort((a, b) => {
 			if (sortConfig.key) {
-				const aValue = a.profile[sortConfig.key] || a[sortConfig.key] || '';
-				const bValue = b.profile[sortConfig.key] || b[sortConfig.key] || '';
+				const aValue = a[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || '';
 
 				if (aValue < bValue) {
 					return sortConfig.direction === 'asc' ? -1 : 1;
@@ -109,20 +82,11 @@ const CustomerList = ({
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredCustomers.map((customer) => {
-				// const preferredLocation = locations.find(
-				// 	(location) => location.id === customer.profile?.preferred_location
-				// );
 				const rowData = [
-					// `${customer.profile?.firstName || ''} ${
-					// 	customer.profile?.lastName || ''
-					// }`,
 					customer?.location_name ? customer?.location_name : 'N/A',
-					// customer.profile?.phone_number || '',
-					// customer.profile?.available_balance || '0',
 					customer.week_no || '0',
 					customer?.total_registered_customers || '0',
-					customer.spent || '0',
-					// formatDate(customer.profile?.updated_at) || 'N/A',
+					customer.spent ? `£${customer.spent.toFixed(2)}` : '£0.00',
 				];
 				return rowData.join(',');
 			}),
@@ -134,107 +98,84 @@ const CustomerList = ({
 
 	// Function to download PDF
 	const handleDownloadPDF = () => {
-		const doc = new jsPDF();
-		const pageWidth = doc.internal.pageSize.width;
-		const pageHeight = doc.internal.pageSize.height;
-		const margin = 10;
-		const lineHeight = 10;
-		let row = 10;
+		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points
+		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
+		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
+		const margin = 40; // Set margin for the document
+		const rowHeight = 25; // Set row height for table rows
+		const headerHeight = 30; // Set the height for the header
+		const colWidths = [140, 80, 80, 120]; // Widths for each column (Location, Week No., Count, Total Spent)
+		let currentY = margin + headerHeight; // Start position for the content
 
-		const columns = {
-			// userName: margin,
-			location_name: margin + 35,
-			week_no: margin + 65,
-			total_registered_customers: margin + 95,
-			spent: margin + 135,
-		};
-
-		doc.text('Customer List', margin, row);
-
-		row += lineHeight;
+		// Set title
 		doc.setFont('helvetica', 'bold');
-		doc.setFontSize(10);
-		// doc.text('Customer Name', columns.userName, row);
-		doc.text('Location', columns.location_name, row);
-		doc.text('Week No.', columns.week_no, row);
-		doc.text('Count', columns.total_registered_customers, row);
-		doc.text('Total Spent', columns.spent, row);
-		// doc.text('Last Purchase', columns.lastPurchase, row);
+		doc.setFontSize(18);
+		doc.text('Customer Report', pageWidth / 2, margin, { align: 'center' });
 
-		row += lineHeight;
+		// Define headers and draw them
+		const headers = ['Location', 'Week No.', 'Count', 'Total Spent'];
+		doc.setFontSize(12);
+		doc.setFont('helvetica', 'bold');
+		drawTableRow(doc, headers, currentY, colWidths, true);
+		currentY += rowHeight;
 
+		// Reset font for table data
 		doc.setFont('helvetica', 'normal');
+
+		// Loop through filtered customers and add each row
 		filteredCustomers.forEach((customer) => {
-			// const preferredLocation = locations.find(
-			// 	(location) => location.id === customer.profile?.preferred_location
-			// );
+			const row = [
+				customer?.location_name ? customer?.location_name : 'N/A',
+				customer.week_no || '0',
+				customer.total_registered_customers || '0',
+				customer.spent ? `£${customer.spent.toFixed(2)}` : '£0.00',
+			];
 
-			if (row >= pageHeight - lineHeight) {
-				doc.addPage();
-				row = margin;
-
-				// doc.text('Customer Name', columns.userName, row);
-				doc.text('Location', columns.location_name, row);
-				doc.text('Week No.', columns.week_no, row);
-				doc.text('Count', columns.total_registered_customers, row);
-				doc.text('Total Spent', columns.spent, row);
-				// doc.text('Last Purchase', columns.lastPurchase, row);
-
-				row += lineHeight;
+			// Check if adding the new row will exceed the page height
+			if (currentY + rowHeight > pageHeight - margin) {
+				doc.addPage(); // Add a new page
+				currentY = margin + headerHeight; // Reset position for new page
+				// Redraw table headers on the new page
+				doc.setFont('helvetica', 'bold');
+				drawTableRow(doc, headers, currentY, colWidths, true);
+				currentY += rowHeight;
+				doc.setFont('helvetica', 'normal'); // Reset font
 			}
 
-			// doc.text(
-			// 	`${customer.profile?.firstName || ''} ${
-			// 		customer.profile?.lastName || ''
-			// 	}`,
-			// 	columns.userName,
-			// 	row
-			// );
-			doc.text(
-				customer?.location_name ? customer?.location_name : 'N/A',
-				columns.location_name,
-				row
-			);
-			// doc.text(
-			// 	customer.profile?.phone_number || 'N/A',
-			// 	columns.phoneNumber,
-			// 	row
-			// );
-			// doc.text(
-			// 	`${customer.profile?.available_balance || '0'}`,
-			// 	columns.minutesAvailable,
-			// 	row
-			// );
-			doc.text(`${customer.week_no || '0'}`, columns.week_no, row);
-			doc.text(
-				`${customer.total_registered_customers || '0'}`,
-				columns.total_registered_customers,
-				row
-			);
-			doc.text(`£${customer.spent?.toFixed(2) || '0.00'}`, columns.spent, row);
-			// doc.text(
-			// 	formatDate(customer.profile?.updated_at) || 'N/A',
-			// 	columns.lastPurchase,
-			// 	row
-			// );
-
-			row += lineHeight;
+			// Draw the row
+			drawTableRow(doc, row, currentY, colWidths);
+			currentY += rowHeight;
 		});
 
+		// Save the PDF
 		doc.save('Customers.pdf');
+	};
+
+	// Function to draw a single row with borders and centered text
+	const drawTableRow = (doc, rowData, y, colWidths, isHeader = false) => {
+		const startX = 40; // Left margin for the table
+		let currentX = startX;
+
+		rowData.forEach((data, index) => {
+			const colWidth = colWidths[index];
+			const text = String(data);
+
+			// Draw the cell borders
+			doc.rect(currentX, y, colWidth, 25); // Draw the rectangle for each cell
+
+			// Center the text inside the cell horizontally and vertically
+			const textWidth = doc.getTextWidth(text);
+			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textY = y + (isHeader ? 18 : 15); // Adjust vertically for headers
+			doc.text(text, textX, textY); // Draw the text
+
+			currentX += colWidth; // Move to the next column
+		});
 	};
 
 	return (
 		<div className='allcustomer-container'>
 			<div className='filter-customer'>
-				{/* <div className='allcustomer-search-container'>
-					<input
-						type='text'
-						placeholder='Search'
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-					/>
-				</div> */}
 				<div className='allcustomer-date-range-inputs'>
 					<input
 						type='date'
@@ -291,16 +232,6 @@ const CustomerList = ({
 
 			<div className='allcustomer-table'>
 				<div className='allcustomer-table-header'>
-					{/* <span onClick={() => handleSort('firstName')}>
-						Customers Name{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span> */}
 					<span onClick={() => handleSort('location_name')}>
 						Location{' '}
 						<i
@@ -326,7 +257,8 @@ const CustomerList = ({
 						Count{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'count' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_registered_customers' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -342,34 +274,15 @@ const CustomerList = ({
 							}`}
 						></i>
 					</span>
-					{/* <span onClick={() => handleSort('created_at')}>
-						Register On{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'created_at' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span> */}
 				</div>
 
 				{filteredCustomers.length > 0 ? (
 					filteredCustomers.map((customer, i) => {
-						{
-							/* const preferredLocation = locations.find(
-							(location) => location.id === customer.profile?.preferred_location
-						); */
-						}
 						return (
 							<div
 								key={i}
 								className='allcustomer-table-row'
 							>
-								{/* <span data-label='Customer Name'>
-									{customer.profile?.firstName} {customer.profile?.lastName}
-								</span> */}
 								<span data-label='Location'>
 									{customer?.location_name !== 'All'
 										? customer?.location_name
@@ -388,9 +301,6 @@ const CustomerList = ({
 								>
 									£{customer?.spent?.toFixed(2) || '0.00'}
 								</span>
-								{/* <span data-label='Register On'>
-									{formatDate(customer.profile?.created_at)}
-								</span> */}
 							</div>
 						);
 					})

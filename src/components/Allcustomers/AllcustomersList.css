@@ -81,7 +81,7 @@
 .allcustomer-table-header,
 .allcustomer-table-row {
 	display: grid;
-	grid-template-columns: 1.3fr 1.3fr 1.3fr 1fr;
+	grid-template-columns: 1.5fr 1.5fr 1.5fr 0.7fr;
 	padding: 12px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	box-sizing: border-box;
