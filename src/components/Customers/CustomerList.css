@@ -1,4 +1,9 @@
-/* Desktop View */
+/**
+ * Desktop View
+ *
+ * @format
+ */
+
 .customer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -107,8 +112,14 @@
 	margin: 0 10px;
 	cursor: pointer;
 }
-.customertab{
-	display: inline-block;
+.customertab {
+	margin-right: 55px;
+	display: flex;
+	justify-content: end;
+}
+.min-avail {
+	display: flex;
+	justify-content: center;
 }
 
 .no-data {
@@ -169,9 +180,11 @@
 		margin-right: 10px;
 	}
 
-	.customertab{
-	display: inline-block;
-}
+	.customertab {
+		margin-left: 0px;
+		display: none;
+		width: 100%;
+	}
 }
 
 /* Mobile Extra Small View */

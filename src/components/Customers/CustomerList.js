@@ -266,16 +266,15 @@ const CustomerList = () => {
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
 								<span data-label='Phone'>{customer.profile?.phone_number}</span>
-								<span data-label='Min. Aval.'>
+								<span
+									data-label='Min. Aval.'
+									className='min-avail'
+								>
 									{customer.profile?.available_balance}
 								</span>
 								<span
 									data-label='Total Spent'
-									style={{
-										display: 'inline-block',
-										width: isMobile ? '100%' : '50%', // 100% width if mobile, otherwise 50%
-										textAlign: isMobile ? 'left' : 'right', // Align left on mobile, right otherwise
-									}}
+									className='customertab'
 								>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
