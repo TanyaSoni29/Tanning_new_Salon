@@ -83,15 +83,15 @@ const ServiceUsedList = ({
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
-		const headers = ['Service Name', 'Location', 'Total Usage', 'Last Used'];
+		const headers = ['Date', 'Service Name', 'Location', 'Total Usage'];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
-					data.serviceName,
-					data.total_quantity,
-					data.location?.name || 'N/A',
-					formatDate(data.date),
+					formatDate(data.date), // Date
+					data.serviceName, // Service Name
+					data.location?.name || 'N/A', // Location
+					data.total_quantity, // Total Usage
 				].join(',')
 			),
 		].join('\n');
@@ -105,58 +105,65 @@ const ServiceUsedList = ({
 		const doc = new jsPDF('p', 'pt', 'a4'); // A4 size PDF in portrait mode
 		const pageWidth = doc.internal.pageSize.width;
 		const pageHeight = doc.internal.pageSize.height;
-		const lineHeight = 20;
-		let row = 60; // Start position for content
 		const leftMargin = 20; // Left margin for content
+		const rightMargin = 20; // Right margin for content
+		const tableTop = 60; // Starting point for the table
+		const rowHeight = 20; // Fixed height for each row
+		const colWidths = [100, 150, 100, 80]; // Column widths (adjust as needed)
+		let currentY = tableTop;
 
 		// Set title
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(18);
-		doc.text('Service Used Report', pageWidth / 2, 40, { align: 'center' }); // Centered title
+		doc.text('Service Used Report', pageWidth / 2, 40, { align: 'center' });
 
-		// Table column headers
-		const headers = ['Service Name', 'Location', 'Total Usage', 'Last Used'];
-		const headerX = [leftMargin, 200, 300, 400]; // Adjusting X positions for columns
+		// Table headers
+		const headers = ['Date', 'Service Name', 'Location', 'Total Usage'];
+		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(12);
-		doc.text(headers[0], headerX[0], row);
-		doc.text(headers[1], headerX[1], row);
-		doc.text(headers[2], headerX[2], row);
-		doc.text(headers[3], headerX[3], row);
-		row += lineHeight; // Move to next line
+		drawTableRow(doc, headers, currentY, colWidths);
+		currentY += rowHeight;
 
+		// Draw rows
 		doc.setFont('helvetica', 'normal');
 		doc.setFontSize(10);
 
-		filteredTransaction.forEach((transaction) => {
-			const transactionDate = formatDate(transaction.date);
+		filteredTransaction.forEach((transaction, index) => {
+			const row = [
+				formatDate(transaction.date),
+				transaction.serviceName,
+				transaction.location?.name || 'N/A',
+				`${transaction.total_quantity}`,
+			];
 
-			// Check if the content exceeds the page, add a new page if necessary
-			if (row > pageHeight - lineHeight * 2) {
+			drawTableRow(doc, row, currentY, colWidths);
+
+			currentY += rowHeight;
+
+			// If we reach the bottom of the page, add a new page
+			if (currentY > pageHeight - rowHeight * 2) {
 				doc.addPage();
-				row = 60; // Reset row for new page
-
-				// Re-add headers to the new page
-				doc.setFont('helvetica', 'bold');
-				doc.text(headers[0], headerX[0], row);
-				doc.text(headers[1], headerX[1], row);
-				doc.text(headers[2], headerX[2], row);
-				doc.text(headers[3], headerX[3], row);
-				row += lineHeight; // Move to next line
-				doc.setFont('helvetica', 'normal');
+				currentY = tableTop; // Reset Y position after new page
+				// Draw table headers on each new page
+				drawTableRow(doc, headers, currentY, colWidths);
+				currentY += rowHeight;
 			}
-
-			// Add transaction data
-			doc.text(transaction.serviceName, headerX[0], row); // Service name (left aligned)
-			doc.text(transaction.location?.name || 'N/A', headerX[1], row); // Location
-			doc.text(`${transaction.total_quantity}`, headerX[2], row, {
-				align: 'right',
-			}); // Total Usage (right aligned)
-			doc.text(transactionDate, headerX[3], row); // Last Used
-			row += lineHeight;
 		});
 
 		// Save the PDF
 		doc.save('service-used.pdf');
+	};
+
+	// Function to draw a single row with borders
+	const drawTableRow = (doc, rowData, y, colWidths) => {
+		const startX = 20; // Left margin for the table
+		let currentX = startX;
+
+		rowData.forEach((data, index) => {
+			doc.text(data, currentX + 5, y + 15); // Add 5px padding inside the cell
+			doc.rect(currentX, y, colWidths[index], 20); // Draw cell borders
+			currentX += colWidths[index];
+		});
 	};
 
 	return (
@@ -239,7 +246,7 @@ const ServiceUsedList = ({
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('total_quantity')}>
+						<span onClick={() => handleSort('total_quantity')}>
 						Total Usage{' '}
 						<i
 							className={`fa fa-caret-${
@@ -254,12 +261,12 @@ const ServiceUsedList = ({
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
 						<div key={i} className='serviceused-table-row'>
-							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+							<span data-label='Date' style={{ whiteSpace: 'nowrap' }}>
 								{formatDate(transaction.date)}
 							</span>
-							<span data-label="Service Name">{transaction.serviceName}</span>
-							<span data-label="Location">{transaction.location?.name}</span>
-							<span data-label="Total Usage">{transaction.total_quantity}</span>
+							<span data-label='Service Name'>{transaction.serviceName}</span>
+							<span data-label='Location'>{transaction.location?.name}</span>
+							<span data-label='Total Usage'>{transaction.total_quantity}</span>
 						</div>
 					))
 				) : (

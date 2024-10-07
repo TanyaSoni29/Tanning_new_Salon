@@ -74,8 +74,8 @@ const ProductList = ({
 		// Sorting logic
 		if (sortConfig.key) {
 			sortedData.sort((a, b) => {
-				const aValue = a[sortConfig.key] || a[sortConfig.key] || '';
-				const bValue = b[sortConfig.key] || b[sortConfig.key] || '';
+				const aValue = a[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || '';
 
 				if (aValue < bValue) {
 					return sortConfig.direction === 'asc' ? -1 : 1;
@@ -93,21 +93,21 @@ const ProductList = ({
 	// Download CSV
 	const handleDownloadCSV = () => {
 		const headers = [
+			'Date',
 			'Service Name',
 			'Location',
 			'Total Value',
 			'Minutes Sold',
-			'Date',
 		];
 		const csvRows = [
 			headers.join(','), // header row
 			...filteredTransaction.map((data) =>
 				[
+					formatDate(data.date),
 					data.serviceName,
 					data.location?.name || 'N/A',
 					`£${data.total_price.toFixed(2)}`, // Format total value with currency
 					data.total_quantity,
-					formatDate(data.date),
 				].join(',')
 			),
 		].join('\n');
@@ -116,39 +116,41 @@ const ProductList = ({
 		saveAs(blob, 'service-purchase.csv');
 	};
 
-	// Download PDF
+	// Download PDF with proper formatting
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF('p', 'pt', 'a4'); // Use A4 page size in points (595.28 x 841.89)
 		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
 		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
 		const margin = 40; // Set margin for the document
-		const lineHeight = 20; // Set line height for table rows
+		const rowHeight = 20; // Set row height for table rows
 		const headerHeight = 30; // Height for the header
-		let row = margin + headerHeight; // Starting y-position for content
+		let currentY = margin + headerHeight; // Starting y-position for content
 
-		// Define the column positions to fit within the page width
+		// Define column widths and positions
 		const columns = {
-			serviceName: margin, // First column starts from the left margin
-			location: margin + 160, // Adjust column width based on content
-			totalValue: margin + 300,
-			minutesSold: margin + 400,
-			date: margin + 500,
+			date: margin,
+			serviceName: margin + 100,
+			location: margin + 250,
+			totalValue: margin + 400,
+			minutesSold: margin + 500,
 		};
 
+		// Set title
+		doc.setFont('helvetica', 'bold');
+		doc.setFontSize(18);
+		doc.text('Service Purchase Report', pageWidth / 2, margin, { align: 'center' });
+
+		// Table headers
 		doc.setFontSize(12);
 		doc.setFont('helvetica', 'bold');
-		doc.text('Service Purchase Report', margin, margin); // Title at the top
-
-		// Add table headers
-		doc.setFontSize(10);
-		doc.text('Service Name', columns.serviceName, row);
-		doc.text('Location', columns.location, row);
-		doc.text('Total Value', columns.totalValue, row);
-		doc.text('Minutes Sold', columns.minutesSold, row);
-		doc.text('Date', columns.date, row);
+		doc.text('Date', columns.date, currentY);
+		doc.text('Service Name', columns.serviceName, currentY);
+		doc.text('Location', columns.location, currentY);
+		doc.text('Total Value', columns.totalValue, currentY);
+		doc.text('Minutes Sold', columns.minutesSold, currentY);
 
 		// Move to the next row for table data
-		row += lineHeight;
+		currentY += rowHeight;
 
 		// Reset font for table data
 		doc.setFont('helvetica', 'normal');
@@ -156,34 +158,30 @@ const ProductList = ({
 		// Loop through filtered transactions and add each row
 		filteredTransaction.forEach((transaction) => {
 			// Check if adding new row exceeds the page height, and if so, add a new page
-			if (row + lineHeight > pageHeight - margin) {
+			if (currentY + rowHeight > pageHeight - margin) {
 				doc.addPage(); // Add new page
-				row = margin + headerHeight; // Reset row for new page
+				currentY = margin + headerHeight; // Reset row for new page
 
 				// Re-add the table headers on the new page
 				doc.setFont('helvetica', 'bold');
-				doc.text('Service Name', columns.serviceName, row);
-				doc.text('Location', columns.location, row);
-				doc.text('Total Value', columns.totalValue, row);
-				doc.text('Minutes Sold', columns.minutesSold, row);
-				doc.text('Date', columns.date, row);
-				row += lineHeight;
+				doc.text('Date', columns.date, currentY);
+				doc.text('Service Name', columns.serviceName, currentY);
+				doc.text('Location', columns.location, currentY);
+				doc.text('Total Value', columns.totalValue, currentY);
+				doc.text('Minutes Sold', columns.minutesSold, currentY);
+				currentY += rowHeight;
 				doc.setFont('helvetica', 'normal');
 			}
 
-			// Add transaction data in the respective columns
-			doc.text(transaction.serviceName, columns.serviceName, row);
-			doc.text(transaction.location?.name || 'N/A', columns.location, row);
-			doc.text(
-				`£${transaction.total_price.toFixed(2)}`,
-				columns.totalValue,
-				row
-			);
-			doc.text(`${transaction.total_quantity}`, columns.minutesSold, row);
-			doc.text(formatDate(transaction.date), columns.date, row);
+			// Add transaction data
+			doc.text(formatDate(transaction.date), columns.date, currentY);
+			doc.text(transaction.serviceName, columns.serviceName, currentY);
+			doc.text(transaction.location?.name || 'N/A', columns.location, currentY);
+			doc.text(`£${transaction.total_price.toFixed(2)}`, columns.totalValue, currentY);
+			doc.text(`${transaction.total_quantity}`, columns.minutesSold, currentY);
 
 			// Move to the next row
-			row += lineHeight;
+			currentY += rowHeight;
 		});
 
 		doc.save('service-purchase.pdf'); // Save the generated PDF
@@ -324,7 +322,7 @@ const ProductList = ({
 					))
 				) : (
 					<div className='purchasereportlist-no-data'>
-						No transactions found.
+						No service transactions found.
 					</div>
 				)}
 			</div>
