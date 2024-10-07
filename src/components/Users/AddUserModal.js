@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { addUser, refreshUser } from '../../slices/userProfileSlice';
-import { refreshLocation } from '../../slices/locationSlice'; // Import refreshLocation
+import { refreshLocation } from '../../slices/locationSlice';
 import { createUser } from '../../service/operations/userApi';
 
 const AddUserModal = ({ closeAddModal }) => {
@@ -79,10 +79,12 @@ const AddUserModal = ({ closeAddModal }) => {
 		<Box
 			sx={{
 				width: '100%',
-				maxWidth: { xs: '500px', md: '700px', lg: '800px' },
+				maxWidth: { xs: '90%', md: '700px', lg: '800px' }, // Adjust width for mobile
+				maxHeight: '80vh', // Max height for modal, will become scrollable if content overflows
+				overflowY: 'auto', // Enable vertical scroll when content exceeds max height
 				padding: '16px',
 				margin: 'auto',
-				marginTop: '10%',
+				marginTop: { xs: '10%', md: '5%' }, // Adjust margin for mobile
 				backgroundColor: '#fff',
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
