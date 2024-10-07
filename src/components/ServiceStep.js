@@ -114,7 +114,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				price: Number(transaction?.service?.price),
 				location: transaction.user_details?.preferred_location?.name,
 				type: transaction.transaction?.type === 'used' ? 'used' : 'purchased',
-				createdAt: transaction.transaction?.created_at,
+				createdAt: new Date(transaction.transaction?.created_at),
 			}));
 
 			const formattedProductTransactions = productData.map((transaction) => ({
@@ -127,7 +127,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				type: transaction?.product?.type
 					? transaction?.product?.type
 					: 'product',
-				createdAt: transaction?.created_at,
+				createdAt: new Date(transaction?.created_at),
 			}));
 
 			const combined = [
@@ -137,9 +137,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 
 			setCombinedTransactions(
 				combined.length > 0
-					? combined.sort(
-							(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-					  )
+					? combined.sort((a, b) => b.createdAt - a.createdAt)
 					: []
 			);
 		} catch (error) {
@@ -265,20 +263,24 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 									>
 										<span data-label='Date/Time'>
 											{transaction?.createdAt
-												? `${formatDate(transaction?.createdAt)} ${
-														transaction?.createdAt.split(' ')[1]
-												  }`
+												? `${formatDate(transaction?.createdAt)} ${new Date(
+														transaction?.createdAt
+												  ).toLocaleTimeString([], {
+														hour: '2-digit',
+														minute: '2-digit',
+														second: '2-digit',
+												  })}`
 												: '-'}
 										</span>
 										<span data-label='Type'>
 											<span className={`transaction-type ${transaction?.type}`}>
 												{transaction?.type
 													? transaction?.type === 'used'
-													? 'Used Min.'
-													: transaction?.type === 'product'
-													? 'Product'
-													: 'Service'
-												: '-'}
+														? 'Used Min.'
+														: transaction?.type === 'product'
+														? 'Product'
+														: 'Service'
+													: '-'}
 											</span>
 										</span>
 										<span data-label='Product / Service'>
