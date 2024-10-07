@@ -1,0 +1,117 @@
+/**
+ * General mobile-first styling (default)
+ *
+ * @format
+ */
+
+body {
+	font-family: Arial, sans-serif;
+	background-size: cover;
+}
+
+.addCustomer-modal-container {
+	width: 100%;
+	max-width: 500px;
+	padding: 16px;
+	margin: auto;
+	margin-top: 10%;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+}
+
+/* Form Row */
+.addCustomer-modal-container .form-row {
+	display: flex;
+	flex-direction: column; /* Stack items vertically by default */
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+/* Custom Select */
+.addCustomer-modal-container .custom-select {
+	height: 50px;
+	padding: 8px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 100%;
+	background-color: #f9f9f9;
+	box-sizing: border-box;
+}
+
+/* Button Row */
+.addCustomer-modal-container .button-row {
+	margin-top: 16px;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.addCustomer-modal-container .confirm-button,
+.cancel-button {
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.addCustomer-modal-container .confirm-button {
+	background-color: #0c65be;
+	color: white;
+	border: none;
+}
+
+.addCustomer-modal-container .confirm-button:hover {
+	background-color: #000;
+}
+
+.addCustomer-modal-container .cancel-button {
+	background-color: white;
+	border: 1px solid #ccc;
+	color: #666;
+}
+
+.addCustomer-modal-container .cancel-button:hover {
+	background-color: #f1f1f1;
+}
+
+/* Larger screens (Tablet and Desktop) */
+@media (min-width: 768px) {
+	.addCustomer-modal-container {
+		width: 100%;
+		max-width: 700px; /* Increased width for larger screens */
+	}
+
+	.addCustomer-modal-container .form-row {
+		flex-direction: row; /* Arrange form fields horizontally */
+	}
+
+	.addCustomer-modal-container .confirm-button,
+	.cancel-button {
+		width: auto; /* Allow buttons to resize based on their content */
+	}
+
+	.addCustomer-modal-container .button-row {
+		justify-content: flex-end;
+	}
+}
+
+/* Even larger screens (Desktop, larger monitors) */
+@media (min-width: 1024px) {
+	.addCustomer-modal-container {
+		max-width: 800px;
+	}
+
+	.addCustomer-modal-container .form-row {
+		gap: 20px;
+	}
+
+	.addCustomer-modal-container .confirm-button,
+	.cancel-button {
+		padding: 12px 24px;
+		font-size: 16px;
+	}
+}

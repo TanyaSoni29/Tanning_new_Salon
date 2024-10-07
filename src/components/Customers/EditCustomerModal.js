@@ -17,6 +17,7 @@ import { refreshLocation } from '../../slices/locationSlice';
 import { refreshCustomers } from '../../slices/customerProfile';
 import Modal from '../../components/Modal';
 import ResetPassword from '../ResetPassword';
+import './AddCustomer.css';
 
 const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 	const { locations, loading } = useSelector((state) => state.location);
@@ -113,7 +114,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 	if (!activeUser) return null;
 
 	return (
-		<Box className='modal-container'>
+		<Box className='addCustomer-modal-container'>
 			<Typography variant='h6'>Edit Customer</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
