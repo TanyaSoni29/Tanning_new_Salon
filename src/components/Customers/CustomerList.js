@@ -136,6 +136,7 @@ const CustomerList = () => {
 	const closeViewModal = () => {
 		setIsViewOpen(false);
 	};
+	const isMobile = window.innerWidth <= 700;
 
 	return (
 		<div className='customer-container'>
@@ -219,7 +220,10 @@ const CustomerList = () => {
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('total_service_purchased_price')}>
+					<span
+						onClick={() => handleSort('total_service_purchased_price')}
+						className='customertab'
+					>
 						Total Spent{' '}
 						<i
 							className={`fa fa-caret-${
@@ -274,6 +278,7 @@ const CustomerList = () => {
 								>
 									£{customer.total_service_purchased_price?.toFixed(2)}
 								</span>
+
 								<span data-label='Last Purchase'>
 									{formatDate(customer.profile?.updated_at)}
 								</span>
