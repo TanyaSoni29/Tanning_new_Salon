@@ -1,7 +1,6 @@
 /** @format */
 
-// CreateUserModal.js
-import { Box, Button, TextField, Typography, Avatar } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -77,16 +76,30 @@ const AddUserModal = ({ closeAddModal }) => {
 	}, [reset, isSubmitSuccessful]);
 
 	return (
-		<Box className='modal-container'>
-			<Typography
-				id='add-location-modal-title'
-				variant='h6'
-			>
-				Add New User
-			</Typography>
+		<Box
+			sx={{
+				width: '100%',
+				maxWidth: { xs: '500px', md: '700px', lg: '800px' },
+				padding: '16px',
+				margin: 'auto',
+				marginTop: '10%',
+				backgroundColor: '#fff',
+				borderRadius: '8px',
+				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+				boxSizing: 'border-box',
+			}}
+		>
+			<Typography variant='h6'>Add New User</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='First Name'
 							variant='outlined'
@@ -117,7 +130,14 @@ const AddUserModal = ({ closeAddModal }) => {
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='Email'
 							variant='outlined'
@@ -138,19 +158,24 @@ const AddUserModal = ({ closeAddModal }) => {
 							{...register('phone_number', {
 								required: 'Phone number is required',
 								pattern: {
-									value: /^[0-9]{10,15}$/, // Example: accept numbers of length 10 to 15
+									value: /^[0-9]{10,15}$/,
 									message: 'Phone number must be between 10 to 15 digits',
 								},
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={
-								errors.phone_number ? errors.phone_number.message : ''
-							}
+							helperText={errors.phone_number ? errors.phone_number.message : ''}
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='Password'
 							variant='outlined'
@@ -183,8 +208,12 @@ const AddUserModal = ({ closeAddModal }) => {
 					/>
 
 					<Box
-						mt={2}
-						className='form-row'
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginTop: '16px',
+						}}
 					>
 						<TextField
 							label='Post Code'
@@ -197,6 +226,15 @@ const AddUserModal = ({ closeAddModal }) => {
 						<select
 							className='custom-select'
 							{...register('gender')}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
 							<option value=''>Select Gender</option>
 							<option value='Male'>Male</option>
@@ -205,10 +243,26 @@ const AddUserModal = ({ closeAddModal }) => {
 						</select>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginTop: '16px',
+						}}
+					>
 						<select
 							className='custom-select'
 							{...register('role', { required: true })}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
 							<option value=''>Select Role</option>
 							<option value='admin'>Admin</option>
@@ -218,13 +272,19 @@ const AddUserModal = ({ closeAddModal }) => {
 							className='custom-select'
 							{...register('preferred_location', { required: true })}
 							disabled={loading}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
 							<option value=''>Select Location</option>
 							{locations.map((location) => (
-								<option
-									key={location.id}
-									value={location.id}
-								>
+								<option key={location.id} value={location.id}>
 									{location.name}
 								</option>
 							))}
@@ -233,14 +293,23 @@ const AddUserModal = ({ closeAddModal }) => {
 				</Box>
 
 				<Box
-					mt={2}
-					display='flex'
-					justifyContent='flex-end'
-					gap='1rem'
+					sx={{
+						display: 'flex',
+						justifyContent: { xs: 'space-between', md: 'flex-end' },
+						gap: '1rem',
+						marginTop: '16px',
+					}}
 				>
 					<Button
 						variant='contained'
-						className='confirm-button'
+						sx={{
+							backgroundColor: '#0c65be',
+							color: 'white',
+							borderRadius: '5px',
+							padding: { xs: '5px 10px', lg: '8px 15px' },
+							fontSize: { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#000' },
+						}}
 						type='submit'
 					>
 						Submit
@@ -249,7 +318,15 @@ const AddUserModal = ({ closeAddModal }) => {
 						variant='contained'
 						color='info'
 						onClick={closeAddModal}
-						className='cancel-button'
+						sx={{
+							backgroundColor: '#fff',
+							color: '#666',
+							border: '1px solid #ccc',
+							borderRadius: '5px',
+							padding: { xs: '5px 10px', lg: '8px 15px' },
+							fontSize: { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#f1f1f1' },
+						}}
 					>
 						Cancel
 					</Button>

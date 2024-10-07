@@ -1,6 +1,5 @@
 /** @format */
 
-// EditUserModal.js
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,17 +8,14 @@ import { updateUserProfile } from '../../service/operations/userProfileApi';
 import { refreshUser } from '../../slices/userProfileSlice';
 import { refreshLocation } from '../../slices/locationSlice';
 import Modal from '../../components/Modal';
-import { resetPassword } from '../../service/operations/userApi';
-import { Password } from '@mui/icons-material';
 import ResetPassword from '../ResetPassword';
 
 const EditUserModal = ({ activeUser, closeEditModal }) => {
 	const { locations, loading } = useSelector((state) => state.location);
-	const [preferredLocation, setPreferredLocation] = useState('');
 	const { token } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
 	const [resetPasswordModal, setResetPasswordModal] = useState(false);
 
+	const dispatch = useDispatch();
 	const {
 		register,
 		handleSubmit,
@@ -40,7 +36,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 
 	useEffect(() => {
 		if (activeUser?.profile?.preferred_location) {
-			setValue('preferred_location', activeUser.profile.preferred_location); // Set preferred_location with ID
+			setValue('preferred_location', activeUser.profile.preferred_location);
 		}
 	}, [activeUser, setValue]);
 
@@ -75,10 +71,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 				newUserData
 			);
 			if (updatedUser) {
-				dispatch({
-					type: 'userProfile/updateUser',
-					payload: updatedUser,
-				});
+				dispatch({ type: 'userProfile/updateUser', payload: updatedUser });
 			}
 			dispatch(refreshUser());
 			closeEditModal();
@@ -109,26 +102,37 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 	if (!activeUser) return null;
 
 	return (
-		<Box className='modal-container'>
-			<Typography
-				id='edit-location-modal-title'
-				variant='h6'
-			>
-				Edit User
-			</Typography>
+		<Box
+			sx={{
+				width: '100%',
+				maxWidth: { xs: '500px', md: '700px', lg: '800px' },
+				padding: '16px',
+				margin: 'auto',
+				marginTop: '10%',
+				backgroundColor: '#fff',
+				borderRadius: '8px',
+				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+				boxSizing: 'border-box',
+			}}
+		>
+			<Typography variant='h6'>Edit User</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='First Name'
 							variant='outlined'
 							defaultValue={activeUser.profile?.firstName}
 							{...register('firstName', {
 								required: 'First name is required',
-								maxLength: {
-									value: 100,
-									message: 'First name cannot exceed 100 characters',
-								},
+								maxLength: { value: 100, message: 'First name cannot exceed 100 characters' },
 							})}
 							fullWidth
 							error={!!errors.firstName}
@@ -140,10 +144,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							defaultValue={activeUser.profile?.lastName}
 							{...register('lastName', {
 								required: 'Last name is required',
-								maxLength: {
-									value: 100,
-									message: 'Last name cannot exceed 100 characters',
-								},
+								maxLength: { value: 100, message: 'Last name cannot exceed 100 characters' },
 							})}
 							fullWidth
 							error={!!errors.lastName}
@@ -151,7 +152,14 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='Email'
 							variant='outlined'
@@ -173,16 +181,11 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							defaultValue={activeUser.profile?.phone_number}
 							{...register('phone_number', {
 								required: 'Phone number is required',
-								pattern: {
-									value: /^[0-9]{10,15}$/, // Example: accept numbers of length 10 to 15
-									message: 'Phone number must be between 10 to 15 digits',
-								},
+								pattern: { value: /^[0-9]{10,15}$/, message: 'Phone number must be between 10 to 15 digits' },
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={
-								errors.phone_number ? errors.phone_number.message : ''
-							}
+							helperText={errors.phone_number ? errors.phone_number.message : ''}
 						/>
 					</Box>
 
@@ -198,7 +201,14 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<TextField
 							label='Post Code'
 							variant='outlined'
@@ -208,7 +218,6 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
 						/>
-
 						<TextField
 							label='Referred By'
 							variant='outlined'
@@ -218,46 +227,79 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: { xs: 'column', md: 'row' },
+							gap: '16px',
+							marginBottom: '16px',
+						}}
+					>
 						<select
-							id='role'
 							className='custom-select'
 							defaultValue={activeUser.user?.role}
 							{...register('role', { required: true })}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
-							<option value=''>Select role</option>
+							<option value=''>Select Role</option>
 							<option value='admin'>Admin</option>
 							<option value='operator'>User</option>
 						</select>
 
 						<select
-							id='gender'
 							className='custom-select'
 							defaultValue={activeUser.profile?.gender}
 							{...register('gender')}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
-							<option value=''>Select gender</option>
+							<option value=''>Select Gender</option>
 							<option value='Male'>Male</option>
 							<option value='Female'>Female</option>
 							<option value='Other'>Other</option>
 						</select>
 					</Box>
 
-					<Box className='form-row full-width'>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							marginBottom: '16px',
+						}}
+					>
 						<select
-							id='location'
 							className='custom-select'
 							defaultValue={activeUser.profile?.preferred_location}
 							{...register('preferred_location', { required: true })}
-							// onChange={(e) => setPreferredLocation(e.target.value)}
 							disabled={loading}
+							style={{
+								height: '50px',
+								padding: '8px',
+								fontSize: '14px',
+								border: '1px solid #ccc',
+								borderRadius: '4px',
+								width: '100%',
+								backgroundColor: '#f9f9f9',
+							}}
 						>
-							<option value=''>Select location</option>
+							<option value=''>Select Location</option>
 							{locations.map((location) => (
-								<option
-									key={location.id}
-									value={location.id}
-								>
+								<option key={location.id} value={location.id}>
 									{location.name}
 								</option>
 							))}
@@ -265,39 +307,64 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 					</Box>
 				</Box>
 
-				<Box className='button-row'>
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: { xs: 'space-between', md: 'flex-end' },
+						gap: '1rem',
+						marginTop: '16px',
+					}}
+				>
 					<Button
 						variant='contained'
-						className='confirm-button'
+						sx={{
+							backgroundColor: '#0c65be',
+							color: 'white',
+							borderRadius: '5px',
+							padding: { xs: '5px 10px', lg: '8px 15px' },
+							fontSize: { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#000' },
+						}}
 						onClick={handleResetPassword}
 					>
 						Reset Password
 					</Button>
 					<Button
 						variant='contained'
-						className='confirm-button'
+						sx={{
+							backgroundColor: '#0c65be',
+							color: 'white',
+							borderRadius: '5px',
+							padding: { xs: '5px 10px', lg: '8px 15px' },
+							fontSize: { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#000' },
+						}}
 						type='submit'
 					>
 						Submit
 					</Button>
 					<Button
 						variant='contained'
-						className='cancel-button'
+						color='info'
 						onClick={closeEditModal}
+						sx={{
+							backgroundColor: '#fff',
+							color: '#666',
+							border: '1px solid #ccc',
+							borderRadius: '5px',
+							padding: { xs: '5px 10px', lg: '8px 15px' },
+							fontSize: { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#f1f1f1' },
+						}}
 					>
 						Cancel
 					</Button>
 				</Box>
 			</form>
+
 			{activeUser && resetPasswordModal && (
-				<Modal
-					open={resetPasswordModal}
-					setOpen={setResetPasswordModal}
-				>
-					<ResetPassword
-						onClose={closeResetPassword}
-						activeUser={activeUser}
-					/>
+				<Modal open={resetPasswordModal} setOpen={setResetPasswordModal}>
+					<ResetPassword onClose={closeResetPassword} activeUser={activeUser} />
 				</Modal>
 			)}
 		</Box>

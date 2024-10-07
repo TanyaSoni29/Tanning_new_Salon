@@ -295,7 +295,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 										</span>
 										<span
 											data-label='Price'
-											className='price'
+											className='tbprice'
 										>
 											{typeof transaction?.price === 'number'
 												? `£${transaction.price.toFixed(2)}`
@@ -305,7 +305,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 										</span>
 										<span
 											data-label='Quantity'
-											className='price'
+											className='tbprice'
 										>
 											{transaction?.quantity ? transaction?.quantity : '-'}
 										</span>

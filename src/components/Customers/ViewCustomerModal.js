@@ -109,17 +109,17 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
         </div>
 
         {/* Buttons for Minutes Balance and Total Spent */}
-        <div className="viewcustomer-buttons">
+        <div className="viewcustomer-buttons1">
           <Button
             variant="contained"
-            className="viewcustomer-button viewcustomer-minutes-button"
+            className="viewcustomer-button1 viewcustomer-minutes-button"
           >
             Minutes Balance: {activeUser.profile?.available_balance || 0}
           </Button>
 
           <Button
             variant="contained"
-            className="viewcustomer-button viewcustomer-spent-button"
+            className="viewcustomer-button1 viewcustomer-spent-button"
           >
             Total Spent: £{activeUser.profile?.total_spend?.toFixed(2) || 0}
           </Button>
