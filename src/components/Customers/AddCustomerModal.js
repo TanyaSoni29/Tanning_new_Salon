@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import { refreshLocation } from '../../slices/locationSlice';
 import { createUser } from '../../service/operations/userApi';
 import { addCustomer, refreshCustomers } from '../../slices/customerProfile';
+import './AddCustomer.css';
 
 const AddCustomerModal = ({ closeAddModal }) => {
 	const { token } = useSelector((state) => state.auth);
@@ -85,7 +86,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 	}, [reset, isSubmitSuccessful]);
 
 	return (
-		<Box className='modal-container'>
+		<Box className='addCustomer-modal-container'>
 			<Typography
 				variant='h6'
 				id='add-location-modal-title'
