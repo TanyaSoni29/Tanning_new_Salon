@@ -6,14 +6,14 @@ body {
 	background-size: cover;
 	font-size: 10px;
 	margin: 0; /* Remove body margin */
-	overflow: hidden; /* Prevent body scrolling */
+	overflow: auto; /* Allow scrolling on the body */
 }
 
 .addCustomer-modal-container {
 	width: 100%;
 	max-width: 400px;
-	height: 80vh; /* Use 80% of the viewport height */
-	overflow-y: auto; /* Enable vertical scrolling for content overflow */
+	max-height: 80vh; /* Set a max height to limit modal size */
+	overflow-y: auto; /* Enable vertical scrolling inside the modal */
 	padding: 16px;
 	margin: auto;
 	margin-top: 5%;
@@ -114,7 +114,7 @@ body {
 	.addCustomer-modal-container {
 		width: 100%;
 		max-width: 600px; /* Increased width for tablet */
-		height: 80vh; /* Maintain the modal height */
+		max-height: 80vh; /* Maintain the modal height */
 		padding: 24px;
 		margin-top: 5%;
 		font-size: 12px;
