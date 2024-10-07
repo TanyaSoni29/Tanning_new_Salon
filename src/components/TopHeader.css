@@ -1,23 +1,28 @@
+/**
+ * Main header styling
+ *
+ * @format
+ */
+
 .top-header {
 	display: flex;
-	justify-content: space-between; /* Shift content to the right */
+	justify-content: space-between;
+	align-items: center;
 	padding: 15px 30px;
-	top: 10px;
-	margin-left: 290px;
 	background-color: #fff;
-	/* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+	margin-left: 290px;
 	position: relative;
-	z-index: 100; /* Ensure it stays above other content */
-}
-.top-header .location-select {
-    width: 10%;
-	padding: 12px;
-	font-size: 14px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
+	z-index: 100;
 }
 
-.location-select{
+.top-header h2.page-heading {
+	font-size: 24px;
+	font-weight: 600;
+	color: #333;
+	margin: 0;
+}
+
+.location-select {
 	width: 100%;
 	min-width: 120px;
 }
@@ -47,31 +52,71 @@
 	margin-left: 5px;
 }
 
+.topheadname {
+	font-size: 16px;
+	font-weight: 500;
+	color: #333;
+	display: flex;
+	align-items: center;
+}
+
+/* Mobile view */
 @media (max-width: 768px) {
 	.top-header {
 		padding: 10px 20px;
+		margin-left: 0;
+		flex-direction: column; /* Stack items vertically */
+		align-items: flex-end;
+		z-index: 0;
+	}
+
+	.page-heading {
+		font-size: 18px;
+		margin-bottom: 10px;
 	}
 
 	.login-details {
 		font-size: 14px;
+		padding: 0;
 	}
 
-	.user-icon {
-		margin-right: 10px;
+	.topheadname {
+		font-size: 14px;
 	}
 
 	.user-info {
-		color: #333;
-		font-size: 20px;
+		font-size: 14px;
 	}
 
 	.location-name {
-		font-style: italic;
-		color: #666;
-		margin-left: 5px;
-		font-size: 20px;
+		font-size: 14px;
 	}
+}
+
+/* Extra small mobile view */
+@media (max-width: 480px) {
+	.top-header {
+		padding: 10px 15px;
+	}
+
+	.page-heading {
+		font-size: 16px;
+	}
+
+	.login-details {
+		font-size: 12px;
+		padding: 5px;
+	}
+
 	.topheadname {
-		font-size: 10px;
+		font-size: 12px;
+	}
+
+	.user-icon {
+		margin-right: 5px;
+	}
+
+	.location-name {
+		font-size: 12px;
 	}
 }
