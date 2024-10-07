@@ -150,7 +150,7 @@
 
 	.allcustomer-table-row span {
 		display: flex;
-		/* justify-content: space-between; */
+		justify-content: space-between;
 		padding: 8px 0;
 	}
 
@@ -192,7 +192,7 @@
 	.allcustomer-table-header,
 	.allcustomer-table-row {
 		grid-template-columns: 1fr 0.9fr 1fr 1fr;
-		min-width: 500px;
+		min-width: 100px;
 	}
 
 	.allcustomer-table-header span,
