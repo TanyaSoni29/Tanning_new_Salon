@@ -1,220 +1,117 @@
 /**
- * index.css
+ * General mobile-first styling (default)
  *
  * @format
  */
 
 body {
 	font-family: Arial, sans-serif;
-	/* background-image: url('../public/assets/img/wizard.jpg'); */
-	/* background-color: #E6F7FF; */
 	background-size: cover;
 }
 
-/**
- * Delete Modal Overlay to cover entire screen
- *
- * @format
- */
-/* Modal container */
-.delete-modal {
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	width: 300px;
-	text-align: center;
-}
-
-/* Modal message text */
-.delete-modal p {
-	font-size: 16px;
-	color: #333;
-	margin-bottom: 20px;
-}
-
-/* Button container for Yes/Cancel buttons */
-.button-container {
-	display: flex;
-	justify-content: space-around;
-}
-
-/* Yes button */
-.confirm-button {
-	background-color: #0c65be;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 14px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.confirm-button:hover {
-	background-color: #000;
-}
-
-/* Cancel button */
-.cancel-button {
-	background-color: white;
-	color: #666;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.cancel-button:hover {
-	background-color: #f1f1f1;
-}
-
-/* Modal box styling */
-.edit-modal {
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	width: 30vw;
-}
-
-/* Title styling */
-#edit-location-modal-title {
-	text-align: start;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.edit-modal .confirm-button {
-	background-color: #0c65be;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.edit-modal .confirm-button:hover {
-	background-color: #000;
-}
-
-.edit-modal .cancel-button {
-	background-color: white;
-	color: #666;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.edit-modal .cancel-button:hover {
-	background-color: #f1f1f1;
-}
-
-.add-modal {
-	background-color: white;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	max-width: 500px;
-	width: 100%;
-}
-
-/* Title styling */
-#add-location-modal-title {
-	text-align: start;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-/* Submit button */
-.add-modal .confirm-button {
-	background-color: #0c65be;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-.add-modal .confirm-button:hover {
-	background-color: #000;
-}
-
-/* Cancel button */
-.add-modal .cancel-button {
-	background-color: white;
-	border: 1px solid #ccc;
-	padding: 8px 16px;
-	border-radius: 5px;
-	color: #666;
-}
-
-.add-modal .cancel-button:hover {
-	background-color: #f1f1f1;
-}
-
-/* CreateUserModal.css */
 .modal-container {
-	width: 500px;
+	width: 100%;
+	max-width: 500px;
 	padding: 16px;
 	margin: auto;
 	margin-top: 10%;
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
 }
 
+/* Form Row */
 .form-row {
 	display: flex;
+	flex-direction: column; /* Stack items vertically by default */
 	gap: 16px;
 	margin-bottom: 16px;
 }
 
+/* Custom Select */
 .custom-select {
-	height: 55px;
+	height: 50px;
 	padding: 8px;
 	font-size: 14px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	width: 100%;
 	background-color: #f9f9f9;
+	box-sizing: border-box;
 }
 
-.modal-container .confirm-button {
-	background-color: #0c65be;
-	color: white;
-	border: none;
+/* Button Row */
+.button-row {
+	margin-top: 16px;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.confirm-button,
+.cancel-button {
+	width: 100%;
 	border-radius: 5px;
 	padding: 10px 20px;
 	font-size: 14px;
 	cursor: pointer;
 }
 
-.modal-container .confirm-button:hover {
+.confirm-button {
+	background-color: #0c65be;
+	color: white;
+	border: none;
+}
+
+.confirm-button:hover {
 	background-color: #000;
 }
 
-/* Cancel button */
-.modal-container .cancel-button {
+.cancel-button {
 	background-color: white;
 	border: 1px solid #ccc;
-	padding: 8px 16px;
-	border-radius: 5px;
 	color: #666;
 }
 
-.modal-container .cancel-button:hover {
+.cancel-button:hover {
 	background-color: #f1f1f1;
 }
 
-.button-row {
-	margin-top: 16px;
-	display: flex;
-	justify-content: flex-end;
-	gap: 1rem;
+/* Larger screens (Tablet and Desktop) */
+@media (min-width: 768px) {
+	.modal-container {
+		width: 100%;
+		max-width: 700px; /* Increased width for larger screens */
+	}
+
+	.form-row {
+		flex-direction: row; /* Arrange form fields horizontally */
+	}
+
+	.confirm-button,
+	.cancel-button {
+		width: auto; /* Allow buttons to resize based on their content */
+	}
+
+	.button-row {
+		justify-content: flex-end;
+	}
+}
+
+/* Even larger screens (Desktop, larger monitors) */
+@media (min-width: 1024px) {
+	.modal-container {
+		max-width: 800px;
+	}
+
+	.form-row {
+		gap: 20px;
+	}
+
+	.confirm-button,
+	.cancel-button {
+		padding: 12px 24px;
+		font-size: 16px;
+	}
 }
