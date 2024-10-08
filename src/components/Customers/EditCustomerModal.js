@@ -173,9 +173,13 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							defaultValue={activeUser.profile?.phone_number}
 							{...register('phone_number', {
 								required: 'Phone number is required',
+								maxLength: {
+									value: 15,
+									message: 'Phone number must not exceed 15 digits',
+								},
 								pattern: {
-									value: /^[0-9]{10,15}$/, // Example: accept numbers of length 10 to 15
-									message: 'Phone number must be between 10 to 15 digits',
+									value: /^[0-9]+$/, // Accepts only numeric values
+									message: 'Phone number must contain only numbers',
 								},
 							})}
 							fullWidth

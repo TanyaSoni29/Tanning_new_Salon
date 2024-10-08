@@ -8,6 +8,9 @@ import { refreshUser, removeUser } from '../../slices/userProfileSlice';
 import Modal from '../Modal';
 import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
+import { deleteAllData } from '../../service/operations/userApi';
+import { setProducts } from '../../slices/productSlice';
+import { setServices } from '../../slices/serviceSlice';
 
 const UserList = () => {
 	const dispatch = useDispatch();
@@ -19,7 +22,7 @@ const UserList = () => {
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 	const [activeUser, setActiveUser] = useState(null);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
-
+	const [isDeleteAllData, setIsDeleteAllData] = useState(false);
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// Function to handle sorting
@@ -51,8 +54,11 @@ const UserList = () => {
 				return user.user?.role?.toLowerCase() || '';
 			case 'profile.preferred_location':
 				return (
-					locations.find((location) => location.id === user.profile?.preferred_location)?.name?.toLowerCase() ||
-					''
+					locations
+						.find(
+							(location) => location.id === user.profile?.preferred_location
+						)
+						?.name?.toLowerCase() || ''
 				);
 			default:
 				return '';
@@ -64,12 +70,18 @@ const UserList = () => {
 		users.filter(
 			(data) =>
 				(data.profile?.firstName &&
-					data.profile?.firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+					data.profile?.firstName
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())) ||
 				(data.profile?.phone_number &&
-					data.profile?.phone_number.toLowerCase().includes(searchTerm.toLowerCase())) ||
-				(data.user?.role && data.user?.role.toLowerCase().includes(searchTerm.toLowerCase()))
+					data.profile?.phone_number
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())) ||
+				(data.user?.role &&
+					data.user?.role.toLowerCase().includes(searchTerm.toLowerCase()))
 		)
 	);
+	const handleDeleteAll = () => setIsDeleteAllData(true);
 
 	const handleAdd = () => setIsAddOpen(true);
 	const handleEdit = (user) => {
@@ -92,10 +104,26 @@ const UserList = () => {
 		}
 	};
 
+	const handleDeleteAllData = async () => {
+		try {
+			const result = await deleteAllData(token);
+			if (result) {
+				dispatch(setProducts([]));
+				dispatch(setServices([]));
+				setIsDeleteAllData(false);
+			}
+		} catch (error) {
+			console.error('Error during all deletion:', error);
+		} finally {
+			setIsDeleteAllData(false);
+		}
+	};
+
 	const confirmDelete = (user) => {
 		setActiveUser(user);
 		setIsDeleteOpen(true);
 	};
+	const closeDeleteAllData = () => setIsDeleteAllData(false);
 
 	const closeDeleteModal = () => setIsDeleteOpen(false);
 	const closeEditModal = () => setIsEditOpen(false);
@@ -127,40 +155,66 @@ const UserList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button3' onClick={handleAdd}>
-					ADD NEW USER
-				</button>
+				<div className='btn-add-delete'>
+					<button
+						className='add-button3'
+						onClick={handleAdd}
+					>
+						ADD NEW USER
+					</button>
+					<button
+						className='delete-button3'
+						onClick={handleDeleteAll}
+					>
+						Delete All
+					</button>
+				</div>
 			</div>
 
 			<div className='users-table'>
 				<div className='user-table-header'>
 					<span>
 						User Name
-						<button className='sort-button' onClick={() => handleSort('profile.firstName')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('profile.firstName')}
+						>
 							{getSortIcon('profile.firstName')}
 						</button>
 					</span>
 					<span>
 						User Email
-						<button className='sort-button' onClick={() => handleSort('user.email')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('user.email')}
+						>
 							{getSortIcon('user.email')}
 						</button>
 					</span>
 					<span>
 						Role
-						<button className='sort-button' onClick={() => handleSort('user.role')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('user.role')}
+						>
 							{getSortIcon('user.role')}
 						</button>
 					</span>
 					<span>
 						Location
-						<button className='sort-button' onClick={() => handleSort('profile.preferred_location')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('profile.preferred_location')}
+						>
 							{getSortIcon('profile.preferred_location')}
 						</button>
 					</span>
 					<span>
-					Phone Number
-						<button className='sort-button' onClick={() => handleSort('profile.preferred_location')}>
+						Phone Number
+						<button
+							className='sort-button'
+							onClick={() => handleSort('profile.preferred_location')}
+						>
 							{getSortIcon('profile.preferred_location')}
 						</button>
 					</span>
@@ -173,7 +227,10 @@ const UserList = () => {
 							(location) => location.id === user.profile?.preferred_location
 						);
 						return (
-							<div key={user.user.id} className='user-table-row'>
+							<div
+								key={user.user.id}
+								className='user-table-row'
+							>
 								<span data-label='User Name'>
 									{user.profile?.firstName} {user.profile?.lastName}
 								</span>
@@ -182,14 +239,29 @@ const UserList = () => {
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>
-								<span data-label='Phone Number'>{user.profile?.phone_number}</span>
+								<span data-label='Phone Number'>
+									{user.profile?.phone_number}
+								</span>
 								<span data-label='Action'>
 									<div className='actionusers'>
-										<i className='fa fa-pencil' onClick={() => handleEdit(user)}></i>
 										<i
-											className={`fa fa-trash ${loginUser.id === user.user?.id ? 'disabled' : ''}`}
-											onClick={loginUser.id !== user.user?.id ? () => confirmDelete(user) : null}
-											style={loginUser.id === user.user?.id ? { cursor: 'not-allowed', opacity: 0.5 } : { cursor: 'pointer' }}
+											className='fa fa-pencil'
+											onClick={() => handleEdit(user)}
+										></i>
+										<i
+											className={`fa fa-trash ${
+												loginUser.id === user.user?.id ? 'disabled' : ''
+											}`}
+											onClick={
+												loginUser.id !== user.user?.id
+													? () => confirmDelete(user)
+													: null
+											}
+											style={
+												loginUser.id === user.user?.id
+													? { cursor: 'not-allowed', opacity: 0.5 }
+													: { cursor: 'pointer' }
+											}
 										></i>
 									</div>
 								</span>
@@ -202,20 +274,48 @@ const UserList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddUserModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isDeleteOpen && activeUser && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
-					<DeleteUserModal handleDelete={handleDelete} activeUser={activeUser} closeDeleteModal={closeDeleteModal} />
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
+					<DeleteUserModal
+						handleDelete={handleDelete}
+						activeUser={activeUser}
+						closeDeleteModal={closeDeleteModal}
+					/>
 				</Modal>
 			)}
 
 			{isEditOpen && activeUser && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
-					<EditUserModal activeUser={activeUser} closeEditModal={closeEditModal} />
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditUserModal
+						activeUser={activeUser}
+						closeEditModal={closeEditModal}
+					/>
+				</Modal>
+			)}
+
+			{isDeleteAllData && (
+				<Modal
+					setOpen={setIsDeleteAllData}
+					open={isDeleteAllData}
+				>
+					<DeleteAllModal
+						handleDelete={handleDeleteAllData}
+						closeDeleteAllData={closeDeleteAllData}
+					/>
 				</Modal>
 			)}
 		</div>
@@ -229,13 +329,43 @@ function DeleteUserModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button onClick={() => handleDelete(activeUser.user.id)} className='confirm-button'>
+				<button
+					onClick={() => handleDelete(activeUser.user.id)}
+					className='confirm-button'
+				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
 			</div>
-		 </div>
+		</div>
+	);
+}
+
+function DeleteAllModal({ handleDelete, closeDeleteAllData }) {
+	return (
+		<div className='delete-modal'>
+			<p>
+				Are you sure you want to delete all services, products and transactions?
+			</p>
+			<div className='button-container'>
+				<button
+					onClick={() => handleDelete()}
+					className='confirm-button'
+				>
+					Confirm
+				</button>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteAllData}
+				>
+					Cancel
+				</button>
+			</div>
+		</div>
 	);
 }

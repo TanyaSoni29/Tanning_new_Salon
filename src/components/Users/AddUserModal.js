@@ -159,14 +159,20 @@ const AddUserModal = ({ closeAddModal }) => {
 							variant='outlined'
 							{...register('phone_number', {
 								required: 'Phone number is required',
+								maxLength: {
+									value: 15,
+									message: 'Phone number must not exceed 15 digits',
+								},
 								pattern: {
-									value: /^[0-9]{10,15}$/,
-									message: 'Phone number must be between 10 to 15 digits',
+									value: /^[0-9]+$/, // Accepts only numeric values
+									message: 'Phone number must contain only numbers',
 								},
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={errors.phone_number ? errors.phone_number.message : ''}
+							helperText={
+								errors.phone_number ? errors.phone_number.message : ''
+							}
 						/>
 					</Box>
 
@@ -286,7 +292,10 @@ const AddUserModal = ({ closeAddModal }) => {
 						>
 							<option value=''>Select Location</option>
 							{locations.map((location) => (
-								<option key={location.id} value={location.id}>
+								<option
+									key={location.id}
+									value={location.id}
+								>
 									{location.name}
 								</option>
 							))}
@@ -305,11 +314,11 @@ const AddUserModal = ({ closeAddModal }) => {
 					<Button
 						variant='contained'
 						sx={{
-							backgroundColor: '#0c65be',
-							color: 'white',
-							borderRadius: '5px',
-							padding: { xs: '5px 10px', lg: '8px 15px' },
-							fontSize: { xs: '10px', lg: '13px' },
+							'backgroundColor': '#0c65be',
+							'color': 'white',
+							'borderRadius': '5px',
+							'padding': { xs: '5px 10px', lg: '8px 15px' },
+							'fontSize': { xs: '10px', lg: '13px' },
 							':hover': { backgroundColor: '#000' },
 						}}
 						type='submit'
@@ -321,12 +330,12 @@ const AddUserModal = ({ closeAddModal }) => {
 						color='info'
 						onClick={closeAddModal}
 						sx={{
-							backgroundColor: '#fff',
-							color: '#666',
-							border: '1px solid #ccc',
-							borderRadius: '5px',
-							padding: { xs: '5px 10px', lg: '8px 15px' },
-							fontSize: { xs: '10px', lg: '13px' },
+							'backgroundColor': '#fff',
+							'color': '#666',
+							'border': '1px solid #ccc',
+							'borderRadius': '5px',
+							'padding': { xs: '5px 10px', lg: '8px 15px' },
+							'fontSize': { xs: '10px', lg: '13px' },
 							':hover': { backgroundColor: '#f1f1f1' },
 						}}
 					>
