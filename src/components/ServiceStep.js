@@ -63,7 +63,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				quantity,
 			};
 			await createProductTransaction(token, data);
-			refreshTransactionOfCustomer();
+			await refreshTransactionOfCustomer();
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
@@ -78,7 +78,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 				type: 'purchased',
 			};
 			await createServiceTransaction(token, data);
-			refreshTransactionOfCustomer();
+			await refreshTransactionOfCustomer();
 			dispatch(refreshCustomers());
 		} catch (err) {
 			console.error('Error creating transaction', err);
@@ -95,7 +95,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 			};
 			await createServiceTransaction(token, data);
 			await getTotalSpend(token, customer.user.id);
-			refreshTransactionOfCustomer();
+			await refreshTransactionOfCustomer();
 			dispatch(refreshCustomers());
 		} catch (err) {
 			console.error('Error creating transaction', err);
