@@ -99,7 +99,7 @@ function CustomerOverview({ filteredCustomers }) {
 					<table className='customer-table'>
 						<thead>
 							<tr>
-								<th> Customer Name</th>
+								<th>Customer Name</th>
 								<th>Phone No.</th>
 								<th>Minutes Balance</th>
 								<th>Total Minutes Used</th>
@@ -109,45 +109,38 @@ function CustomerOverview({ filteredCustomers }) {
 							</tr>
 						</thead>
 						<tbody>
-							{filteredCustomers.length > 0 ? (
-								filteredCustomers.map((data) => {
-									const lastUsedDate = getLastUsedServiceDate(data.user?.id);
-									return (
-										<tr key={data.user?.id}>
-											<td>{data.profile?.firstName}</td>
-											<td>
-												{data.profile?.phone_number
-													? data.profile?.phone_number
-													: '-'}
-											</td>
-											<td>{data.profile?.available_balance}</td>
-											<td>{data?.total_used_minutes}</td>
-											<td className='tdcustomer'>
-												£{data?.total_service_purchased_price?.toFixed(2)}
-											</td>
-											<td>{lastUsedDate ? formatDate(lastUsedDate) : 'N/A'}</td>
-											<td>
-												<Button
-													className='select-button'
-													onClick={() => handleSelectButton(data)}
-												>
-													Select
-												</Button>
-											</td>
-										</tr>
-									);
-								})
-							) : (
-								<tr>
-									<td
-										colSpan='5'
-										className='no-customers'
-									>
-										No customers found.
-									</td>
-								</tr>
-							)}
-						</tbody>
+  {filteredCustomers.length > 0 ? (
+    filteredCustomers.map((data) => {
+      const lastUsedDate = getLastUsedServiceDate(data.user?.id);
+      return (
+        <tr key={data.user?.id}>
+          <td data-label="Customer Name">{data.profile?.firstName}</td>
+          <td data-label="Phone No.">
+            {data.profile?.phone_number ? data.profile?.phone_number : '-'}
+          </td>
+          <td data-label="Minutes Balance">{data.profile?.available_balance}</td>
+          <td data-label="Total Minutes Used">{data?.total_used_minutes}</td>
+          <td data-label="Total Spent" className="tdcustomer">
+            £{data?.total_service_purchased_price?.toFixed(2)}
+          </td>
+          <td data-label="Last Used">{lastUsedDate ? formatDate(lastUsedDate) : 'N/A'}</td>
+          <td data-label="Select">
+            <Button className="select-button" onClick={() => handleSelectButton(data)}>
+              Select
+            </Button>
+          </td>
+        </tr>
+      );
+    })
+  ) : (
+    <tr>
+      <td colSpan="5" className="no-customers">
+        No customers found.
+      </td>
+    </tr>
+  )}
+</tbody>
+
 					</table>
 				</div>
 			</div>

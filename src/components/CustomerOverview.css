@@ -1,76 +1,63 @@
-/** @format */
-
 .customer-overview-container {
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 20px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.header-section {
+  }
+  
+  .header-section {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 10px;
-}
-
-.header-section h2 {
+  }
+  
+  .header-section h2 {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0;
-}
-
-.table-container {
+  }
+  
+  .table-container {
 	width: 100%;
 	overflow-x: auto;
-}
-
-.customer-table {
+  }
+  
+  .customer-table {
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 14px;
 	margin-bottom: 16px;
-}
-
-.customer-table th{
-	padding: 12px ;
+  }
+  
+  .customer-table th,
+  .customer-table td {
+	padding: 12px;
 	border: 1px solid #ddd;
 	text-align: center;
-}
-
-.customer-table {
-	padding: 12px ;
-	border: 1px solid #ddd;
-	text-align: center;
-}
-
-.tdcustomer {
+  }
+  
+  .tdcustomer {
 	text-align: right;
-}
-
-.customer-table td {
-	padding: 12px ;
-	border: 1px solid #ddd;
-	/* text-align: right; */
-}
-
-.customer-table th {
+  }
+  
+  .customer-table th {
 	background-color: #f4f4f4;
 	font-weight: bold;
-}
-
-.customer-table tbody tr:hover {
+  }
+  
+  .customer-table tbody tr:hover {
 	background-color: #f9f9f9;
-}
-
-.no-customers {
+  }
+  
+  .no-customers {
 	text-align: center;
 	padding: 16px;
 	font-size: 14px;
 	color: #666;
-}
-
-.customer-table .select-button {
+  }
+  
+  .customer-table .select-button {
 	background-color: #0c65be;
 	color: white;
 	padding: 6px 12px;
@@ -78,8 +65,45 @@
 	font-size: 12px;
 	text-transform: none;
 	cursor: pointer;
-}
-
-.customer-table .select-button:hover {
+  }
+  
+  .customer-table .select-button:hover {
 	background-color: #000;
-}
+  }
+  
+  /* Mobile view (up to 768px wide) */
+  @media (max-width: 768px) {
+	.customer-table, .customer-table thead, .customer-table tbody, .customer-table th, .customer-table td, .customer-table tr {
+	  display: block;
+	  width: 100%;
+	}
+  
+	.customer-table thead {
+	  display: none; /* Hide table headers */
+	}
+  
+	.customer-table tr {
+	  margin-bottom: 15px; /* Add spacing between cards (rows) */
+	}
+  
+	.customer-table td {
+	  text-align: left;
+	  padding-left: 50%;
+	  position: relative;
+	}
+  
+	.customer-table td:before {
+	  content: attr(data-label); /* Use the data-label attribute to create the table labels */
+	  position: absolute;
+	  left: 10px;
+	  width: calc(50% - 10px);
+	  padding-right: 10px;
+	  font-weight: bold;
+	  white-space: nowrap;
+	}
+  
+	.tdcustomer {
+	  text-align: left; /* Adjust the text alignment in mobile */
+	}
+  }
+  
