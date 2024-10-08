@@ -134,7 +134,7 @@ function CustomerOverview({ filteredCustomers }) {
     })
   ) : (
     <tr>
-      <td colSpan="5" className="no-customers">
+      <td colSpan="7" className="no-customers">
         No customers found.
       </td>
     </tr>
