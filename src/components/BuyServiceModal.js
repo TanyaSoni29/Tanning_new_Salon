@@ -34,7 +34,7 @@ function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 			<div className='modal-header'>
 				<Typography
 					variant='h6'
-					color='white'
+					color='black'
 				>
 					Select a Service
 				</Typography>

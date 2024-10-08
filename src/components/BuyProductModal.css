@@ -37,8 +37,8 @@
 
 .Buyproducts-table-header {
     font-weight: bold;
-    color: white;
-    background-color: #0c65be;
+    color: rgb(0, 0, 0);
+    background-color: #f4f4f4;
     padding: 10px;
     border-radius: 5px;
 }

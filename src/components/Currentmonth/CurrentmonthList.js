@@ -114,7 +114,7 @@ const CustomerList = () => {
 	// Function to download CSV
 const handleDownloadCSV = () => {
     const headers = [
-        'Customer Name', 'Phone Number', 'Location', 'Min Available', 
+        'Customer Name', 'Location', 'Min Available', 
         'Total Min', 'Total Spent', 'Total Sales', 'Last Purchase'
     ];
 
@@ -127,7 +127,6 @@ const handleDownloadCSV = () => {
             );
             const rowData = [
                 `${customer.profile?.firstName || ''} ${customer.profile?.lastName || ''}`,
-                customer.profile?.phone_number || '',
                 preferredLocation ? preferredLocation.name : 'N/A',
                 customer.profile?.available_balance || '0',
                 customer.total_used_minutes || '0',
@@ -167,7 +166,6 @@ const handleDownloadCSV = () => {
 		// Table headers
 		const headers = [
 			'Customer Name',
-			'Phone Number',
 			'Location',
 			'Min Available',
 			'Total Min',
@@ -189,7 +187,6 @@ const handleDownloadCSV = () => {
 				`${customer.profile?.firstName || ''} ${
 					customer.profile?.lastName || ''
 				}`,
-				customer.profile?.phone_number || 'N/A',
 				locations.find(
 					(location) => location.id === customer.profile?.preferred_location
 				)?.name || 'N/A',
@@ -326,7 +323,7 @@ const handleDownloadCSV = () => {
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('phone_number')}>
+					{/* <span onClick={() => handleSort('phone_number')}>
 						Phone Number{' '}
 						<i
 							className={`fa fa-caret-${
@@ -336,7 +333,7 @@ const handleDownloadCSV = () => {
 									: 'down'
 							}`}
 						></i>
-					</span>
+					</span> */}
 					<span onClick={() => handleSort('preferred_location')}>
 						Location{' '}
 						<i
@@ -407,9 +404,9 @@ const handleDownloadCSV = () => {
 								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
-								<span data-label='Phone Number'>
+								{/* <span data-label='Phone Number'>
 									{customer.profile?.phone_number}
-								</span>
+								</span> */}
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation.name : 'N/A'}
 								</span>

@@ -45,7 +45,7 @@ function UseServiceModal({
 			<div className='modal-header'>
 				<Typography
 					variant='h6'
-					color='white'
+					color='black'
 				>
 					Select a Service to Use
 				</Typography>
