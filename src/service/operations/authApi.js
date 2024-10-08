@@ -129,8 +129,7 @@ export function getMe(navigate) {
 		} catch (error) {
 			console.log('GET ME API ERROR........', error);
 
-			const errorMessage =
-				error?.response?.data?.error || 'Failed to fetch user';
+			const errorMessage = error?.response?.data?.error || '';
 			toast.error(errorMessage);
 
 			// Log user out on failure
