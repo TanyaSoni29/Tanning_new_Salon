@@ -125,7 +125,7 @@ export function getMe(navigate) {
 			dispatch(setIsAuth(true));
 
 			// Redirect user to locationStep or other relevant page
-			navigate('/about');
+			// navigate('/about');
 		} catch (error) {
 			console.log('GET ME API ERROR........', error);
 
