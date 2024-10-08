@@ -129,8 +129,8 @@ export function getMe(navigate) {
 		} catch (error) {
 			console.log('GET ME API ERROR........', error);
 
-			const errorMessage = error?.response?.data?.error || '';
-			toast.error(errorMessage);
+			// const errorMessage = error?.response?.data?.error || '';
+			// toast.error(errorMessage);
 
 			// Log user out on failure
 			dispatch(setToken(null));
