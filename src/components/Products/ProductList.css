@@ -56,10 +56,18 @@
 	width: 100%;
 }
 
-.products-table-header,
-.products-table-row {
+.products-table-header {
 	display: grid;
 	grid-template-columns: 4fr 3fr 2fr 1fr;
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.products-table-row {
+	display: grid;
+	grid-template-columns: 4fr 3.4fr 2.2fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
