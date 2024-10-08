@@ -111,45 +111,40 @@ const CustomerList = () => {
 	});
 
 	// Function to download CSV
-	const handleDownloadCSV = () => {
-		const headers = [
-			'Customer Name',
-			'Phone Number',
-			'Location',
-			'Min Available',
-			'Total Min',
-			'Total Spent',
-			'Total Sales',
-			'Last Purchase',
-		];
+	// Function to download CSV
+const handleDownloadCSV = () => {
+    const headers = [
+        'Customer Name', 'Phone Number', 'Location', 'Min Available', 
+        'Total Min', 'Total Spent', 'Total Sales', 'Last Purchase'
+    ];
 
-		// Generating the CSV content
-		const csvRows = [
-			headers.join(','), // header row
-			...sortedCustomers.map((customer) => {
-				const preferredLocation = locations.find(
-					(location) => location.id === customer.profile?.preferred_location
-				);
-				const rowData = [
-					`${customer.profile?.firstName || ''} ${
-						customer.profile?.lastName || ''
-					}`,
-					customer.profile?.phone_number || '',
-					preferredLocation ? preferredLocation.name : 'N/A',
-					customer.profile?.available_balance || '0',
-					customer.total_used_minutes || '0',
-					`£${customer.total_service_purchased_price?.toFixed(2)}` || '£0.00',
-					`£${customer.total_product_purchased_price?.toFixed(2)}` || '£0.00',
-					formatDate(customer.profile?.updated_at) || 'N/A',
-				];
-				return rowData.join(',');
-			}),
-		].join('\n');
+    // Generating the CSV content
+    const csvRows = [
+        headers.join(','), // header row
+        ...sortedCustomers.map((customer) => {
+            const preferredLocation = locations.find(
+                (location) => location.id === customer.profile?.preferred_location
+            );
+            const rowData = [
+                `${customer.profile?.firstName || ''} ${customer.profile?.lastName || ''}`,
+                customer.profile?.phone_number || '',
+                preferredLocation ? preferredLocation.name : 'N/A',
+                customer.profile?.available_balance || '0',
+                customer.total_used_minutes || '0',
+                `£${customer.total_service_purchased_price?.toFixed(2) || '0.00'}`,
+                `£${customer.total_product_purchased_price?.toFixed(2) || '0.00'}`,
+                formatDate(customer.profile?.updated_at) || 'N/A',
+            ];
+            return rowData.join(',');
+        }),
+    ].join('\n');
 
-		// Creating a Blob and saving it as CSV
-		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
-		saveAs(blob, 'Customers.csv');
-	};
+    // Adding BOM for proper UTF-8 encoding
+    const csvContent = '\uFEFF' + csvRows; // BOM for UTF-8 encoding
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'Customers.csv');
+};
+
 
 	// Function to download PDF
 	const handleDownloadPDF = () => {

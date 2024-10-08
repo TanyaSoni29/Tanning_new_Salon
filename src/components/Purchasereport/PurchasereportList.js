@@ -94,6 +94,7 @@ const ProductList = ({
 	}, [purchaseServiceTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	// Download CSV
+	// Download CSV with UTF-8 encoding and BOM
 	const handleDownloadCSV = () => {
 		const headers = [
 			'Date',
@@ -115,7 +116,9 @@ const ProductList = ({
 			),
 		].join('\n');
 
-		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
+		// Add BOM for proper UTF-8 encoding
+		const csvContent = '\uFEFF' + csvRows; // BOM for UTF-8 encoding
+		const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 		saveAs(blob, 'service-purchase.csv');
 	};
 

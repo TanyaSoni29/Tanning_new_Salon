@@ -94,30 +94,34 @@ const ProductList = ({
 	}, [productTransaction, searchTerm, selectedLocation, sortConfig]);
 
 	// Download CSV
-	const handleDownloadCSV = () => {
-		const headers = [
-			'Product Name',
-			'Location',
-			'Total Value',
-			'Total Sold',
-			'Date',
-		];
-		const csvRows = [
-			headers.join(','), // header row
-			...filteredTransaction.map((data) =>
-				[
-					data.product.name,
-					data.location?.name || 'N/A',
-					`£${data.total_price.toFixed(2)}`, // Format total value with currency
-					data.total_sold,
-					formatDate(data.last_transaction_date),
-				].join(',')
-			),
-		].join('\n');
+	// Download CSV with UTF-8 encoding
+const handleDownloadCSV = () => {
+    const headers = [
+        'Product Name',
+        'Location',
+        'Total Value',
+        'Total Sold',
+        'Date',
+    ];
+    const csvRows = [
+        headers.join(','), // header row
+        ...filteredTransaction.map((data) =>
+            [
+                data.product.name,
+                data.location?.name || 'N/A',
+                `£${data.total_price.toFixed(2)}`, // Format total value with currency
+                data.total_sold,
+                formatDate(data.last_transaction_date),
+            ].join(',')
+        ),
+    ].join('\n');
 
-		const blob = new Blob([csvRows], { type: 'text/csv;charset=utf-8;' });
-		saveAs(blob, 'product-purchase.csv');
-	};
+    // Correctly handle UTF-8 with BOM for Excel compatibility
+    const csvContent = '\uFEFF' + csvRows; // Adding BOM to handle UTF-8 properly
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'product-purchase.csv');
+};
+
 
 	// Download PDF with proper formatting and gridlines
 	const handleDownloadPDF = () => {
