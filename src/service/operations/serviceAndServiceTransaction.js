@@ -163,7 +163,9 @@ export const getAllServiceTransactions = async (token) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Fetch service transactions api error', error);
-		toast.error('Failed to fetch service transactions');
+		if (error.response.status !== 404) {
+			toast.error('Failed to fetch service transactions');
+		}
 	}
 	return result;
 };
@@ -263,8 +265,10 @@ export const getServicePurchaseReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('GET_PRODUCT_REPORT Api Error', error);
-		const errorMessage = error?.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };
@@ -292,8 +296,10 @@ export const getServiceUseReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('GET_SERVICE_USE_REPORT Api Error', error);
-		const errorMessage = error?.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };

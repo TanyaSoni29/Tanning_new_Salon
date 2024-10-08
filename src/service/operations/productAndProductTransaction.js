@@ -161,7 +161,9 @@ export const getAllProductTransactions = async (token) => {
 	} catch (error) {
 		console.log('Fetch product transactions api error', error);
 		const errorMessage = error.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };
@@ -214,8 +216,10 @@ export const getProductReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('GET_PRODUCT_REPORT Api Error', error);
-		const errorMessage = error?.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };

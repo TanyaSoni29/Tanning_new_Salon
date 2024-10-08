@@ -350,7 +350,8 @@ function DeleteAllModal({ handleDelete, closeDeleteAllData }) {
 	return (
 		<div className='delete-modal'>
 			<p>
-				Are you sure you want to delete all services, products and transactions?
+				Are you sure you want to delete all customers, services, products and
+				transactions?
 			</p>
 			<div className='button-container'>
 				<button

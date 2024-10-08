@@ -298,7 +298,10 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 											data-label='Quantity'
 											className='tbprice'
 										>
-											{transaction?.quantity ? transaction?.quantity : '-'}
+											{transaction?.type === 'used' ||
+											transaction?.type === 'purchased'
+												? 1
+												: transaction?.quantity}
 										</span>
 									</div>
 								))

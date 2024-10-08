@@ -103,8 +103,10 @@ export const getAllUser = async (token) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Get All User Api Error', error);
-		const errorMessage = error.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };
@@ -130,8 +132,10 @@ export const getAllCustomerReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('getAllCustomerReport Error', error);
-		const errorMessage = error.response?.data?.error;
-		toast.error(errorMessage);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
 	}
 	return result;
 };
