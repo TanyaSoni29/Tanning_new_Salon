@@ -141,7 +141,7 @@
 	.location-container {
 		width: 90%; /* Adjust container width for mobile */
 		margin-left: 20px;
-		margin-top: 120px;
+		margin-top: 90px;
 	}
 
 	.location-search-container {
@@ -185,7 +185,7 @@
 	.location-container {
 		width: 95%;
 		margin: 20px auto;
-		margin-top: 120px;
+		margin-top: 50px;
 		margin-left: 10px;
 	}
 

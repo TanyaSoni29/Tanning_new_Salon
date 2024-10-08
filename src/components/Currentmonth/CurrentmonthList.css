@@ -179,7 +179,7 @@ input:checked + .slider:before {
 	.currentmon-container {
 		width: 90%;
 		margin-left: 20px;
-		margin-top: 120px;
+		margin-top: 50px;
 	}
 
 	/* Filter Section */

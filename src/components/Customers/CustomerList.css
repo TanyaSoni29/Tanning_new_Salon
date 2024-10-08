@@ -141,8 +141,8 @@
 @media (max-width: 768px) {
 	.customer-container {
 		width: 90%;
-		margin-left: 20px;
-		margin-top: 120px;
+		margin-left: 10px;
+		margin-top: 60px;
 	}
 
 	.customer-search-container {
@@ -199,7 +199,7 @@
 @media (max-width: 480px) {
 	.customer-container {
 		width: 95%;
-		margin-left: 25px;
+		margin-left: 10px;
 	}
 
 	.customer-search-container input {
