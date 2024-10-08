@@ -19,7 +19,12 @@ const ServiceUsedList = ({
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 
 	// Helper function to format date for input fields (YYYY-MM-DD)
-	const formatDateForInput = (date) => date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+	const formatDateForInput = (date) => {
+		if (date instanceof Date && !isNaN(date)) {
+			return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+		}
+		return '';
+	}; // Return YYYY-MM-DD format
 
 	const { locations } = useSelector((state) => state.location);
 
@@ -195,9 +200,15 @@ const ServiceUsedList = ({
 				</div>
 
 				<div className='servicelocation-select'>
-					<select value={selectedLocation} onChange={handleLocationChange}>
+					<select
+						value={selectedLocation}
+						onChange={handleLocationChange}
+					>
 						{uniqueLocations.map((location) => (
-							<option key={location} value={location}>
+							<option
+								key={location}
+								value={location}
+							>
 								{location}
 							</option>
 						))}
@@ -205,11 +216,23 @@ const ServiceUsedList = ({
 				</div>
 
 				<div className='serviceused-files'>
-					<div className='serviceused-download' onClick={handleDownloadCSV}>
-						<FaFileCsv size={35} style={{ color: '#28a745' }} />
+					<div
+						className='serviceused-download'
+						onClick={handleDownloadCSV}
+					>
+						<FaFileCsv
+							size={35}
+							style={{ color: '#28a745' }}
+						/>
 					</div>
-					<div className='serviceused-download' onClick={handleDownloadPDF}>
-						<FaFilePdf size={35} style={{ color: '#dc3545' }} />
+					<div
+						className='serviceused-download'
+						onClick={handleDownloadPDF}
+					>
+						<FaFilePdf
+							size={35}
+							style={{ color: '#dc3545' }}
+						/>
 					</div>
 				</div>
 			</div>
@@ -230,7 +253,8 @@ const ServiceUsedList = ({
 						Service Name{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+								sortConfig.key === 'serviceName' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -246,11 +270,12 @@ const ServiceUsedList = ({
 							}`}
 						></i>
 					</span>
-						<span onClick={() => handleSort('total_quantity')}>
+					<span onClick={() => handleSort('total_quantity')}>
 						Total Usage{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_quantity' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -260,17 +285,30 @@ const ServiceUsedList = ({
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div key={i} className='serviceused-table-row'>
-							<span data-label='Date' style={{ whiteSpace: 'nowrap' }}>
+						<div
+							key={i}
+							className='serviceused-table-row'
+						>
+							<span
+								data-label='Date'
+								style={{ whiteSpace: 'nowrap' }}
+							>
 								{formatDate(transaction.date)}
 							</span>
 							<span data-label='Service Name'>{transaction.serviceName}</span>
 							<span data-label='Location'>{transaction.location?.name}</span>
-							<span data-label='Total Usage' className='totalUse'>{transaction.total_quantity}</span>
+							<span
+								data-label='Total Usage'
+								className='totalUse'
+							>
+								{transaction.total_quantity}
+							</span>
 						</div>
 					))
 				) : (
-					<div className='serviceused-no-data'>No service transaction found.</div>
+					<div className='serviceused-no-data'>
+						No service transaction found.
+					</div>
 				)}
 			</div>
 		</div>

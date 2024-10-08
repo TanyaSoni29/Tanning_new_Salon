@@ -29,8 +29,19 @@ function Allcustomers() {
 			const locationId = locations.find(
 				(location) => location.name === selectedLocation
 			);
-			const start_date = dateRange.startDate.toISOString().split('T')[0];
-			const end_date = dateRange.endDate.toISOString().split('T')[0];
+			const start_date =
+				dateRange.startDate instanceof Date && !isNaN(dateRange.startDate)
+					? dateRange.startDate.toISOString().split('T')[0]
+					: null;
+			const end_date =
+				dateRange.endDate instanceof Date && !isNaN(dateRange.endDate)
+					? dateRange.endDate.toISOString().split('T')[0]
+					: null;
+
+			if (!start_date || !end_date) {
+				console.error('Invalid date range provided.');
+				return;
+			}
 			try {
 				const newData = {
 					start_date: start_date,
