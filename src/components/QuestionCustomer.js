@@ -1,4 +1,9 @@
-/* eslint-disable react/function-component-definition */
+/**
+ * eslint-disable react/function-component-definition
+ *
+ * @format
+ */
+
 import * as React from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -41,11 +46,11 @@ export default function BasicCard({ onClose }) {
 					variant='contained'
 					onClick={handleNo}
 					sx={{
-						width: { xs: '100%', sm: 'auto' }, // Full-width on mobile
-						backgroundColor: 'red', // Red background for "No" button
-						color: '#fff', // White text color for better contrast
+						'width': { xs: '100%', sm: 'auto' }, // Full-width on mobile
+						'backgroundColor': 'green', // Red background for "No" button
+						'color': '#fff', // White text color for better contrast
 						'&:hover': {
-							backgroundColor: 'darkred', // Darker shade on hover
+							opacity: '80%', // Darker shade on hover
 						},
 					}}
 				>
@@ -55,12 +60,13 @@ export default function BasicCard({ onClose }) {
 					variant='outlined'
 					onClick={onClose}
 					sx={{
-						width: { xs: '100%', sm: 'auto' }, // Full-width on mobile
-						borderColor: 'green', // Green border for "Yes" button
-						color: 'green', // Green text color
+						'width': { xs: '100%', sm: 'auto' }, // Full-width on mobile
+						'borderColor': 'red', // Green border for "Yes" button
+						'color': 'red', // Green text color
 						'&:hover': {
-							backgroundColor: 'lightgreen', // Light green background on hover
-							borderColor: 'green',
+							backgroundColor: '#F42819', // Light green background on hover
+							borderColor: 'red',
+							color: '#fff',
 						},
 					}}
 				>
