@@ -19,7 +19,6 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
-	flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .user-search-container input {
