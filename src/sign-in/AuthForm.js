@@ -67,7 +67,7 @@ const AuthForm = () => {
 			// Sign-In logic goes here
 			if (!isSignUp) {
 				dispatch(login(formData.email, formData.password, navigate));
-				toast.success('Logged in successfully!');
+				// toast.success('Logged in successfully!');
 			} else {
 				const newData = {
 					email: formData.email,
@@ -142,12 +142,10 @@ const AuthForm = () => {
 							</>
 						) : (
 							<>
-							
 								<a
 									href='#'
 									onClick={toggleForm}
-								>
-								</a>
+								></a>
 							</>
 						)}
 					</p>

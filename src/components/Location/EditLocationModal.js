@@ -150,7 +150,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						alignItems='center'
 						gap={1}
 					>
-						<Typography color='red'>
+						<Typography color='primary'>
 							https://salon-customer.vercel.app/register/{activeLocation.id}
 						</Typography>
 						<Button
