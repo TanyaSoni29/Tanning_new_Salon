@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from 'react';
 import './BydataList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
