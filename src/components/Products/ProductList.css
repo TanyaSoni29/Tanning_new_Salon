@@ -108,8 +108,8 @@
 
 .productPrice {
 	display: flex;
-	justify-content: center;
-	width: 25%;
+	justify-content: end;
+	width: 20%;
 }
 
 .no-data {

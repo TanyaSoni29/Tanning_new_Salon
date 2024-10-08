@@ -117,8 +117,14 @@
 }
 .customerregtb {
 	display: flex;
-	justify-content: center;
-	width: 30%;
+	justify-content: end;
+	width: 20%;
+}
+
+.totalSpendb {
+	display: flex;
+	justify-content: end;
+	width: 35%;
 }
 
 /* Mobile View */
@@ -173,6 +179,11 @@
 		margin-right: 10px;
 	}
 	.customerregtb {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	.totalSpendb {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;

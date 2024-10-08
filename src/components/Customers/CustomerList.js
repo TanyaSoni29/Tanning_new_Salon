@@ -222,7 +222,7 @@ const CustomerList = () => {
 					</span>
 					<span
 						onClick={() => handleSort('total_service_purchased_price')}
-						className='customertab'
+						// className='customertab'
 					>
 						Total Spent{' '}
 						<i
@@ -268,7 +268,7 @@ const CustomerList = () => {
 								<span data-label='Phone'>{customer.profile?.phone_number}</span>
 								<span
 									data-label='Min. Aval.'
-									className='customertab'
+									className='min-avail'
 								>
 									{customer.profile?.available_balance}
 								</span>

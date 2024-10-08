@@ -350,7 +350,7 @@ const handleDownloadCSV = () => {
 							<span data-label='Location'>{transaction.location.name}</span>
 							<span
 								data-label='Total Value'
-								className='productvalu'
+								className='productvalu2'
 							>
 								£{transaction.total_price.toFixed(2)}
 							</span>

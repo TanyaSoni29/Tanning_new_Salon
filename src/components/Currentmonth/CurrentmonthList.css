@@ -170,8 +170,20 @@ input:checked + .slider:before {
 }
 .topcustomerspent {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
+	width: 65%;
+}
+
+.topcustomersell {
+	display: flex;
+	justify-content: end;
 	width: 90%;
+}
+
+.topcustomerMin {
+	display: flex;
+	justify-content: end;
+	width: 50%;
 }
 
 /* Mobile View */
@@ -232,6 +244,18 @@ input:checked + .slider:before {
 		color: #333;
 	}
 	.topcustomerspent {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.topcustomerMin {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.topcustomersell {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;

@@ -88,8 +88,13 @@
 }
 .productvalu {
 	display: flex;
-	justify-content: center;
-	width: 70%;
+	justify-content: end;
+	width: 60%;
+}
+.productvalu2 {
+	display: flex;
+	justify-content: end;
+	width: 50%;
 }
 
 /* Mobile View */

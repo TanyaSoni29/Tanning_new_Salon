@@ -412,13 +412,13 @@ const handleDownloadCSV = () => {
 								</span>
 								<span
 									data-label='Min. Avail.'
-									className='topcustomerspent'
+									className='topcustomerMin'
 								>
 									{customer.profile?.available_balance}
 								</span>
 								<span
 									data-label='Total Min. Used'
-									className='topcustomerspent'
+									className='topcustomerMin'
 								>
 									{customer.total_used_minutes?.toFixed(2)}
 								</span>
@@ -430,7 +430,7 @@ const handleDownloadCSV = () => {
 								</span>
 								<span
 									data-label='Total Sales'
-									className='topcustomerspent'
+									className='topcustomersell'
 								>
 									£{customer.total_product_purchased_price?.toFixed(2)}
 								</span>

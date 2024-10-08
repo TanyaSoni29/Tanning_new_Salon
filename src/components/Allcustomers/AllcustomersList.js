@@ -296,7 +296,7 @@ const CustomerList = ({
 								</span>
 								<span
 									data-label='Total Spent'
-									className='customerregtb'>
+									className='totalSpendb'>
 									£{customer?.spent?.toFixed(2) || '0.00'}
 								</span>
 							</div>

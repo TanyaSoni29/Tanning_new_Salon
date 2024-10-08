@@ -122,12 +122,13 @@
 }
 .customertab {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
+	width: 50%;
 }
 .min-avail {
 	display: flex;
-	justify-content: center;
-	
+	justify-content: end;
+	width: 60%;
 }
 
 .no-data {
@@ -189,6 +190,11 @@
 	}
 
 	.customertab {
+		margin-left: 0px;
+		display: none;
+		width: 100%;
+	}
+	.min-avail {
 		margin-left: 0px;
 		display: none;
 		width: 100%;

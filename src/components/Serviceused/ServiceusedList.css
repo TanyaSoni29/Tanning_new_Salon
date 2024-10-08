@@ -114,7 +114,8 @@
 
 .totalUse {
 	display: flex;
-	justify-content: center;
+	justify-content: end;
+	width: 50%;
 }
 
 /* Responsive Layout for Tablets and Mobile */
@@ -193,6 +194,7 @@
 	.totalUse {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 	}
 }
 
