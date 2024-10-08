@@ -211,6 +211,44 @@
 
 /* Adjustments for small devices */
 @media (max-width: 480px) {
+
+	.service-wizard-container .heading {
+		font-size: 18px;
+		font-weight: bold;
+		color: #333;
+	}
+	
+	.service-wizard-container .subheading {
+		font-size: 9px;
+		color: #666;
+		margin-bottom: 30px;
+	}
+	
+	.service-wizard-container .service-info {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		border: 1px solid #e0e0e0;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.service-info p {
+		display: flex;
+		flex-direction: row;
+		text-align: start;
+		font-size: 12px;
+		color: #555;
+		line-height: 1;
+	}
+	
+	.service-info span {
+		font-weight: bold;
+		margin-right: 10px;
+	}
+	
 	.transaction-table-row span {
 		font-size: 12px;
 	}
