@@ -9,6 +9,7 @@ const {
 	GET_CUSTOMERS_BY_LOCATION_DATE,
 	RESET_PASSWORD_API,
 	GET_ALL_CUSTOMER_REPORT,
+	DELETE_ALL_API,
 	// CREATE_CUSTOMER_API,
 	// DELETE_CUSTOMER_API,
 	// CREATE_USER_API,
@@ -335,6 +336,25 @@ export const getCustomerByDateAndLocation = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Get All User Api Error', error);
+		const errorMessage = error.response?.data?.error;
+		toast.error(errorMessage);
+	}
+	return result;
+};
+
+export const deleteAllData = async (token) => {
+	let result = false;
+	try {
+		const response = await apiConnector('GET', DELETE_ALL_API, null, {
+			Authorization: `Bearer ${token}`,
+		});
+
+		if (response.status !== 200) throw new Error('Could not fetch Users');
+
+		result = true;
+		toast.success('All Data deleted successfully');
+	} catch (error) {
+		console.log(error);
 		const errorMessage = error.response?.data?.error;
 		toast.error(errorMessage);
 	}

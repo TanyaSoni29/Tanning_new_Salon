@@ -1,4 +1,9 @@
-/* Desktop View */
+/**
+ * Desktop View
+ *
+ * @format
+ */
+
 .user-container {
 	width: 70%;
 	margin: 20px auto;
@@ -25,8 +30,26 @@
 	border-radius: 4px;
 }
 
+.btn-add-delete {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	width: 30%;
+	gap: 1rem;
+}
+
 .add-button3 {
 	background-color: #0c65be;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.delete-button3 {
+	background-color: #f42819;
 	color: white;
 	padding: 10px 20px;
 	border: none;
@@ -38,7 +61,9 @@
 .add-button3:hover {
 	background-color: #000;
 }
-
+.delete-button3:hover {
+	background-color: #000;
+}
 /* Table Styles */
 .users-table {
 	background-color: white;
@@ -96,8 +121,8 @@
 	font-size: 12px;
 	padding: 0;
 	margin-left: 5px;
-  }
-  
+}
+
 .user-table-row {
 	background-color: white;
 }

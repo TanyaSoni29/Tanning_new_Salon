@@ -23,6 +23,7 @@ export const userEndpoints = {
 	GET_ALL_CUSTOMER_REPORT: BASE_URL + '/getUserd',
 	GET_CUSTOMERS_BY_LOCATION_DATE: BASE_URL + '/getUserByLocationAndDate',
 	RESET_PASSWORD_API: BASE_URL + '/password/reset',
+	DELETE_ALL_API: BASE_URL + '/clearData',
 	// DELETE_CUSTOMER_API: BASE_URL + "/deleteCustomer",
 	// CREATE_USER_API: BASE_URL + "/createUser",
 	// DELETE_USER_API: BASE_URL + "/deleteUser",
