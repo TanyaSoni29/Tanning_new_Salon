@@ -17,7 +17,10 @@ const ProductList = ({
 }) => {
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => {
-		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+		if (date instanceof Date && !isNaN(date)) {
+			return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+		}
+		return ''; // Return YYYY-MM-DD format
 	};
 
 	const [searchTerm, setSearchTerm] = useState('');
@@ -131,10 +134,18 @@ const ProductList = ({
 		// Set title
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(18);
-		doc.text('Product Purchase Report', pageWidth / 2, margin, { align: 'center' });
+		doc.text('Product Purchase Report', pageWidth / 2, margin, {
+			align: 'center',
+		});
 
 		// Table headers
-		const headers = ['Product Name', 'Location', 'Total Value', 'Total Sold', 'Date'];
+		const headers = [
+			'Product Name',
+			'Location',
+			'Total Value',
+			'Total Sold',
+			'Date',
+		];
 		doc.setFontSize(12);
 		doc.setFont('helvetica', 'bold');
 		drawTableRow(doc, headers, currentY, colWidths);
@@ -186,10 +197,10 @@ const ProductList = ({
 
 			// Draw the cell borders
 			doc.rect(currentX, y, colWidth, 20); // Draw the rectangle for each cell
-			
+
 			// Center the text inside the cell horizontally and vertically
 			const textWidth = doc.getTextWidth(text);
-			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textX = currentX + colWidth / 2 - textWidth / 2; // Center horizontally
 			const textY = y + 15; // Center vertically within the cell
 			doc.text(text, textX, textY); // Draw the text
 
@@ -333,10 +344,18 @@ const ProductList = ({
 							</span>
 							<span data-label='Product Name'>{transaction.product.name}</span>
 							<span data-label='Location'>{transaction.location.name}</span>
-							<span data-label='Total Value' className='productvalu'>
+							<span
+								data-label='Total Value'
+								className='productvalu'
+							>
 								£{transaction.total_price.toFixed(2)}
 							</span>
-							<span data-label='Total Sold'  className='productvalu'>{transaction.total_sold}</span>
+							<span
+								data-label='Total Sold'
+								className='productvalu'
+							>
+								{transaction.total_sold}
+							</span>
 						</div>
 					))
 				) : (

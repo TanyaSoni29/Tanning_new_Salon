@@ -17,7 +17,10 @@ const ProductList = ({
 }) => {
 	// Helper function to format date for input fields (YYYY-MM-DD)
 	const formatDateForInput = (date) => {
-		return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+		if (date instanceof Date && !isNaN(date)) {
+			return date.toISOString().slice(0, 10); // Return YYYY-MM-DD format
+		}
+		return ''; // Return YYYY-MM-DD format
 	};
 
 	// State for search term
@@ -131,12 +134,20 @@ const ProductList = ({
 		const colWidths = [80, 140, 120, 100, 100]; // Widths for Date, Service Name, Location, Total Value, Minutes Sold
 
 		// Draw table headers
-		const headers = ['Date', 'Service Name', 'Location', 'Total Value', 'Minutes Sold'];
-		
+		const headers = [
+			'Date',
+			'Service Name',
+			'Location',
+			'Total Value',
+			'Minutes Sold',
+		];
+
 		// Set title
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(18);
-		doc.text('Service Purchase Report', pageWidth / 2, margin, { align: 'center' });
+		doc.text('Service Purchase Report', pageWidth / 2, margin, {
+			align: 'center',
+		});
 
 		// Draw the table header row
 		doc.setFontSize(12);
@@ -190,10 +201,10 @@ const ProductList = ({
 
 			// Draw the cell borders
 			doc.rect(currentX, y, colWidth, 20); // Draw the rectangle for each cell
-			
+
 			// Center the text inside the cell horizontally and vertically
 			const textWidth = doc.getTextWidth(text);
-			const textX = currentX + (colWidth / 2) - (textWidth / 2); // Center horizontally
+			const textX = currentX + colWidth / 2 - textWidth / 2; // Center horizontally
 			const textY = y + 15; // Center vertically within the cell
 			doc.text(text, textX, textY); // Draw the text
 
@@ -284,7 +295,8 @@ const ProductList = ({
 						Service Name{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'serviceName' && sortConfig.direction === 'asc'
+								sortConfig.key === 'serviceName' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -304,7 +316,8 @@ const ProductList = ({
 						Total Value{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_price' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_price' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -314,7 +327,8 @@ const ProductList = ({
 						Minutes Sold{' '}
 						<i
 							className={`fa fa-caret-${
-								sortConfig.key === 'total_quantity' && sortConfig.direction === 'asc'
+								sortConfig.key === 'total_quantity' &&
+								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
 							}`}
@@ -324,14 +338,30 @@ const ProductList = ({
 
 				{filteredTransaction.length > 0 ? (
 					filteredTransaction.map((transaction, i) => (
-						<div key={i} className='purchasereportlist-table-row'>
-							<span data-label="Date" style={{ whiteSpace: 'nowrap' }}>
+						<div
+							key={i}
+							className='purchasereportlist-table-row'
+						>
+							<span
+								data-label='Date'
+								style={{ whiteSpace: 'nowrap' }}
+							>
 								{formatDate(transaction.date)}
 							</span>
-							<span data-label="Service Name">{transaction.serviceName}</span>
-							<span data-label="Location">{transaction.location?.name}</span>
-							<span data-label="Total Value" className='purchasevalu'>£{transaction.total_price.toFixed(2)}</span>
-							<span data-label="Minutes Sold" className='purchasevalu'>{transaction.total_quantity}</span>
+							<span data-label='Service Name'>{transaction.serviceName}</span>
+							<span data-label='Location'>{transaction.location?.name}</span>
+							<span
+								data-label='Total Value'
+								className='purchasevalu'
+							>
+								£{transaction.total_price.toFixed(2)}
+							</span>
+							<span
+								data-label='Minutes Sold'
+								className='purchasevalu'
+							>
+								{transaction.total_quantity}
+							</span>
 						</div>
 					))
 				) : (
