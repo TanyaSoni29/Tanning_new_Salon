@@ -56,6 +56,14 @@
 	cursor: pointer;
 	font-size: 16px;
 }
+.confirm-button{
+	background-color: #28a745;
+	color: white;
+}
+.cancel-button{
+	background-color: rgb(247, 95, 95);
+	color: white;
+}
 
 .add-button3:hover {
 	background-color: #000;
