@@ -295,7 +295,7 @@ const handleDownloadCSV = () => {
 						onClick={handleDownloadCSV}
 					>
 						<FaFileCsv
-							size={40}
+							size={35}
 							style={{ color: '#28a745' }}
 						/>{' '}
 					</div>
@@ -304,7 +304,7 @@ const handleDownloadCSV = () => {
 						onClick={handleDownloadPDF}
 					>
 						<FaFilePdf
-							size={40}
+							size={35}
 							style={{ color: '#dc3545' }}
 						/>{' '}
 					</div>

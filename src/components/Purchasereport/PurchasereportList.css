@@ -66,8 +66,9 @@
 /* Flex layout for file icons */
 .purchasereportlist-files {
 	display: flex;
+	justify-content: flex-end;
+	width: 40%;
 	gap: 5px;
-	align-items: center;
 }
 
 .purchasereportlist-download {

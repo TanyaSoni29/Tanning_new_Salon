@@ -14,8 +14,9 @@
 /* File download icons (CSV, PDF) */
 .productreportlist-files {
 	display: flex;
+	justify-content: flex-end;
+	width: 39%;
 	gap: 4px;
-	height: 5vh;
 }
 
 /* Filter product section */
@@ -146,6 +147,10 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+	.productreportlist-files {
+		display: flex;
+		gap: 4px;
 	}
 }
 

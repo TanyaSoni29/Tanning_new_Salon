@@ -1,8 +1,4 @@
-/**
- * Desktop View
- *
- * @format
- */
+
 
 .allcustomer-container {
 	width: 70%;
@@ -18,11 +14,13 @@
 /* Search Bar */
 .allcustomer-files {
 	display: flex;
+	justify-content: flex-end;
 	gap: 10px;
 	align-items: center;
-	width: 100%;
-	max-width: 180px;
+	width: 55%;
+	align-items: end;
 }
+
 
 .filter-customer {
 	display: flex;
@@ -127,6 +125,7 @@
 	width: 35%;
 }
 
+
 /* Mobile View */
 @media (max-width: 768px) {
 	.allcustomer-container {
@@ -187,6 +186,13 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+	.allcustomer-files {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		width: 100%;
+		min-width: 100px;
 	}
 }
 

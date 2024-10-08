@@ -116,8 +116,9 @@ input:checked + .slider:before {
 /* Files Section */
 .currentmon-files {
 	display: flex;
+	justify-content: flex-end;
+	width: 50%;
 	gap: 0px;
-	align-items: center;
 }
 
 .currentmon-icon {
@@ -259,5 +260,9 @@ input:checked + .slider:before {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+	.currentmon-files {
+		display: flex;
+		gap: 0px;
 	}
 }

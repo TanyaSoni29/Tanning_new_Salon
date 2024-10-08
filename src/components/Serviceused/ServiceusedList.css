@@ -68,9 +68,9 @@
 .serviceused-files {
 	margin-top: 5px;
 	display: flex;
+	justify-content: flex-end;
+	width: 33%;
 	gap: 2px;
-	align-items: center;
-	justify-content: flex-start;
 }
 
 /* Table Styles */
@@ -196,6 +196,12 @@
 		justify-content: space-between;
 		width: 100%;
 	}
+	.serviceused-files {
+		margin-top: 5px;
+		display: flex;
+		gap: 2px;
+	}
+	
 }
 
 /* Extra small mobile view */
