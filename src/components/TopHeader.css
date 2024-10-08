@@ -100,23 +100,23 @@
 	}
 
 	.page-heading {
-		font-size: 16px;
+		font-size: 10px;
 	}
 
 	.login-details {
-		font-size: 12px;
+		font-size: 10px;
 		padding: 5px;
 	}
 
 	.topheadname {
-		font-size: 12px;
+		font-size: 10px;
 	}
 
 	.user-icon {
-		margin-right: 5px;
+		margin-right: 6px;
 	}
 
 	.location-name {
-		font-size: 12px;
+		font-size: 10px;
 	}
 }
