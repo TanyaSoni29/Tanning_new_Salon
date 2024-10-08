@@ -43,6 +43,8 @@ export const createUser = async (token, data) => {
 				gender: data.gender || '',
 				post_code: data.post_code,
 				role: data.role,
+				gdpr_sms_active: data.gdpr_sms_active || false,
+				gdpr_email_active: data.gdpr_email_active || false,
 			},
 			{
 				'Authorization': `Bearer ${token}`,
