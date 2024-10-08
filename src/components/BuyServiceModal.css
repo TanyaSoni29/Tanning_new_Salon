@@ -1,7 +1,6 @@
-/** @format */
-
+/* General Styles */
 .service-modal-container {
-	width: 20vw;
+	width: 20vw; /* Default for larger screens */
 	padding: 20px;
 	margin: auto;
 	background-color: #fff;
@@ -49,6 +48,9 @@
 	background-color: #0c65be;
 	color: white;
 	cursor: pointer;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
 }
 
 .service-modal-container button.confirm-button:hover {
@@ -61,8 +63,65 @@
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	cursor: pointer;
+	padding: 10px 20px;
 }
 
 .service-modal-container button.cancel-button:hover {
 	background-color: #f1f1f1;
+}
+
+/* Tablet View (768px and below) */
+@media (max-width: 768px) {
+	.service-modal-container {
+		width: 40vw; /* Adjusted width for tablets */
+		padding: 15px;
+	}
+
+	.service-modal-container .modal-header {
+		font-size: 18px;
+	}
+
+	.service-modal-container .modal-body {
+		padding: 15px 0;
+	}
+
+	.service-modal-container .modal-actions {
+		gap: 5px;
+	}
+}
+
+/* Mobile View (480px and below) */
+@media (max-width: 480px) {
+	.service-modal-container {
+		width: 80vw; /* Take up more screen space on mobile */
+		padding: 10px;
+	}
+
+	.service-modal-container .modal-header {
+		font-size: 16px;
+		padding: 8px;
+	}
+
+	.service-modal-container .modal-body {
+		padding: 10px 0;
+	}
+
+	.service-modal-container .service-select {
+		font-size: 14px;
+		height: 40px;
+	}
+
+	.service-modal-container .modal-actions {
+		flex-direction: column; /* Stack buttons vertically */
+		width: 100%;
+		margin-top: 15px;
+	}
+
+	.service-modal-container button.confirm-button,
+	.service-modal-container button.cancel-button {
+		width: 100%; /* Full width buttons for mobile */
+		margin-bottom: 10px; /* Add spacing between buttons */
+		padding: 12px;
+		font-size: 14px;
+	}
 }

@@ -141,26 +141,28 @@
 /* Mobile View (480px and below) */
 @media (max-width: 480px) {
     .Buyproduct-modal-container {
-        width: 90%; /* Take up most of the screen on mobile */
+        width: 120%; /* Take up most of the screen on mobile */
         padding: 10px;
     }
 
     .Buyproduct-modal-header {
-        font-size: 18px;
+        font-size: 15px;
     }
 
     /* Stack the table items for better readability on mobile */
     .Buyproducts-table-header,
     .Buyproducts-table-row {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items:flex-end;
         padding: 10px;
+        font-size: 9px;
     }
 
     .Buyproduct-name {
-        flex-direction: column; /* Stack image and name */
-        align-items: flex-start;
+        flex-direction: row; /* Stack image and name */
+        align-items: flex-end;
     }
 
     .Buyproduct-image {
@@ -169,7 +171,7 @@
     }
 
     .quantity-select {
-        width: 100%; /* Full width dropdown on mobile */
+        width: 90%; /* Full width dropdown on mobile */
     }
 
     /* Full width buttons stacked vertically */
@@ -177,7 +179,7 @@
     .cancel-button {
         width: 100%;
         font-size: 14px;
-        padding: 12px;
+        padding: 7px;
         margin: 5px 0;
     }
 

@@ -1,7 +1,6 @@
-/** @format */
-
+/* General Styles */
 .use-service-modal-container {
-	width: 20vw;
+	width: 20vw; /* Default for larger screens */
 	padding: 20px;
 	margin: auto;
 	background-color: #fff;
@@ -14,6 +13,7 @@
 	padding: 10px;
 	border-radius: 8px 8px 0 0;
 	text-align: center;
+	color: white;
 }
 
 .use-service-modal-container .modal-body {
@@ -37,11 +37,15 @@
 	margin-top: 20px;
 }
 
-.use-service-modal-containerbutton.confirm-button {
+.use-service-modal-container button.confirm-button {
 	background-color: #0c65be;
 	color: white;
 	cursor: pointer;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
 }
+
 .use-service-modal-container button.confirm-button:hover {
 	background-color: #000;
 }
@@ -52,8 +56,72 @@
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	cursor: pointer;
+	padding: 10px 20px;
 }
 
 .use-service-modal-container button.cancel-button:hover {
 	background-color: #f1f1f1;
+}
+
+/* Tablet View (768px and below) */
+@media (max-width: 768px) {
+	.use-service-modal-container {
+		width: 40vw; /* Adjusted for tablet screens */
+		padding: 15px;
+	}
+
+	.use-service-modal-container .modal-header {
+		font-size: 18px;
+		padding: 10px;
+	}
+
+	.use-service-modal-container .modal-body {
+		padding: 15px 0;
+	}
+
+	.use-service-modal-container .service-select {
+		font-size: 14px;
+		height: 40px;
+	}
+
+	.use-service-modal-container .modal-actions {
+		gap: 8px;
+	}
+}
+
+/* Mobile View (480px and below) */
+@media (max-width: 480px) {
+	.use-service-modal-container {
+		width: 90vw; /* Take up most of the screen width on mobile */
+		padding: 10px;
+	}
+
+	.use-service-modal-container .modal-header {
+		font-size: 16px;
+		padding: 8px;
+	}
+
+	.use-service-modal-container .modal-body {
+		padding: 10px 0;
+	}
+
+	.use-service-modal-container .service-select {
+		font-size: 14px;
+		height: 40px;
+	}
+
+	.use-service-modal-container .modal-actions {
+		flex-direction: column; /* Stack buttons vertically */
+		align-items: center;
+		gap: 10px;
+		width: 100%;
+		margin-top: 15px;
+	}
+
+	.use-service-modal-container button.confirm-button,
+	.use-service-modal-container button.cancel-button {
+		width: 100%; /* Full width buttons for mobile */
+		font-size: 14px;
+		padding: 12px;
+	}
 }
