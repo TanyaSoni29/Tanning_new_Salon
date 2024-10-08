@@ -73,7 +73,7 @@ function UseServiceModal({
 							>
 								{service?.serviceName}{' '}
 								{Number(service?.minutesAvailable) > availableBalance
-									? '(Not enough balance)'
+									? '(Insufficient balance)'
 									: ''}
 							</option>
 						))}
