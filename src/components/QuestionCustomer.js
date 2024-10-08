@@ -7,11 +7,17 @@
 import * as React from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 export default function BasicCard({ onClose }) {
 	const navigate = useNavigate();
+	const { customer } = useSelector((state) => state.customer);
 	const handleNo = () => {
-		navigate('/service');
+		if (customer) {
+			navigate('/service');
+		} else {
+			navigate('/about');
+		}
 	};
 
 	return (
