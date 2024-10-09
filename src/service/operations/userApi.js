@@ -361,7 +361,7 @@ export const deleteAllData = async (token) => {
 		result = true;
 	} catch (error) {
 		console.log(error);
-		const errorMessage = error.response?.data?.error;
+		const errorMessage = error.response?.data?.message;
 		toast.error(errorMessage);
 	}
 	return result;
