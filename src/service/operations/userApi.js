@@ -357,8 +357,8 @@ export const deleteAllData = async (token) => {
 
 		if (response.status !== 200) throw new Error('Could not fetch Users');
 
-		result = true;
 		toast.success('All Data deleted successfully');
+		result = true;
 	} catch (error) {
 		console.log(error);
 		const errorMessage = error.response?.data?.error;
