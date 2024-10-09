@@ -31,6 +31,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	const [buyServiceModal, setBuyServiceModal] = useState(false);
 	const [useServiceModal, setUseServiceModal] = useState(false);
 	const { customer } = useSelector((state) => state.customer);
+	const { locations } = useSelector((state) => state.location);
 	const { users } = useSelector((state) => state.userProfile);
 	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const [combinedTransactions, setCombinedTransactions] = useState([]);
@@ -176,6 +177,10 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 		setUseServiceModal(false);
 	};
 
+	const preferredLocation = locations.find(
+		(loc) => loc.id === customer?.profile.preferred_location
+	);
+
 	return (
 		<>
 			<HeaderWithSidebar />
@@ -205,6 +210,9 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 								</p>
 								<p>
 									<span>Gender:</span> {customer.profile?.gender}
+								</p>
+								<p>
+									<span>preferred Location:</span> {preferredLocation?.name}
 								</p>
 							</div>
 							<div
