@@ -1,5 +1,3 @@
-/** @format */
-
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllLocations } from '../service/operations/locationApi';
 
