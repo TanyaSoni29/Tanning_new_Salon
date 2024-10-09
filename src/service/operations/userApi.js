@@ -60,7 +60,7 @@ export const createUser = async (token, data) => {
 		return response.data;
 	} catch (error) {
 		console.log('Create User API Error', error);
-		const errorMessage = error.response?.data?.error || 'An error occurred';
+		const errorMessage = error.response?.data?.errors || 'An error occurred';
 		toast.error(errorMessage);
 	}
 };
