@@ -216,17 +216,17 @@
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
 		box-sizing: border-box;
-		font-size: 13px;
+		font-size: 11px;
 	}
 	
 	.customer-table-row {
 		display: grid;
-		grid-template-columns: 1.3fr 1fr 1fr 0.8fr 1fr 0.6fr 0.65fr;
+		grid-template-columns: 1.3fr 1fr 1fr 0.8fr 1fr 0.75fr 0.65fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
 		box-sizing: border-box;
-		font-size: 13px;
+		font-size: 11px;
 	}
 	
 	.customer-table-header {

@@ -99,6 +99,35 @@
 }
 
 /* Mobile View */
+@media (max-width: 1450px){
+    .productreportlist-table-header,
+.productreportlist-table-row {
+	display: grid;
+	grid-template-columns: 1.2fr 1.2fr 1.2fr 0.8fr 0.6fr;
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	min-width: 900px;
+	font-size: 11px;
+}
+.productreportlist-files {
+	display: flex;
+	justify-content: flex-end;
+	width: 20%;
+	gap: 4px;
+}
+.productreportlist-search-container input,
+.date-range-inputs input,
+.productlocation-select select {
+	padding: 10px;
+	font-size: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 100%;
+	max-width: 200px; /* Set a max-width for larger screens */
+	margin-bottom: 10px;
+}
+}
+
 @media (max-width: 768px) {
 	.productreportlist-container {
 		width: 90%;
