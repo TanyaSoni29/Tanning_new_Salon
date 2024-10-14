@@ -20,6 +20,7 @@ const AddProductModal = ({ closeAddModal }) => {
 		defaultValues: {
 			name: '',
 			price: '',
+			stock: '',
 		},
 	});
 
@@ -28,6 +29,7 @@ const AddProductModal = ({ closeAddModal }) => {
 			const newLocation = {
 				name: data.name,
 				price: Number(data.price),
+				stock: Number(data.stock),
 			};
 			const result = await createProduct(token, newLocation);
 			if (result) {
@@ -45,6 +47,7 @@ const AddProductModal = ({ closeAddModal }) => {
 			reset({
 				name: '',
 				price: '',
+				stock: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -70,10 +73,22 @@ const AddProductModal = ({ closeAddModal }) => {
 							fullWidth
 							{...register('name', { required: true })}
 						/>
+					</Box>
+
+					<Box
+						mt={2}
+						display='flex'
+						gap={2}
+					>
 						<TextField
 							label='Price'
 							fullWidth
 							{...register('price', { required: true })}
+						/>
+						<TextField
+							label='Stock'
+							fullWidth
+							{...register('stock', { required: true })}
 						/>
 					</Box>
 
