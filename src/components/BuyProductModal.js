@@ -27,7 +27,7 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 		if (!hasSelectedQuantity) {
 			toast.error('Please select at least one quantity!', {
 				position: 'top-center',
-				autoClose: 2000,
+				autoClose: 1000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
