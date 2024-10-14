@@ -15,7 +15,7 @@
 .productreportlist-files {
 	display: flex;
 	justify-content: flex-end;
-	width: 39%;
+	width: 20%;
 	gap: 4px;
 }
 
