@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './BuyProductModal.css'; // Import the CSS file for styling
@@ -62,7 +64,9 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 									className='quantity-select'
 								>
 									{/* Options from 0 to 10 */}
-									{[...Array(11).keys()].map((quantity) => (
+									{[
+										...Array(product?.stock ? product?.stock + 1 : 11).keys(),
+									].map((quantity) => (
 										<option
 											key={quantity}
 											value={quantity}
