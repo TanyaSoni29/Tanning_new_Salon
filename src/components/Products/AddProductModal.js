@@ -15,7 +15,7 @@ const AddProductModal = ({ closeAddModal }) => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { isSubmitSuccessful },
+		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		defaultValues: {
 			name: '',
@@ -88,7 +88,10 @@ const AddProductModal = ({ closeAddModal }) => {
 						<TextField
 							label='Stock'
 							fullWidth
-							{...register('stock', { required: true })}
+							{...register('stock', { required: true, min: 0 })}
+							defaultValue={0}
+							error={!!errors.stock}
+							helperText={errors.stock ? 'Stock must be at least 0' : ''}
 						/>
 					</Box>
 

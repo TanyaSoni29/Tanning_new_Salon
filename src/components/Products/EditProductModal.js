@@ -15,7 +15,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { isSubmitSuccessful },
+		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		defaultValues: {
 			name: activeProduct.name,
@@ -104,7 +104,9 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 					<TextField
 						label='Stock'
 						fullWidth
-						{...register('stock', { required: true })}
+						{...register('stock', { required: true, min: 0 })}
+						error={!!errors.stock}
+						helperText={errors.stock ? 'Stock must be at least 0' : ''}
 					/>
 				</Box>
 

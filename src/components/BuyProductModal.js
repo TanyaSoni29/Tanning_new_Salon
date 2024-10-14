@@ -1,15 +1,21 @@
 /** @format */
 
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './BuyProductModal.css'; // Import the CSS file for styling
 import toast from 'react-hot-toast';
+import { refreshProduct } from '../slices/productSlice';
 
 function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 	const { products } = useSelector((state) => state.product);
+	const dispatch = useDispatch();
 	const [selectedQuantities, setSelectedQuantities] = useState(
 		products.map(() => 0)
 	);
+
+	useEffect(() => {
+		dispatch(refreshProduct());
+	}, [dispatch]);
 
 	// Handle quantity change from select dropdown
 	const handleQuantityChange = (index, value) => {
