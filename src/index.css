@@ -1,21 +1,9 @@
-/**
- * index.css
- *
- * @format
- */
-
 body {
 	font-family: Arial, sans-serif;
 	/* background-image: url('../public/assets/img/wizard.jpg'); */
 	/* background-color: #E6F7FF; */
 	background-size: cover;
 }
-
-/**
- * Delete Modal Overlay to cover entire screen
- *
- * @format
- */
 /* Modal container */
 .delete-modal {
 	background-color: white;

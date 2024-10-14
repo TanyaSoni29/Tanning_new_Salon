@@ -155,8 +155,6 @@
         font-size: 8px;
         grid-template-columns: 3.3fr 1fr 1.5fr 1fr; 
     }
-
-
     .Buyproducts-table-row {
         display: flex;
         flex-direction: row;
