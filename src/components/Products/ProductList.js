@@ -180,7 +180,7 @@ const ProductList = () => {
 								£{product?.price}
 							</span>
 							<span
-								data-label='Price'
+								data-label='Stock'
 								className='productPrice'
 							>
 								{product?.stock && '-'}
