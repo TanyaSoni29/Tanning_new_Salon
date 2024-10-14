@@ -183,7 +183,7 @@ const ProductList = () => {
 								data-label='Stock'
 								className='productPrice'
 							>
-								{product?.stock && '-'}
+								{product?.stock}
 							</span>
 							<span data-label='Listed On'>
 								{formatDate(product?.created_at)}

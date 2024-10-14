@@ -36,6 +36,7 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 				<div className='Buyproducts-table-header'>
 					<span>Product Name</span>
 					<span>Price</span>
+					<span>Avail. Quan.</span>
 					<span>Quantity</span>
 				</div>
 
@@ -55,6 +56,7 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 								{product?.name}
 							</span>
 							<span>£{product?.price}</span>
+							<span>{product?.stock}</span>
 							<span>
 								<select
 									value={selectedQuantities[index]}
@@ -64,9 +66,7 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 									className='quantity-select'
 								>
 									{/* Options from 0 to 10 */}
-									{[
-										...Array(product?.stock ? product?.stock + 1 : 11).keys(),
-									].map((quantity) => (
+									{[...Array(product?.stock + 1).keys()].map((quantity) => (
 										<option
 											key={quantity}
 											value={quantity}
