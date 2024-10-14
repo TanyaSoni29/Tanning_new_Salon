@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './BuyProductModal.css'; // Import the CSS file for styling
+import toast from 'react-hot-toast';
 
 function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 	const { products } = useSelector((state) => state.product);
@@ -19,6 +20,23 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 
 	// Handle the submit action
 	const handleBuy = () => {
+		const hasSelectedQuantity = selectedQuantities.some(
+			(quantity) => quantity > 0
+		);
+
+		if (!hasSelectedQuantity) {
+			toast.error('Please select at least one quantity!', {
+				position: 'top-center',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			return;
+		}
+
 		products.forEach((product, index) => {
 			const quantity = selectedQuantities[index];
 			if (quantity > 0) {
