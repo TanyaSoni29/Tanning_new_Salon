@@ -97,7 +97,7 @@ function TopHeader({
 				<div className='login-details'>
 					<FaUserCircle
 						size={28}
-						style={{ marginLeft: '20px' }}
+						style={{ marginLeft: '20px' , marginRight: "5px" }}
 					/>
 					<span className='topheadname'>
 						{loginUser?.name
