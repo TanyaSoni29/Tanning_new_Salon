@@ -212,7 +212,8 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 									<span>Gender:</span> {customer.profile?.gender}
 								</p>
 								<p>
-									<span>preferred Location:</span> {preferredLocation?.name}
+									<span>preferred Location:</span>{' '}
+									{preferredLocation?.name ? preferredLocation?.name : 'N/A'}
 								</p>
 							</div>
 							<div
