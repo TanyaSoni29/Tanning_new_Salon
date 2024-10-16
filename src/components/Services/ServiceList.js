@@ -10,7 +10,7 @@ import AddServiceModal from './AddServicesModal';
 
 const ServiceList = () => {
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
+	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { services = [] } = useSelector((state) => state.service); // Ensure Services is always an array, defaulting to []
 
 	const [searchTerm, setSearchTerm] = useState('');
@@ -108,12 +108,14 @@ const ServiceList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button
-					className='add-button'
-					onClick={handleAdd}
-				>
-					Add New Service
-				</button>
+				{loginUser?.role === 'admin' && (
+					<button
+						className='add-button'
+						onClick={handleAdd}
+					>
+						Add New Service
+					</button>
+				)}
 			</div>
 
 			<div className='services-table'>
@@ -151,7 +153,7 @@ const ServiceList = () => {
 							}`}
 						></i>
 					</span>
-					<span>Action</span>
+					{loginUser?.role === 'admin' && <span>Action</span>}
 				</div>
 
 				{/* Render filtered and sorted services */}
@@ -174,18 +176,20 @@ const ServiceList = () => {
 							>
 								£{service?.price}
 							</span>
-							<span data-label='Action'>
-								<div className='servicelistaction'>
-									<i
-										className='fa fa-pencil'
-										onClick={() => handleEdit(service)}
-									></i>
-									<i
-										className='fa fa-trash'
-										onClick={() => confirmDelete(service)}
-									></i>
-								</div>
-							</span>
+							{loginUser?.role === 'admin' && (
+								<span data-label='Action'>
+									<div className='servicelistaction'>
+										<i
+											className='fa fa-pencil'
+											onClick={() => handleEdit(service)}
+										></i>
+										<i
+											className='fa fa-trash'
+											onClick={() => confirmDelete(service)}
+										></i>
+									</div>
+								</span>
+							)}
 						</div>
 					))
 				) : (

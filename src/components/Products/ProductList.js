@@ -12,7 +12,7 @@ import { formatDate } from '../../utils/formateDate';
 
 const ProductList = () => {
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
+	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { products = [] } = useSelector((state) => state.product); // Ensure products is always an array, defaulting to []
 
 	const [searchTerm, setSearchTerm] = useState('');
@@ -111,16 +111,24 @@ const ProductList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button
-					className='add-button1'
-					onClick={handleAdd}
-				>
-					Add New Product
-				</button>
+				{loginUser?.role === 'admin' && (
+					<button
+						className='add-button1'
+						onClick={handleAdd}
+					>
+						Add New Product
+					</button>
+				)}
 			</div>
 
 			<div className='product-table'>
-				<div className='products-table-header'>
+				<div
+					className={`${
+						loginUser?.role === 'admin'
+							? 'products-table-header'
+							: 'products-table-header2'
+					}`}
+				>
 					<span onClick={() => handleSort('name')}>
 						Product Name{' '}
 						<i
@@ -162,7 +170,7 @@ const ProductList = () => {
 							}`}
 						></i>
 					</span>
-					<span>Action</span>
+					{loginUser?.role === 'admin' && <span>Action</span>}
 				</div>
 
 				{/* Render filtered and sorted products */}
@@ -170,7 +178,11 @@ const ProductList = () => {
 					filteredProducts.map((product) => (
 						<div
 							key={product?.id}
-							className='products-table-row'
+							className={`${
+								loginUser?.role === 'admin'
+									? 'products-table-row'
+									: 'products-table-row2'
+							}`}
 						>
 							<span data-label='Product Name'>{product?.name}</span>
 							<span
@@ -188,18 +200,23 @@ const ProductList = () => {
 							<span data-label='Listed On'>
 								{formatDate(product?.created_at)}
 							</span>
-							<span data-label='Actions'>
-								<div className='producaction'>
-									<i
-										className='fa fa-pencil'
-										onClick={() => handleEdit(product)}
-									></i>
-									<i
-										className='fa fa-trash'
-										onClick={() => confirmDelete(product)} // Open delete modal
-									></i>
-								</div>
-							</span>
+							{loginUser?.role === 'admin' && (
+								<span
+									data-label='Actions'
+									className={`${loginUser?.role === 'admin' ? 'admin' : ''}`}
+								>
+									<div className='producaction'>
+										<i
+											className='fa fa-pencil'
+											onClick={() => handleEdit(product)}
+										></i>
+										<i
+											className='fa fa-trash'
+											onClick={() => confirmDelete(product)} // Open delete modal
+										></i>
+									</div>
+								</span>
+							)}
 						</div>
 					))
 				) : (

@@ -12,7 +12,7 @@ import EditCustomerModal from './EditCustomerModal';
 
 const CustomerList = () => {
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.auth);
+	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [selectedLocation, setSelectedLocation] = useState('All');
@@ -292,10 +292,12 @@ const CustomerList = () => {
 											className='fa fa-pencil'
 											onClick={() => handleEdit(customer)}
 										></i>
-										<i
-											className='fa fa-trash'
-											onClick={() => confirmDelete(customer)}
-										></i>
+										{loginUser?.role === 'admin' && (
+											<i
+												className='fa fa-trash'
+												onClick={() => confirmDelete(customer)}
+											></i>
+										)}
 									</div>
 								</span>
 							</div>
