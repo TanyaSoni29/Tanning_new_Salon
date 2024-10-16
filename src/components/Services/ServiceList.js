@@ -172,7 +172,7 @@ const ServiceList = () => {
 							</span>
 							<span
 								data-label='Price'
-								className='servicetd'
+								className='servicepricetd'
 							>
 								£{service?.price}
 							</span>

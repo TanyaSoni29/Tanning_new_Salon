@@ -55,7 +55,13 @@
 .servicetd {
 	display: flex;
 	justify-content: end;
-	width: 23%;
+	width: 21%;
+}
+
+.servicepricetd {
+	display: flex;
+	justify-content: end;
+	width: 16%;
 }
 
 .table-header {
@@ -116,7 +122,7 @@
 }
 
 /* Media Queries for Responsive Design */
-@media (max-width: 1400px){
+@media (max-width: 1400px) {
 	.table-header {
 		display: grid;
 		grid-template-columns: 2fr 2fr 2fr 0.9fr;
@@ -126,7 +132,7 @@
 		box-sizing: border-box;
 		font-size: 12px;
 	}
-	
+
 	.table-row {
 		display: grid;
 		grid-template-columns: 2fr 2fr 2.3fr 1fr;
@@ -211,6 +217,12 @@
 		margin-right: 10px;
 	}
 	.servicetd {
+		display: none;
+		/* justify-content: end; */
+		width: 100%;
+	}
+
+	.servicepricetd {
 		display: none;
 		/* justify-content: end; */
 		width: 100%;
