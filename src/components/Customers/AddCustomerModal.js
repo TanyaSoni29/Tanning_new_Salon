@@ -1,5 +1,3 @@
-/** @format */
-
 // AddNewCustomerModal.js
 import {
 	Box,

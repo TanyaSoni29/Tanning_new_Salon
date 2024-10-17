@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
