@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -50,14 +52,17 @@ function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 					>
 						Select a Service
 					</option>
-					{services.map((service) => (
-						<option
-							key={service.id}
-							value={service.id}
-						>
-							{service.serviceName}
-						</option>
-					))}
+					{services
+						.slice() // Create a shallow copy to avoid mutating the original array
+						.sort((a, b) => a.minutesAvailable - b.minutesAvailable) // Sort by minutesAvailable in ascending order
+						.map((service) => (
+							<option
+								key={service.id}
+								value={service.id}
+							>
+								{service.serviceName}
+							</option>
+						))}
 				</select>
 
 				{selectedServiceDetails && (

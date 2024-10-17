@@ -1,8 +1,5 @@
-/** @format */
-
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import './UseServiceModal.css'; // Import the separate CSS file
 
 function UseServiceModal({
@@ -26,27 +23,17 @@ function UseServiceModal({
 		}
 	};
 
-	console.log('serviceUseOPtion in use ----', serviceUseOptions);
+	// Sorting and filtering the services
+	const filteredServiceOptions = serviceUseOptions
+		?.slice() // Create a shallow copy to avoid mutating the original array
+		.sort((a, b) => a.minutesAvailable - b.minutesAvailable); // Sort by minutesAvailable in ascending order
 
-	const filteredServiceOptions = serviceUseOptions;
-	// ?.filter((service) => Number(service.minutesAvailable) <= availableBalance) // Filter based on balance
-	// ?.filter(
-	// 	(
-	// 		service,
-	// 		index,
-	// 		self // Ensure uniqueness by service_id
-	// 	) => index === self.findIndex((s) => s.id === service.id)
-	// );
-
-	console.log('.....', filteredServiceOptions);
+	console.log('Filtered and sorted services:', filteredServiceOptions);
 
 	return (
 		<Box className='use-service-modal-container'>
 			<div className='modal-header'>
-				<Typography
-					variant='h6'
-					color='black'
-				>
+				<Typography variant='h6' color='black'>
 					Select a Service to Use
 				</Typography>
 			</div>
@@ -58,10 +45,7 @@ function UseServiceModal({
 					onChange={handleServiceChange}
 					className='service-select'
 				>
-					<option
-						value=''
-						disabled
-					>
+					<option value='' disabled>
 						Select Service
 					</option>
 					{filteredServiceOptions?.length > 0 &&
