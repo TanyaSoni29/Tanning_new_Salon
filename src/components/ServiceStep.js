@@ -9,6 +9,7 @@ import Modal from '../components/Modal';
 import BuyProductModal from './BuyProductModal';
 import BuyServiceModal from './BuyServiceModal';
 import UseServiceModal from './UseServiceModal';
+import CreditModal from './CreditModal'; // Import the new CreditModal
 import { refreshProduct } from '../slices/productSlice';
 import { refreshService } from '../slices/serviceSlice';
 import {
@@ -30,6 +31,8 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 	const [buyProductModal, setBuyProductModal] = useState(false);
 	const [buyServiceModal, setBuyServiceModal] = useState(false);
 	const [useServiceModal, setUseServiceModal] = useState(false);
+	const [creditModal, setCreditModal] = useState(false); // New state for CreditModal
+
 	const { customer } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const { users } = useSelector((state) => state.userProfile);
@@ -165,6 +168,16 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 		}
 	};
 
+	// Function to toggle the CreditModal
+	const handleCreditModal = () => {
+		setCreditModal(true);
+	};
+
+	// Close function for CreditModal
+	const closeCreditModal = () => {
+		setCreditModal(false);
+	};
+
 	const closeBuyProductModal = () => {
 		setBuyProductModal(false);
 	};
@@ -250,6 +263,7 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 							>
 								Buy Service
 							</button>
+
 							{customer?.profile?.available_balance > 0 && (
 								<button
 									className='confirm-button'
@@ -259,6 +273,13 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 									Use Service
 								</button>
 							)}
+
+							<button
+								className='confirm-button'
+								onClick={handleCreditModal} // New button for Credit Modal
+							>
+								Add Credit
+							</button>
 						</div>
 					)}
 				</div>
@@ -330,6 +351,17 @@ const ServiceStep = ({ stats, selectedLocation }) => {
 						</div>
 					</div>
 				</div>
+				{/* CreditModal */}
+				{creditModal && (
+					<Modal
+						open={creditModal}
+						setOpen={setCreditModal}
+					>
+						<CreditModal onClose={closeCreditModal} />
+					</Modal>
+				)}
+
+				{/* Other modals */}
 				{buyProductModal && (
 					<Modal
 						open={buyProductModal}

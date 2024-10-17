@@ -49,6 +49,7 @@ export const productEndpoints = {
 export const serviceEndpoints = {
 	GET_ALL_SERVICE_TRANSACTION_API: BASE_URL + '/service-transactions',
 	GET_ALL_SERVICE_API: BASE_URL + '/services',
+	GET_ADDMINUTES_SERVICE_API: BASE_URL + '/update/minutes',
 	GET_USE_SERVICE_OPTION: BASE_URL + '/getTransaction',
 	GET_TOTAL_SPEND: BASE_URL + '/totalSpend',
 	GET_SERVICE_REPORT: BASE_URL + '/service-purchase-report',
@@ -60,3 +61,4 @@ export const serviceEndpoints = {
 export const statsEndpoint = {
 	GET_ALL_STATS: BASE_URL + '/stats',
 };
+

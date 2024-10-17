@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './BuyProductModal.css'; // Import the CSS file for styling

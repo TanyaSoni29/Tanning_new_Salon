@@ -1,5 +1,3 @@
-/** @format */
-
 import { toast } from 'react-hot-toast';
 import { apiConnector } from '../apiConnector';
 import { serviceEndpoints } from '../api';
@@ -14,6 +12,33 @@ const {
 	// GET_ALL_SERVICE_USAGES_API,
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API,
 } = serviceEndpoints;
+
+const { GET_ADDMINUTES_SERVICE_API } = serviceEndpoints;
+
+// Define the new function to add minutes to a service
+export const addMinutesToService = async (token, data) => {
+	try {
+		const response = await apiConnector(
+			'POST',
+			GET_ADDMINUTES_SERVICE_API,
+			data,
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
+		console.log('Add Minutes to Service Api Response..', response);
+		if (response.status !== 201)
+			throw new Error("Couldn't add minutes to the service");
+
+		toast.success('Minutes added to the service successfully');
+		return response.data;
+	} catch (error) {
+		console.log('Add Minutes to Service Api error...', error);
+		const errorMessage = error.response?.data?.error;
+		toast.error(errorMessage);
+	}
+};
 
 export const createService = async (token, data) => {
 	try {
