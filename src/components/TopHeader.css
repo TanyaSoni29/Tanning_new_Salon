@@ -1,18 +1,18 @@
-/**
- * Main header styling
- *
- * @format
- */
-
 .top-header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-between; /* Ensures title/dropdown on the left and user info on the right */
 	align-items: center;
 	padding: 15px 30px;
-	background-color: #fff;
+	background-color: none;
 	margin-left: 290px;
 	position: relative;
 	z-index: 100;
+}
+
+.top-header-left {
+	display: flex;
+	flex-direction: column; /* Stack the heading and dropdown vertically */
+	align-items: flex-start; /* Keep the heading and dropdown aligned to the left */
 }
 
 .top-header h2.page-heading {
@@ -25,6 +25,7 @@
 .location-select {
 	width: 100%;
 	min-width: 120px;
+	margin-top: 10px; /* Add margin between heading and dropdown */
 }
 
 .login-details {
@@ -40,7 +41,9 @@
 	margin-right: 10px;
 }
 
-.user-info {
+.topheadname {
+	font-size: 16px;
+	font-weight: 500;
 	color: #333;
 	display: flex;
 	align-items: center;
@@ -52,22 +55,18 @@
 	margin-left: 5px;
 }
 
-.topheadname {
-	font-size: 16px;
-	font-weight: 500;
-	color: #333;
-	display: flex;
-	align-items: center;
-}
-
 /* Mobile view */
 @media (max-width: 768px) {
 	.top-header {
 		padding: 10px 20px;
 		margin-left: 0;
-		flex-direction: column; /* Stack items vertically */
+		flex-direction: column;
+		align-items: flex-end; /* Align items to the left on smaller screens */
+	}
+
+	.top-header-left {
 		align-items: flex-end;
-		z-index: 0;
+		width: 100%;
 	}
 
 	.page-heading {

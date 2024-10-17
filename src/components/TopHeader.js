@@ -73,41 +73,44 @@ function TopHeader({
 
   return (
     <header className="top-header">
-      {heading && <h2 className="page-heading">{heading}</h2>}
-      {/* Conditionally apply style to keep the space but hide the element */}
-      <select
-        value={selectedLocation}
-        onChange={handleLocationChange}
-        className="location-select"
-        style={{
-          visibility: hideSelect ? "hidden" : "visible", // Keep space but hide
-          height: hideSelect ? 0 : "auto", // Set height to 0 if hidden
-          width: hideSelect ? 0 : "auto", // Set width to 0 if hidden
-          padding: hideSelect ? 0 : "initial", // Remove padding when hidden
-        }}
-      >
-        <option value={0}>All</option>
-        {filteredLocations.map((location) => (
-          <option value={location.id}>{location?.name}</option>
-        ))}
-      </select>
+  <div className="top-header-left">
+    {heading && <h2 className="page-heading">{heading}</h2>}
+    
+    <select
+      value={selectedLocation}
+      onChange={handleLocationChange}
+      className="location-select"
+      style={{
+        visibility: hideSelect ? "hidden" : "visible", // Keep space but hide
+        height: hideSelect ? 0 : "auto", // Set height to 0 if hidden
+        width: hideSelect ? 0 : "auto", // Set width to 0 if hidden
+        padding: hideSelect ? 0 : "initial", // Remove padding when hidden
+      }}
+    >
+      <option value={0}>All</option>
+      {filteredLocations.map((location) => (
+        <option value={location.id}>{location?.name}</option>
+      ))}
+    </select>
+  </div>
 
-      {locationPath !== "/" && (
-        <div className="login-details">
-          <FaUserCircle
-            size={28}
-            style={{ marginLeft: "20px", marginRight: "5px" }}
-          />
-          <span className="topheadname">
-            {loginUser?.name
-              ? loginUser.name.charAt(0).toUpperCase() +
-                loginUser.name.slice(1).toLowerCase()
-              : "User"}{" "}
-            (<span>{locationName?.name}</span>)
-          </span>
-        </div>
-      )}
-    </header>
+  {locationPath !== "/" && (
+    <div className="login-details">
+      <FaUserCircle
+        size={28}
+        style={{ marginLeft: "20px", marginRight: "5px" }}
+      />
+      <span className="topheadname">
+        {loginUser?.name
+          ? loginUser.name.charAt(0).toUpperCase() +
+            loginUser.name.slice(1).toLowerCase()
+          : "User"}{" "}
+        (<span>{locationName?.name}</span>)
+      </span>
+    </div>
+  )}
+</header>
+
   );
 }
 
