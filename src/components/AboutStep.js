@@ -34,8 +34,8 @@ const AboutStep = ({
   useEffect(() => {
     async function stats() {
       try {
-        // const response = await getStats(token, selectedLocation);
-        const response = await getStats(token, 0);
+        const response = await getStats(token, selectedLocation);
+        // const response = await getStats(token, 0);
         console.log("Stats:", response);
         setStats(response.data);
       } catch (error) {
@@ -106,23 +106,26 @@ const AboutStep = ({
   // 	});
 
   const filteredCustomers = searchQuery
-  ? customers?.filter((user) => {
-      // Filter by search query if provided
-      return (
-        user.profile?.firstName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.profile?.lastName?.toLowerCase().includes(searchQuery.toLowerCase()) || // Added lastName filter
-        (user.profile?.phone_number &&
-          user.profile.phone_number
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())) ||
-        (user.user?.email &&
-          user.user.email.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-    })
-  : [];
+    ? customers?.filter((user) => {
+        // Filter by search query if provided
+        return (
+          user.profile?.firstName
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          user.profile?.lastName
+            ?.toLowerCase()
+            .includes(searchQuery.toLowerCase()) || // Added lastName filter
+          (user.profile?.phone_number &&
+            user.profile.phone_number
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())) ||
+          (user.user?.email &&
+            user.user.email.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      })
+    : [];
 
-console.log(customers, selectedLocation);
-
+  console.log(customers, selectedLocation);
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
