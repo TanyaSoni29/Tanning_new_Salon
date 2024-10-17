@@ -1,6 +1,4 @@
-/** @format */
-
-// EditUserModal.js
+import React, { useEffect, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -9,7 +7,6 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { updateUserProfile } from '../../service/operations/userProfileApi';
@@ -38,7 +35,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 		if (!activeUser) {
 			closeEditModal();
 		}
-	}, []);
+	}, [activeUser, closeEditModal]);
 
 	const handleResetPassword = async () => {
 		setResetPasswordModal(true);
@@ -54,7 +51,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 	useEffect(() => {
 		if (activeUser?.profile?.preferred_location) {
-			setValue('preferred_location', activeUser.profile.preferred_location); // Set preferred_location with ID
+			setValue('preferred_location', activeUser.profile.preferred_location);
 		}
 	}, [activeUser, setValue]);
 
@@ -69,19 +66,16 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				post_code: data.post_code,
 				phone_number: data.phone_number,
 				gender: data.gender || '',
+				dob: data.dob || '', // Added Date of Birth field
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
 				referred_by: data.referred_by || '',
 				preferred_location: data.preferred_location,
 			};
-			const updatedUser = await updateUserProfile(
-				token,
-				activeUser.user.id,
-				newUserData
-			);
+			const updatedUser = await updateUserProfile(token, activeUser.user.id, newUserData);
 			if (updatedUser) {
 				dispatch({
-					type: 'customer/updateCustomer', // Ensure this matches the action type name
+					type: 'customer/updateCustomer',
 					payload: updatedUser,
 				});
 			}
@@ -105,6 +99,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				gender: '',
 				referred_by: '',
 				preferred_location: '',
+				dob: '', // Reset Date of Birth field
 				gdpr_sms_active: false,
 				gdpr_email_active: false,
 			});
@@ -178,15 +173,25 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 									message: 'Phone number must not exceed 15 digits',
 								},
 								pattern: {
-									value: /^[0-9]+$/, // Accepts only numeric values
+									value: /^[0-9]+$/,
 									message: 'Phone number must contain only numbers',
 								},
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={
-								errors.phone_number ? errors.phone_number.message : ''
-							}
+							helperText={errors.phone_number ? errors.phone_number.message : ''}
+						/>
+					</Box>
+
+					<Box className='form-row'>
+						<TextField
+							label='Date of Birth'
+							variant='outlined'
+							type='date'
+							InputLabelProps={{ shrink: true }}
+							defaultValue={activeUser.profile?.dob} // Set default Date of Birth
+							{...register('dob')}
+							fullWidth
 						/>
 					</Box>
 
@@ -227,15 +232,11 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							className='custom-select'
 							defaultValue={activeUser.profile?.preferred_location}
 							{...register('preferred_location', { required: true })}
-							// onChange={(e) => setPreferredLocation(e.target.value)}
 							disabled={loading}
 						>
 							<option value=''>Select Location</option>
 							{locations.map((location) => (
-								<option
-									key={location.id}
-									value={location.id}
-								>
+								<option key={location.id} value={location.id}>
 									{location.name}
 								</option>
 							))}
@@ -256,24 +257,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 					<Box className='switch-row'>
 						<FormControlLabel
-							control={
-								<Switch
-									{...register('gdpr_sms_active')}
-									color='primary'
-									defaultChecked={activeUser.profile?.gdpr_sms_active}
-								/>
-							}
+							control={<Switch {...register('gdpr_sms_active')} color='primary' defaultChecked={activeUser.profile?.gdpr_sms_active} />}
 							label='SMS'
 							className='form-control-label'
 						/>
 						<FormControlLabel
-							control={
-								<Switch
-									{...register('gdpr_email_active')}
-									color='primary'
-									defaultChecked={activeUser.profile?.gdpr_email_active}
-								/>
-							}
+							control={<Switch {...register('gdpr_email_active')} color='primary' defaultChecked={activeUser.profile?.gdpr_email_active} />}
 							label='Email'
 							className='form-control-label'
 						/>
@@ -281,38 +270,20 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				</Box>
 
 				<Box className='button-row'>
-					<Button
-						variant='contained'
-						className='confirm-button'
-						onClick={handleResetPassword}
-					>
+					<Button variant='contained' className='confirm-button' onClick={handleResetPassword}>
 						Reset Password
 					</Button>
-					<Button
-						variant='contained'
-						className='confirm-button'
-						type='submit'
-					>
+					<Button variant='contained' className='confirm-button' type='submit'>
 						Submit
 					</Button>
-					<Button
-						variant='contained'
-						className='cancel-button'
-						onClick={closeEditModal}
-					>
+					<Button variant='contained' className='cancel-button' onClick={closeEditModal}>
 						Cancel
 					</Button>
 				</Box>
 			</form>
 			{activeUser && resetPasswordModal && (
-				<Modal
-					open={resetPasswordModal}
-					setOpen={setResetPasswordModal}
-				>
-					<ResetPassword
-						onClose={closeResetPassword}
-						activeUser={activeUser}
-					/>
+				<Modal open={resetPasswordModal} setOpen={setResetPasswordModal}>
+					<ResetPassword onClose={closeResetPassword} activeUser={activeUser} />
 				</Modal>
 			)}
 		</Box>

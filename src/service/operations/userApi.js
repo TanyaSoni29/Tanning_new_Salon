@@ -34,6 +34,7 @@ export const createUser = async (token, data) => {
 				firstName: data.firstName || '',
 				lastName: data.lastName || '',
 				email: data.email,
+				dob: data.dob || '', // Added Date of Birth field
 				password: data.password,
 				password_confirmation: data.password,
 				phone_number: data.phone_number,

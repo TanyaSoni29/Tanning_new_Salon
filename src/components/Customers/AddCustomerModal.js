@@ -1,4 +1,4 @@
-// AddNewCustomerModal.js
+import React, { useState, useEffect } from 'react';
 import {
 	Box,
 	Button,
@@ -6,8 +6,10 @@ import {
 	Typography,
 	FormControlLabel,
 	Switch,
+	IconButton,
+	InputAdornment,
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { refreshLocation } from '../../slices/locationSlice';
@@ -18,13 +20,18 @@ import './AddCustomer.css';
 const AddCustomerModal = ({ closeAddModal }) => {
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const [showPassword, setShowPassword] = useState(false); // Password visibility toggle
 
 	const {
 		register,
 		handleSubmit,
 		reset,
 		formState: { errors, isSubmitSuccessful },
-	} = useForm();
+	} = useForm({
+		defaultValues: {
+			password: '123456', // Set default password here
+		},
+	});
 
 	const { locations, loading } = useSelector((state) => state.location);
 
@@ -43,6 +50,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				post_code: data.post_code,
 				phone_number: data.phone_number,
 				gender: data.gender || '',
+				dob: data.dob || '', // Date of Birth added
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
 				referred_by: data.referred_by || '',
@@ -66,7 +74,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 	useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset({
-				password: '',
+				password: '123456', // Resetting to default password after submission
 				firstName: '',
 				lastName: '',
 				email: '',
@@ -74,6 +82,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				post_code: '',
 				phone_number: '',
 				gender: '',
+				dob: '',
 				referred_by: '',
 				preferred_location: '',
 				gdpr_sms_active: false,
@@ -85,10 +94,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 
 	return (
 		<Box className='addCustomer-modal-container'>
-			<Typography
-				variant='h6'
-				id='add-location-modal-title'
-			>
+			<Typography variant='h6' id='add-location-modal-title'>
 				Add New Customer
 			</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
@@ -120,7 +126,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 							})}
 							fullWidth
 							error={!!errors.lastName}
-							helperText={errors.lastName ? errors.firstName.message : ''}
+							helperText={errors.lastName ? errors.lastName.message : ''}
 						/>
 					</Box>
 
@@ -149,22 +155,21 @@ const AddCustomerModal = ({ closeAddModal }) => {
 									message: 'Phone number must not exceed 15 digits',
 								},
 								pattern: {
-									value: /^[0-9]+$/, // Accepts only numeric values
+									value: /^[0-9]+$/,
 									message: 'Phone number must contain only numbers',
 								},
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={
-								errors.phone_number ? errors.phone_number.message : ''
-							}
+							helperText={errors.phone_number ? errors.phone_number.message : ''}
 						/>
 					</Box>
 
-					<Box className='form-row'>
+					{/* <Box className='form-row'>
 						<TextField
 							label='Password'
 							variant='outlined'
+							type={showPassword ? 'text' : 'password'}
 							{...register('password', {
 								required: 'Password is required',
 								minLength: {
@@ -175,10 +180,34 @@ const AddCustomerModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.password}
 							helperText={errors.password ? errors.password.message : ''}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position='end'>
+										<IconButton
+											onClick={() => setShowPassword(!showPassword)}
+											edge='end'
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								),
+							}}
+						/>
+					</Box> */}
+
+					<Box mb={2}>
+						<TextField
+							label='Date of Birth'
+							type='date'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							{...register('dob')}
+							fullWidth
 						/>
 					</Box>
 
-					<Box mb={2}>
+					<Box className='form-row'>
 						<TextField
 							label='Address'
 							variant='outlined'
@@ -215,10 +244,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						>
 							<option value={0}>All</option>
 							{locations.map((location) => (
-								<option
-									key={location.id}
-									value={location.id}
-								>
+								<option key={location.id} value={location.id}>
 									{location.name}
 								</option>
 							))}
@@ -238,22 +264,12 @@ const AddCustomerModal = ({ closeAddModal }) => {
 
 					<Box className='switch-row'>
 						<FormControlLabel
-							control={
-								<Switch
-									{...register('gdpr_sms_active')}
-									color='primary'
-								/>
-							}
+							control={<Switch {...register('gdpr_sms_active')} color='primary' />}
 							label='SMS'
 							className='form-control-label'
 						/>
 						<FormControlLabel
-							control={
-								<Switch
-									{...register('gdpr_email_active')}
-									color='primary'
-								/>
-							}
+							control={<Switch {...register('gdpr_email_active')} color='primary' />}
 							label='Email'
 							className='form-control-label'
 						/>
@@ -261,18 +277,10 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				</Box>
 
 				<Box className='button-row'>
-					<Button
-						variant='contained'
-						className='confirm-button'
-						type='submit'
-					>
+					<Button variant='contained' className='confirm-button' type='submit'>
 						Submit
 					</Button>
-					<Button
-						variant='contained'
-						className='cancel-button'
-						onClick={closeAddModal}
-					>
+					<Button variant='contained' className='cancel-button' onClick={closeAddModal}>
 						Cancel
 					</Button>
 				</Box>

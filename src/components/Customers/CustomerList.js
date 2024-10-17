@@ -51,6 +51,7 @@ const CustomerList = () => {
 		const matchesSearchQuery =
 			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
 			phoneNumber.includes(searchTerm.toLowerCase());
+	
 		const preferredLocation = locations.find(
 			(location) => location.id === data.profile?.preferred_location
 		);
@@ -184,9 +185,9 @@ const CustomerList = () => {
 								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
+
 					<span onClick={() => handleSort('preferred_location')}>
 						Location{' '}
 						<i
@@ -195,8 +196,7 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('phone_number')}>
 						Phone{' '}
@@ -206,8 +206,7 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('available_balance')}>
 						Min. Aval.{' '}
@@ -217,12 +216,22 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
+
+					<span onClick={() => handleSort('dob')}>
+						DOB{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'dob' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}></i>
+					</span>
+
 					<span
 						onClick={() => handleSort('total_service_purchased_price')}
-						// className='customertab'
 					>
 						Total Spent{' '}
 						<i
@@ -231,8 +240,7 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span onClick={() => handleSort('updated_at')}>
 						Last Purchase{' '}
@@ -242,8 +250,7 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}
-						></i>
+							}`}></i>
 					</span>
 					<span>Action</span>
 				</div>
@@ -254,6 +261,10 @@ const CustomerList = () => {
 							(location) =>
 								location?.id === customer.profile?.preferred_location
 						);
+						// Format DOB (assuming 'dob' is stored in the profile object)
+						const formattedDOB = customer.profile?.dob
+							? formatDate(customer.profile.dob)
+							: '-';
 						return (
 							<div
 								key={customer.user.id}
@@ -272,6 +283,7 @@ const CustomerList = () => {
 								>
 									{customer.profile?.available_balance}
 								</span>
+								<span data-label='DOB'>{formattedDOB}</span>
 								<span
 									data-label='Total Spent'
 									className='customertab'
