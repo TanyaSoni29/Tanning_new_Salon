@@ -98,7 +98,6 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 					<TextField
 						label='Price'
 						fullWidth
-						type='number'
 						{...register('price', { required: true })}
 					/>
 					<TextField
