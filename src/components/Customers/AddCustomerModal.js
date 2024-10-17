@@ -18,7 +18,9 @@ import { addCustomer, refreshCustomers } from '../../slices/customerProfile';
 import './AddCustomer.css';
 
 const AddCustomerModal = ({ closeAddModal }) => {
-	const { token } = useSelector((state) => state.auth);
+	const { token, user: loggedInUser } = useSelector((state) => state.auth); // Get logged-in user
+	const { users } = useSelector((state) => state.userProfile); // Get all users
+	const { locations, loading } = useSelector((state) => state.location); // Get all locations
 	const dispatch = useDispatch();
 	const [showPassword, setShowPassword] = useState(false); // Password visibility toggle
 
@@ -26,6 +28,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 		register,
 		handleSubmit,
 		reset,
+		setValue, // To set default values
 		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		defaultValues: {
@@ -33,11 +36,23 @@ const AddCustomerModal = ({ closeAddModal }) => {
 		},
 	});
 
-	const { locations, loading } = useSelector((state) => state.location);
-
 	useEffect(() => {
-		dispatch(refreshLocation());
+		dispatch(refreshLocation()); // Fetch locations
 	}, [dispatch]);
+
+	// Find the logged-in user's details from the users array
+	const userDetails = users.find((user) => user.user.id === loggedInUser?.id);
+
+	// Extract the preferred location ID from the logged-in user's profile
+	const preferredLocationId = userDetails?.profile?.preferred_location;
+
+	// Set default location based on logged-in user's location when the component loads
+	useEffect(() => {
+		if (preferredLocationId) {
+			// Set the default value for preferred_location to the logged-in user's preferred location
+			setValue('preferred_location', preferredLocationId);
+		}
+	}, [preferredLocationId, setValue]);
 
 	const handleSubmitForm = async (data) => {
 		try {
@@ -54,7 +69,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
 				referred_by: data.referred_by || '',
-				preferred_location: data.preferred_location || 0,
+				preferred_location: data.preferred_location || preferredLocationId || 0, // Default to user's location
 				avatar: '',
 				role: 'customer',
 			};
@@ -165,36 +180,6 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						/>
 					</Box>
 
-					{/* <Box className='form-row'>
-						<TextField
-							label='Password'
-							variant='outlined'
-							type={showPassword ? 'text' : 'password'}
-							{...register('password', {
-								required: 'Password is required',
-								minLength: {
-									value: 6,
-									message: 'Password must be at least 6 characters',
-								},
-							})}
-							fullWidth
-							error={!!errors.password}
-							helperText={errors.password ? errors.password.message : ''}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position='end'>
-										<IconButton
-											onClick={() => setShowPassword(!showPassword)}
-											edge='end'
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								),
-							}}
-						/>
-					</Box> */}
-
 					<Box mb={2}>
 						<TextField
 							label='Date of Birth'
@@ -239,10 +224,9 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						<select
 							id='preferred_location'
 							className='custom-select'
-							{...register('preferred_location', { required: true })}
+							{...register('preferred_location')}
 							disabled={loading}
 						>
-							<option value={0}>All</option>
 							{locations.map((location) => (
 								<option key={location.id} value={location.id}>
 									{location.name}
@@ -253,7 +237,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						<select
 							id='gender'
 							className='custom-select'
-							{...register('gender', { required: true })}
+							{...register('gender' , { required: true })}
 						>
 							<option value=''>Select gender</option>
 							<option value='Male'>Male</option>
