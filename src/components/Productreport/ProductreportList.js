@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useMemo, useCallback } from 'react';
 import './ProductreportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files

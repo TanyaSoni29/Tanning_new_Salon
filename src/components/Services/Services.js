@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import ServiceList from './ServiceList';

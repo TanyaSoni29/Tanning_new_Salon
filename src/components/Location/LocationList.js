@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from 'react';
 import './LocationList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';

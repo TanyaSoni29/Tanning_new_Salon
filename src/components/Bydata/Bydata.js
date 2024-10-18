@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from 'react';
 import HeaderWithSidebar from '../HeaderWithSidebar';
 import BydataList from './BydataList';

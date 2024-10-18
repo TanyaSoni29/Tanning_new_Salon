@@ -1,4 +1,3 @@
-/** @format */
 import React, { useState } from 'react';
 import './ServiceList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';

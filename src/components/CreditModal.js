@@ -19,7 +19,7 @@ function CreditModal({ onClose, customer }) {
       setEnteredMinutes(minutes);
       setError(""); // Clear any previous error
     } else {
-      setError("Please enter a valid number between 1 and 999.");
+      setError("Please enter a valid number between 1 and 999");
     }
   };
 
