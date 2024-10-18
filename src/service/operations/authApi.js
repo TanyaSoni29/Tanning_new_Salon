@@ -10,7 +10,7 @@ import {
 	setUser,
 } from '../../slices/authSlice';
 
-const { SIGNUP_API, LOGIN_API, ADD_CUSTOMER, GET_ME_API } = endpoints;
+const { LOGIN_API, ADD_CUSTOMER, GET_ME_API } = endpoints;
 
 export function signUp(data, navigate) {
 	return async (dispatch) => {
@@ -147,37 +147,3 @@ export function logout(navigate) {
 		navigate('/');
 	};
 }
-
-// export function resetPassword(
-// 	email,
-// 	password,
-// 	password_confirmation,
-// 	token,
-// 	navigate
-// ) {
-// 	return async (dispatch) => {
-// 		dispatch(setLoading(true));
-
-// 		try {
-// 			const response = await apiConnector('POST', `RESET_PASSWORD_API`, {
-// 				token,
-// 				email,
-// 				password,
-// 				password_confirmation,
-// 			});
-// 			console.log('RESET PASSWORD RESPONSE.....', response);
-
-// 			if (response.status !== 200) {
-// 				throw new Error("Couldn't reset your password");
-// 			}
-
-// 			toast.success('Password has been reset successfully');
-// 			navigate('/login');
-// 		} catch (error) {
-// 			console.log('RESET PASSWORD ERROR', error);
-// 			const errorMessage = error.response.data.error;
-// 			toast.error(errorMessage);
-// 		}
-// 		dispatch(setLoading(false));
-// 	};
-// }

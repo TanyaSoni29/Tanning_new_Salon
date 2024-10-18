@@ -1,3 +1,5 @@
+/** @format */
+
 import { toast } from 'react-hot-toast';
 import { apiConnector } from '../apiConnector';
 import { locationEndpoints } from '../api';
@@ -63,29 +65,29 @@ export const updateLocation = async (token, locationId, data) => {
 	return result;
 };
 
-export const getLocation = async (token, locationId) => {
-	let result = null;
-	try {
-		const response = await apiConnector(
-			'GET',
-			`${GET_ALL_LOCATION_API}/${locationId}`,
-			null,
-			{
-				'Authorization': `Bearer ${token}`,
-				'Content-Type': 'application/json',
-			}
-		);
+// export const getLocation = async (token, locationId) => {
+// 	let result = null;
+// 	try {
+// 		const response = await apiConnector(
+// 			'GET',
+// 			`${GET_ALL_LOCATION_API}/${locationId}`,
+// 			null,
+// 			{
+// 				'Authorization': `Bearer ${token}`,
+// 				'Content-Type': 'application/json',
+// 			}
+// 		);
 
-		console.log('Get Location Api Response..', response);
-		if (response.status !== 200) throw new Error('Could not fetch Location');
-		result = response.data;
-	} catch (error) {
-		console.log('Get Location Api Error', error);
-		const errorMessage = error.response?.data.error;
-		toast.error(errorMessage);
-	}
-	return result;
-};
+// 		console.log('Get Location Api Response..', response);
+// 		if (response.status !== 200) throw new Error('Could not fetch Location');
+// 		result = response.data;
+// 	} catch (error) {
+// 		console.log('Get Location Api Error', error);
+// 		const errorMessage = error.response?.data.error;
+// 		toast.error(errorMessage);
+// 	}
+// 	return result;
+// };
 
 export const deleteLocation = async (token, locationId) => {
 	let result = false;
@@ -105,7 +107,7 @@ export const deleteLocation = async (token, locationId) => {
 		result = true;
 	} catch (error) {
 		console.log('Delete Location Api Error', error);
-		toast.error(error.response.data.message)
+		toast.error(error.response.data.message);
 	}
 	return result;
 };

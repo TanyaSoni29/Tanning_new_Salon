@@ -3,7 +3,6 @@
 import { toast } from 'react-hot-toast';
 import { apiConnector } from '../apiConnector';
 import { userProfileEndpoints } from '../api';
-// import { setLoading } from '../../slices/profileSlice';
 
 const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
 

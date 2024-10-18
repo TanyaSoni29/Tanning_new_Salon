@@ -1,3 +1,5 @@
+/** @format */
+
 import { toast } from 'react-hot-toast';
 import { apiConnector } from '../apiConnector';
 import { productEndpoints } from '../api';
@@ -68,29 +70,29 @@ export const updateProduct = async (token, productId, data) => {
 	return result;
 };
 
-export const getProduct = async (token, productId) => {
-	let result = null;
-	try {
-		const response = await apiConnector(
-			'GET',
-			`${GET_ALL_PRODUCT_API}/${productId}`,
-			null,
-			{
-				'Authorization': `Bearer ${token}`,
-				'Content-Type': 'application/json',
-			}
-		);
+// export const getProduct = async (token, productId) => {
+// 	let result = null;
+// 	try {
+// 		const response = await apiConnector(
+// 			'GET',
+// 			`${GET_ALL_PRODUCT_API}/${productId}`,
+// 			null,
+// 			{
+// 				'Authorization': `Bearer ${token}`,
+// 				'Content-Type': 'application/json',
+// 			}
+// 		);
 
-		console.log('Get Product Api Response..', response);
-		if (response.status !== 200) throw new Error('Could not fetch Product');
-		result = response.data;
-	} catch (error) {
-		console.log('Get Product Api Error', error);
-		const errorMessage = error.response?.data?.error;
-		toast.error(errorMessage);
-	}
-	return result;
-};
+// 		console.log('Get Product Api Response..', response);
+// 		if (response.status !== 200) throw new Error('Could not fetch Product');
+// 		result = response.data;
+// 	} catch (error) {
+// 		console.log('Get Product Api Error', error);
+// 		const errorMessage = error.response?.data?.error;
+// 		toast.error(errorMessage);
+// 	}
+// 	return result;
+// };
 
 export const deleteProduct = async (token, productId) => {
 	let result = false;

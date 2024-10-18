@@ -21,8 +21,8 @@ const {
 	// GET_PRODUCT_TRANSACTIONS_BY_USER,
 } = userEndpoints;
 
-const { SIGNUP_API, ADD_CUSTOMER } = endpoints;
-const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
+const { ADD_CUSTOMER } = endpoints;
+// const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
 
 export const createUser = async (token, data) => {
 	try {
@@ -141,7 +141,6 @@ export const getAllCustomerReport = async (token, data) => {
 	return result;
 };
 
-
 // export const getSalesByLocation = async (token, locationId) => {
 //   const toastId = toast.loading("Loading...");
 //   let result = null;
@@ -167,7 +166,6 @@ export const getAllCustomerReport = async (token, data) => {
 //   toast.dismiss(toastId);
 //   return result;
 // };
-
 
 export const getCustomerByDateAndLocation = async (token, data) => {
 	let result = [];
