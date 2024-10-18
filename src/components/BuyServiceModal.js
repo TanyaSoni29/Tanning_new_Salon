@@ -56,6 +56,8 @@ function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 						.map((service) => (
 							<option
 								key={service.id}
+
+								
 								value={service.id}
 							>
 								{service.serviceName}
