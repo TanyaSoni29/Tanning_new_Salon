@@ -1,7 +1,9 @@
+/** @format */
+
 .purchasereportlist-container {
 	width: 70%;
 	margin: 20px auto;
-	margin-left: 320px;
+	margin-left: 340px;
 	padding: 20px;
 	background-color: #ffffff;
 	border-radius: 8px;
@@ -124,79 +126,77 @@
 }
 
 /* Responsive Layout for Tablet */
-@media (max-width: 1450px){
-    .purchasereportlist-table-header,
-    .purchasereportlist-table-row {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
-	padding: 10px 20px;
-	border-bottom: 1px solid #e0e0e0;
-	box-sizing: border-box;
-	min-width: 900px; /* Ensures the table remains scrollable */
-	font-size: 12px;
-} 
-.purchasereportlist-files {
-	display: flex;
-	justify-content: flex-end;
-	width: 40%;
-	gap: 4px;
-}
-.filter-purchase {
-	display: flex;
-	align-items: center; /* Align vertically */
-	flex-wrap: nowrap; /* Prevent wrapping */
-	gap: 15px;
-	margin-bottom: 20px;
-	overflow: hidden;
-	font-size: 12px;
-}
+@media (max-width: 1450px) {
+	.purchasereportlist-table-header,
+	.purchasereportlist-table-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+		padding: 10px 20px;
+		border-bottom: 1px solid #e0e0e0;
+		box-sizing: border-box;
+		min-width: 900px; /* Ensures the table remains scrollable */
+		font-size: 12px;
+	}
+	.purchasereportlist-files {
+		display: flex;
+		justify-content: flex-end;
+		width: 40%;
+		gap: 4px;
+	}
+	.filter-purchase {
+		display: flex;
+		align-items: center; /* Align vertically */
+		flex-wrap: nowrap; /* Prevent wrapping */
+		gap: 15px;
+		margin-bottom: 20px;
+		overflow: hidden;
+		font-size: 12px;
+	}
 
-/* Search bar input */
-.purchasereportlist-search-container input {
-	width: 100%;
-	max-width: 200px;
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	height: 40px; /* Ensure consistent height */
-	font-size: 12px;
-}
-/* Date range inputs layout */
-.sedate-range {
-	display: flex;
-	gap: 10px;
-}
+	/* Search bar input */
+	.purchasereportlist-search-container input {
+		width: 100%;
+		max-width: 200px;
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		height: 40px; /* Ensure consistent height */
+		font-size: 12px;
+	}
+	/* Date range inputs layout */
+	.sedate-range {
+		display: flex;
+		gap: 10px;
+	}
 
-.sedate-range input {
-	padding: 10px;
-	width: 100%;
-	max-width: 180px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	height: 40px; /* Consistent height */
-	font-size: 12px;
-}
+	.sedate-range input {
+		padding: 10px;
+		width: 100%;
+		max-width: 180px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		height: 40px; /* Consistent height */
+		font-size: 12px;
+	}
 
-/* Location select dropdown */
-.purchaselocation-select {
-	width: 100%;
-	max-width: 140px;
-}
+	/* Location select dropdown */
+	.purchaselocation-select {
+		width: 100%;
+		max-width: 140px;
+	}
 
-.purchaselocation-select select {
-	width: 100%;
-	padding: 10px;
-	font-size: 16px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-	height: 40px; /* Consistent height */
-	font-size: 12px;
+	.purchaselocation-select select {
+		width: 100%;
+		padding: 10px;
+		font-size: 16px;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		height: 40px; /* Consistent height */
+		font-size: 12px;
+	}
 }
-
-}
-
 
 @media (max-width: 1024px) {
 	.purchasereportlist-container {
