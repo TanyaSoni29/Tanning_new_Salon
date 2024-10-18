@@ -1,3 +1,5 @@
+/** @format */
+
 .top-header {
 	display: flex;
 	justify-content: space-between; /* Ensures title/dropdown on the left and user info on the right */
@@ -25,7 +27,9 @@
 .location-select {
 	width: 100%;
 	min-width: 120px;
-	margin-top: 10px; /* Add margin between heading and dropdown */
+	/* height: 48px; */
+	margin-top: 10px;
+	border-radius: 4px; /* Add margin between heading and dropdown */
 }
 
 .login-details {
