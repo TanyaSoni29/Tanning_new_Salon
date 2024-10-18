@@ -1,5 +1,3 @@
-/** @format */
-
 .serviceused-container {
 	width: 70%;
 	margin: 20px auto;
@@ -37,7 +35,7 @@
 /* Date range inputs */
 .date-range {
 	gap: 5px;
-	width: 27%;
+	width: 35%;
 	min-width: 50px;
 }
 
@@ -69,7 +67,7 @@
 	margin-top: 5px;
 	display: flex;
 	justify-content: flex-end;
-	width: 40%;
+	width: 33%;
 	gap: 2px;
 }
 
@@ -119,7 +117,7 @@
 }
 
 /* Responsive Layout for Tablets and Mobile */
-@media (max-width: 1450px) {
+@media (max-width: 1450px){
 	.serviceused-table-header,
 	.serviceused-table-row {
 		display: grid;
@@ -137,13 +135,13 @@
 		align-items: flex-start; /* Aligns items to the top */
 		margin-bottom: 20px;
 	}
-
+	
 	/* Search Bar */
 	.serviceused-search-container {
 		width: 100%;
 		max-width: 230px; /* Restrict the width on larger screens */
 	}
-
+	
 	.serviceused-search-container input {
 		width: 100%;
 		padding: 10px;
@@ -151,14 +149,14 @@
 		border: 1px solid #ccc;
 		border-radius: 4px;
 	}
-
+	
 	/* Date range inputs */
 	.date-range {
 		gap: 5px;
 		width: 40%;
 		min-width: 50px;
 	}
-
+	
 	.date-range input {
 		margin-left: 10px;
 		padding: 10px;
@@ -167,13 +165,13 @@
 		border: 1px solid #ccc;
 		border-radius: 4px;
 	}
-
+	
 	/* Location select dropdown */
 	.servicelocation-select {
 		width: 60%;
 		max-width: 160px;
 	}
-
+	
 	.servicelocation-select select {
 		width: 100%;
 		padding: 10px;
@@ -181,7 +179,7 @@
 		border-radius: 4px;
 		border: 1px solid #ccc;
 	}
-
+	
 	/* File download buttons (CSV, PDF) */
 	.serviceused-files {
 		margin-top: 5px;
@@ -190,6 +188,7 @@
 		width: 15%;
 		gap: 2px;
 	}
+	
 }
 
 @media (max-width: 768px) {
@@ -274,6 +273,7 @@
 		display: flex;
 		gap: 2px;
 	}
+	
 }
 
 /* Extra small mobile view */
