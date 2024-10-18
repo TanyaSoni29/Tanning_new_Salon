@@ -1,105 +1,106 @@
-/* General Wizard Container Styling */
+/**
+ * General Wizard Container Styling
+ *
+ * @format
+ */
+
 .wizard-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 75%; /* Responsive width */
-  text-align: center;
-  margin: 50px;
-  margin-top: 40px;
-  margin-left: 320px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 75%; /* Responsive width */
+	text-align: center;
+	margin: 50px;
+	margin-top: 40px;
+	margin-left: 320px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-
-
 
 /* Flexbox container for filters (Location, Search, Buttons) */
 .filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 /* Container for the switch and label */
 .dashboard-toggle-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  /* background-color: #ff5e5e; */
-  padding: 7px;
-  border-radius: 4px;
- 
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	/* background-color: #ff5e5e; */
+	padding: 7px;
+	border-radius: 4px;
 }
 
 /* The switch itself */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 24px;
 }
 
 /* Hide the default checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 24px; /* Fully rounded slider */
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: 24px; /* Fully rounded slider */
 }
 
 /* Slider before the toggle (unchecked state) */
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%; /* Fully rounded handle */
+	position: absolute;
+	content: '';
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	bottom: 3px;
+	background-color: white;
+	transition: 0.4s;
+	border-radius: 50%; /* Fully rounded handle */
 }
 
 /* When the checkbox is checked */
 input:checked + .slider {
-  background-color: #28a745; /* Green for checked state */
+	background-color: #28a745; /* Green for checked state */
 }
 
 /* Move the handle to the right when checked */
 input:checked + .slider:before {
-  transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded corners for the slider */
 .slider.round {
-  border-radius: 24px;
-  border: 0.5px solid rgb(129, 128, 128);
+	border-radius: 24px;
+	border: 0.5px solid rgb(129, 128, 128);
 }
 
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 /* Text next to the switch */
 .dashboard-toggle-container span {
-  font-size: 16px;
-  color: #000000;
+	font-size: 16px;
+	color: #000000;
 }
-
 
 .switch {
 	position: relative;
@@ -128,7 +129,7 @@ input:checked + .slider:before {
 
 .slider:before {
 	position: absolute;
-	content: "";
+	content: '';
 	height: 18px;
 	width: 18px;
 	left: 4px;
@@ -146,114 +147,113 @@ input:checked + .slider:before {
 	transform: translateX(26px);
 }
 
-
 /* Search Input Field */
 .search-input {
-  padding: 8px;
-  width: 250px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+	padding: 8px;
+	width: 250px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	font-size: 14px;
 }
 
 /* Button Styles */
 .search-button,
 .register-button,
 .clear-button {
-  padding: 8px 16px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
+	padding: 8px 16px;
+	border: none;
+	background-color: #007bff;
+	color: white;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 /* Hover Effect for Buttons */
 .search-button:hover,
 .register-button:hover,
 .clear-button:hover {
-  background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 /* Clear Button Style */
 .clear-button {
-  background-color: #ff5e5e;
+	background-color: #ff5e5e;
 }
 
 .clear-button:hover {
-  background-color: #d9534f;
+	background-color: #d9534f;
 }
 
 /* Specific Styling for Register Button */
 .register-button {
-  background-color: #0c65be;
+	background-color: #007bff;
 }
 
 .register-button:hover {
-  background-color: #333;
+	background-color: #333;
 }
 
 /* Navigation buttons */
 .navigation-buttons {
-  text-align: right;
-  margin-top: 20px;
+	text-align: right;
+	margin-top: 20px;
 }
 
 .navigation-buttons .next-button,
 .navigation-buttons .previous-button1 {
-  background-color: #0c65be;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  font-size: 16px;
+	background-color: #0c65be;
+	border: none;
+	padding: 10px 20px;
+	color: white;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	font-size: 16px;
 }
 
 .navigation-buttons .previous-button1 {
-  background-color: #888;
+	background-color: #888;
 }
 
 .navigation-buttons .previous-button1:hover,
 .next-button:hover {
-  background-color: #333;
-  color: white;
+	background-color: #333;
+	color: white;
 }
 
 /* Media Queries for Responsive Design */
 @media (max-width: 880px) {
-  .wizard-container {
-    width: 85%; /* Adjust the width for smaller screens */
-    margin-left: 110px;
-  }
+	.wizard-container {
+		width: 85%; /* Adjust the width for smaller screens */
+		margin-left: 110px;
+	}
 
-  .search-input {
-    width: 100%; /* Full width on smaller screens */
-  }
+	.search-input {
+		width: 100%; /* Full width on smaller screens */
+	}
 
-  .filter-container {
-    flex-direction: column; /* Stack elements vertically */
-  }
+	.filter-container {
+		flex-direction: column; /* Stack elements vertically */
+	}
 }
 
 @media (max-width: 580px) {
-  .wizard-container {
-    width: 90%; /* Further adjust the width */
-    margin-left: 20px;
-  }
+	.wizard-container {
+		width: 90%; /* Further adjust the width */
+		margin-left: 20px;
+	}
 
-  .filter-container {
-    flex-direction: column; /* Stack elements for smaller devices */
-  }
+	.filter-container {
+		flex-direction: column; /* Stack elements for smaller devices */
+	}
 
-  .search-input {
-    width: 100%; /* Full width on smaller devices */
-  }
+	.search-input {
+		width: 100%; /* Full width on smaller devices */
+	}
 
-  .search-button,
-  .register-button,
-  .clear-button {
-    width: 100%; /* Full width for buttons on small screens */
-  }
+	.search-button,
+	.register-button,
+	.clear-button {
+		width: 100%; /* Full width for buttons on small screens */
+	}
 }
