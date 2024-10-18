@@ -51,7 +51,7 @@ const CustomerList = () => {
 		const matchesSearchQuery =
 			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
 			phoneNumber.includes(searchTerm.toLowerCase());
-	
+
 		const preferredLocation = locations.find(
 			(location) => location.id === data.profile?.preferred_location
 		);
@@ -185,7 +185,18 @@ const CustomerList = () => {
 								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('dob')}>
+						DOB{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'dob' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
 					</span>
 
 					<span onClick={() => handleSort('preferred_location')}>
@@ -196,7 +207,8 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('phone_number')}>
 						Phone{' '}
@@ -206,7 +218,8 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('available_balance')}>
 						Min. Aval.{' '}
@@ -216,23 +229,11 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
 					</span>
 
-					<span onClick={() => handleSort('dob')}>
-						DOB{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'dob' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}></i>
-					</span>
-
-					<span
-						onClick={() => handleSort('total_service_purchased_price')}
-					>
+					<span onClick={() => handleSort('total_service_purchased_price')}>
 						Total Spent{' '}
 						<i
 							className={`fa fa-caret-${
@@ -240,7 +241,8 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
 					</span>
 					<span onClick={() => handleSort('updated_at')}>
 						Last Purchase{' '}
@@ -250,7 +252,8 @@ const CustomerList = () => {
 								sortConfig.direction === 'asc'
 									? 'up'
 									: 'down'
-							}`}></i>
+							}`}
+						></i>
 					</span>
 					<span>Action</span>
 				</div>
@@ -273,6 +276,7 @@ const CustomerList = () => {
 								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
+								<span data-label='DOB'>{formattedDOB}</span>
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
@@ -283,7 +287,6 @@ const CustomerList = () => {
 								>
 									{customer.profile?.available_balance}
 								</span>
-								<span data-label='DOB'>{formattedDOB}</span>
 								<span
 									data-label='Total Spent'
 									className='customertab'
