@@ -35,8 +35,8 @@
 /* Date range inputs */
 .date-range {
 	gap: 5px;
-	width: 35%;
-	min-width: 50px;
+	/* width: 35%;
+	min-width: 50px; */
 }
 
 .date-range input {
@@ -153,8 +153,8 @@
 	/* Date range inputs */
 	.date-range {
 		gap: 5px;
-		width: 40%;
-		min-width: 50px;
+		/* width: 40%;
+		min-width: 50px; */
 	}
 	
 	.date-range input {

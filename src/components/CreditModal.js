@@ -66,13 +66,13 @@ function CreditModal({ onClose, customer }) {
       <div className="modal-actions">
         <Button
           onClick={handleAddMinutes}
-          className="confirm-button"
+          id="credit-confirm-button"
           variant="contained"
           color="primary"
         >
           Add Minutes
         </Button>
-        <Button className="cancel-button" onClick={onClose} variant="outlined">
+        <Button id="credit-cancel-button" onClick={onClose} variant="outlined">
           Cancel
         </Button>
       </div>

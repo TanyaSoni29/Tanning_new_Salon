@@ -34,3 +34,44 @@
     border: 1px solid #ccc;
     color: #555;
 }
+
+@media (max-width: 650px){
+    .credit-modal-container {
+        padding: 15px;
+        width: 250px;
+        background-color: white;
+        border-radius: 8px;
+    }
+    
+    .modal-header {
+        margin-bottom: 15px;
+    }
+    
+    .modal-body {
+        margin-bottom: 20px;
+    }
+    
+    .minutes-input {
+        width: 95%;
+        padding: 5px;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    .modal-actions {
+        display: flex;
+       flex-direction: row;
+    }
+    
+    #credit-confirm-button{
+        background-color: #4CAF50;
+        color: white;
+        font-size: 12px;
+    }
+    
+    #credit-cancel-button {
+        border: 1px solid #ccc;
+        color: #555;
+        font-size: 12px;
+    }
+}

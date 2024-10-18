@@ -1,5 +1,3 @@
-/** @format */
-
 import { toast } from 'react-hot-toast';
 import { endpoints } from '../api';
 import { apiConnector } from '../apiConnector';
