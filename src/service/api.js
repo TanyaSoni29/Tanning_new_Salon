@@ -1,5 +1,3 @@
-/** @format */
-
 // console.log("My URI", process.env.REACT_APP_BASE_URI);
 // const BASE_URL = "http://localhost:3000/api/v1";
 const BASE_URL = 'https://salon.thetechnoguyz.com/api';
