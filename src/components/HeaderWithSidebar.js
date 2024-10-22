@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react';
 import './HeaderWithSidebar.css'; // Import the updated CSS
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
