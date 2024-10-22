@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react';
 import {
 	Box,
@@ -72,7 +74,11 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				referred_by: data.referred_by || '',
 				preferred_location: data.preferred_location,
 			};
-			const updatedUser = await updateUserProfile(token, activeUser.user.id, newUserData);
+			const updatedUser = await updateUserProfile(
+				token,
+				activeUser.user.id,
+				newUserData
+			);
 			if (updatedUser) {
 				dispatch({
 					type: 'customer/updateCustomer',
@@ -179,7 +185,9 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={errors.phone_number ? errors.phone_number.message : ''}
+							helperText={
+								errors.phone_number ? errors.phone_number.message : ''
+							}
 						/>
 					</Box>
 
@@ -236,7 +244,10 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 						>
 							<option value=''>Select Location</option>
 							{locations.map((location) => (
-								<option key={location.id} value={location.id}>
+								<option
+									key={location.id}
+									value={location.id}
+								>
 									{location.name}
 								</option>
 							))}
@@ -257,12 +268,24 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 					<Box className='switch-row'>
 						<FormControlLabel
-							control={<Switch {...register('gdpr_sms_active')} color='primary' defaultChecked={activeUser.profile?.gdpr_sms_active} />}
+							control={
+								<Switch
+									{...register('gdpr_sms_active')}
+									color='primary'
+									defaultChecked={activeUser.profile?.gdpr_sms_active}
+								/>
+							}
 							label='SMS'
 							className='form-control-label'
 						/>
 						<FormControlLabel
-							control={<Switch {...register('gdpr_email_active')} color='primary' defaultChecked={activeUser.profile?.gdpr_email_active} />}
+							control={
+								<Switch
+									{...register('gdpr_email_active')}
+									color='primary'
+									defaultChecked={activeUser.profile?.gdpr_email_active}
+								/>
+							}
 							label='Email'
 							className='form-control-label'
 						/>
@@ -270,20 +293,34 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				</Box>
 
 				<Box className='button-row'>
-					<Button variant='contained' className='confirm-button' onClick={handleResetPassword}>
+					{/* <Button variant='contained' className='confirm-button' onClick={handleResetPassword}>
 						Reset Password
-					</Button>
-					<Button variant='contained' className='confirm-button' type='submit'>
+					</Button> */}
+					<Button
+						variant='contained'
+						className='confirm-button'
+						type='submit'
+					>
 						Submit
 					</Button>
-					<Button variant='contained' className='cancel-button' onClick={closeEditModal}>
+					<Button
+						variant='contained'
+						className='cancel-button'
+						onClick={closeEditModal}
+					>
 						Cancel
 					</Button>
 				</Box>
 			</form>
 			{activeUser && resetPasswordModal && (
-				<Modal open={resetPasswordModal} setOpen={setResetPasswordModal}>
-					<ResetPassword onClose={closeResetPassword} activeUser={activeUser} />
+				<Modal
+					open={resetPasswordModal}
+					setOpen={setResetPasswordModal}
+				>
+					<ResetPassword
+						onClose={closeResetPassword}
+						activeUser={activeUser}
+					/>
 				</Modal>
 			)}
 		</Box>
