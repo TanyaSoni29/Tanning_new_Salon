@@ -160,13 +160,13 @@ const UserList = () => {
 						className='add-button3'
 						onClick={handleAdd}
 					>
-						ADD NEW USER
+						Add New User
 					</button>
 					<button
 						className='delete-button3'
 						onClick={handleDeleteAll}
 					>
-						Delete All
+						Reset Customer Data
 					</button>
 				</div>
 			</div>
@@ -350,7 +350,7 @@ function DeleteAllModal({ handleDelete, closeDeleteAllData }) {
 	return (
 		<div className='delete-modal'>
 			<p>
-				Are you sure you want to delete all customers, services, products and
+				Are you sure you want to delete all customers and their
 				transactions?
 			</p>
 			<div className='button-container'>
