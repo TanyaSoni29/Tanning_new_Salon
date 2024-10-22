@@ -100,6 +100,7 @@ function CustomerOverview({ filteredCustomers }) {
 						<thead>
 							<tr>
 								<th>Customer Name</th>
+								<th>Dob</th>
 								<th>Phone No.</th>
 								<th>Minutes Balance</th>
 								<th>Total Minutes Used</th>
@@ -117,6 +118,7 @@ function CustomerOverview({ filteredCustomers }) {
 											<td data-label='Customer Name'>
 												{data.profile?.firstName} {data.profile?.lastName}
 											</td>
+											<td>{formatDate(data.profile?.dob)}</td>
 
 											<td data-label='Phone No.'>
 												{data.profile?.phone_number
