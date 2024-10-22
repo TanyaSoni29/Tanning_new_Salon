@@ -10,8 +10,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getMe } from './service/operations/authApi';
 import ProtectedRoute from './utils/ProtectedRoute';
-import { Toaster } from 'react-hot-toast';
-import LocationStep from './components/LocationStep';
+// import { Toaster } from 'react-hot-toast';
+// import LocationStep from './components/LocationStep';
 import AboutStep from './components/AboutStep';
 import ServiceStep from './components/ServiceStep';
 import AuthForm from './sign-in/AuthForm';
@@ -23,16 +23,16 @@ import Services from './components/Services/Services';
 import Users from './components/Users/Users';
 import Allcustomers from './components/Allcustomers/Allcustomers';
 import Bydata from './components/Bydata/Bydata';
-import Currentmonth from './components/Currentmonth/Currentmonth';
-import Topcustomers from './components/Topcustomers/Topcustomers';
+// import Currentmonth from './components/Currentmonth/Currentmonth';
+// import Topcustomers from './components/Topcustomers/Topcustomers';
 import Serviceused from './components/Serviceused/Serviceused';
 import Purchasereport from './components/Purchasereport/Purchasereport';
 import Productreport from './components/Productreport/Productreport';
-import Qrcode from './components/Qrcode/Qrcode';
+// import Qrcode from './components/Qrcode/Qrcode';
 import './App.css';
 import TopHeader from './components/TopHeader';
-import { getStats } from './service/operations/statApi';
-import { Dashboard } from '@mui/icons-material';
+// import { getStats } from './service/operations/statApi';
+// import { Dashboard } from '@mui/icons-material';
 import TopCustomer from './components/Currentmonth/Currentmonth';
 
 const App = () => {
