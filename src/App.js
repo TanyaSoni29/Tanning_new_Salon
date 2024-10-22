@@ -44,6 +44,9 @@ const App = () => {
 		loading,
 		user: loginUser,
 	} = useSelector((state) => state.auth);
+	const [selectedLoginLocation, setSelectedLoginLocation] = useState(
+		loginUser?.profile?.preferred_location
+	);
 	const navigate = useNavigate();
 
 	// Fetch user info on app load if token is available
@@ -53,8 +56,14 @@ const App = () => {
 		}
 	}, [dispatch, token]);
 
+	console.log('selectedLocationlogin in App.js', selectedLoginLocation);
+
 	const handleLocationChange = (e) => {
 		setSelectedLocation(Number(e.target.value));
+	};
+
+	const handleLoginLocationChange = (e) => {
+		setSelectedLoginLocation(Number(e.target.value));
 	};
 
 	return (
@@ -64,6 +73,9 @@ const App = () => {
 					setSelectedLocation={setSelectedLocation}
 					selectedLocation={selectedLocation}
 					handleLocationChange={handleLocationChange}
+					selectedLoginLocation={selectedLoginLocation}
+					setSelectedLoginLocation={setSelectedLoginLocation}
+					handleLoginLocationChange={handleLoginLocationChange}
 				/>
 			)}
 			<Routes>
@@ -103,7 +115,18 @@ const App = () => {
 								<ServiceStep
 									stats={stats}
 									selectedLocation={selectedLocation}
+									selectedLoginLocation={selectedLoginLocation}
 								/>
+							}
+						/>
+					}
+				/>
+				<Route
+					path='/customers'
+					element={
+						<ProtectedRoute
+							element={
+								<Customers selectedLoginLocation={selectedLoginLocation} />
 							}
 						/>
 					}
@@ -161,10 +184,6 @@ const App = () => {
 					element={<ProtectedRoute element={<Products />} />}
 				/>
 
-				<Route
-					path='/customers'
-					element={<ProtectedRoute element={<Customers />} />}
-				/>
 				{/* <Route
 					path='/transactions'
 					element={<ProtectedRoute element={<Transactions />} />}

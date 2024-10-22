@@ -32,6 +32,42 @@
 	border-radius: 4px; /* Add margin between heading and dropdown */
 }
 
+.menu-dropdown {
+	position: absolute;
+	top: 60px;
+	right: 20px;
+	background: white;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 100;
+	width: 200px;
+}
+
+.menu-dropdown ul {
+	list-style: none;
+	margin: 0;
+	padding: 10px;
+}
+
+.menu-item {
+	padding: 8px 12px;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+.menu-item:hover {
+	background: #f0f0f0;
+	border-radius: 8px;
+}
+
+.menu-item.selected {
+	background: #007bff;
+	border-radius: 8px;
+	color: white;
+	font-weight: bold;
+}
+
 .login-details {
 	display: flex;
 	align-items: center;

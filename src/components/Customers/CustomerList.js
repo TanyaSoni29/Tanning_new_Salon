@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './CustomerList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,13 +11,15 @@ import AddCustomerModal from './AddCustomerModal';
 import ViewCustomerModal from './ViewCustomerModal';
 import EditCustomerModal from './EditCustomerModal';
 
-const CustomerList = () => {
+const CustomerList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
+
+	console.log('selectedLoginLocation in Customers:', selectedLoginLocation);
 
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
@@ -170,7 +174,7 @@ const CustomerList = () => {
 						className='add-button2'
 						onClick={() => handleAdd()}
 					>
-						ADD NEW CUSTOMER
+						Add New Customer
 					</button>
 				</div>
 			</div>
@@ -327,7 +331,10 @@ const CustomerList = () => {
 					setOpen={setIsAddOpen}
 					open={isAddOpen}
 				>
-					<AddCustomerModal closeAddModal={closeAddModal} />
+					<AddCustomerModal
+						closeAddModal={closeAddModal}
+						selectedLoginLocation={selectedLoginLocation}
+					/>
 				</Modal>
 			)}
 

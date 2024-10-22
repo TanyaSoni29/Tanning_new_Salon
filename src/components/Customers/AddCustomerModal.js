@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react';
 import {
 	Box,
@@ -17,7 +19,7 @@ import { createUser } from '../../service/operations/userApi';
 import { addCustomer, refreshCustomers } from '../../slices/customerProfile';
 import './AddCustomer.css';
 
-const AddCustomerModal = ({ closeAddModal }) => {
+const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 	const { token, user: loggedInUser } = useSelector((state) => state.auth); // Get logged-in user
 	const { users } = useSelector((state) => state.userProfile); // Get all users
 	const { locations, loading } = useSelector((state) => state.location); // Get all locations
@@ -48,11 +50,11 @@ const AddCustomerModal = ({ closeAddModal }) => {
 
 	// Set default location based on logged-in user's location when the component loads
 	useEffect(() => {
-		if (preferredLocationId) {
+		if (selectedLoginLocation) {
 			// Set the default value for preferred_location to the logged-in user's preferred location
-			setValue('preferred_location', preferredLocationId);
+			setValue('preferred_location', selectedLoginLocation);
 		}
-	}, [preferredLocationId, setValue]);
+	}, [selectedLoginLocation, setValue]);
 
 	const handleSubmitForm = async (data) => {
 		try {
@@ -109,7 +111,10 @@ const AddCustomerModal = ({ closeAddModal }) => {
 
 	return (
 		<Box className='addCustomer-modal-container'>
-			<Typography variant='h6' id='add-location-modal-title'>
+			<Typography
+				variant='h6'
+				id='add-location-modal-title'
+			>
 				Add New Customer
 			</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
@@ -176,7 +181,9 @@ const AddCustomerModal = ({ closeAddModal }) => {
 							})}
 							fullWidth
 							error={!!errors.phone_number}
-							helperText={errors.phone_number ? errors.phone_number.message : ''}
+							helperText={
+								errors.phone_number ? errors.phone_number.message : ''
+							}
 						/>
 					</Box>
 
@@ -228,7 +235,10 @@ const AddCustomerModal = ({ closeAddModal }) => {
 							disabled={loading}
 						>
 							{locations.map((location) => (
-								<option key={location.id} value={location.id}>
+								<option
+									key={location.id}
+									value={location.id}
+								>
 									{location.name}
 								</option>
 							))}
@@ -237,7 +247,7 @@ const AddCustomerModal = ({ closeAddModal }) => {
 						<select
 							id='gender'
 							className='custom-select'
-							{...register('gender' , { required: true })}
+							{...register('gender', { required: true })}
 						>
 							<option value=''>Select gender</option>
 							<option value='Male'>Male</option>
@@ -248,12 +258,22 @@ const AddCustomerModal = ({ closeAddModal }) => {
 
 					<Box className='switch-row'>
 						<FormControlLabel
-							control={<Switch {...register('gdpr_sms_active')} color='primary' />}
+							control={
+								<Switch
+									{...register('gdpr_sms_active')}
+									color='primary'
+								/>
+							}
 							label='SMS'
 							className='form-control-label'
 						/>
 						<FormControlLabel
-							control={<Switch {...register('gdpr_email_active')} color='primary' />}
+							control={
+								<Switch
+									{...register('gdpr_email_active')}
+									color='primary'
+								/>
+							}
 							label='Email'
 							className='form-control-label'
 						/>
@@ -261,10 +281,18 @@ const AddCustomerModal = ({ closeAddModal }) => {
 				</Box>
 
 				<Box className='button-row'>
-					<Button variant='contained' className='confirm-button' type='submit'>
+					<Button
+						variant='contained'
+						className='confirm-button'
+						type='submit'
+					>
 						Submit
 					</Button>
-					<Button variant='contained' className='cancel-button' onClick={closeAddModal}>
+					<Button
+						variant='contained'
+						className='cancel-button'
+						onClick={closeAddModal}
+					>
 						Cancel
 					</Button>
 				</Box>
