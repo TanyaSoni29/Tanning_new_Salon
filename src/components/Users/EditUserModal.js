@@ -335,20 +335,20 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						marginTop: '16px',
 					}}
 				>
-					{/* <Button
-            variant='contained'
-            sx={{
-              backgroundColor: '#0c65be',
-              color: 'white',
-              borderRadius: '5px',
-              padding: { xs: '5px 10px', lg: '8px 15px' },
-              fontSize: { xs: '10px', lg: '13px' },
-              ':hover': { backgroundColor: '#000' },
-            }}
-            onClick={handleResetPassword}
-          >
-            Reset Password
-          </Button> */}
+					<Button
+						variant='contained'
+						sx={{
+							'backgroundColor': '#0c65be',
+							'color': 'white',
+							'borderRadius': '5px',
+							'padding': { xs: '5px 10px', lg: '8px 15px' },
+							'fontSize': { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#000' },
+						}}
+						onClick={handleResetPassword}
+					>
+						Reset Password
+					</Button>
 					<Button
 						variant='contained'
 						sx={{
