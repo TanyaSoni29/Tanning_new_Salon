@@ -154,7 +154,7 @@ function CustomerOverview({ filteredCustomers }) {
 							) : (
 								<tr>
 									<td
-										colSpan='7'
+										colSpan='8'
 										className='no-customers'
 									>
 										No customers found.
