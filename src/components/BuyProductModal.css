@@ -47,6 +47,7 @@
 /* BuyProduct rows */
 .Buyproducts-table-row {
     padding: 10px;
+    color: var(--table-rowtextcolor);
 }
 
 .Buyproduct-name {

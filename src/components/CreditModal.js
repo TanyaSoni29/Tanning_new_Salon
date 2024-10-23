@@ -47,7 +47,7 @@ function CreditModal({ onClose, customer }) {
   return (
     <Box className="credit-modal-container">
       <div className="modal-header">
-        <Typography variant="h6" color="black">
+        <Typography variant="h6" color="white">
           Enter Minutes
         </Typography>
       </div>
