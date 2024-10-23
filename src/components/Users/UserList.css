@@ -83,7 +83,7 @@
 	box-sizing: border-box;
 }
 .user-table-row{
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 	background-color: var(--table-rowcolor);
 }
 
@@ -171,7 +171,7 @@
 }
 
 .user-table-row{
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 	background-color: var(--table-rowcolor);
 }
 

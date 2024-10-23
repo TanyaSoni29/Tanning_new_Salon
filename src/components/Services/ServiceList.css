@@ -83,7 +83,7 @@
 
 .table-row {
 	background-color: var(--table-rowcolor);
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 }
 
 .table-row:hover {

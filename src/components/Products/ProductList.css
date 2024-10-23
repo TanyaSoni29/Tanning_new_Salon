@@ -68,7 +68,7 @@
 
 .products-table-row{
     background-color: var(--table-rowcolor);
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 }
 
 .products-table-header.dynamic,
@@ -190,7 +190,7 @@
     
     .products-table-row{
         background-color: var(--table-rowcolor);
-        color: var(--textcolor);
+        color: var(--table-rowtextcolor);
     }
 
     .products-table-header2 {

@@ -30,7 +30,7 @@
     font-size: 14px;
     margin-bottom: 16px;
     background-color: var(--table-rowcolor); /* Darker background for the table */
-    color: var(--textcolor); /* White text for table content */
+    color: var(--table-rowtextcolor); /* White text for table content */
 }
 
 .customer-table th,

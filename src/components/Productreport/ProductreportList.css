@@ -72,11 +72,11 @@
 
 .productreportlist-table-row {
 	background-color: var(--table-rowcolor);
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 }
 
 .productreportlist-table-row:hover {
-	background-color: var(--textcolor);
+	background-color: var(--table-hover);
 }
 
 .productreportlist-no-data {

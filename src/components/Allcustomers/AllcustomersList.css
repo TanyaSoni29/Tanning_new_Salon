@@ -98,11 +98,11 @@
 
 .allcustomer-table-row {
 	background-color: var(--table-rowcolor);
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 }
 
 .allcustomer-table-row:hover {
-	background-color: var(--textcolor);
+	background-color: var(--table-hover);
 }
 
 .allcustomer-no-data {

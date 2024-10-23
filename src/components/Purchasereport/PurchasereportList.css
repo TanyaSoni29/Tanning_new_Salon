@@ -107,11 +107,11 @@
 
 .purchasereportlist-table-row {
 	background-color: var(--table-rowcolor);
-	color: var(--textcolor);
+	color: var(--table-rowtextcolor);
 }
 
 .purchasereportlist-table-row:hover {
-	background-color: var(--textcolor);
+	background-color: var(--table-hover);
 }
 
 .purchasereportlist-no-data {
