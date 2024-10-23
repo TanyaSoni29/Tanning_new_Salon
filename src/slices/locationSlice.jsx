@@ -1,3 +1,5 @@
+/** @format */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllLocations } from '../service/operations/locationApi';
 
@@ -41,6 +43,14 @@ const locationSlice = createSlice({
 			);
 			state.loading = false;
 		},
+		updateLocationStatus: (state, action) => {
+			const { id, isActive } = action.payload;
+			const index = state.locations.findIndex((location) => location.id === id);
+			if (index !== -1) {
+				state.locations[index].isActive = isActive;
+			}
+			state.loading = false;
+		},
 	},
 });
 
@@ -63,5 +73,6 @@ export const {
 	addLocation,
 	updateLocation,
 	removeLocation,
+	updateLocationStatus,
 } = locationSlice.actions;
 export default locationSlice.reducer;

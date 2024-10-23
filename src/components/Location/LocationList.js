@@ -3,12 +3,20 @@
 import React, { useState } from 'react';
 import './LocationList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
-import { removeLocation, refreshLocation } from '../../slices/locationSlice'; // Import removeLocation and refreshLocation actions
-import { deleteLocation } from '../../service/operations/locationApi';
+import {
+	removeLocation,
+	refreshLocation,
+	updateLocationStatus,
+} from '../../slices/locationSlice'; // Import removeLocation and refreshLocation actions
+import {
+	deleteLocation,
+	updateLocation,
+} from '../../service/operations/locationApi';
 import Modal from '../Modal'; // Assuming deleteLocation API call
 import EditLocationModal from './EditLocationModal';
 import AddLocationModal from './AddLocationModal';
 import { Switch } from '@mui/material';
+import toast from 'react-hot-toast';
 
 const LocationList = () => {
 	const dispatch = useDispatch();
@@ -114,6 +122,33 @@ const LocationList = () => {
 		setIsAddOpen(false);
 	};
 
+	const handleToggleActiveStatus = async (location) => {
+		const updatedStatus = !location.isActive;
+		const activeLocations = locations.filter((loc) => loc.isActive);
+
+		// Edge case: Ensure at least one location remains active
+		if (activeLocations.length === 1 && location.isActive) {
+			toast.error('At least one location must remain active.');
+			return;
+		}
+		try {
+			// Call API to update location status
+			const result = await updateLocation(token, location.id, {
+				isActive: updatedStatus,
+			});
+
+			// If the update was successful, refresh the locations in Redux
+			if (result) {
+				dispatch(
+					updateLocationStatus({ id: location.id, isActive: updatedStatus })
+				);
+				dispatch(refreshLocation());
+			}
+		} catch (error) {
+			console.error('Error updating location status:', error);
+		}
+	};
+
 	return (
 		<div className='location-container'>
 			<div className='location-search-container'>
@@ -134,7 +169,7 @@ const LocationList = () => {
 			<div className='locations-table'>
 				<div className='location-table-header'>
 					<span>
-						Location Id
+						Location
 						<button
 							className='sort-button'
 							onClick={() => handleSort('locationId')}
@@ -143,7 +178,7 @@ const LocationList = () => {
 						</button>
 					</span>
 					<span>
-						Location Name
+						 Name
 						<button
 							className='sort-button'
 							onClick={() => handleSort('name')}
@@ -206,8 +241,9 @@ const LocationList = () => {
 							</span>
 							<span data-label='Is Active'>
 								<Switch
-									checked={location?.isActive}
-									disabled={true}
+									checked={location.isActive}
+									onChange={() => handleToggleActiveStatus(location)}
+									color='primary'
 								/>
 							</span>
 							<span data-label='Action'>

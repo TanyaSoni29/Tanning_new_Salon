@@ -54,7 +54,7 @@
 
 .products-table-header {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr 1fr;
+	grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2.5fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -63,7 +63,7 @@
 
 .products-table-row {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr 1fr;
+	grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2.5fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -72,7 +72,7 @@
 
 .products-table-header2 {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr;
+	grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -84,7 +84,7 @@
 
 .products-table-row2 {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr;
+	grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -141,7 +141,13 @@
 .productPrice {
 	display: flex;
 	justify-content: end;
-	width: 18%;
+	width: 24%;
+}
+
+.productPrice2 {
+	display: flex;
+	justify-content: end;
+	width: 35%;
 }
 
 .no-data {
@@ -155,7 +161,7 @@
 @media (max-width: 1400px) {
 	.products-table-header {
 		display: grid;
-		grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2fr 1fr;
+		grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr 1fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -165,7 +171,7 @@
 
 	.products-table-row {
 		display: grid;
-		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr 2.2fr 2.2fr 1fr;
+		grid-template-columns: 4fr 2.4fr 2.2fr 2.2fr 2.2fr 2.2fr 1fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -175,7 +181,7 @@
 
 	.products-table-header2 {
 		display: grid;
-		grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2fr;
+		grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -185,7 +191,7 @@
 
 	.products-table-row2 {
 		display: grid;
-		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr 2.2fr 2.2fr;
+		grid-template-columns: 4fr 2.4fr 2.2fr 2.2fr 2.2fr 2.2fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -315,6 +321,11 @@
 		display: none; /* Keep the header hidden, but add labels for each row */
 	}
 	.productPrice {
+		display: none;
+		/* justify-content: end; */
+		width: 100%;
+	}
+	.productPrice2 {
 		display: none;
 		/* justify-content: end; */
 		width: 100%;

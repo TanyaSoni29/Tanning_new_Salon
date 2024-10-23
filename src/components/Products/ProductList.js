@@ -158,7 +158,7 @@ const ProductList = () => {
 						></i>
 					</span>
 					<span onClick={() => handleSort('stock')}>
-						Stock01{' '}
+						Stock(Loc. 01){' '}
 						<i
 							className={`fa fa-caret-${
 								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
@@ -168,7 +168,7 @@ const ProductList = () => {
 						></i>
 					</span>
 					<span onClick={() => handleSort('stock')}>
-						Stock02{' '}
+						Stock(Loc. 02){' '}
 						<i
 							className={`fa fa-caret-${
 								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
@@ -178,7 +178,7 @@ const ProductList = () => {
 						></i>
 					</span>
 					<span onClick={() => handleSort('stock')}>
-						Stock03{' '}
+						Stock(Loc 03){' '}
 						<i
 							className={`fa fa-caret-${
 								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
@@ -221,19 +221,19 @@ const ProductList = () => {
 							</span>
 							<span
 								data-label='Stock'
-								className='productPrice'
+								className='productPrice2'
 							>
 								{product?.stock01 ?? '0'}
 							</span>
 							<span
 								data-label='Stock'
-								className='productPrice'
+								className='productPrice2'
 							>
 								{product?.stock02 ?? '0'}
 							</span>
 							<span
 								data-label='Stock'
-								className='productPrice'
+								className='productPrice2'
 							>
 								{product?.stock03 ?? '0'}
 							</span>

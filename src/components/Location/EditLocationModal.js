@@ -22,7 +22,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 	const dispatch = useDispatch();
 	const [showLink, setShowLink] = useState(false);
 	const [copied, setCopied] = useState(false);
-	const [isActive, setIsActive] = useState(activeLocation.isActive);
+	// const [isActive, setIsActive] = useState(activeLocation.isActive);
 	const {
 		register,
 		handleSubmit,
@@ -44,7 +44,6 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 				address: data.address || '',
 				phone_number: data.phone_number || '',
 				post_code: data.post_code || '',
-				isActive: isActive,
 			};
 			const result = await updateLocation(
 				token,
@@ -59,17 +58,6 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 		} catch (error) {
 			console.error('Error updating location:', error);
 		}
-	};
-
-	const handleToggleActiveStatus = () => {
-		const activeLocations = locations.filter((loc) => loc.isActive).length;
-
-		// If there is only one active location and the user tries to deactivate it, prevent the change
-		if (activeLocations === 1 && isActive) {
-			toast.error('At least one location must remain active.');
-			return;
-		}
-		setIsActive((prev) => !prev); // Toggle the isActive state
 	};
 
 	useEffect(() => {
@@ -214,16 +202,6 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						alignItems: { xs: 'stretch', sm: 'center' },
 					}}
 				>
-					<FormControlLabel
-						control={
-							<Switch
-								checked={isActive}
-								onChange={handleToggleActiveStatus}
-								color='primary'
-							/>
-						}
-						label={isActive ? 'Active Location' : 'Inactive Location'}
-					/>
 					<Button
 						variant='contained'
 						onClick={() => setShowLink(true)}
