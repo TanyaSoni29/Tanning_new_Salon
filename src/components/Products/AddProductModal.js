@@ -7,17 +7,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../service/operations/productAndProductTransaction'; // Ensure you have an API call for adding a location
 import { addProduct, refreshProduct } from '../../slices/productSlice';
 
-const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
+const AddProductModal = ({ closeAddModal }) => {
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const dispatch = useDispatch();
 	const { locations } = useSelector((state) => state.location);
-
-	const locationDetails = locations.find(
-		(location) => location.id === selectedLoginLocation
+	const isStock01Active = locations.find(
+		(location) => location.location_id === '01' && location.isActive
 	);
+	const isStock02Active = locations.find(
+		(location) => location.location_id === '02' && location.isActive
+	);
+	const isStock03Active = locations.find(
+		(location) => location.location_id === '03' && location.isActive
+	);
+	// const locationDetails = locations.find(
+	// 	(location) => location.id === selectedLoginLocation
+	// );
 
-	// For example, if locationDetails.location_id is '01', it maps to 'stock01'
-	const stockField = `stock${locationDetails?.location_id}`;
+	// // For example, if locationDetails.location_id is '01', it maps to 'stock01'
+	// const stockField = `stock${locationDetails?.location_id}`;
 
 	const {
 		register,
@@ -28,7 +36,9 @@ const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
 		defaultValues: {
 			name: '',
 			price: '',
-			[stockField]: '',
+			stock01: '',
+			stock02: '',
+			stock03: '',
 		},
 	});
 
@@ -37,7 +47,9 @@ const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
 			const newLocation = {
 				name: data.name,
 				price: Number(data.price),
-				[stockField]: Number(data[stockField]) || 0,
+				stock01: Number(data.stock01) || 0,
+				stock02: Number(data.stock02) || 0,
+				stock03: Number(data.stock03) || 0,
 			};
 			const result = await createProduct(token, newLocation);
 			if (result) {
@@ -55,7 +67,9 @@ const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
 			reset({
 				name: '',
 				price: '',
-				[stockField]: '',
+				stock01: '',
+				stock02: '',
+				stock03: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -96,14 +110,65 @@ const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Stock'
 							fullWidth
-							{...register(stockField, {
+							{...register('stock01', {
 								required: 'Stock is required',
 								min: { value: 0, message: 'Stock must be at least 0' },
 								valueAsNumber: true,
 							})}
+							disabled={!isStock01Active}
 							defaultValue={0}
-							error={!!errors[stockField]}
-							helperText={errors[stockField] ? errors[stockField].message : ''}
+							error={!!errors.stock01}
+							helperText={
+								!isStock01Active
+									? 'Location 01 is inactive'
+									: errors.stock01
+									? errors.stock01.message
+									: ''
+							}
+						/>
+					</Box>
+					<Box
+						mt={2}
+						display='flex'
+						gap={2}
+					>
+						<TextField
+							label='Stock'
+							fullWidth
+							{...register('stock02', {
+								required: 'Stock is required',
+								min: { value: 0, message: 'Stock must be at least 0' },
+								valueAsNumber: true,
+							})}
+							disabled={!isStock02Active}
+							defaultValue={0}
+							error={!!errors.stock02}
+							helperText={
+								!isStock02Active
+									? 'Location 02 is inactive'
+									: errors.stock02
+									? errors.stock02.message
+									: ''
+							}
+						/>
+						<TextField
+							label='Stock'
+							fullWidth
+							{...register('stock03', {
+								required: 'Stock is required',
+								min: { value: 0, message: 'Stock must be at least 0' },
+								valueAsNumber: true,
+							})}
+							disabled={!isStock03Active}
+							defaultValue={0}
+							error={!!errors.stock03}
+							helperText={
+								!isStock03Active
+									? 'Location 03 is inactive'
+									: errors.stock03
+									? errors.stock03.message
+									: ''
+							}
 						/>
 					</Box>
 

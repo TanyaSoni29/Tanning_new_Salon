@@ -6,7 +6,7 @@ import ProductList from './ProductList';
 import { useDispatch } from 'react-redux';
 import { refreshProduct } from '../../slices/productSlice';
 
-function Products({ selectedLoginLocation }) {
+function Products() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(refreshProduct());
@@ -14,7 +14,7 @@ function Products({ selectedLoginLocation }) {
 	return (
 		<div>
 			<HeaderWithSidebar />
-			<ProductList selectedLoginLocation={selectedLoginLocation} />
+			<ProductList />
 		</div>
 	);
 }

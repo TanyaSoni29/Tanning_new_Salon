@@ -193,13 +193,7 @@ const App = () => {
 				)}
 				<Route
 					path='/products'
-					element={
-						<ProtectedRoute
-							element={
-								<Products selectedLoginLocation={selectedLoginLocation} />
-							}
-						/>
-					}
+					element={<ProtectedRoute element={<Products />} />}
 				/>
 
 				{/* <Route

@@ -10,7 +10,7 @@ import EditProductModal from './EditProductModal';
 import AddProductModal from './AddProductModal';
 import { formatDate } from '../../utils/formateDate';
 
-const ProductList = ({ selectedLoginLocation }) => {
+const ProductList = () => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { products = [] } = useSelector((state) => state.product); // Ensure products is always an array, defaulting to []
@@ -20,14 +20,14 @@ const ProductList = ({ selectedLoginLocation }) => {
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeProduct, setActiveProduct] = useState(null); // Track the product to be deleted or edited
-	const { locations } = useSelector((state) => state.location);
+	// const { locations } = useSelector((state) => state.location);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
-	const locationDetails = locations.find(
-		(location) => location.id === selectedLoginLocation
-	);
+	// const locationDetails = locations.find(
+	// 	(location) => location.id === selectedLoginLocation
+	// );
 
-	const stockField = `stock${locationDetails?.location_id}`;
+	// const stockField = `stock${locationDetails?.location_id}`;
 
 	// Handle sorting logic
 	const handleSort = (key) => {
@@ -158,7 +158,27 @@ const ProductList = ({ selectedLoginLocation }) => {
 						></i>
 					</span>
 					<span onClick={() => handleSort('stock')}>
-						Stock{' '}
+						Stock01{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('stock')}>
+						Stock02{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('stock')}>
+						Stock03{' '}
 						<i
 							className={`fa fa-caret-${
 								sortConfig.key === 'stock' && sortConfig.direction === 'asc'
@@ -203,7 +223,19 @@ const ProductList = ({ selectedLoginLocation }) => {
 								data-label='Stock'
 								className='productPrice'
 							>
-								{product?.[stockField] ?? 'N/A'}
+								{product?.stock01 ?? '0'}
+							</span>
+							<span
+								data-label='Stock'
+								className='productPrice'
+							>
+								{product?.stock02 ?? '0'}
+							</span>
+							<span
+								data-label='Stock'
+								className='productPrice'
+							>
+								{product?.stock03 ?? '0'}
 							</span>
 							<span data-label='Listed On'>
 								{formatDate(product?.created_at)}
@@ -241,7 +273,7 @@ const ProductList = ({ selectedLoginLocation }) => {
 				>
 					<AddProductModal
 						closeAddModal={closeAddModal}
-						selectedLoginLocation={selectedLoginLocation}
+						// selectedLoginLocation={selectedLoginLocation}
 					/>
 				</Modal>
 			)}
@@ -268,7 +300,7 @@ const ProductList = ({ selectedLoginLocation }) => {
 					<EditProductModal
 						activeProduct={activeProduct}
 						closeEditModal={closeEditModal}
-						selectedLoginLocation={selectedLoginLocation}
+						// selectedLoginLocation={selectedLoginLocation}
 					/>
 				</Modal>
 			)}

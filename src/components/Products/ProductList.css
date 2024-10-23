@@ -1,3 +1,5 @@
+/** @format */
+
 .products-container {
 	width: 70%;
 	margin: 20px auto;
@@ -52,7 +54,7 @@
 
 .products-table-header {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2.5fr 1fr;
+	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -61,7 +63,7 @@
 
 .products-table-row {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2.5fr 1fr;
+	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr 1fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -70,7 +72,7 @@
 
 .products-table-header2 {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2.5fr;
+	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -82,7 +84,7 @@
 
 .products-table-row2 {
 	display: grid;
-	grid-template-columns: 4fr 3fr 2fr 2.5fr;
+	grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2.5fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -153,7 +155,7 @@
 @media (max-width: 1400px) {
 	.products-table-header {
 		display: grid;
-		grid-template-columns: 4fr 3fr 2fr 2fr 1fr;
+		grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2fr 1fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -163,7 +165,7 @@
 
 	.products-table-row {
 		display: grid;
-		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr 1fr;
+		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr 2.2fr 2.2fr 1fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -173,7 +175,7 @@
 
 	.products-table-header2 {
 		display: grid;
-		grid-template-columns: 4fr 3fr 2fr 2fr;
+		grid-template-columns: 4fr 3fr 2fr 2fr 2fr 2fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -183,7 +185,7 @@
 
 	.products-table-row2 {
 		display: grid;
-		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr;
+		grid-template-columns: 4fr 3.4fr 2.2fr 2.2fr 2.2fr 2.2fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -204,13 +206,13 @@
 
 	.products-table-header,
 	.products-table-row {
-		grid-template-columns: 2fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
 		padding: 10px;
 	}
 
 	.products-table-header2,
 	.products-table-row2 {
-		grid-template-columns: 2fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
 		padding: 10px;
 	}
 

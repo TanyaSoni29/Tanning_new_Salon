@@ -7,21 +7,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProduct } from '../../service/operations/productAndProductTransaction';
 import { refreshProduct } from '../../slices/productSlice';
 
-const EditProductModal = ({
-	activeProduct,
-	closeEditModal,
-	selectedLoginLocation,
-}) => {
+const EditProductModal = ({ activeProduct, closeEditModal }) => {
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const { locations } = useSelector((state) => state.location);
-
-	const locationDetails = locations.find(
-		(location) => location.id === selectedLoginLocation
+	const isStock01Active = locations.find(
+		(location) => location.location_id === '01' && location.isActive
 	);
+	const isStock02Active = locations.find(
+		(location) => location.location_id === '02' && location.isActive
+	);
+	const isStock03Active = locations.find(
+		(location) => location.location_id === '03' && location.isActive
+	);
+	// const locationDetails = locations.find(
+	// 	(location) => location.id === selectedLoginLocation
+	// );
 
-	// Determine the stock field name based on the selected location ID
-	const stockField = `stock${locationDetails?.location_id}`;
+	// // Determine the stock field name based on the selected location ID
+	// const stockField = `stock${locationDetails?.location_id}`;
 
 	const {
 		register,
@@ -32,7 +36,9 @@ const EditProductModal = ({
 		defaultValues: {
 			name: activeProduct.name,
 			price: activeProduct.price,
-			[stockField]: activeProduct[stockField] || 0,
+			stock01: activeProduct.stock01 || 0,
+			stock02: activeProduct.stock02 || 0,
+			stock03: activeProduct.stock03 || 0,
 		},
 	});
 
@@ -41,7 +47,9 @@ const EditProductModal = ({
 			const updatedData = {
 				name: data.name,
 				price: Number(data.price),
-				[stockField]: Number(data[stockField]) || 0,
+				stock01: Number(data.stock01) || 0,
+				stock02: Number(data.stock02) || 0,
+				stock03: Number(data.stock03) || 0,
 			};
 			const result = await updateProduct(token, activeProduct.id, updatedData);
 
@@ -59,7 +67,9 @@ const EditProductModal = ({
 			reset({
 				name: '',
 				price: '',
-				[stockField]: '',
+				stock01: '',
+				stock02: '',
+				stock03: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -115,13 +125,61 @@ const EditProductModal = ({
 					<TextField
 						label='Stock'
 						fullWidth
-						{...register(stockField, {
+						{...register('stock01', {
 							required: 'Stock is required',
 							min: { value: 0, message: 'Stock must be at least 0' },
 							valueAsNumber: true,
 						})}
-						error={!!errors[stockField]}
-						helperText={errors[stockField] ? errors[stockField].message : ''}
+						error={!!errors.stock01}
+						helperText={
+							!isStock01Active
+								? 'Location 02 is inactive'
+								: errors.stock01
+								? errors.stock01.message
+								: ''
+						}
+					/>
+				</Box>
+				<Box
+					mt={2}
+					display='flex'
+					gap={2}
+				>
+					<TextField
+						label='Stock'
+						fullWidth
+						{...register('stock02', {
+							required: 'Stock is required',
+							min: { value: 0, message: 'Stock must be at least 0' },
+							valueAsNumber: true,
+						})}
+						disabled={!isStock02Active}
+						error={!!errors.stock02}
+						helperText={
+							!isStock02Active
+								? 'Location 02 is inactive'
+								: errors.stock02
+								? errors.stock02.message
+								: ''
+						}
+					/>
+					<TextField
+						label='Stock'
+						fullWidth
+						{...register('stock03', {
+							required: 'Stock is required',
+							min: { value: 0, message: 'Stock must be at least 0' },
+							valueAsNumber: true,
+						})}
+						disabled={!isStock03Active}
+						error={!!errors.stock03}
+						helperText={
+							!isStock03Active
+								? 'Location 03 is inactive'
+								: errors.stock03
+								? errors.stock03.message
+								: ''
+						}
 					/>
 				</Box>
 
