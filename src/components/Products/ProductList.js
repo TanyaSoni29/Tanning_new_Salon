@@ -20,9 +20,9 @@ const ProductList = () => {
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeProduct, setActiveProduct] = useState(null); // Track the product to be deleted or edited
-	// const { locations } = useSelector((state) => state.location);
+	const { locations } = useSelector((state) => state.location);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-
+	const activeLocations = locations.filter((location) => location.isActive);
 	// const locationDetails = locations.find(
 	// 	(location) => location.id === selectedLoginLocation
 	// );
@@ -157,7 +157,7 @@ const ProductList = () => {
 							}`}
 						></i>
 					</span>
-					<span onClick={() => handleSort('stock')}>
+					{/* <span onClick={() => handleSort('stock')}>
 						Stock(Loc. 01){' '}
 						<i
 							className={`fa fa-caret-${
@@ -186,7 +186,23 @@ const ProductList = () => {
 									: 'down'
 							}`}
 						></i>
-					</span>
+					</span> */}
+					{activeLocations.map((location) => (
+						<span
+							key={location.id}
+							onClick={() => handleSort(`stock${location.location_id}`)}
+						>
+							Stock (Loc. {location.location_id}){' '}
+							<i
+								className={`fa fa-caret-${
+									sortConfig.key === `stock${location.location_id}` &&
+									sortConfig.direction === 'asc'
+										? 'up'
+										: 'down'
+								}`}
+							></i>
+						</span>
+					))}
 					<span onClick={() => handleSort('created_at')}>
 						Listed On{' '}
 						<i
@@ -219,7 +235,7 @@ const ProductList = () => {
 							>
 								£{product?.price}
 							</span>
-							<span
+							{/* <span
 								data-label='Stock'
 								className='productPrice2'
 							>
@@ -236,7 +252,19 @@ const ProductList = () => {
 								className='productPrice2'
 							>
 								{product?.stock03 ?? '0'}
-							</span>
+							</span> */}
+							{activeLocations.map((location) => {
+								const stockField = `stock${location.location_id}`;
+								return (
+									<span
+										key={location.id}
+										data-label={`Stock (Loc. ${location.location_id})`}
+										className='productPrice2'
+									>
+										{product[stockField] ?? '0'}
+									</span>
+								);
+							})}
 							<span data-label='Listed On'>
 								{formatDate(product?.created_at)}
 							</span>
