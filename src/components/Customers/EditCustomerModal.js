@@ -206,6 +206,8 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							defaultValue={activeUser.profile?.dob} // Set default Date of Birth
 							{...register('dob', { required: true })}
 							fullWidth
+							error={!!errors.dob}
+							helperText={errors.dob ? errors.dob.message : ''}
 						/>
 					</Box>
 
