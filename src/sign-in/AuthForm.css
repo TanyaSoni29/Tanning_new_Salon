@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: rgba(255, 255, 255, 0.2); */
+  background-color: #4c5154;
   border-radius: 15px;
   padding: 30px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -32,7 +32,7 @@
 
 .form-title {
   font-size: 2rem;
-  color: #0c65be;
+  color: orange;
   margin-bottom: 30px;
   font-weight: bold;
 }
@@ -49,11 +49,11 @@
 }
 
 .input-field:focus {
-  border-color: #0c65be;
+  border-color: orange;
 }
 
 .auth-button {
-  background-color: #0c65be;
+  background-color: orange;
   color: white;
   padding: 15px 0;
   border: none;
@@ -76,7 +76,7 @@
 }
 
 .toggle-text a {
-  color: #0c65be;
+  color: orange;
   text-decoration: none;
 }
 

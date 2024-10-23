@@ -2,7 +2,7 @@
 .Buyproduct-modal-container {
     width: 90%;
     padding: 20px;
-    background-color: white;
+    background-color: var(--cardpart-background);
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;

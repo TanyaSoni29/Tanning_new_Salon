@@ -3,7 +3,7 @@
 	width: 20vw; /* Default for larger screens */
 	padding: 20px;
 	margin: auto;
-	background-color: #fff;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }

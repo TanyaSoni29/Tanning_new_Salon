@@ -1,7 +1,7 @@
 .credit-modal-container {
     padding: 20px;
     width: 400px;
-    background-color: white;
+    background-color: var(--cardpart-background);
     border-radius: 8px;
 }
 
