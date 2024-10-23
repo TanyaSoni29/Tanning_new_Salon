@@ -64,8 +64,8 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				firstName: data.firstName,
 				lastName: data.lastName,
 				email: data.email,
-				address: data.address,
-				post_code: data.post_code,
+				address: data.address || '',
+				post_code: data.post_code || '',
 				phone_number: data.phone_number,
 				gender: data.gender || '',
 				dob: data.dob || '', // Added Date of Birth field
@@ -214,7 +214,10 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							label='Address'
 							variant='outlined'
 							defaultValue={activeUser.profile?.address}
-							{...register('address', { required: true })}
+							{...register(
+								'address'
+								// { required: true }
+							)}
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
@@ -226,7 +229,10 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							label='Post Code'
 							variant='outlined'
 							defaultValue={activeUser.profile?.post_code}
-							{...register('post_code', { required: true })}
+							{...register(
+								'post_code'
+								// { required: true }
+							)}
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
@@ -263,7 +269,10 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							id='gender'
 							className='custom-select'
 							defaultValue={activeUser.profile?.gender}
-							{...register('gender', { required: true })}
+							{...register(
+								'gender'
+								// { required: true }
+							)}
 						>
 							<option value=''>Select Gender</option>
 							<option value='Male'>Male</option>
