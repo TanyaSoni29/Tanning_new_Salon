@@ -288,7 +288,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
-								<span data-label='Phone'>{customer.profile?.phone_number}</span>
+								<span data-label='Phone'>{customer.profile?.phone_number ? customer.profile?.phone_number : "-"}</span>
 								<span
 									data-label='Min. Aval.'
 									className='min-avail'
