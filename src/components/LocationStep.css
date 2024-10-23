@@ -137,11 +137,11 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh; /* Ensures it takes the full height of the viewport */
-	background-color: #fff; /* Light background for better contrast */
+	background-color: var(--background-color); /* Light background for better contrast */
 }
 
 .location-selection {
-	background: #ffffff;
+	background: var(--cardpart-background);
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	padding: 2rem;
@@ -160,14 +160,14 @@
 .select-heading {
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
-	color: #333;
+	color: var(--textcolor);
 	text-align: center;
 }
 
 .subheading {
 	font-size: 0.9rem;
 	margin-bottom: 1.5rem;
-	color: #666;
+	color: white;
 }
 
 .locations select {

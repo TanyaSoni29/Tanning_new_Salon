@@ -1,158 +1,128 @@
-/** @format */
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
-import './AuthForm.css'; // Import the CSS file for styles
+import { useNavigate } from 'react-router-dom';
+import './AuthForm.css';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { login, signUp } from '../service/operations/authApi';
+import  saloonLogo  from  '../logo/saloonLogo.jpg';
 
 const AuthForm = () => {
-	const [isSignUp, setIsSignUp] = useState(false); // State to toggle between SignIn and SignUp forms
-	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
-		confirmPassword: '',
-	});
-	const dispatch = useDispatch();
-	const navigate = useNavigate(); // Initialize the useNavigate hook
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-	// Toggle form view
-	const toggleForm = (e) => {
-		e.preventDefault(); // Prevent default link behavior
-		setIsSignUp(!isSignUp);
-		setFormData({ email: '', password: '', confirmPassword: '' }); // Clear form data
-	};
+    const toggleForm = (e) => {
+        e.preventDefault();
+        setIsSignUp(!isSignUp);
+        setFormData({ email: '', password: '', confirmPassword: '' });
+    };
 
-	// Handle form data changes
-	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-	// Handle form submission
-	const handleSubmit = (e) => {
-		e.preventDefault(); // Prevent form submission
-		// const emailPattern = /^[^\s@]+@[^\s@]+\[^\s@]+$/; // Simple email pattern
-		// if (!emailPattern.test(formData.email)) {
-		// 	toast.error('Please enter a valid email address.');
-		// 	return;
-		// }
-		// Validation for Sign-Up form
-		if (isSignUp) {
-			// Check if password has a minimum length of 6 characters
-			if (formData.password.length < 6) {
-				toast.error('Password must be at least 6 characters long.');
-				console.log('Password too short');
-				return; // Prevent form submission if password length is invalid
-			}
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isSignUp) {
+            if (formData.password.length < 6) {
+                toast.error('Password must be at least 6 characters long.');
+                return;
+            }
 
-			// Check if password and confirmPassword match
-			if (formData.password !== formData.confirmPassword) {
-				toast.error("Passwords don't match.");
-				console.log('Passwords do not match');
-				return; // Prevent form submission if passwords don't match
-			}
+            if (formData.password !== formData.confirmPassword) {
+                toast.error("Passwords don't match.");
+                return;
+            }
 
-			// Sign-Up logic goes here
-			console.log('Sign Up data:', formData);
-			toast.success('Signed up successfully!');
-		} else {
-			// Validation for Sign-In form
-			if (!formData.email || !formData.password) {
-				toast.error('Please provide email and password.');
-				console.log('Missing email or password');
-				return; // Prevent form submission if email or password is missing
-			}
+            dispatch(signUp(formData, navigate));
+            toast.success('Registered successfully!');
+        } else {
+            if (!formData.email || !formData.password) {
+                toast.error('Please provide email and password.');
+                return;
+            }
 
-			// Sign-In logic goes here
-			if (!isSignUp) {
-				dispatch(login(formData.email, formData.password, navigate));
-				// toast.success('Logged in successfully!');
-			} else {
-				const newData = {
-					email: formData.email,
-					password: formData.password,
-					confirmPassword: formData.confirmPassword,
-				};
-				dispatch(signUp(newData, navigate));
-				toast.success('Register successfully!');
-			}
+            dispatch(login(formData.email, formData.password, navigate));
+            toast.success('Logged in successfully!');
+        }
 
-			console.log('Sign In data:', formData);
-		}
+        navigate('/');
+    };
 
-		// Redirect to / after successful form submission
-		navigate('/');
-	};
+    return (
+        <div className="auth-container">
+            <div className="content-wrapper">
+                <div className="form-container">
+                    <h2 className="form-title">{isSignUp ? 'Sign up' : 'Sign in'}</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            className="input-field"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            className="input-field"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                        {isSignUp && (
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                                className="input-field"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                        )}
+                        <button type="submit" className="auth-button">
+                            {isSignUp ? 'Sign up' : 'Sign in'}
+                        </button>
+                    </form>
+                    <p className="toggle-text">
+                        {isSignUp ? (
+                            <>
+                                Already have an account?{' '}
+                                <a href="#" onClick={toggleForm}>
+                                    Sign in
+                                </a>
+                            </>
+                        ) : (
+                            <>
+                                Don't have an account?{' '}
+                                <a href="#" onClick={toggleForm}>
+                                    Sign up
+                                </a>
+                            </>
+                        )}
+                    </p>
+                </div>
 
-	return (
-		<div className='auth-container'>
-			<div className='content-wrapper'>
-				<div className='form-container'>
-					<h2 className='form-title'>{isSignUp ? 'Sign up' : 'Sign in'}</h2>
-
-					<form onSubmit={handleSubmit}>
-						<input
-							type='email'
-							name='email'
-							placeholder='Enter your email'
-							className='input-field'
-							value={formData.email}
-							onChange={handleChange}
-							required
-						/>
-						<input
-							type='password'
-							name='password'
-							placeholder='Enter your password'
-							className='input-field'
-							value={formData.password}
-							onChange={handleChange}
-							required
-						/>
-						{isSignUp && (
-							<input
-								type='password'
-								name='confirmPassword'
-								placeholder='Confirm your password'
-								className='input-field'
-								value={formData.confirmPassword}
-								onChange={handleChange}
-								required
-							/>
-						)}
-						<button
-							type='submit'
-							className='auth-button'
-						>
-							{isSignUp ? 'Sign up' : 'Sign in'}
-						</button>
-					</form>
-
-					<p className='toggle-text'>
-						{isSignUp ? (
-							<>
-								Already have an account?{' '}
-								<a
-									href='#'
-									onClick={toggleForm}
-								>
-									Sign in
-								</a>
-							</>
-						) : (
-							<>
-								<a
-									href='#'
-									onClick={toggleForm}
-								></a>
-							</>
-						)}
-					</p>
-				</div>
-			</div>
-		</div>
-	);
+                {/* Image Container */}
+                <div className="image-container">
+                    <img
+                        src={saloonLogo} // Replace with your image path
+                        alt="Tanning Salon"
+                        className="tanning-salon-image"
+                    />
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default AuthForm;

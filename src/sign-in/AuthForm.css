@@ -1,136 +1,125 @@
-/* General container for the sign-in page */
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    background-repeat: no-repeat;
-  }
-  
-  /* Wrapper to center content and apply the background blur */
-  /* .content-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px); 
-    background-color: rgba(255, 255, 255, 0.2); 
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  } */
-  
-  /* Form container styling */
-  .form-container {
-    background-color: rgba(255, 255, 255, 0.85); /* Slightly translucent background */
-    padding: 40px 30px;
-    border-radius: 15px;
-    width: 350px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    margin-right: 50px; /* Space between form and image */
-    z-index: 1;
-  }
-  
-  /* Form title */
-  .form-title {
-    font-size: 2rem;
-    color: #0c65be;
-    margin-bottom: 30px;
-    font-weight: bold;
-  }
-  
-  /* Input fields */
-  .input-field {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    outline: none;
-  }
-  
-  .input-field:focus {
-    border-color: #0c65be;
-  }
-  
-  /* Auth button for both sign-in and sign-up */
-  .auth-button {
-    background-color: #0c65be;
-    color: white;
-    padding: 15px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  .auth-button:hover {
-    background-color: #333;
-    color: white;
-  }
-  
-  /* Toggle between sign-in and sign-up */
-  .toggle-text {
-    margin-top: 15px;
-    font-size: 0.9rem;
-  }
-  
-  .toggle-text a {
-    color: #0c65be;
-    text-decoration: none;
-  }
-  
-  .toggle-text a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Right-side image container */
-  .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .tanning-salon-image {
-    max-width: 550px;
-    width: 100%;
-    object-fit: contain;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+}
 
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
 
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .content-wrapper {
+.form-container {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 40px 30px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-right: 50px;
+  z-index: 1;
+}
+
+.form-title {
+  font-size: 2rem;
+  color: #0c65be;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #0c65be;
+}
+
+.auth-button {
+  background-color: #0c65be;
+  color: white;
+  padding: 15px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #333;
+  color: white;
+}
+
+.toggle-text {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.toggle-text a {
+  color: #0c65be;
+  text-decoration: none;
+}
+
+.toggle-text a:hover {
+  text-decoration: underline;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tanning-salon-image {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-wrapper {
       flex-direction: column;
       padding: 20px;
-    }
-  
-    .form-container {
+  }
+
+  .form-container {
       margin-right: 0;
       margin-bottom: 20px;
-    }
-  
-    .image-container {
+  }
+
+  .image-container {
       margin-top: 20px;
-    }
   }
-  
-  @media (max-width: 768px) {
-    .form-container {
+}
+
+@media (max-width: 768px) {
+  .form-container {
       width: 100%;
-    }
-  
-    .image-container {
-      display: none;
-    }
   }
-  
+
+  .image-container {
+      display: none;
+  }
+}
