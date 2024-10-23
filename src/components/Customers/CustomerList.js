@@ -271,6 +271,9 @@ const CustomerList = ({ selectedLoginLocation }) => {
 						const formattedDOB = customer.profile?.dob
 							? formatDate(customer.profile.dob)
 							: '-';
+						const totalSpent =
+							(customer?.total_service_purchased_price || 0) +
+							(customer?.total_product_purchased_price || 0);
 						return (
 							<div
 								key={customer.user.id}
@@ -294,7 +297,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 									data-label='Total Spent'
 									className='customertab'
 								>
-									£{customer.total_service_purchased_price?.toFixed(2)}
+									{/* £{customer.total_service_purchased_price?.toFixed(2)} */}£
+									{totalSpent.toFixed(2)}
 								</span>
 
 								<span data-label='Last Purchase'>

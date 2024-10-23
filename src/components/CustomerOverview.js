@@ -113,6 +113,9 @@ function CustomerOverview({ filteredCustomers }) {
 							{filteredCustomers.length > 0 ? (
 								filteredCustomers.map((data) => {
 									const lastUsedDate = getLastUsedServiceDate(data.user?.id);
+									const totalSpent =
+										(data?.total_service_purchased_price || 0) +
+										(data?.total_product_purchased_price || 0);
 									return (
 										<tr key={data.user?.id}>
 											<td data-label='Customer Name'>
@@ -135,7 +138,8 @@ function CustomerOverview({ filteredCustomers }) {
 												data-label='Total Spent'
 												className='tdcustomer'
 											>
-												£{data?.total_service_purchased_price?.toFixed(2)}
+												{/* £{data?.total_service_purchased_price.toFixed(2)} */}
+												£{totalSpent.toFixed(2)}
 											</td>
 											<td data-label='Last Used'>
 												{lastUsedDate ? formatDate(lastUsedDate) : 'N/A'}
