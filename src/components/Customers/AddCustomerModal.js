@@ -8,10 +8,7 @@ import {
 	Typography,
 	FormControlLabel,
 	Switch,
-	IconButton,
-	InputAdornment,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { refreshLocation } from '../../slices/locationSlice';
@@ -20,44 +17,44 @@ import { addCustomer, refreshCustomers } from '../../slices/customerProfile';
 import './AddCustomer.css';
 
 const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
-	const { token, user: loggedInUser } = useSelector((state) => state.auth); // Get logged-in user
-	const { users } = useSelector((state) => state.userProfile); // Get all users
-	const { locations, loading } = useSelector((state) => state.location); // Get all locations
+	const { token, user: loggedInUser } = useSelector((state) => state.auth);
+	const { users } = useSelector((state) => state.userProfile);
+	const { locations, loading } = useSelector((state) => state.location);
 	const dispatch = useDispatch();
-	const [showPassword, setShowPassword] = useState(false); // Password visibility toggle
+	const [showPassword, setShowPassword] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		reset,
-		setValue, // To set default values
+		setValue,
+		setFocus,
 		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		defaultValues: {
-			password: '123456', // Set default password here
+			password: '123456',
 		},
 	});
+
 	const filteredLocations = locations.filter((location) => location.isActive);
+
 	useEffect(() => {
-		dispatch(refreshLocation()); // Fetch locations
+		dispatch(refreshLocation());
 	}, [dispatch]);
 
-	// Find the logged-in user's details from the users array
 	const userDetails = users.find((user) => user.user.id === loggedInUser?.id);
-
-	// Extract the preferred location ID from the logged-in user's profile
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 
-	// Set default location based on logged-in user's location when the component loads
 	useEffect(() => {
 		if (selectedLoginLocation) {
-			// Set the default value for preferred_location to the logged-in user's preferred location
 			setValue('preferred_location', selectedLoginLocation);
 		}
 	}, [selectedLoginLocation, setValue]);
 
 	const handleSubmitForm = async (data) => {
 		try {
+			setIsSubmitting(true);
 			const newUserData = {
 				password: data.password,
 				firstName: data.firstName,
@@ -67,47 +64,52 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 				post_code: data.post_code || '',
 				phone_number: data.phone_number,
 				gender: data.gender || '',
-				dob: data.dob || '', // Date of Birth added
+				dob: data.dob || '',
 				gdpr_sms_active: data.gdpr_sms_active || false,
 				gdpr_email_active: data.gdpr_email_active || false,
 				referred_by: data.referred_by || '',
-				preferred_location: data.preferred_location || preferredLocationId || 0, // Default to user's location
+				preferred_location: data.preferred_location || preferredLocationId || 0,
 				avatar: '',
 				role: 'customer',
 			};
+
 			const newUser = await createUser(token, newUserData);
 			if (newUser) {
 				dispatch(addCustomer(newUser));
+				dispatch(refreshCustomers());
+				closeAddModal();
+				reset(); // Reset form fields only on success
 			}
-			dispatch(refreshCustomers());
-			closeAddModal();
 		} catch (error) {
-			console.error(error);
+			console.error('Error adding customer:', error);
+			if (error?.response?.data?.message?.includes('email')) {
+				setFocus('email');
+			}
 		} finally {
-			closeAddModal();
+			setIsSubmitting(false);
 		}
 	};
 
-	useEffect(() => {
-		if (isSubmitSuccessful) {
-			reset({
-				password: '123456', // Resetting to default password after submission
-				firstName: '',
-				lastName: '',
-				email: '',
-				address: '',
-				post_code: '',
-				phone_number: '',
-				gender: '',
-				dob: '',
-				referred_by: '',
-				preferred_location: '',
-				gdpr_sms_active: false,
-				gdpr_email_active: false,
-				avatar: '',
-			});
-		}
-	}, [reset, isSubmitSuccessful]);
+	// useEffect(() => {
+	// 	if (isSubmitSuccessful) {
+	// 		reset({
+	// 			password: '123456',
+	// 			firstName: '',
+	// 			lastName: '',
+	// 			email: '',
+	// 			address: '',
+	// 			post_code: '',
+	// 			phone_number: '',
+	// 			gender: '',
+	// 			dob: '',
+	// 			referred_by: '',
+	// 			preferred_location: '',
+	// 			gdpr_sms_active: false,
+	// 			gdpr_email_active: false,
+	// 			avatar: '',
+	// 		});
+	// 	}
+	// }, [reset, isSubmitSuccessful]);
 
 	return (
 		<Box className='addCustomer-modal-container'>
@@ -154,16 +156,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Email'
 							variant='outlined'
-							{...register(
-								'email'
-								// {
-								// 	required: 'Email is required',
-								// 	pattern: {
-								// 		value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-								// 		message: 'Please enter a valid email address',
-								// 	},
-								// }
-							)}
+							{...register('email')}
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
@@ -171,20 +164,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Phone Number'
 							variant='outlined'
-							{...register(
-								'phone_number'
-								// {
-								// 	required: 'Phone number is required',
-								// 	maxLength: {
-								// 		value: 15,
-								// 		message: 'Phone number must not exceed 15 digits',
-								// 	},
-								// 	pattern: {
-								// 		value: /^[0-9]+$/,
-								// 		message: 'Phone number must contain only numbers',
-								// 	},
-								// }
-							)}
+							{...register('phone_number')}
 							fullWidth
 							error={!!errors.phone_number}
 							helperText={
@@ -197,9 +177,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Date of Birth'
 							type='date'
-							InputLabelProps={{
-								shrink: true,
-							}}
+							InputLabelProps={{ shrink: true }}
 							{...register('dob', { required: true })}
 							fullWidth
 							error={!!errors.dob}
@@ -211,10 +189,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Address'
 							variant='outlined'
-							{...register(
-								'address'
-								// { required: true }
-							)}
+							{...register('address')}
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
@@ -225,10 +200,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Post Code'
 							variant='outlined'
-							{...register(
-								'post_code'
-								// { required: true }
-							)}
+							{...register('post_code')}
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
@@ -261,10 +233,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<select
 							id='gender'
 							className='custom-select'
-							{...register(
-								'gender'
-								// { required: true }
-							)}
+							{...register('gender')}
 						>
 							<option value=''>Select gender</option>
 							<option value='Male'>Male</option>
@@ -282,7 +251,6 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 								/>
 							}
 							label='SMS'
-							className='form-control-label'
 						/>
 						<FormControlLabel
 							control={
@@ -292,7 +260,6 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 								/>
 							}
 							label='Email'
-							className='form-control-label'
 						/>
 					</Box>
 				</Box>
@@ -302,8 +269,9 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						variant='contained'
 						className='confirm-button'
 						type='submit'
+						disabled={isSubmitting}
 					>
-						Submit
+						{isSubmitting ? 'Submitting...' : 'Submit'}
 					</Button>
 					<Button
 						variant='contained'

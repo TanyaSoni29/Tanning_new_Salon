@@ -84,33 +84,33 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 					type: 'customer/updateCustomer',
 					payload: updatedUser,
 				});
+				closeEditModal();
+				reset();
 			}
 			dispatch(refreshCustomers());
-			closeEditModal();
 		} catch (error) {
 			console.error(error);
-			closeEditModal();
 		}
 	};
 
-	useEffect(() => {
-		if (isSubmitSuccessful) {
-			reset({
-				firstName: '',
-				lastName: '',
-				email: '',
-				address: '',
-				post_code: '',
-				phone_number: '',
-				gender: '',
-				referred_by: '',
-				preferred_location: '',
-				dob: '', // Reset Date of Birth field
-				gdpr_sms_active: false,
-				gdpr_email_active: false,
-			});
-		}
-	}, [reset, isSubmitSuccessful]);
+	// useEffect(() => {
+	// 	if (isSubmitSuccessful) {
+	// 		reset({
+	// 			firstName: '',
+	// 			lastName: '',
+	// 			email: '',
+	// 			address: '',
+	// 			post_code: '',
+	// 			phone_number: '',
+	// 			gender: '',
+	// 			referred_by: '',
+	// 			preferred_location: '',
+	// 			dob: '', // Reset Date of Birth field
+	// 			gdpr_sms_active: false,
+	// 			gdpr_email_active: false,
+	// 		});
+	// 	}
+	// }, [reset, isSubmitSuccessful]);
 
 	if (!activeUser) return null;
 
