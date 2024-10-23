@@ -100,7 +100,7 @@ function CustomerOverview({ filteredCustomers }) {
 						<thead>
 							<tr>
 								<th>Customer Name</th>
-								<th>Dob</th>
+								<th>D.O.B</th>
 								<th>Phone No.</th>
 								<th>Minutes Balance</th>
 								<th>Total Minutes Used</th>

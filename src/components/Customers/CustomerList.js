@@ -192,7 +192,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 						></i>
 					</span>
 					<span onClick={() => handleSort('dob')}>
-						DOB{' '}
+						D.O.B{' '}
 						<i
 							className={`fa fa-caret-${
 								sortConfig.key === 'dob' && sortConfig.direction === 'asc'

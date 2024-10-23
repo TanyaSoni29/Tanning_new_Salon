@@ -154,13 +154,16 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Email'
 							variant='outlined'
-							{...register('email', {
-								required: 'Email is required',
-								pattern: {
-									value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-									message: 'Please enter a valid email address',
-								},
-							})}
+							{...register(
+								'email'
+								// {
+								// 	required: 'Email is required',
+								// 	pattern: {
+								// 		value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+								// 		message: 'Please enter a valid email address',
+								// 	},
+								// }
+							)}
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
@@ -168,17 +171,20 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Phone Number'
 							variant='outlined'
-							{...register('phone_number', {
-								required: 'Phone number is required',
-								maxLength: {
-									value: 15,
-									message: 'Phone number must not exceed 15 digits',
-								},
-								pattern: {
-									value: /^[0-9]+$/,
-									message: 'Phone number must contain only numbers',
-								},
-							})}
+							{...register(
+								'phone_number'
+								// {
+								// 	required: 'Phone number is required',
+								// 	maxLength: {
+								// 		value: 15,
+								// 		message: 'Phone number must not exceed 15 digits',
+								// 	},
+								// 	pattern: {
+								// 		value: /^[0-9]+$/,
+								// 		message: 'Phone number must contain only numbers',
+								// 	},
+								// }
+							)}
 							fullWidth
 							error={!!errors.phone_number}
 							helperText={
@@ -194,7 +200,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							InputLabelProps={{
 								shrink: true,
 							}}
-							{...register('dob')}
+							{...register('dob', { required: true })}
 							fullWidth
 						/>
 					</Box>

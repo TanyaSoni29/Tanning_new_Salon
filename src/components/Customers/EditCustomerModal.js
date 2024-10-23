@@ -157,13 +157,16 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							label='Email'
 							variant='outlined'
 							defaultValue={activeUser.user?.email}
-							{...register('email', {
-								required: 'Email is required',
-								pattern: {
-									value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-									message: 'Please enter a valid email address',
-								},
-							})}
+							{...register(
+								'email'
+								// {
+								// 	required: 'Email is required',
+								// 	pattern: {
+								// 		value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+								// 		message: 'Please enter a valid email address',
+								// 	},
+								// }
+							)}
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
@@ -172,17 +175,20 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							label='Phone Number'
 							variant='outlined'
 							defaultValue={activeUser.profile?.phone_number}
-							{...register('phone_number', {
-								required: 'Phone number is required',
-								maxLength: {
-									value: 15,
-									message: 'Phone number must not exceed 15 digits',
-								},
-								pattern: {
-									value: /^[0-9]+$/,
-									message: 'Phone number must contain only numbers',
-								},
-							})}
+							{...register(
+								'phone_number'
+								// {
+								// 	required: 'Phone number is required',
+								// 	maxLength: {
+								// 		value: 15,
+								// 		message: 'Phone number must not exceed 15 digits',
+								// 	},
+								// 	pattern: {
+								// 		value: /^[0-9]+$/,
+								// 		message: 'Phone number must contain only numbers',
+								// 	},
+								// }
+							)}
 							fullWidth
 							error={!!errors.phone_number}
 							helperText={
@@ -198,7 +204,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							type='date'
 							InputLabelProps={{ shrink: true }}
 							defaultValue={activeUser.profile?.dob} // Set default Date of Birth
-							{...register('dob')}
+							{...register('dob', { required: true })}
 							fullWidth
 						/>
 					</Box>

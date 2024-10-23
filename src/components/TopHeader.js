@@ -55,6 +55,8 @@ function TopHeader({
 		setMenuOpen(false); // Close the menu after selecting a location
 	};
 
+	console.log('loginUser Details', loginUser, userDetails);
+
 	const pathHeadings = {
 		'/about': 'Dashboard',
 		'/service': 'Dashboard',
@@ -112,17 +114,38 @@ function TopHeader({
 
 			{locationPath !== '/' && (
 				<div className='login-details'>
-					<FaUserCircle
-						size={28}
-						style={{ marginLeft: '20px', marginRight: '5px' }}
-					/>
 					<span className='topheadname'>
-						{loginUser?.name
-							? loginUser.name.charAt(0).toUpperCase() +
-							  loginUser.name.slice(1).toLowerCase()
-							: 'User'}{' '}
-						(<span>{selectedLocationName}</span>)
-						<span>
+						<div className='login-user-name'>
+							<FaUserCircle
+								size={18}
+								color='#F54291'
+								style={{ marginRight: '5px' }}
+							/>
+							{userDetails.profile?.firstName
+								? userDetails.profile?.firstName.charAt(0).toUpperCase() +
+								  userDetails.profile?.firstName.slice(1).toLowerCase()
+								: 'User'}{' '}
+							{userDetails.profile?.lastName
+								? userDetails.profile?.lastName.charAt(0).toUpperCase() +
+								  userDetails.profile?.lastName.slice(1).toLowerCase()
+								: 'User'}
+						</div>
+
+						<div className='login-user-name'>
+							<IoLocationSharp
+								fontSize={18}
+								color='#28A745'
+								style={{ marginRight: '5px' }}
+								className='location-icon'
+								// onClick={() => setMenuOpen((prev) => !prev)}
+							/>
+							<span>
+								<strong>Curr. Loc: </strong>
+								{selectedLocationName}
+							</span>
+						</div>
+
+						{/* <span>
 							<IoLocationSharp
 								fontSize={22}
 								className='location-icon'
@@ -147,7 +170,7 @@ function TopHeader({
 									</ul>
 								</div>
 							)}
-						</span>
+						</span> */}
 					</span>
 				</div>
 			)}
