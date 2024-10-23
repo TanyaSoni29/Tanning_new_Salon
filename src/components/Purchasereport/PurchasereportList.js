@@ -29,10 +29,11 @@ const ProductList = ({
 
     const { locations } = useSelector((state) => state.location);
 
+	const filteredLocations = locations.filter((location) => location.isActive);
     // Extract unique locations for dropdown
     const uniqueLocations = useMemo(
-        () => ['All', ...new Set(locations.map((location) => location.name))],
-        [locations]
+        () => ['All', ...new Set(filteredLocations.map((location) => location.name))],
+        [filteredLocations]
     );
 
     // Handle Date Range Change

@@ -27,10 +27,12 @@ const ServiceUsedList = ({
 
     const { locations } = useSelector((state) => state.location);
 
+	const filteredLocations = locations.filter((location) => location.isActive);
+
     // Extract unique locations for dropdown
     const uniqueLocations = [
         'All',
-        ...new Set(locations.map((location) => location.name)),
+        ...new Set(filteredLocations.map((location) => location.name)),
     ];
 
     // Handle date range changes

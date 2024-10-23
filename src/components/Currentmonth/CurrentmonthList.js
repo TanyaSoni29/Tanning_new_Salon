@@ -44,9 +44,11 @@ const CustomerList = () => {
 	const [isMinUsed, setIsMinUsed] = useState(false);
 	const [isBySale, setIsBySale] = useState(false);
 
+	const filteredLocations = locations.filter((location) => location.isActive);
+
 	const uniqueLocations = [
 		'All',
-		...new Set(locations.map((location) => location.name)),
+		...new Set(filteredLocations.map((location) => location.name)),
 	];
 
 	const handleDateRangeChange = (e) => {

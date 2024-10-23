@@ -17,9 +17,11 @@ const CustomerList = ({
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
 
+	const filteredLocations = locations.filter((location) => location.isActive);
+
 	const uniqueLocations = [
 		'All',
-		...new Set(locations.map((location) => location.name)),
+		...new Set(filteredLocations.map((location) => location.name)),
 	];
 
 	useEffect(() => {
