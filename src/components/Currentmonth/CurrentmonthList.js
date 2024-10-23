@@ -198,46 +198,62 @@ const CustomerList = () => {
 		saveAs(blob, 'Customers.csv');
 	};
 
+	// Function to download PDF
 	const handleDownloadPDF = () => {
 		const doc = new jsPDF();
-		const pageWidth = doc.internal.pageSize.width; // Get page width
-		const pageHeight = doc.internal.pageSize.height; // Get page height
-		const margin = 10; // Left and right margins
+		const pageWidth = doc.internal.pageSize.getWidth(); // Get page width
+		const pageHeight = doc.internal.pageSize.getHeight(); // Get page height
+		const margin = 10; // Set margins
 		const lineHeight = 10; // Adjust line height
-		let row = 20; // Start y-position for the content, slightly lower for the title
+		const rowHeight = 10; // Set row height for table rows
+		let currentY = 20; // Start y-position for the content, slightly lower for the title
 
 		// Center the title "Customer List"
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(16);
-		doc.text('Customer List', pageWidth / 2, row, { align: 'center' }); // Center title
-		row += lineHeight * 2; // Add space after the title
+		doc.text('Customer List', pageWidth / 2, currentY, { align: 'center' }); // Center the title
+		currentY += lineHeight * 2; // Add space after the title
 
-		// Adjust column positions for proper spacing (with reduced widths)
-		const columns = {
-			userName: margin, // Start at the left margin
-			location: margin + 50, // 50 units after the user name column
-			minutesAvailable: margin + 100, // 50 units after location
-			totalMinUsed: margin + 130, // 30 units after minutes available
-			totalSpend: margin + 170, // 40 units after total min used
-			totalSales: margin + 210,
-			total: margin + 170, // 30 units after total spend
+		// Define column widths for proper spacing
+		const columnWidths = {
+			userName: 40, // Width for the Customer Name column
+			location:  25, // Width for the Location column
+			minutesAvailable: 22, // Width for Min. Avail. column
+			totalMinUsed: 25, // Width for Total Min. Used column
+			totalSpend: 30, // Width for Total Spent column
+			totalSales: 30, // Width for Total Sales column
+			total:  25, // Width for Total column
 		};
 
-		// Table Headers
+		// Adjust start positions for columns dynamically based on column widths
+		const startX = margin;
+		let colX = startX;
+
+		// Draw table headers
 		doc.setFont('helvetica', 'bold');
 		doc.setFontSize(10);
-		doc.text('Customer Name', columns.userName, row);
-		doc.text('Location', columns.location, row);
-		doc.text('Min. Avail.', columns.minutesAvailable, row);
-		doc.text('Total Min. Used', columns.totalMinUsed, row);
-		doc.text('Total Spent', columns.totalSpend, row);
-		doc.text('Total Sales', columns.totalSales, row);
-		doc.text('Total', columns.total, row);
 
-		row += lineHeight;
+		const headers = [
+			{ title: 'Customer Name', width: columnWidths.userName },
+			{ title: 'Location', width: columnWidths.location },
+			{ title: 'Min. Avail.', width: columnWidths.minutesAvailable },
+			{ title: 'Total Min.', width: columnWidths.totalMinUsed },
+			{ title: 'Total Spent', width: columnWidths.totalSpend },
+			{ title: 'Total Sales', width: columnWidths.totalSales },
+			{ title: 'Total', width: columnWidths.total },
+		];
 
+		// Draw header cells with background and border
+		headers.forEach((header) => {
+			doc.rect(colX, currentY, header.width, rowHeight, 'S'); // Draw the cell border
+			doc.text(header.title, colX + 2, currentY + 7); // Add text with some padding
+			colX += header.width;
+		});
+
+		currentY += rowHeight; // Move to the next line for data rows
 		doc.setFont('helvetica', 'normal');
 
+		// Loop through filtered and sorted customers and add each row
 		filteredAndSortedCustomers.forEach((customer) => {
 			const preferredLocation = locations.find(
 				(location) => location.id === customer.profile?.preferred_location
@@ -247,66 +263,43 @@ const CustomerList = () => {
 				(customer?.total_product_purchased_price || 0);
 
 			// Check if we need to add a new page
-			if (row >= pageHeight - lineHeight * 2) {
+			if (currentY >= pageHeight - rowHeight * 2) {
 				doc.addPage(); // Add a new page
-				row = margin; // Reset the row height for the new page
+				currentY = margin; // Reset the row height for the new page
 
-				// Re-add table headers to the new page
-				doc.setFont('helvetica', 'bold');
-				doc.text('Customer Name', columns.userName, row);
-				doc.text('Location', columns.location, row);
-				doc.text('Min. Avail.', columns.minutesAvailable, row);
-				doc.text('Total Min. Used', columns.totalMinUsed, row);
-				doc.text('Total Spent', columns.totalSpend, row);
-				doc.text('Total Sales', columns.totalSales, row);
-				doc.text('Total', columns.total, row);
-				row += lineHeight;
-				doc.setFont('helvetica', 'normal');
+				// Draw table headers on the new page
+				colX = startX;
+				headers.forEach((header) => {
+					doc.rect(colX, currentY, header.width, rowHeight, 'S');
+					doc.text(header.title, colX + 2, currentY + 7);
+					colX += header.width;
+				});
+				currentY += rowHeight;
 			}
 
-			// Add a horizontal line after each row for a table-like structure
-			doc.line(margin, row + 2, pageWidth - margin, row + 2);
-
-			// Add the customer data
-			doc.text(
+			// Draw the data row
+			colX = startX;
+			const rowData = [
 				`${customer.profile?.firstName || ''} ${
 					customer.profile?.lastName || ''
 				}`,
-				columns.userName,
-				row
-			);
-			doc.text(
 				preferredLocation ? preferredLocation.name : 'N/A',
-				columns.location,
-				row
-			);
-			doc.text(
 				`${customer.profile?.available_balance || '0'}`,
-				columns.minutesAvailable,
-				row
-			);
-			doc.text(
 				`${customer.total_used_minutes?.toFixed(2) || '0.00'}`,
-				columns.totalMinUsed,
-				row
-			);
-			doc.text(
 				`£${customer.total_service_purchased_price?.toFixed(2) || '0.00'}`,
-				columns.totalSpend,
-				row,
-				{ align: 'right' }
-			);
-			doc.text(`£${total.toFixed(2) || '0.00'}`, columns.total, row, {
-				align: 'right',
+				`£${customer.total_product_purchased_price?.toFixed(2) || '0.00'}`,
+				`£${total.toFixed(2) || '0.00'}`,
+			];
+
+			// Draw each cell in the row with borders
+			rowData.forEach((data, index) => {
+				const colWidth = headers[index].width;
+				doc.rect(colX, currentY, colWidth, rowHeight, 'S'); // Draw the cell border
+				doc.text(data, colX + 2, currentY + 7); // Add text with some padding
+				colX += colWidth;
 			});
 
-			row += lineHeight;
-		});
-
-		// Draw vertical lines to separate columns (for proper table borders)
-		const lines = Object.values(columns);
-		lines.forEach((linePosition) => {
-			doc.line(linePosition - 2, 30, linePosition - 2, row); // Draw vertical lines from header to end of content
+			currentY += rowHeight; // Move to the next row
 		});
 
 		doc.save('Customers.pdf');
