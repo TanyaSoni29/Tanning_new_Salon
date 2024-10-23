@@ -4,7 +4,7 @@
  * @format
  */
 
-.main-content {
+/* .main-content {
 	flex: 1;
 	background-color: white;
 	padding: 40px;
@@ -13,10 +13,18 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-}
+} */
+
+/* .location-wizard-container {
+	display: flex;
+	width: 40vh;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+} */
 
 /* Heading and subheading */
-.heading {
+/* .heading {
 	font-size: 32px;
 	font-weight: bold;
 	color: #333;
@@ -26,10 +34,10 @@
 	font-size: 14px;
 	color: #666;
 	margin-bottom: 30px;
-}
+} */
 
 /* Full-width tabs */
-.step-tabs {
+/* .step-tabs {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 30px;
@@ -51,10 +59,10 @@
 .tab.active {
 	background-color: #0c65be;
 	color: white;
-}
+} */
 
 /* Location selection */
-.location-selection {
+/* .location-selection {
 	margin: 40px 0;
 }
 
@@ -104,10 +112,10 @@
 .location span {
 	font-size: 14px;
 	font-weight: bold;
-}
+} */
 
 /* Next button */
-.next-button1 {
+/* .next-button1 {
 	background-color: #0c65be;
 	border: none;
 	padding: 10px 20px;
@@ -121,4 +129,58 @@
 .next-button1:hover {
 	background-color: #333;
 	color: white;
+} */
+
+.location-wizard-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh; /* Ensures it takes the full height of the viewport */
+	background-color: #f7f7f7; /* Light background for better contrast */
+}
+
+.location-selection {
+	background: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 2rem;
+	max-width: 400px;
+	width: 100%;
+	text-align: center;
+}
+
+.select-heading {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+	color: #333;
+}
+
+.subheading {
+	font-size: 0.9rem;
+	margin-bottom: 1.5rem;
+	color: #666;
+}
+
+.locations select {
+	width: 100%;
+	padding: 0.75rem;
+	margin-bottom: 1.5rem;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 1rem;
+}
+
+.next-button1 {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: background-color 0.3s ease;
+}
+
+.next-button1:hover {
+	background-color: #0056b3;
 }

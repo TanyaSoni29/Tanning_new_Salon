@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMe } from './service/operations/authApi';
 import ProtectedRoute from './utils/ProtectedRoute';
 // import { Toaster } from 'react-hot-toast';
-// import LocationStep from './components/LocationStep';
+import LocationStep from './components/LocationStep';
 import AboutStep from './components/AboutStep';
 import ServiceStep from './components/ServiceStep';
 import AuthForm from './sign-in/AuthForm';
@@ -84,10 +84,21 @@ const App = () => {
 					element={<AuthForm />}
 				/>
 				{/* Protected routes */}
-				{/* <Route
+				<Route
 					path='/locationStep'
-					element={<ProtectedRoute element={<LocationStep />} />}
-				/> */}
+					setSelectedLoginLocation={setSelectedLoginLocation}
+					element={
+						<ProtectedRoute
+							element={
+								<LocationStep
+									selectedLoginLocation={selectedLoginLocation}
+									setSelectedLoginLocation={setSelectedLoginLocation}
+									handleLoginLocationChange={handleLoginLocationChange}
+								/>
+							}
+						/>
+					}
+				/>
 				{/* <Route
 					path='/dashboard'
 					element={<ProtectedRoute element={<Dashboard stats={stats} />} />}

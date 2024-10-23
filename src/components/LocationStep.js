@@ -1,140 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+/** @format */
+
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LocationStep.css'; // Import the new CSS file
-import HeaderWithSidebar from './HeaderWithSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshLocation, setLocationIndex } from '../slices/locationSlice';
-import { refreshCustomers } from '../slices/customerProfile';
-const WizardStep = () => {
+import { refreshUser } from '../slices/userProfileSlice';
+
+const WizardStep = ({
+	setSelectedLoginLocation,
+	selectedLoginLocation,
+	handleLoginLocationChange,
+}) => {
 	const navigate = useNavigate();
-	const location = useLocation(); // Get the current location
 	const dispatch = useDispatch();
 
 	const { locations, loading, locationIndex } = useSelector(
 		(state) => state.location
 	);
-	// State to track the current step
-	const [currentStep, setCurrentStep] = useState('location'); // Default to "location"
+	const { users } = useSelector((state) => state.userProfile);
+	const { user: loginUser } = useSelector((state) => state.auth);
+
+	// Find the logged-in user's details
+	const userDetails = users.find((user) => user.user.id === loginUser?.id);
+	const preferredLocationId = userDetails?.profile?.preferred_location;
+
 	useEffect(() => {
-		dispatch(refreshLocation()); // Fetch locations from the API
+		// Fetch locations and user details from the API
+		dispatch(refreshLocation());
+		dispatch(refreshUser());
 	}, [dispatch]);
 
-
-	// Set the current step based on the URL path
 	useEffect(() => {
-		if (location.pathname === '/about') {
-			setCurrentStep('about');
-		} else if (location.pathname === '/service') {
-			setCurrentStep('service');
-		} else {
-			setCurrentStep('location');
+		// Set the preferred location as selected if it exists and locations have loaded
+		if (locations.length > 0 && preferredLocationId) {
+			setSelectedLoginLocation(preferredLocationId);
+			dispatch(setLocationIndex(preferredLocationId)); // Set the location index in Redux
 		}
-	}, [location.pathname]);
-
-	const handleTabClick = (step) => {
-		setCurrentStep(step); // Change the current step based on the clicked tab
-		navigate(step === 'location' ? '/locationStep' : `/${step}`); // Navigate based on step
-	};
+	}, [locations, preferredLocationId, dispatch, setSelectedLoginLocation]);
 
 	const handleNextLocation = () => {
-		setCurrentStep('about');
 		navigate('/about');
 	};
 
-	// const handleNextAbout = () => {
-	// 	setCurrentStep('service');
-	// 	navigate('/service');
+	// const selectLocation = (locationId) => {
+	// 	setSelectedLoginLocation(locationId);
+	// 	dispatch(setLocationIndex(locationId)); // Update Redux state with the selected location
 	// };
-
-	const handlePreviousAbout = () => {
-		setCurrentStep('location');
-		navigate('/locationStep');
-	};
-
-	const handleSubmit = () => {
-		alert('Form Submitted');
-	};
-
-	const selectLocation = (locationId) => {
-		dispatch(setLocationIndex(locationId)); // Set selected location index in Redux
-	};
-
-	useEffect(() => {
-		if (locations.length > 0 && locationIndex === null) {
-			dispatch(setLocationIndex(locations[0].id)); // Automatically select the first location
-		}
-	}, [locations, dispatch, locationIndex]);
 
 	return (
 		<>
-			<HeaderWithSidebar />
-
-			<div className='wizard-container'>
-				<h2 className='heading'>Tanning Salon</h2>
+			<div className='location-wizard-container'>
+				{/* <h2 className='heading'>Tanning Salon</h2>
 				<p className='subheading'>
-					This information will let us know more about you.
-				</p>
+					This information will let us know about your working location.
+				</p> */}
 
-				{/* Step Tabs */}
-				<div className='step-tabs'>
-					{/* <button
-						className={`tab ${currentStep === 'location' ? 'active' : ''}`}
-						onClick={() => handleTabClick('location')}
-					>
-						LOCATION
-					</button> */}
+				<div
+					className='location-selection'
+					id='location'
+				>
+					<h3 className='select-heading'>Select Your Location</h3>
+					<p className='subheading'>Which location are you working at</p>
+					{loading ? (
+						<p>Loading locations...</p>
+					) : (
+						<div className='locations'>
+							{/* Render locations from Redux */}
+							{/* {locations.map((location) => (
+								<div
+									key={location.id}
+									className={`location ${
+										locationIndex === location.id ? 'selected' : ''
+									}`}
+									onClick={() => selectLocation(location.id)}
+								>
+									<i
+										className='fa fa-laptop'
+										aria-hidden='true'
+									></i>
+									<span>{location.name}</span>
+								</div>
+							))} */}
+
+							<select
+								value={selectedLoginLocation}
+								onChange={handleLoginLocationChange}
+							>
+								{locations.map((location) => (
+									<option
+										key={location.id}
+										value={location.id}
+									>
+										{location.name}
+									</option>
+								))}
+							</select>
+						</div>
+					)}
+
 					<button
-						className={`tab ${currentStep === 'about' ? 'active' : ''}`}
-						onClick={() => handleTabClick('about')}
+						className='next-button1'
+						onClick={handleNextLocation}
 					>
-						ABOUT
-					</button>
-					<button
-						className={`tab ${currentStep === 'service' ? 'active' : ''}`}
-						// onClick={() => handleTabClick('service')}
-					>
-						SERVICE
+						Continue
 					</button>
 				</div>
-
-				{/* Conditionally Render Sections Based on Current Step */}
-				{currentStep === 'location' && (
-					<div
-						className='location-selection'
-						id='location'
-					>
-						<h3 className='select-heading'>Select Your Location</h3>
-						{loading ? (
-							<p>Loading locations...</p>
-						) : (
-							<div className='locations'>
-								{/* Render locations from Redux */}
-								{locations.map((location) => (
-									<div
-										key={location.id}
-										className={`location ${
-											locationIndex === location.id ? 'selected' : ''
-										}`}
-										onClick={() => selectLocation(location.id)}
-									>
-										<i
-											className='fa fa-laptop'
-											aria-hidden='true'
-										></i>
-										<span>{location.name}</span>
-									</div>
-								))}
-							</div>
-						)}
-
-						<button
-							className='next-button1'
-							onClick={handleNextLocation}
-						>
-							Next
-						</button>
-					</div>
-				)}
 			</div>
 		</>
 	);

@@ -76,6 +76,7 @@ function TopHeader({
 
 	// Check if select should be hidden based on route
 	const hideSelect = [
+		'/locationStep',
 		'/users',
 		'/location',
 		'/customers',
