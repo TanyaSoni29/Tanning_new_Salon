@@ -63,8 +63,8 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 				firstName: data.firstName,
 				lastName: data.lastName,
 				email: data.email,
-				address: data.address,
-				post_code: data.post_code,
+				address: data.address || "",
+				post_code: data.post_code || "",
 				phone_number: data.phone_number,
 				gender: data.gender || '',
 				dob: data.dob || '', // Date of Birth added
@@ -209,7 +209,10 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Address'
 							variant='outlined'
-							{...register('address', { required: true })}
+							{...register(
+								'address'
+								// { required: true }
+							)}
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
@@ -220,7 +223,10 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Post Code'
 							variant='outlined'
-							{...register('post_code', { required: true })}
+							{...register(
+								'post_code'
+								// { required: true }
+							)}
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
@@ -253,7 +259,10 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<select
 							id='gender'
 							className='custom-select'
-							{...register('gender', { required: true })}
+							{...register(
+								'gender'
+								// { required: true }
+							)}
 						>
 							<option value=''>Select gender</option>
 							<option value='Male'>Male</option>

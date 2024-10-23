@@ -6,6 +6,7 @@ import './LocationStep.css'; // Import the new CSS file
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshLocation, setLocationIndex } from '../slices/locationSlice';
 import { refreshUser } from '../slices/userProfileSlice';
+import { IoLocationSharp } from 'react-icons/io5';
 
 const WizardStep = ({
 	setSelectedLoginLocation,
@@ -60,7 +61,20 @@ const WizardStep = ({
 					className='location-selection'
 					id='location'
 				>
-					<h3 className='select-heading'>Select Your Location</h3>
+					<div className='location-heading-icon'>
+						<h3 className='select-heading'>
+							<IoLocationSharp
+								fontSize={24}
+								color='#28A745'
+								style={{ marginRight: '2px' }}
+								// className='location-icon'
+								// onClick={() => setMenuOpen((prev) => !prev)}
+							/>
+						</h3>
+
+						<h3 className='select-heading'>Select Your Location</h3>
+					</div>
+
 					<p className='subheading'>Which location are you working at</p>
 					{loading ? (
 						<p>Loading locations...</p>

@@ -132,11 +132,12 @@
 } */
 
 .location-wizard-container {
+	margin-bottom: 100px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh; /* Ensures it takes the full height of the viewport */
-	background-color: #f7f7f7; /* Light background for better contrast */
+	background-color: #fff; /* Light background for better contrast */
 }
 
 .location-selection {
@@ -149,10 +150,18 @@
 	text-align: center;
 }
 
+.location-heading-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
 .select-heading {
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	color: #333;
+	text-align: center;
 }
 
 .subheading {
