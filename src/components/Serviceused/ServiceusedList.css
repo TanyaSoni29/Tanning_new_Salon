@@ -117,7 +117,7 @@
 }
 
 /* Responsive Layout for Tablets and Mobile */
-@media (max-width: 1450px){
+@media (max-width: 1550px){
 	.serviceused-table-header,
 	.serviceused-table-row {
 		display: grid;

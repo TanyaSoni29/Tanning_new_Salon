@@ -97,7 +97,7 @@
 }
 
 /* Mobile View */
-@media (max-width: 1500px){
+@media (max-width: 1550px){
     .productreportlist-table-header,
 .productreportlist-table-row {
 	display: grid;
