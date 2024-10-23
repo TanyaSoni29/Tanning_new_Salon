@@ -190,6 +190,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 						gap: '16px',
 						flexDirection: { xs: 'column', md: 'row' }, // Stack buttons vertically on mobile
 					}}
+					mt={2}
 				>
 					<Button
 						variant='contained'
