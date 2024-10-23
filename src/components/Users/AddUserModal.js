@@ -1,3 +1,5 @@
+/** @format */
+
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +20,7 @@ const AddUserModal = ({ closeAddModal }) => {
 	} = useForm();
 
 	const { locations, loading } = useSelector((state) => state.location);
+	const filteredLocations = locations.filter((location) => location.isActive);
 
 	useEffect(() => {
 		dispatch(refreshLocation());
@@ -289,7 +292,7 @@ const AddUserModal = ({ closeAddModal }) => {
 							}}
 						>
 							<option value=''>Select Location</option>
-							{locations.map((location) => (
+							{filteredLocations.map((location) => (
 								<option
 									key={location.id}
 									value={location.id}

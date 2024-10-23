@@ -24,7 +24,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 	const [resetPasswordModal, setResetPasswordModal] = useState(false);
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-
+	const filteredLocations = locations.filter((location) => location.isActive);
 	const {
 		register,
 		handleSubmit,
@@ -255,7 +255,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							disabled={loading}
 						>
 							<option value=''>Select Location</option>
-							{locations.map((location) => (
+							{filteredLocations.map((location) => (
 								<option
 									key={location.id}
 									value={location.id}

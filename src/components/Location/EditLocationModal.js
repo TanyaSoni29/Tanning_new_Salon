@@ -42,7 +42,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 				address: data.address || '',
 				phone_number: data.phone_number || '',
 				post_code: data.post_code || '',
-				isActive: isActive || true,
+				isActive: isActive,
 			};
 			const result = await updateLocation(
 				token,

@@ -14,6 +14,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 	const { locations, loading } = useSelector((state) => state.location);
 	const { token } = useSelector((state) => state.auth);
 	const [resetPasswordModal, setResetPasswordModal] = useState(false);
+	const filteredLocations = locations.filter((location) => location.isActive);
 
 	const dispatch = useDispatch();
 	const {
@@ -315,7 +316,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							}}
 						>
 							<option value=''>Select Location</option>
-							{locations.map((location) => (
+							{filteredLocations.map((location) => (
 								<option
 									key={location.id}
 									value={location.id}

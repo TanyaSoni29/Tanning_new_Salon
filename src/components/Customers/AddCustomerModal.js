@@ -37,7 +37,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 			password: '123456', // Set default password here
 		},
 	});
-
+	const filteredLocations = locations.filter((location) => location.isActive);
 	useEffect(() => {
 		dispatch(refreshLocation()); // Fetch locations
 	}, [dispatch]);
@@ -63,8 +63,8 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 				firstName: data.firstName,
 				lastName: data.lastName,
 				email: data.email,
-				address: data.address || "",
-				post_code: data.post_code || "",
+				address: data.address || '',
+				post_code: data.post_code || '',
 				phone_number: data.phone_number,
 				gender: data.gender || '',
 				dob: data.dob || '', // Date of Birth added
@@ -246,7 +246,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							{...register('preferred_location')}
 							disabled={loading}
 						>
-							{locations.map((location) => (
+							{filteredLocations?.map((location) => (
 								<option
 									key={location.id}
 									value={location.id}

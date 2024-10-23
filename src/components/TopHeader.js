@@ -32,11 +32,11 @@ function TopHeader({
 		(location) => location.id === selectedLoginLocation
 	)?.name;
 	// Filter locations based on the route (logic can be customized)
-	const filteredLocations = locations.filter((location) => {
-		// Example logic: Filter based on route name
-		return true; // Keep all locations for this example
-	});
-
+	// const filteredLocations = locations.filter((location) => {
+	// 	// Example logic: Filter based on route name
+	// 	return true; // Keep all locations for this example
+	// });
+	const filteredLocations = locations.filter((location) => location.isActive);
 	// Find the location name based on the preferred location ID
 	const locationName = filteredLocations.find(
 		(l) => l.id === preferredLocationId

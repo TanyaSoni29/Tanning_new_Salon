@@ -26,6 +26,8 @@ const WizardStep = ({
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 
+	const filteredLocations = locations.filter((location) => location.isActive);
+
 	useEffect(() => {
 		// Fetch locations and user details from the API
 		dispatch(refreshLocation());
@@ -101,7 +103,7 @@ const WizardStep = ({
 								value={selectedLoginLocation}
 								onChange={handleLoginLocationChange}
 							>
-								{locations.map((location) => (
+								{filteredLocations.map((location) => (
 									<option
 										key={location.id}
 										value={location.id}
