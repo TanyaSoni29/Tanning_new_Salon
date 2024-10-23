@@ -54,24 +54,23 @@
 
 .products-table-header,
 .products-table-row {
-    display: grid;
-    padding: 10px 20px;
-    border-bottom: 1px solid #e0e0e0;
-    width: 100%;
-    box-sizing: border-box;
-    gap: 10px;
+	display: grid;
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+	width: 110%;
+	box-sizing: border-box;
+	gap: 10px;
 }
 
 .products-table-header.dynamic,
 .products-table-row.dynamic {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .products-table-header.admin,
 .products-table-row.admin {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
-
 
 .products-table-header2 {
 	display: grid;
@@ -160,206 +159,173 @@
 	color: #666;
 }
 
-/* Media Queries for Responsive Design */
+/* Responsive Design for Larger Screens */
 @media (max-width: 1400px) {
-	.products-table-header {
-		display: grid;
-		grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr 1fr;
-		padding: 10px 20px;
-		border-bottom: 1px solid #e0e0e0;
-		width: 100%;
-		box-sizing: border-box;
-		font-size: 12px;
-	}
+    .products-table-header,
+    .products-table-row {
+        display: grid;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        width: 110%;
+        box-sizing: border-box;
+        gap: 10px;
+		font-size: 11px;
+    }
 
-	.products-table-row {
-		display: grid;
-		grid-template-columns: 4fr 2.4fr 2.2fr 2.2fr 2.2fr 2.2fr 1fr;
-		padding: 10px 20px;
-		border-bottom: 1px solid #e0e0e0;
-		width: 100%;
-		box-sizing: border-box;
-		font-size: 12px;
-	}
+    .products-table-header.dynamic,
+    .products-table-row.dynamic {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
 
-	.products-table-header2 {
-		display: grid;
-		grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr;
-		padding: 10px 20px;
-		border-bottom: 1px solid #e0e0e0;
-		width: 100%;
-		box-sizing: border-box;
-		font-size: 12px;
-	}
+    .products-table-header.admin,
+    .products-table-row.admin {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
 
-	.products-table-row2 {
-		display: grid;
-		grid-template-columns: 4fr 2.4fr 2.2fr 2.2fr 2.2fr 2.2fr;
-		padding: 10px 20px;
-		border-bottom: 1px solid #e0e0e0;
-		width: 100%;
-		box-sizing: border-box;
-		font-size: 12px;
-	}
+    .products-table-header2 {
+        display: grid;
+        grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 12px;
+    }
+
+    .products-table-row2 {
+        display: grid;
+        grid-template-columns: 4fr 2.4fr 2.2fr 2.2fr 2.2fr 2.2fr;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 12px;
+    }
 }
+
 /* Tablet View */
 @media (max-width: 1024px) {
-	.products-container {
-		width: 85%;
-		margin-left: 60px;
-	}
+    .products-container {
+        width: 85%;
+        margin-left: 60px;
+    }
 
-	.products-search-container input {
-		width: 40%;
-	}
+    .products-search-container input {
+        width: 40%;
+    }
 
-	.products-table-header,
-	.products-table-row {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-		padding: 10px;
-	}
+    .products-table-header,
+    .products-table-row {
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+        padding: 10px;
+    }
 
-	.products-table-header2,
-	.products-table-row2 {
-		grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-		padding: 10px;
-	}
+    .products-table-header2,
+    .products-table-row2 {
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+        padding: 10px;
+    }
 
-	.product-table {
-		overflow-x: auto;
-	}
+    .product-table {
+        overflow-x: auto;
+    }
 }
 
 /* Mobile View */
 @media (max-width: 768px) {
-	.products-container {
-		width: 90%;
-		margin-left: 20px;
-		margin-top: 120px;
-	}
+    .products-container {
+        width: 90%;
+        margin-left: 20px;
+        margin-top: 120px;
+    }
 
-	.products-search-container {
-		flex-direction: column;
-		gap: 10px;
-	}
+    .products-search-container {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-	.products-search-container input {
-		width: 100%;
-	}
+    .products-search-container input {
+        width: 100%;
+    }
 
-	.product-table {
-		overflow-x: auto;
-	}
+    .product-table {
+        overflow-x: auto;
+    }
 
-	.products-table-header {
-		display: grid;
-		grid-template-columns: 1fr;
-		background-color: #f4f4f4;
-		font-weight: bold;
-		padding: 10px;
-	}
+    /* Hide headers, display row data as blocks with labels */
+    .products-table-header,
+    .products-table-header2 {
+        display: none;
+    }
 
-	.products-table-header2 {
-		display: grid;
-		grid-template-columns: 1fr;
-		background-color: #f4f4f4;
-		font-weight: bold;
-		padding: 10px;
-	}
+    .products-table-row,
+    .products-table-row2 {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+    }
 
-	/* Product rows as blocks */
-	.products-table-row {
-		display: grid;
-		grid-template-columns: 1fr;
-		background-color: white;
-		padding: 10px;
-		margin-bottom: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
-	}
+    .products-table-row span,
+    .products-table-row2 span {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Aligns text vertically */
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
 
-	.products-table-row span {
-		margin-bottom: 10px;
-		display: flex;
-		justify-content: space-between;
-	}
+    .products-table-row span::before,
+    .products-table-row2 span::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #333;
+        flex: 1;
+        text-align: left;
+    }
 
-	/* Add label for each row */
-	.products-table-row span::before {
-		content: attr(data-label);
-		font-weight: bold;
-		flex-basis: 30%;
-		color: #333;
-	}
+    /* Ensure values are right-aligned */
+    .products-table-row span:not(:before),
+    .products-table-row2 span:not(:before) {
+        flex: 1;
+        text-align: right;
+    }
 
-	.products-table-header {
-		display: none; /* Keep the header hidden, but add labels for each row */
-	}
+    .productPrice {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
 
-	.products-table-row2 {
-		display: grid;
-		grid-template-columns: 1fr;
-		background-color: white;
-		padding: 10px;
-		margin-bottom: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
-	}
-
-	.products-table-row2 span {
-		margin-bottom: 10px;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	/* Add label for each row */
-	.products-table-row2 span::before {
-		content: attr(data-label);
-		font-weight: bold;
-		flex-basis: 30%;
-		color: #333;
-	}
-
-	.products-table-header2 {
-		display: none; /* Keep the header hidden, but add labels for each row */
-	}
-	.productPrice {
-		display: none;
-		/* justify-content: end; */
-		width: 100%;
-	}
-	.productPrice2 {
-		display: none;
-		/* justify-content: end; */
-		width: 100%;
-	}
+    .productPrice2 {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
 }
 
 /* Mobile Extra Small View */
 @media (max-width: 480px) {
-	.products-container {
-		width: 95%;
-		margin-left: 10px;
-		margin-top: 50px;
-	}
+    .products-container {
+        width: 95%;
+        margin-left: 10px;
+        margin-top: 50px;
+    }
 
-	.products-search-container input {
-		width: 100%;
-	}
+    .products-search-container input {
+        width: 100%;
+    }
 
-	.products-table-row {
-		padding: 5px;
-	}
+    .products-table-row,
+    .products-table-row2 {
+        padding: 5px;
+    }
 
-	.products-table-row span {
-		font-size: 14px;
-	}
-
-	.products-table-row2 {
-		padding: 5px;
-	}
-
-	.products-table-row2 span {
-		font-size: 14px;
-	}
+    .products-table-row span,
+    .products-table-row2 span {
+        font-size: 14px;
+    }
 }
