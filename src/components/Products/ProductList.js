@@ -10,7 +10,7 @@ import EditProductModal from './EditProductModal';
 import AddProductModal from './AddProductModal';
 import { formatDate } from '../../utils/formateDate';
 
-const ProductList = () => {
+const ProductList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const { products = [] } = useSelector((state) => state.product); // Ensure products is always an array, defaulting to []
@@ -20,8 +20,14 @@ const ProductList = () => {
 	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeProduct, setActiveProduct] = useState(null); // Track the product to be deleted or edited
-
+	const { locations } = useSelector((state) => state.location);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+	const locationDetails = locations.find(
+		(location) => location.id === selectedLoginLocation
+	);
+
+	const stockField = `stock${locationDetails?.location_id}`;
 
 	// Handle sorting logic
 	const handleSort = (key) => {
@@ -197,7 +203,7 @@ const ProductList = () => {
 								data-label='Stock'
 								className='productPrice'
 							>
-								{product?.stock}
+								{product?.[stockField] ?? 'N/A'}
 							</span>
 							<span data-label='Listed On'>
 								{formatDate(product?.created_at)}
@@ -233,7 +239,10 @@ const ProductList = () => {
 					setOpen={setIsAddOpen}
 					open={isAddOpen}
 				>
-					<AddProductModal closeAddModal={closeAddModal} />
+					<AddProductModal
+						closeAddModal={closeAddModal}
+						selectedLoginLocation={selectedLoginLocation}
+					/>
 				</Modal>
 			)}
 
@@ -259,6 +268,7 @@ const ProductList = () => {
 					<EditProductModal
 						activeProduct={activeProduct}
 						closeEditModal={closeEditModal}
+						selectedLoginLocation={selectedLoginLocation}
 					/>
 				</Modal>
 			)}

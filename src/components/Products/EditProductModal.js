@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -5,9 +7,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProduct } from '../../service/operations/productAndProductTransaction';
 import { refreshProduct } from '../../slices/productSlice';
 
-const EditProductModal = ({ activeProduct, closeEditModal }) => {
+const EditProductModal = ({
+	activeProduct,
+	closeEditModal,
+	selectedLoginLocation,
+}) => {
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const { locations } = useSelector((state) => state.location);
+
+	const locationDetails = locations.find(
+		(location) => location.id === selectedLoginLocation
+	);
+
+	// Determine the stock field name based on the selected location ID
+	const stockField = `stock${locationDetails?.location_id}`;
 
 	const {
 		register,
@@ -18,7 +32,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 		defaultValues: {
 			name: activeProduct.name,
 			price: activeProduct.price,
-			stock: activeProduct.stock,
+			[stockField]: activeProduct[stockField] || 0,
 		},
 	});
 
@@ -27,7 +41,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 			const updatedData = {
 				name: data.name,
 				price: Number(data.price),
-				stock: Number(data.stock),
+				[stockField]: Number(data[stockField]) || 0,
 			};
 			const result = await updateProduct(token, activeProduct.id, updatedData);
 
@@ -45,7 +59,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 			reset({
 				name: '',
 				price: '',
-				stock: '',
+				[stockField]: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -101,9 +115,13 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 					<TextField
 						label='Stock'
 						fullWidth
-						{...register('stock', { required: true, min: 0 })}
-						error={!!errors.stock}
-						helperText={errors.stock ? 'Stock must be at least 0' : ''}
+						{...register(stockField, {
+							required: 'Stock is required',
+							min: { value: 0, message: 'Stock must be at least 0' },
+							valueAsNumber: true,
+						})}
+						error={!!errors[stockField]}
+						helperText={errors[stockField] ? errors[stockField].message : ''}
 					/>
 				</Box>
 

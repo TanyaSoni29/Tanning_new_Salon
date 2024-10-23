@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -5,9 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../service/operations/productAndProductTransaction'; // Ensure you have an API call for adding a location
 import { addProduct, refreshProduct } from '../../slices/productSlice';
 
-const AddProductModal = ({ closeAddModal }) => {
+const AddProductModal = ({ closeAddModal, selectedLoginLocation }) => {
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
 	const dispatch = useDispatch();
+	const { locations } = useSelector((state) => state.location);
+
+	const locationDetails = locations.find(
+		(location) => location.id === selectedLoginLocation
+	);
+
+	// For example, if locationDetails.location_id is '01', it maps to 'stock01'
+	const stockField = `stock${locationDetails?.location_id}`;
 
 	const {
 		register,
@@ -18,7 +28,7 @@ const AddProductModal = ({ closeAddModal }) => {
 		defaultValues: {
 			name: '',
 			price: '',
-			stock: '',
+			[stockField]: '',
 		},
 	});
 
@@ -27,7 +37,7 @@ const AddProductModal = ({ closeAddModal }) => {
 			const newLocation = {
 				name: data.name,
 				price: Number(data.price),
-				stock: Number(data.stock),
+				[stockField]: Number(data[stockField]) || 0,
 			};
 			const result = await createProduct(token, newLocation);
 			if (result) {
@@ -45,7 +55,7 @@ const AddProductModal = ({ closeAddModal }) => {
 			reset({
 				name: '',
 				price: '',
-				stock: '',
+				[stockField]: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -86,10 +96,14 @@ const AddProductModal = ({ closeAddModal }) => {
 						<TextField
 							label='Stock'
 							fullWidth
-							{...register('stock', { required: true, min: 0 })}
+							{...register(stockField, {
+								required: 'Stock is required',
+								min: { value: 0, message: 'Stock must be at least 0' },
+								valueAsNumber: true,
+							})}
 							defaultValue={0}
-							error={!!errors.stock}
-							helperText={errors.stock ? 'Stock must be at least 0' : ''}
+							error={!!errors[stockField]}
+							helperText={errors[stockField] ? errors[stockField].message : ''}
 						/>
 					</Box>
 

@@ -112,6 +112,7 @@ const App = () => {
 									stats={stats}
 									setSelectedLocation={setSelectedLocation}
 									selectedLocation={selectedLocation}
+									selectedLoginLocation={selectedLoginLocation}
 									setStats={setStats}
 								/>
 							}
@@ -192,7 +193,13 @@ const App = () => {
 				)}
 				<Route
 					path='/products'
-					element={<ProtectedRoute element={<Products />} />}
+					element={
+						<ProtectedRoute
+							element={
+								<Products selectedLoginLocation={selectedLoginLocation} />
+							}
+						/>
+					}
 				/>
 
 				{/* <Route
