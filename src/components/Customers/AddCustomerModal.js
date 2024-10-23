@@ -202,6 +202,8 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							}}
 							{...register('dob', { required: true })}
 							fullWidth
+							error={!!errors.dob}
+							helperText={errors.dob ? errors.dob.message : ''}
 						/>
 					</Box>
 
