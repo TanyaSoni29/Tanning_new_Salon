@@ -1,7 +1,14 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Switch, TextField, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	FormControlLabel,
+	Switch,
+	TextField,
+	Typography,
+} from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from '../../service/operations/locationApi';
@@ -198,10 +205,15 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						alignItems: { xs: 'stretch', sm: 'center' },
 					}}
 				>
-					<Switch
-						checked={isActive}
-						onChange={handleToggleActiveStatus}
-						color='primary'
+					<FormControlLabel
+						control={
+							<Switch
+								checked={isActive}
+								onChange={handleToggleActiveStatus}
+								color='primary'
+							/>
+						}
+						label={isActive ? 'Active Location' : 'Inactive Location'}
 					/>
 					<Button
 						variant='contained'
