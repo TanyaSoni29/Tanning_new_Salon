@@ -126,7 +126,7 @@
 
 /* Mobile View */
 
-@media (max-width: 1450px){
+@media (max-width: 1550px){
 	.allcustomer-table-header{
 		display: grid;
 		grid-template-columns: 2fr 2fr 1.5fr 1fr;
