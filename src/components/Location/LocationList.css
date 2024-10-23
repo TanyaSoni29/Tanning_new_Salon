@@ -50,7 +50,7 @@
 
 .location-table-header {
 	display: grid;
-	grid-template-columns: 0.5fr 1.5fr 1.2fr 1fr 1fr 0.3fr;
+	grid-template-columns: 0.5fr 1.5fr 1.2fr 1fr 1fr 0.5fr 0.3fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -59,7 +59,7 @@
 
 .location-table-row {
 	display: grid;
-	grid-template-columns: 0.5fr 1.5fr 1.2fr 1.02fr 1fr 0.3fr;
+	grid-template-columns: 0.5fr 1.5fr 1.2fr 1.02fr 1fr 0.5fr 0.3fr;
 	padding: 10px 20px;
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
@@ -189,7 +189,7 @@
 
 	.location-table-header {
 		display: grid;
-		grid-template-columns: 0.5fr 1.5fr 1.2fr 1fr 1fr 0.3fr;
+		grid-template-columns: 0.5fr 1.5fr 1.2fr 1fr 1fr 0.5fr 0.3fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;
@@ -199,7 +199,7 @@
 
 	.location-table-row {
 		display: grid;
-		grid-template-columns: 0.5fr 1.5fr 1.2fr 1.02fr 1fr 0.3fr;
+		grid-template-columns: 0.5fr 1.5fr 1.2fr 1.02fr 1fr 0.5fr 0.3fr;
 		padding: 10px 20px;
 		border-bottom: 1px solid #e0e0e0;
 		width: 100%;

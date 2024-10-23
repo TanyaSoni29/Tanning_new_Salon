@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Switch, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLocation } from '../../service/operations/locationApi';
@@ -13,6 +13,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 	const dispatch = useDispatch();
 	const [showLink, setShowLink] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [isActive, setIsActive] = useState(activeLocation.isActive);
 	const {
 		register,
 		handleSubmit,
@@ -34,6 +35,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 				address: data.address || '',
 				phone_number: data.phone_number || '',
 				post_code: data.post_code || '',
+				isActive: isActive || true,
 			};
 			const result = await updateLocation(
 				token,
@@ -48,6 +50,10 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 		} catch (error) {
 			console.error('Error updating location:', error);
 		}
+	};
+
+	const handleToggleActiveStatus = () => {
+		setIsActive((prev) => !prev); // Toggle the isActive state
 	};
 
 	useEffect(() => {
@@ -87,7 +93,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 				variant='h6'
 				id='edit-location-modal-title'
 			>
-				Edit Location
+				Edit Location {activeLocation?.location_id}
 			</Typography>
 
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
@@ -192,6 +198,11 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						alignItems: { xs: 'stretch', sm: 'center' },
 					}}
 				>
+					<Switch
+						checked={isActive}
+						onChange={handleToggleActiveStatus}
+						color='primary'
+					/>
 					<Button
 						variant='contained'
 						onClick={() => setShowLink(true)}

@@ -8,6 +8,7 @@ import { deleteLocation } from '../../service/operations/locationApi';
 import Modal from '../Modal'; // Assuming deleteLocation API call
 import EditLocationModal from './EditLocationModal';
 import AddLocationModal from './AddLocationModal';
+import { Switch } from '@mui/material';
 
 const LocationList = () => {
 	const dispatch = useDispatch();
@@ -177,6 +178,7 @@ const LocationList = () => {
 							{getSortIcon('phone_number')}
 						</button>
 					</span>
+					<span>IsActive</span>
 					<span>Action</span>
 				</div>
 
@@ -201,6 +203,12 @@ const LocationList = () => {
 							</span>
 							<span data-label='Phone Number'>
 								{location.phone_number ? location.phone_number : '-'}
+							</span>
+							<span data-label='Is Active'>
+								<Switch
+									checked={location?.isActive}
+									disabled={true}
+								/>
 							</span>
 							<span data-label='Action'>
 								<div className='actionicon'>
