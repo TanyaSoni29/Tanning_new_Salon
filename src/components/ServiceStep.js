@@ -373,6 +373,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 						<BuyProductModal
 							onClose={closeBuyProductModal}
 							createProductTransactionOfUser={createProductTransactionOfUser}
+							selectedLoginLocation={selectedLoginLocation}
 						/>
 					</Modal>
 				)}

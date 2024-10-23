@@ -128,6 +128,7 @@ const App = () => {
 									stats={stats}
 									selectedLocation={selectedLocation}
 									selectedLoginLocation={selectedLoginLocation}
+									setSelectedLoginLocation={setSelectedLoginLocation}
 								/>
 							}
 						/>

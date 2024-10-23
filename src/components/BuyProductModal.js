@@ -1,11 +1,23 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './BuyProductModal.css'; // Import the CSS file for styling
 import toast from 'react-hot-toast';
 import { refreshProduct } from '../slices/productSlice';
+import { refreshLocation } from '../slices/locationSlice';
 
-function BuyProductModal({ onClose, createProductTransactionOfUser }) {
+function BuyProductModal({
+	onClose,
+	createProductTransactionOfUser,
+	selectedLoginLocation,
+}) {
 	const { products } = useSelector((state) => state.product);
+	const { locations } = useSelector((state) => state.location);
+
+	const locationDetails = locations.find(
+		(location) => location.id === selectedLoginLocation
+	);
 	const dispatch = useDispatch();
 	const [selectedQuantities, setSelectedQuantities] = useState(
 		products.map(() => 0)
@@ -13,7 +25,14 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 
 	useEffect(() => {
 		dispatch(refreshProduct());
+		dispatch(refreshLocation());
 	}, [dispatch]);
+
+	const getStockFieldForLocation = (locationId) => {
+		return `stock${locationId}`;
+	};
+
+	console.log('....', selectedLoginLocation, locationDetails);
 
 	// Handle quantity change from select dropdown
 	const handleQuantityChange = (index, value) => {
@@ -64,42 +83,48 @@ function BuyProductModal({ onClose, createProductTransactionOfUser }) {
 
 				{/* Render products */}
 				{products?.length > 0 ? (
-					products.map((product, index) => (
-						<div
-							key={product?.id}
-							className='Buyproducts-table-row'
-						>
-							<span className='Buyproduct-name'>
-								{/* <img
+					products.map((product, index) => {
+						const stockField = getStockFieldForLocation(
+							locationDetails?.location_id
+						);
+						const availableStock = product[stockField] || 0;
+						return (
+							<div
+								key={product?.id}
+								className='Buyproducts-table-row'
+							>
+								<span className='Buyproduct-name'>
+									{/* <img
 									src={product?.image ? product?.image : ''}
 									alt={product.name}
 									className='Buyproduct-image'
 								/> */}
-								{product?.name}
-							</span>
-							<span>£{product?.price}</span>
-							<span>{product?.stock}</span>
-							<span>
-								<select
-									value={selectedQuantities[index]}
-									onChange={(e) =>
-										handleQuantityChange(index, parseInt(e.target.value))
-									}
-									className='quantity-select'
-								>
-									{/* Options from 0 to 10 */}
-									{[...Array(product?.stock + 1).keys()].map((quantity) => (
-										<option
-											key={quantity}
-											value={quantity}
-										>
-											{quantity}
-										</option>
-									))}
-								</select>
-							</span>
-						</div>
-					))
+									{product?.name}
+								</span>
+								<span>£{product?.price}</span>
+								<span>{availableStock}</span>
+								<span>
+									<select
+										value={selectedQuantities[index]}
+										onChange={(e) =>
+											handleQuantityChange(index, parseInt(e.target.value))
+										}
+										className='quantity-select'
+									>
+										{/* Options from 0 to 10 */}
+										{[...Array(availableStock + 1).keys()].map((quantity) => (
+											<option
+												key={quantity}
+												value={quantity}
+											>
+												{quantity}
+											</option>
+										))}
+									</select>
+								</span>
+							</div>
+						);
+					})
 				) : (
 					<div className='Buyproducts-table-row'>
 						<span>No products found.</span>
