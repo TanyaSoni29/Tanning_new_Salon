@@ -1,109 +1,120 @@
 .customer-overview-container {
-	background-color: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .header-section {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px;
-  }
-  
-  .header-section h2 {
-	font-size: 20px;
-	font-weight: bold;
-	margin: 0;
-  }
-  
-  .table-container {
-	width: 100%;
-	overflow-x: auto;
-  }
-  
-  .customer-table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: 14px;
-	margin-bottom: 16px;
-  }
-  
-  .customer-table th,
-  .customer-table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: center;
-  }
-  
-  .tdcustomer {
-	text-align: right;
-  }
-  
-  .customer-table th {
-	background-color: #f4f4f4;
-	font-weight: bold;
-  }
-  
-  .customer-table tbody tr:hover {
-	background-color: #f9f9f9;
-  }
-  
-  .no-customers {
-	text-align: center;
-	padding: 16px;
-	font-size: 14px;
-	color: #666;
-  }
-  
-  .customer-table .select-button {
-	background-color: #0c65be;
-	color: white;
-	padding: 6px 12px;
-	border-radius: 4px;
-	font-size: 12px;
-	text-transform: none;
-	cursor: pointer;
-  }
-  
-  .customer-table .select-button:hover {
-	background-color: #000;
-  }
-  
-  /* Mobile view (up to 768px wide) */
-  @media (max-width: 768px) {
-	.customer-table, .customer-table thead, .customer-table tbody, .customer-table th, .customer-table td, .customer-table tr {
-	  display: block;
-	  width: 100%;
-	}
-  
-	.customer-table thead {
-	  display: none; /* Hide table headers */
-	}
-  
-	.customer-table tr {
-	  margin-bottom: 15px; /* Add spacing between cards (rows) */
-	}
-  
-	.customer-table td {
-	  text-align: left;
-	  padding-left: 60%;
-	  position: relative;
-	}
-  
-	.customer-table td:before {
-	  content: attr(data-label); /* Use the data-label attribute to create the table labels */
-	  position: absolute;
-	  left: 10px;
-	  width: calc(50% - 10px);
-	  padding-right: 10px;
-	  font-weight: bold;
-	  white-space: nowrap;
-	}
-  
-	.tdcustomer {
-	  text-align: left; /* Adjust the text alignment in mobile */
-	}
-  }
-  
+    background-color: #333333; /* Dark background for the container */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: orange; /* Yellow color for header text */
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 16px;
+    background-color: #444444; /* Darker background for the table */
+    color: #ffffff; /* White text for table content */
+}
+
+.customer-table th,
+.customer-table td {
+    padding: 12px;
+    border: 1px solid #555555; /* Darker border for contrast */
+    text-align: center;
+}
+
+.tdcustomer {
+    text-align: right;
+}
+
+.customer-table th {
+    background-color: #555555; /* Dark header background */
+    font-weight: bold;
+    color: orange; /* Yellow text for headers */
+}
+
+.customer-table tbody tr:hover {
+    background-color: #555555; /* Slightly lighter gray for hover effect */
+}
+
+.no-customers {
+    text-align: center;
+    padding: 16px;
+    font-size: 14px;
+    color: #cccccc; /* Light gray text for no data message */
+}
+
+.customer-table .select-button {
+    background-color: #28a745; /* Green background for buttons */
+    color: #ffffff; /* White text for buttons */
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: none;
+    cursor: pointer;
+}
+
+.customer-table .select-button:hover {
+    background-color: #218838; /* Darker green for hover state */
+}
+
+/* Mobile view (up to 768px wide) */
+@media (max-width: 768px) {
+    .customer-table,
+    .customer-table thead,
+    .customer-table tbody,
+    .customer-table th,
+    .customer-table td,
+    .customer-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .customer-table thead {
+        display: none; /* Hide table headers */
+    }
+
+    .customer-table tr {
+        margin-bottom: 15px; /* Add spacing between cards (rows) */
+    }
+
+    .customer-table td {
+        text-align: left;
+        padding-left: 60%;
+        position: relative;
+        background-color: #444444; /* Darker background for mobile view */
+        color: #ffffff; /* White text for better contrast */
+    }
+
+    .customer-table td:before {
+        content: attr(data-label); /* Use the data-label attribute to create the table labels */
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 10px);
+        padding-right: 10px;
+        font-weight: bold;
+        white-space: nowrap;
+        color: orange; /* Yellow color for mobile labels */
+    }
+
+    .tdcustomer {
+        text-align: left; /* Adjust the text alignment in mobile */
+    }
+}

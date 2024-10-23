@@ -231,12 +231,16 @@
     }
 }
 
+
 /* Mobile View */
 @media (max-width: 768px) {
     .products-container {
         width: 90%;
-        margin-left: 20px;
-        margin-top: 120px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .products-search-container {
@@ -249,7 +253,8 @@
     }
 
     .product-table {
-        overflow-x: auto;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     /* Hide headers, display row data as blocks with labels */
@@ -267,15 +272,20 @@
         margin-bottom: 10px;
         border: 1px solid #e0e0e0;
         border-radius: 8px;
+        max-width: 100%; /* Prevents the row from exceeding the container width */
     }
 
     .products-table-row span,
     .products-table-row2 span {
         display: flex;
         justify-content: space-between;
-        align-items: center; /* Aligns text vertically */
+        align-items: center;
         margin-bottom: 8px;
         font-size: 14px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        gap: 10px;
+        max-width: 100%; /* Prevents content from exceeding the span's width */
     }
 
     .products-table-row span::before,
@@ -283,27 +293,31 @@
         content: attr(data-label);
         font-weight: bold;
         color: #333;
-        flex: 1;
         text-align: left;
+        flex: 1;
+        min-width: 80px; /* Ensures space for labels */
+        max-width: 150px; /* Prevents labels from stretching too far */
     }
 
-    /* Ensure values are right-aligned */
+    /* Ensure values are right-aligned and do not overflow */
     .products-table-row span:not(:before),
     .products-table-row2 span:not(:before) {
-        flex: 1;
+        flex: 2;
         text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: calc(100% - 100px); /* Adjust to ensure space for the label */
     }
 
-    .productPrice {
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-    }
-
+    .productPrice,
     .productPrice2 {
         display: flex;
         justify-content: flex-end;
         width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 
@@ -327,5 +341,9 @@
     .products-table-row span,
     .products-table-row2 span {
         font-size: 14px;
+        gap: 5px;
     }
 }
+
+
+
