@@ -97,7 +97,7 @@ export const updateUserProfile = async (token, userId, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Update user profile error', error);
-		const errorMessage = error.response?.data?.error;
+		const errorMessage = error.response?.data?.message;
 		toast.error(errorMessage);
 	}
 
