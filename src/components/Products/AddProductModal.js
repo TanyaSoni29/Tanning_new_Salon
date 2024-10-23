@@ -108,7 +108,7 @@ const AddProductModal = ({ closeAddModal }) => {
 							{...register('price', { required: true })}
 						/>
 						<TextField
-							label='Stock'
+							label='Stock01'
 							fullWidth
 							{...register('stock01', {
 								required: 'Stock is required',
@@ -133,7 +133,7 @@ const AddProductModal = ({ closeAddModal }) => {
 						gap={2}
 					>
 						<TextField
-							label='Stock'
+							label='Stock02'
 							fullWidth
 							{...register('stock02', {
 								required: 'Stock is required',
@@ -152,7 +152,7 @@ const AddProductModal = ({ closeAddModal }) => {
 							}
 						/>
 						<TextField
-							label='Stock'
+							label='Stock03'
 							fullWidth
 							{...register('stock03', {
 								required: 'Stock is required',
