@@ -1,5 +1,5 @@
 .customer-overview-container {
-    background-color: #333333; /* Dark background for the container */
+    background-color: var(--table-background); /* Dark background for the container */
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
@@ -16,7 +16,7 @@
     font-size: 20px;
     font-weight: bold;
     margin: 0;
-    color: orange; /* Yellow color for header text */
+    color: var(--textcolor); /* Yellow color for header text */
 }
 
 .table-container {
@@ -29,8 +29,8 @@
     border-collapse: collapse;
     font-size: 14px;
     margin-bottom: 16px;
-    background-color: #444444; /* Darker background for the table */
-    color: #ffffff; /* White text for table content */
+    background-color: var(--table-rowcolor); /* Darker background for the table */
+    color: var(--textcolor); /* White text for table content */
 }
 
 .customer-table th,
@@ -40,18 +40,19 @@
     text-align: center;
 }
 
+
 .tdcustomer {
     text-align: right;
 }
 
 .customer-table th {
-    background-color: #555555; /* Dark header background */
+    background-color: var(--table-headercolor); /* Dark header background */
     font-weight: bold;
-    color: orange; /* Yellow text for headers */
+    color: var(--textcolor); /* Yellow text for headers */
 }
 
 .customer-table tbody tr:hover {
-    background-color: #555555; /* Slightly lighter gray for hover effect */
+    background-color: var(--table-hover); /* Slightly lighter gray for hover effect */
 }
 
 .no-customers {
@@ -111,7 +112,7 @@
         padding-right: 10px;
         font-weight: bold;
         white-space: nowrap;
-        color: orange; /* Yellow color for mobile labels */
+        color: var(--textcolor); /* Yellow color for mobile labels */
     }
 
     .tdcustomer {

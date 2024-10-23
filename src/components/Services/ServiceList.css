@@ -3,7 +3,7 @@
 	margin: 20px auto;
 	margin-left: 340px;
 	padding: 20px;
-	background-color: #ffffff;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	overflow-x: auto;
@@ -40,7 +40,6 @@
 
 /* Table Styles */
 .services-table {
-	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
 	width: 100%;
@@ -77,17 +76,18 @@
 }
 
 .table-header {
-	background-color: #f4f4f4;
-	color: rgb(0, 0, 0);
+	background-color: var(--table-headercolor);
+	color: var(--table-rowheadtextcolor);
 	font-weight: bold;
 }
 
 .table-row {
-	background-color: white;
+	background-color: var(--table-rowcolor);
+	color: var(--textcolor);
 }
 
 .table-row:hover {
-	background-color: #f1f1f1;
+	background-color: var(--table-hover);
 }
 
 .table-row span {

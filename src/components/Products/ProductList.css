@@ -5,7 +5,7 @@
 	margin: 20px auto;
 	margin-left: 340px;
 	padding: 20px;
-	background-color: #ffffff;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	overflow-x: auto;
@@ -46,7 +46,6 @@
 
 /* Table Styles */
 .product-table {
-	background-color: white;
 	border-radius: 8px;
 	overflow: hidden;
 	width: 100%;
@@ -60,6 +59,16 @@
 	width: 110%;
 	box-sizing: border-box;
 	gap: 10px;
+}
+
+.products-table-header{
+    background-color: var(--table-headercolor);
+	color: var(--table-rowheadtextcolor);
+}
+
+.products-table-row{
+    background-color: var(--table-rowcolor);
+	color: var(--textcolor);
 }
 
 .products-table-header.dynamic,
@@ -79,7 +88,6 @@
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
 	box-sizing: border-box;
-	background-color: #f4f4f4;
 	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
@@ -91,11 +99,10 @@
 	border-bottom: 1px solid #e0e0e0;
 	width: 100%;
 	box-sizing: border-box;
-	background-color: white;
 }
 
 .products-table-row2:hover {
-	background-color: #f1f1f1;
+	background-color: var(--table-hover);
 }
 
 .products-table-row2 span {
@@ -109,17 +116,11 @@
 }
 
 .products-table-header {
-	background-color: #f4f4f4;
-	color: rgb(0, 0, 0);
 	font-weight: bold;
 }
 
-.products-table-row {
-	background-color: white;
-}
-
 .products-table-row:hover {
-	background-color: #f1f1f1;
+	background-color: var(--table-hover);
 }
 
 .products-table-row span {
@@ -182,6 +183,16 @@
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 
+    .products-table-header{
+        background-color: var(--table-headercolor);
+        color: var(--table-rowheadtextcolor);
+    }
+    
+    .products-table-row{
+        background-color: var(--table-rowcolor);
+        color: var(--textcolor);
+    }
+
     .products-table-header2 {
         display: grid;
         grid-template-columns: 4fr 2fr 2fr 2fr 2fr 2fr;
@@ -238,7 +249,7 @@
         width: 90%;
         margin: 20px auto;
         padding: 10px;
-        background-color: #ffffff;
+        background-color: var(--cardpart-background);
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
