@@ -1,3 +1,5 @@
+/** @format */
+
 import { toast } from 'react-hot-toast';
 import { endpoints } from '../api';
 import { apiConnector } from '../apiConnector';
@@ -68,7 +70,7 @@ export function login(email, password, navigate) {
 			localStorage.setItem('token', JSON.stringify(response.data.access_token));
 			localStorage.setItem('expirationTime', JSON.stringify(expirationTime)); // Store expiration time
 
-			navigate('/about');
+			navigate('/locationStep');
 		} catch (error) {
 			console.log('LOGIN API ERROR........', error);
 			const errorMessage = error.response.data.error;
