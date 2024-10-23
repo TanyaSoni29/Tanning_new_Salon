@@ -15,8 +15,10 @@ import { updateLocation } from '../../service/operations/locationApi';
 import { refreshLocation } from '../../slices/locationSlice';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'; // Import copy icon
 import CheckIcon from '@mui/icons-material/Check'; // Import check icon
+import toast from 'react-hot-toast';
 const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 	const { token } = useSelector((state) => state.auth);
+	const { locations } = useSelector((state) => state.location);
 	const dispatch = useDispatch();
 	const [showLink, setShowLink] = useState(false);
 	const [copied, setCopied] = useState(false);
@@ -60,6 +62,13 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 	};
 
 	const handleToggleActiveStatus = () => {
+		const activeLocations = locations.filter((loc) => loc.isActive).length;
+
+		// If there is only one active location and the user tries to deactivate it, prevent the change
+		if (activeLocations === 1 && isActive) {
+			toast.error('At least one location must remain active.');
+			return;
+		}
 		setIsActive((prev) => !prev); // Toggle the isActive state
 	};
 
