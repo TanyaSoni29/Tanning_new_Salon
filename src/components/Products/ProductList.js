@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './ProductList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +31,8 @@ const ProductList = () => {
 		}
 		setSortConfig({ key, direction });
 	};
+
+	console.log('Product', products);
 
 	// Filter and sort products based on search term and sort configuration
 	const filteredProducts = products

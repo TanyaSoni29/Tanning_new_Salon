@@ -59,7 +59,7 @@ export const updateLocation = async (token, locationId, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('Update Location Api Error', error);
-		const errorMessage = error.response?.data?.error;
+		const errorMessage = error.response?.data?.message;
 		toast.error(errorMessage);
 	}
 	return result;

@@ -112,11 +112,11 @@ const CustomerList = () => {
 
 		const firstName = data.profile?.firstName.toLowerCase() || '';
 		const lastName = data?.profile?.lastName?.toLowerCase() || '';
-		const phoneNumber = data.profile?.phone_number.toLowerCase() || '';
+		const phoneNumber = data.profile?.phone_number?.toLowerCase() || '';
 
 		const matchesSearchQuery =
 			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-			phoneNumber.includes(searchTerm.toLowerCase());
+			phoneNumber?.includes(searchTerm.toLowerCase());
 		const preferredLocation = locations.find(
 			(location) => location.id === data?.profile?.preferred_location
 		);

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -29,9 +31,9 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 		try {
 			const updatedData = {
 				name: data.name,
-				address: data.address,
-				phone_number: data.phone_number,
-				post_code: data.post_code,
+				address: data.address || '',
+				phone_number: data.phone_number || '',
+				post_code: data.post_code || '',
 			};
 			const result = await updateLocation(
 				token,
@@ -108,13 +110,16 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 					/>
 					<TextField
 						label='Phone Number'
-						{...register('phone_number', {
-							required: 'Phone number is required',
-							pattern: {
-								value: /^[0-9]{10,15}$/,
-								message: 'Phone number must be between 10 to 15 digits',
-							},
-						})}
+						{...register(
+							'phone_number'
+							// {
+							// 	required: 'Phone number is required',
+							// 	pattern: {
+							// 		value: /^[0-9]{10,15}$/,
+							// 		message: 'Phone number must be between 10 to 15 digits',
+							// 	},
+							// }
+						)}
 						fullWidth
 						error={!!errors.phone_number}
 						helperText={errors.phone_number ? errors.phone_number.message : ''}
@@ -125,7 +130,10 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 					<TextField
 						label='Address'
 						fullWidth
-						{...register('address', { required: true })}
+						{...register(
+							'address'
+							// { required: true }
+						)}
 						error={!!errors.address}
 						helperText={errors.address ? 'Address is required' : ''}
 					/>
@@ -135,7 +143,10 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 					<TextField
 						label='Post Code'
 						fullWidth
-						{...register('post_code', { required: true })}
+						{...register(
+							'post_code'
+							// { required: true }
+						)}
 						error={!!errors.post_code}
 						helperText={errors.post_code ? 'Post Code is required' : ''}
 					/>

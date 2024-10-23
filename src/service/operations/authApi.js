@@ -73,7 +73,7 @@ export function login(email, password, navigate) {
 			navigate('/locationStep');
 		} catch (error) {
 			console.log('LOGIN API ERROR........', error);
-			const errorMessage = error.response.data.error;
+			const errorMessage = error.response.data.message;
 			toast.error(errorMessage);
 		}
 		dispatch(setLoading(false));

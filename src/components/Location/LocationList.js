@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './LocationList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -120,34 +122,58 @@ const LocationList = () => {
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button className='add-button1' onClick={() => handleAdd()}>
+				{/* <button
+					className='add-button1'
+					onClick={() => handleAdd()}
+				>
 					Add New Location
-				</button>
+				</button> */}
 			</div>
 
 			<div className='locations-table'>
 				<div className='location-table-header'>
 					<span>
+						Location Id
+						<button
+							className='sort-button'
+							onClick={() => handleSort('locationId')}
+						>
+							{getSortIcon('locationId')}
+						</button>
+					</span>
+					<span>
 						Location Name
-						<button className='sort-button' onClick={() => handleSort('name')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('name')}
+						>
 							{getSortIcon('name')}
 						</button>
 					</span>
 					<span>
 						Address
-						<button className='sort-button' onClick={() => handleSort('address')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('address')}
+						>
 							{getSortIcon('address')}
 						</button>
 					</span>
 					<span>
 						Postcode
-						<button className='sort-button' onClick={() => handleSort('post_code')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('post_code')}
+						>
 							{getSortIcon('post_code')}
 						</button>
 					</span>
 					<span>
 						Phone Number
-						<button className='sort-button' onClick={() => handleSort('phone_number')}>
+						<button
+							className='sort-button'
+							onClick={() => handleSort('phone_number')}
+						>
 							{getSortIcon('phone_number')}
 						</button>
 					</span>
@@ -157,15 +183,35 @@ const LocationList = () => {
 				{/* Render filtered locations */}
 				{filteredLocations.length > 0 ? (
 					filteredLocations.map((location) => (
-						<div key={location.id} className='location-table-row'>
-							<span data-label='Location Name'>{location.name}</span>
-							<span data-label='Address'>{location.address}</span>
-							<span data-label='Postcode'>{location.post_code}</span>
-							<span data-label='Phone Number'>{location.phone_number}</span>
+						<div
+							key={location.id}
+							className='location-table-row'
+						>
+							<span data-label='Location Id'>
+								{location?.location_id ? location?.location_id : '-'}
+							</span>
+							<span data-label='Location Name'>
+								{location.name ? location.name : '-'}
+							</span>
+							<span data-label='Address'>
+								{location.address ? location.address : '-'}
+							</span>
+							<span data-label='Postcode'>
+								{location.post_code ? location.post_code : '-'}
+							</span>
+							<span data-label='Phone Number'>
+								{location.phone_number ? location.phone_number : '-'}
+							</span>
 							<span data-label='Action'>
 								<div className='actionicon'>
-									<i className='fa fa-pencil' onClick={() => handleEdit(location)}></i>
-									<i className='fa fa-trash' onClick={() => confirmDelete(location)}></i>
+									<i
+										className='fa fa-pencil'
+										onClick={() => handleEdit(location)}
+									></i>
+									{/* <i
+										className='fa fa-trash'
+										onClick={() => confirmDelete(location)}
+									></i> */}
 								</div>
 							</span>
 						</div>
@@ -178,13 +224,19 @@ const LocationList = () => {
 			</div>
 
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
 					<AddLocationModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isDeleteOpen && activeLocation && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
 					<DeleteLocationModal
 						handleDelete={handleDelete}
 						activeLocation={activeLocation}
@@ -194,8 +246,14 @@ const LocationList = () => {
 			)}
 
 			{isEditOpen && activeLocation && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
-					<EditLocationModal activeLocation={activeLocation} closeEditModal={closeEditModal} />
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditLocationModal
+						activeLocation={activeLocation}
+						closeEditModal={closeEditModal}
+					/>
 				</Modal>
 			)}
 		</div>
@@ -204,15 +262,25 @@ const LocationList = () => {
 
 export default LocationList;
 
-function DeleteLocationModal({ handleDelete, activeLocation, closeDeleteModal }) {
+function DeleteLocationModal({
+	handleDelete,
+	activeLocation,
+	closeDeleteModal,
+}) {
 	return (
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeLocation.name}?</p>
 			<div className='button-container'>
-				<button onClick={() => handleDelete(activeLocation.id)} className='confirm-button'>
+				<button
+					onClick={() => handleDelete(activeLocation.id)}
+					className='confirm-button'
+				>
 					Confirm
 				</button>
-				<button className='cancel-button' onClick={closeDeleteModal}>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
 					Cancel
 				</button>
 			</div>
