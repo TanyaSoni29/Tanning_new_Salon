@@ -155,7 +155,7 @@ const AddProductModal = ({ closeAddModal }) => {
 							label='Stock03'
 							fullWidth
 							{...register('stock03', {
-								required: 'Stock is required',
+								// required: 'Stock is required',
 								min: { value: 0, message: 'Stock must be at least 0' },
 								valueAsNumber: true,
 							})}
