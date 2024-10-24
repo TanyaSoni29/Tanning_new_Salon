@@ -311,7 +311,21 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 												: '-'}
 										</span>
 										<span data-label='Type'>
-											<span className={`transaction-type ${transaction?.type}`}>
+											<span
+												className={`transaction-type ${transaction?.type}`}
+												style={{
+													backgroundColor:
+														transaction?.type === 'product' &&
+														transaction.productName.includes('SiennaX')
+															? '#9B26B6' // Purple color for SiennaX products
+															: '',
+													color:
+														transaction?.type === 'product' &&
+														transaction.productName.includes('SiennaX')
+															? '#fff' // White text color for contrast
+															: '',
+												}}
+											>
 												{transaction?.type
 													? transaction?.type === 'used'
 														? 'Used Min.'

@@ -38,7 +38,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 			price: activeProduct.price,
 			stock01: activeProduct.stock01 || 0,
 			stock02: activeProduct.stock02 || 0,
-			stock03: activeProduct.stock03 || 0,
+			// stock03: activeProduct.stock03 || 0,
 		},
 	});
 
@@ -49,7 +49,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 				price: Number(data.price),
 				stock01: Number(data.stock01) || 0,
 				stock02: Number(data.stock02) || 0,
-				stock03: Number(data.stock03) || 0,
+				// stock03: Number(data.stock03) || 0,
 			};
 			const result = await updateProduct(token, activeProduct.id, updatedData);
 
@@ -69,7 +69,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 				price: '',
 				stock01: '',
 				stock02: '',
-				stock03: '',
+				// stock03: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -122,6 +122,12 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 						fullWidth
 						{...register('price', { required: true })}
 					/>
+				</Box>
+				<Box
+					mt={2}
+					display='flex'
+					gap={2}
+				>
 					<TextField
 						label='Stock01'
 						fullWidth
@@ -139,12 +145,6 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 								: ''
 						}
 					/>
-				</Box>
-				<Box
-					mt={2}
-					display='flex'
-					gap={2}
-				>
 					<TextField
 						label='Stock02'
 						fullWidth
@@ -163,7 +163,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 								: ''
 						}
 					/>
-					<TextField
+					{/* <TextField
 						label='Stock03'
 						fullWidth
 						{...register('stock03', {
@@ -180,7 +180,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 								? errors.stock03.message
 								: ''
 						}
-					/>
+					/> */}
 				</Box>
 
 				<Box

@@ -38,7 +38,7 @@ const AddProductModal = ({ closeAddModal }) => {
 			price: '',
 			stock01: '',
 			stock02: '',
-			stock03: '',
+			// stock03: '',
 		},
 	});
 
@@ -49,7 +49,7 @@ const AddProductModal = ({ closeAddModal }) => {
 				price: Number(data.price),
 				stock01: Number(data.stock01) || 0,
 				stock02: Number(data.stock02) || 0,
-				stock03: Number(data.stock03) || 0,
+				// stock03: Number(data.stock03) || 0,
 			};
 			const result = await createProduct(token, newLocation);
 			if (result) {
@@ -69,7 +69,7 @@ const AddProductModal = ({ closeAddModal }) => {
 				price: '',
 				stock01: '',
 				stock02: '',
-				stock03: '',
+				// stock03: '',
 			});
 		}
 	}, [reset, isSubmitSuccessful]);
@@ -107,6 +107,12 @@ const AddProductModal = ({ closeAddModal }) => {
 							fullWidth
 							{...register('price', { required: true })}
 						/>
+					</Box>
+					<Box
+						mt={2}
+						display='flex'
+						gap={2}
+					>
 						<TextField
 							label='Stock01'
 							fullWidth
@@ -126,12 +132,6 @@ const AddProductModal = ({ closeAddModal }) => {
 									: ''
 							}
 						/>
-					</Box>
-					<Box
-						mt={2}
-						display='flex'
-						gap={2}
-					>
 						<TextField
 							label='Stock02'
 							fullWidth
@@ -151,7 +151,7 @@ const AddProductModal = ({ closeAddModal }) => {
 									: ''
 							}
 						/>
-						<TextField
+						{/* <TextField
 							label='Stock03'
 							fullWidth
 							{...register('stock03', {
@@ -169,7 +169,7 @@ const AddProductModal = ({ closeAddModal }) => {
 									? errors.stock03.message
 									: ''
 							}
-						/>
+						/> */}
 					</Box>
 
 					<Box
