@@ -62,6 +62,7 @@
 	font-size: 14px;
 	flex-wrap: wrap;
 	margin-right: 20px;
+	color: var(--modal--formbgtextcol);
 }
 
 .switch {
