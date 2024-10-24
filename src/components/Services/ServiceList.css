@@ -187,7 +187,7 @@
 	.table-row {
 		display: flex;
 		flex-direction: column;
-		background-color: white;
+		background-color: var(--cardpart-background);
 		margin-bottom: 20px;
 		padding: 10px;
 		border: 1px solid #e0e0e0;
@@ -203,7 +203,7 @@
 	.table-row span::before {
 		content: attr(data-label);
 		font-weight: bold;
-		color: #333;
+		color: var(--table-rowtextcolor);
 		flex-basis: 40%;
 	}
 

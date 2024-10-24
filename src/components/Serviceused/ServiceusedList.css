@@ -73,10 +73,10 @@
 
 /* Table Styles */
 .serviceused-table {
-	background-color: white;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	width: 100%;
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 }
 
 .serviceused-table-header,
@@ -242,7 +242,7 @@
 	.serviceused-table-row span {
 		display: block; /* Display each field as its own block */
 		padding: 12px 0;
-		border-bottom: 1px solid #f1f1f1;
+		/* border-bottom: 1px solid #f1f1f1; */
 	}
 
 	.serviceused-table-row span:last-child {
@@ -255,7 +255,7 @@
 		font-weight: bold;
 		display: inline-block;
 		width: 250px; /* Adjust width for the label */
-		color: #555;
+		color: var(--table-rowtextcolor);
 		margin-right: 20px; /* Add more space between label and data */
 	}
 

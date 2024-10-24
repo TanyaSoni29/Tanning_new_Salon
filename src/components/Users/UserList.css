@@ -67,7 +67,7 @@
 }
 /* Table Styles */
 .users-table {
-	background-color: white;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	overflow: hidden;
 	width: 100%;

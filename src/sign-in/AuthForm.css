@@ -73,6 +73,7 @@
 .toggle-text {
   margin-top: 15px;
   font-size: 0.9rem;
+  color: var(--table-rowtextcolor);
 }
 
 .toggle-text a {

@@ -202,7 +202,7 @@
 
 	/* Table Styles */
 	.customers-table {
-		background-color: white;
+		background-color: var(--cardpart-background);
 		border-radius: 8px;
 		width: 100%;
 		overflow-x: auto;

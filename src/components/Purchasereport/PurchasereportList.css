@@ -82,11 +82,11 @@
 
 /* Table styling */
 .purchasereportlist-table {
-	background-color: white;
+	background-color: var(--cardpart-background);
 	border-radius: 8px;
 	width: 100%;
 	overflow-x: auto; /* Enable horizontal scrolling */
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 }
 
 .purchasereportlist-table-header,
@@ -262,7 +262,7 @@
 	.purchasereportlist-table-row span {
 		display: block; /* Each field appears in its own block */
 		padding: 12px 0;
-		border-bottom: 1px solid #f1f1f1;
+		/* border-bottom: 1px solid #f1f1f1; */
 	}
 
 	.purchasereportlist-table-row span:last-child {
@@ -275,7 +275,7 @@
 		font-weight: bold;
 		display: inline-block;
 		width: 300px; /* Adjust the label width */
-		color: #555;
+		color: var(--table-rowtextcolor);
 		margin-right: 10px;
 	}
 

@@ -278,7 +278,7 @@
     .products-table-row2 {
         display: flex;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--cardpart-background);
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #e0e0e0;
@@ -303,7 +303,7 @@
     .products-table-row2 span::before {
         content: attr(data-label);
         font-weight: bold;
-        color: #333;
+        color: var(--table-rowtextcolor);
         text-align: left;
         flex: 1;
         min-width: 80px; /* Ensures space for labels */
