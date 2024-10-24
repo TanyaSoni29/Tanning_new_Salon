@@ -86,13 +86,14 @@ const AddUserModal = ({ closeAddModal }) => {
 				padding: '16px',
 				margin: 'auto',
 				marginTop: { xs: '10%', md: '5%' }, // Adjust margin for mobile
-				backgroundColor: '#fff',
+				backgroundColor: 'var(--modal--formbg)',
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
 				boxSizing: 'border-box',
+				
 			}}
 		>
-			<Typography variant='h6'>Add New User</Typography>
+			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Add New User</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box
@@ -116,6 +117,12 @@ const AddUserModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.firstName}
 							helperText={errors.firstName ? errors.firstName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Last Name'
@@ -130,6 +137,12 @@ const AddUserModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.lastName}
 							helperText={errors.lastName ? errors.lastName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -154,6 +167,12 @@ const AddUserModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Phone Number'
@@ -174,6 +193,12 @@ const AddUserModal = ({ closeAddModal }) => {
 							helperText={
 								errors.phone_number ? errors.phone_number.message : ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -198,12 +223,24 @@ const AddUserModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.password}
 							helperText={errors.password ? errors.password.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Referred By'
 							variant='outlined'
 							{...register('referred_by')}
 							fullWidth
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -214,6 +251,12 @@ const AddUserModal = ({ closeAddModal }) => {
 						fullWidth
 						error={!!errors.address}
 						helperText={errors.address ? errors.address.message : ''}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 
 					<Box
@@ -231,6 +274,12 @@ const AddUserModal = ({ closeAddModal }) => {
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<select
 							className='custom-select'
@@ -242,7 +291,8 @@ const AddUserModal = ({ closeAddModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Gender</option>
@@ -270,7 +320,8 @@ const AddUserModal = ({ closeAddModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Role</option>
@@ -288,7 +339,8 @@ const AddUserModal = ({ closeAddModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Location</option>

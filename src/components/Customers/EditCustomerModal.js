@@ -116,7 +116,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 	return (
 		<Box className='addCustomer-modal-container'>
-			<Typography variant='h6'>Edit Customer</Typography>
+			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Edit Customer</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box className='form-row'>
@@ -134,6 +134,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.firstName}
 							helperText={errors.firstName ? errors.firstName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Last Name'
@@ -149,6 +155,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.lastName}
 							helperText={errors.lastName ? errors.lastName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -170,6 +182,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Phone Number'
@@ -194,6 +212,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							helperText={
 								errors.phone_number ? errors.phone_number.message : ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -202,12 +226,19 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							label='Date of Birth'
 							variant='outlined'
 							type='date'
-							InputLabelProps={{ shrink: true }}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+								shrink: true, // Keeps the label shrunk when the input is empty
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 							defaultValue={activeUser.profile?.dob} // Set default Date of Birth
 							{...register('dob', { required: true })}
 							fullWidth
 							error={!!errors.dob}
 							helperText={errors.dob ? errors.dob.message : ''}
+							
 						/>
 					</Box>
 
@@ -223,6 +254,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -238,6 +275,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Referred By'
@@ -245,6 +288,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							defaultValue={activeUser.profile?.referred_by}
 							{...register('referred_by')}
 							fullWidth
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -265,6 +314,7 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 									{location.name}
 								</option>
 							))}
+							
 						</select>
 
 						<select

@@ -52,20 +52,27 @@ const AddServiceModal = ({ closeAddModal }) => {
 
 	return (
 		<div className='add-modal-overlay'>
-			<Box className='add-modal'>
+			<Box sx={{ backgroundColor: 'var(--modal--formbg)', }} className='add-modal'>
 				<Typography
 					variant='h6'
 					id='add-location-modal-title'
+					color='white'
 				>
 					Add New Service
 				</Typography>
 
 				<form onSubmit={handleSubmit(handleSubmitForm)}>
-					<Box mt={2}>
+					<Box  mt={2}>
 						<TextField
 							label='Name'
 							fullWidth
 							{...register('serviceName', { required: true })}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<Box
 							mt={2}
@@ -76,11 +83,23 @@ const AddServiceModal = ({ closeAddModal }) => {
 								label='Price'
 								fullWidth
 								{...register('price', { required: true })}
+								InputLabelProps={{
+									style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+								}}
+								InputProps={{
+									style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+								}}
 							/>
 							<TextField
 								label='Minute'
 								fullWidth
 								{...register('minutesAvailable', { required: true })}
+								InputLabelProps={{
+									style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+								}}
+								InputProps={{
+									style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+								}}
 							/>
 						</Box>
 					</Box>

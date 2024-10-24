@@ -78,7 +78,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 		<Box
 			sx={{
 				width: { xs: '90%', md: '400px' }, // Responsive width
-				backgroundColor: '#fff',
+				backgroundColor: 'var(--modal--formbg)',
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
 				padding: '24px',
@@ -89,7 +89,8 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 		>
 			<Typography
 				variant='h6'
-				sx={{ marginBottom: '16px', textAlign: 'center' }}
+				color='var(--modal--formbgtextcol)'
+				sx={{ marginBottom: '16px', textAlign: 'center'  }}
 			>
 				Edit Product
 			</Typography>
@@ -107,6 +108,12 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 						label='Name'
 						fullWidth
 						{...register('name', { required: true })}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 				</Box>
 				<Box
@@ -121,6 +128,12 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 						label='Price'
 						fullWidth
 						{...register('price', { required: true })}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 				</Box>
 				<Box
@@ -144,6 +157,12 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 								? errors.stock01.message
 								: ''
 						}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 					<TextField
 						label='Stock02'
@@ -162,6 +181,12 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 								? errors.stock02.message
 								: ''
 						}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 					{/* <TextField
 						label='Stock03'

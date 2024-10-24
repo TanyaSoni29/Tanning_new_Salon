@@ -76,10 +76,11 @@ const AddProductModal = ({ closeAddModal }) => {
 
 	return (
 		<div className='add-modal-overlay'>
-			<Box className='add-modal'>
+			<Box sx={{ backgroundColor: 'var(--modal--formbg)', }} className='add-modal'>
 				<Typography
 					variant='h6'
 					id='add-location-modal-title'
+					color='white'
 				>
 					Add New Product
 				</Typography>
@@ -94,6 +95,12 @@ const AddProductModal = ({ closeAddModal }) => {
 							label='Name'
 							fullWidth
 							{...register('name', { required: true })}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -106,6 +113,12 @@ const AddProductModal = ({ closeAddModal }) => {
 							label='Price'
 							fullWidth
 							{...register('price', { required: true })}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 					<Box
@@ -131,6 +144,12 @@ const AddProductModal = ({ closeAddModal }) => {
 									? errors.stock01.message
 									: ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Stock02'
@@ -150,6 +169,12 @@ const AddProductModal = ({ closeAddModal }) => {
 									? errors.stock02.message
 									: ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						{/* <TextField
 							label='Stock03'

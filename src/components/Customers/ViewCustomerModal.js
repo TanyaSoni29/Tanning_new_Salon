@@ -15,7 +15,7 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
     <Card
       sx={{
         width: { xs: "90%", md: "600px" },
-        backgroundColor: "#fff",
+        backgroundColor: 'var(--modal--formbg)',
         borderRadius: "10px",
         position: "relative",
         display: "flex",
@@ -73,13 +73,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Name:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.profile?.firstName +
                     " " +
@@ -98,13 +98,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Address:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.profile?.address}
                 </Typography>
@@ -121,13 +121,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Phone Number:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.profile?.phone_number}
                 </Typography>
@@ -147,13 +147,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Role:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.user?.role}
                 </Typography>
@@ -170,13 +170,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Email:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.user?.email}
                 </Typography>
@@ -193,13 +193,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Post Code:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.profile?.post_code}
                 </Typography>
@@ -216,13 +216,13 @@ const ViewCustomerModal = ({ closeViewModal, activeUser }) => {
               >
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 600, fontSize: "16px", color: "#333" }}
+                  sx={{ fontWeight: 600, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   Gender:
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ fontWeight: 400, fontSize: "16px", color: "#555" }}
+                  sx={{ fontWeight: 400, fontSize: "16px", color: "var(--textcolor)" }}
                 >
                   {activeUser.profile?.gender}
                 </Typography>

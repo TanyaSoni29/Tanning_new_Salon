@@ -116,6 +116,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 			<Typography
 				variant='h6'
 				id='add-location-modal-title'
+				color= 'white'
 			>
 				Add New Customer
 			</Typography>
@@ -135,6 +136,12 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							fullWidth
 							error={!!errors.firstName}
 							helperText={errors.firstName ? errors.firstName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Last Name'
@@ -149,6 +156,12 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							fullWidth
 							error={!!errors.lastName}
 							helperText={errors.lastName ? errors.lastName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -160,6 +173,12 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Phone Number'
@@ -170,6 +189,12 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							helperText={
 								errors.phone_number ? errors.phone_number.message : ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -177,7 +202,13 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 						<TextField
 							label='Date of Birth'
 							type='date'
-							InputLabelProps={{ shrink: true }}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+								shrink: true, // Keeps the label shrunk when the input is empty
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 							{...register('dob', { required: true })}
 							fullWidth
 							error={!!errors.dob}
@@ -193,6 +224,12 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -204,12 +241,24 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Referred By'
 							variant='outlined'
 							{...register('referred_by')}
 							fullWidth
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 

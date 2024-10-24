@@ -87,7 +87,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 				padding: '16px',
 				margin: 'auto',
 				marginTop: { xs: '20px', md: '10%' },
-				backgroundColor: '#fff',
+				backgroundColor: 'var(--modal--formbg)',
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
 				boxSizing: 'border-box',
@@ -96,6 +96,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 			<Typography
 				variant='h6'
 				id='edit-location-modal-title'
+				color='var(--modal--formbgtextcol)'
 			>
 				Edit Location {activeLocation?.location_id}
 			</Typography>
@@ -117,6 +118,12 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						{...register('name', { required: true })}
 						error={!!errors.name}
 						helperText={errors.name ? 'Name is required' : ''}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 					<TextField
 						label='Phone Number'
@@ -133,6 +140,12 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						fullWidth
 						error={!!errors.phone_number}
 						helperText={errors.phone_number ? errors.phone_number.message : ''}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 				</Box>
 
@@ -146,6 +159,12 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						)}
 						error={!!errors.address}
 						helperText={errors.address ? 'Address is required' : ''}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 				</Box>
 
@@ -159,6 +178,12 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						)}
 						error={!!errors.post_code}
 						helperText={errors.post_code ? 'Post Code is required' : ''}
+						InputLabelProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+						}}
+						InputProps={{
+							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						}}
 					/>
 				</Box>
 
@@ -179,7 +204,7 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 								borderRadius: '20px',
 							}}
 						>
-							{copied ? <CheckIcon color='success' /> : <ContentCopyIcon />}
+							{copied ? <CheckIcon color='white' /> : <ContentCopyIcon />}
 						</Button>
 						{copied && (
 							<Typography

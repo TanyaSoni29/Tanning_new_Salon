@@ -110,7 +110,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 				padding: '16px',
 				margin: 'auto',
 				marginTop: '10%',
-				backgroundColor: '#fff',
+				backgroundColor: 'var(--modal--formbg)',
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
 				boxSizing: 'border-box',
@@ -118,7 +118,7 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 				overflowY: 'auto', // Adds scroll for overflowing content
 			}}
 		>
-			<Typography variant='h6'>Edit User</Typography>
+			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Edit User</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box
@@ -143,6 +143,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							fullWidth
 							error={!!errors.firstName}
 							helperText={errors.firstName ? errors.firstName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Last Name'
@@ -158,6 +164,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							fullWidth
 							error={!!errors.lastName}
 							helperText={errors.lastName ? errors.lastName.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -183,6 +195,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							fullWidth
 							error={!!errors.email}
 							helperText={errors.email ? errors.email.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Phone Number'
@@ -204,6 +222,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							helperText={
 								errors.phone_number ? errors.phone_number.message : ''
 							}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -216,6 +240,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							fullWidth
 							error={!!errors.address}
 							helperText={errors.address ? errors.address.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -235,6 +265,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							fullWidth
 							error={!!errors.post_code}
 							helperText={errors.post_code ? errors.post_code.message : ''}
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 						<TextField
 							label='Referred By'
@@ -242,6 +278,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 							defaultValue={activeUser.profile?.referred_by}
 							{...register('referred_by')}
 							fullWidth
+							InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
 						/>
 					</Box>
 
@@ -264,7 +306,8 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Role</option>
@@ -283,7 +326,8 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Gender</option>
@@ -312,7 +356,8 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 								border: '1px solid #ccc',
 								borderRadius: '4px',
 								width: '100%',
-								backgroundColor: '#f9f9f9',
+								backgroundColor: 'var(--modal--formbg)',
+								color: 'var(--modal--formbgtextcol)',
 							}}
 						>
 							<option value=''>Select Location</option>
