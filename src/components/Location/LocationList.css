@@ -210,8 +210,8 @@
 	}
 
 	.location-table-header {
-		background-color: #f4f4f4;
-		color: rgb(0, 0, 0);
+		background-color: var(--table-headercolor);
+	    color: var(--table-rowheadtextcolor);
 		font-weight: bold;
 		cursor: pointer;
 	}
