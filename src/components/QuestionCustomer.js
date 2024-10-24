@@ -26,7 +26,7 @@ export default function BasicCard({ onClose }) {
 				width: { xs: '90vw', sm: '60vw', md: '40vw', lg: '20vw' }, // Responsive widths for different screen sizes
 				padding: 2,
 				margin: 'auto',
-				backgroundColor: '#fff',
+				backgroundColor: 'var(--modal--formbg)',
 				borderRadius: 2,
 				boxShadow: 3, // Adds a subtle shadow to the box for a better look
 			}}
@@ -34,7 +34,8 @@ export default function BasicCard({ onClose }) {
 			<Typography
 				id='add-location-modal-title'
 				variant='h6'
-				sx={{ textAlign: 'center' }} // Centering the text for better aesthetics
+				color= 'var(--modal--formbgtextcol)'
+				sx={{ textAlign: 'center'  }} // Centering the text for better aesthetics
 			>
 				Have you used a tanning salon in the last 24 hours?
 			</Typography>

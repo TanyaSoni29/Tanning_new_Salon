@@ -53,7 +53,7 @@ body {
 }
 /* Modal container */
 .delete-modal {
-	background-color: white;
+	background-color: var(--modal--formbg);
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -64,12 +64,12 @@ body {
 /* Modal message text */
 .delete-modal p {
 	font-size: 16px;
-	color: #333;
+	color: var(--modal--formbgtextcol);
 	margin-bottom: 20px;
 }
 
 .warning-modal{
-	background-color: white;
+	background-color: var(--modal--formbg);
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
