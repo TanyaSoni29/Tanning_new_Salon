@@ -1,11 +1,13 @@
+/** @format */
+
 :root {
-    --background-color: #71716f;
-    --text-color: #ffffff;
-    --card-background: #333333;
+	--background-color: #71716f;
+	--text-color: #ffffff;
+	--card-background: #333333;
 	--cardpart-background: rgb(86, 86, 86);
 	--iconcart-background: rgb(86, 86, 86);
-    --primary-button: #4a90e2;
-	--header-textcolor: rgb(226, 226, 3);
+	--primary-button: #4a90e2;
+	--header-textcolor: #ffff33;
 	--textcolor: rgb(255, 140, 0);
 
 	--table-background: rgb(86, 86, 86);
@@ -19,15 +21,13 @@
 	--modal--formbgtextcol: white;
 }
 
-
 [data-theme='dark'] {
-    
 	--background-color: #ffffff;
-    --text-color: #000000;
-    --card-background: #f8f8f8;
+	--text-color: #000000;
+	--card-background: #f8f8f8;
 	--cardpart-background: #ffffff;
 	--iconcart-background: #e2e0e0;
-    --primary-button: #007bff;
+	--primary-button: #007bff;
 	--header-textcolor: #000000;
 	--textcolor: #000000;
 
@@ -41,9 +41,6 @@
 	--modal--formbg: #fff;
 	--modal--formbgtextcol: rgb(0, 0, 0);
 }
-
-
-
 
 body {
 	font-family: Arial, sans-serif;
@@ -68,7 +65,7 @@ body {
 	margin-bottom: 20px;
 }
 
-.warning-modal{
+.warning-modal {
 	background-color: white;
 	padding: 20px;
 	border-radius: 10px;
