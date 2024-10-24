@@ -430,7 +430,7 @@ function RemainingMinutesWarningModal({
 }) {
 	return (
 		<div className='warning-modal'>
-			<p style={{ color: 'red' }}>
+			<p style={{ color: 'yellow' }}>
 				{activeUser.user.name} has {activeUser.profile.available_balance}{' '}
 				minutes remaining. Are you sure you want to delete this customer?
 			</p>

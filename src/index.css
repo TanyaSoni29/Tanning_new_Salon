@@ -1,13 +1,11 @@
-/** @format */
-
 :root {
-	--background-color: #71716f;
-	--text-color: #ffffff;
-	--card-background: #333333;
+    --background-color: #71716f;
+    --text-color: #ffffff;
+    --card-background: #333333;
 	--cardpart-background: rgb(86, 86, 86);
 	--iconcart-background: rgb(86, 86, 86);
-	--primary-button: #4a90e2;
-	--header-textcolor: #ffff33;
+    --primary-button: #4a90e2;
+	--header-textcolor: rgb(226, 226, 3);
 	--textcolor: rgb(255, 140, 0);
 
 	--table-background: rgb(86, 86, 86);
@@ -21,13 +19,15 @@
 	--modal--formbgtextcol: white;
 }
 
+
 [data-theme='dark'] {
+    
 	--background-color: #ffffff;
-	--text-color: #000000;
-	--card-background: #f8f8f8;
+    --text-color: #000000;
+    --card-background: #f8f8f8;
 	--cardpart-background: #ffffff;
 	--iconcart-background: #e2e0e0;
-	--primary-button: #007bff;
+    --primary-button: #007bff;
 	--header-textcolor: #000000;
 	--textcolor: #000000;
 
@@ -42,6 +42,9 @@
 	--modal--formbgtextcol: rgb(0, 0, 0);
 }
 
+
+
+
 body {
 	font-family: Arial, sans-serif;
 	/* background-image: url('../public/assets/img/wizard.jpg'); */
@@ -50,7 +53,7 @@ body {
 }
 /* Modal container */
 .delete-modal {
-	background-color: white;
+	background-color: var(--modal--formbg);
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -61,10 +64,12 @@ body {
 /* Modal message text */
 .delete-modal p {
 	font-size: 16px;
-	color: #333;
+	color: var(--modal--formbgtextcol);
 	margin-bottom: 20px;
 }
 
+.warning-modal{
+	background-color: var(--modal--formbg);
 .warning-modal {
 	background-color: white;
 	padding: 20px;

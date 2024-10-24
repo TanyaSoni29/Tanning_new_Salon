@@ -48,7 +48,7 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
     <Box
       sx={{
         width: { xs: '90%', md: '400px' }, // Responsive width for mobile and desktop
-        backgroundColor: '#fff',
+        backgroundColor: 'var(--modal--formbg)',
         borderRadius: '8px',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
         padding: '24px',
@@ -59,6 +59,7 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
     >
       <Typography
         variant="h6"
+        color='var(--modal--formbgtextcol)'
         sx={{ marginBottom: '16px', textAlign: 'center' }}
       >
         Edit Service
@@ -71,6 +72,12 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
             fullWidth
             defaultValue={activeService?.serviceName}
             {...register('serviceName', { required: true })}
+            InputLabelProps={{
+              style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+            }}
+            InputProps={{
+              style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+            }}
           />
           <Box
             mt={2}
@@ -86,6 +93,12 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
               defaultValue={activeService?.price}
               type="number"
               {...register('price', { required: true })}
+              InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
             />
             <TextField
               label="Minutes"
@@ -93,6 +106,12 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
               defaultValue={activeService?.minutesAvailable}
               type="number"
               {...register('minutesAvailable', { required: true })}
+              InputLabelProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
+							}}
+							InputProps={{
+								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							}}
             />
           </Box>
         </Box>
@@ -128,7 +147,7 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
               width: { xs: '100%', md: 'auto' }, // Full width on mobile, auto on desktop
               textTransform: 'none',
               borderColor: '#ccc',
-              color: '#666',
+              color: 'white',
               ':hover': {
                 backgroundColor: '#f1f1f1',
               },
