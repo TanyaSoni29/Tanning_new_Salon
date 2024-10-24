@@ -68,6 +68,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 			};
 			await createProductTransaction(token, data);
 			await refreshTransactionOfCustomer();
+			dispatch(refreshCustomers());
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
@@ -242,7 +243,10 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 								</p>
 								<p>
 									<span>Total Spent:</span> £
-									{customer?.total_service_purchased_price?.toFixed(2)}
+									{(
+										(customer?.total_service_purchased_price || 0) +
+										(customer?.total_product_purchased_price || 0)
+									).toFixed(2)}
 								</p>
 							</div>
 						</div>
