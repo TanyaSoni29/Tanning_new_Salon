@@ -68,12 +68,12 @@ export default function BasicCard({ onClose }) {
 					onClick={onClose}
 					sx={{
 						'width': { xs: '100%', sm: 'auto' }, // Full-width on mobile
-						'borderColor': 'red', // Green border for "Yes" button
-						'color': 'red', // Green text color
+						'borderColor': 'var(--table-rowtextcolor)', // Green border for "Yes" button
+						'color': 'var(--table-rowtextcolor)', // Green text color
 						'&:hover': {
 							backgroundColor: '#F42819', // Light green background on hover
-							borderColor: 'red',
-							color: '#fff',
+							borderColor: 'var(--table-rowtextcolor)',
+							color: 'var(--table-rowtextcolor)',
 						},
 					}}
 				>
