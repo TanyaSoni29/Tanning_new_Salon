@@ -312,7 +312,7 @@
 	.customer-table-row span::before {
 		content: attr(data-label);
 		font-weight: bold;
-		color: #333;
+		color: var(--table-rowheadtextcolor);
 		flex-basis: 40%;
 	}
 

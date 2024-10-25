@@ -183,7 +183,7 @@
 
 	/* Table Styles */
 	.locations-table {
-		background-color: white;
+		background-color: var(--cardpart-background);
 		border-radius: 8px;
 		overflow: hidden;
 		width: 100%;
@@ -269,7 +269,7 @@
 	.location-table-row span::before {
 		content: attr(data-label); /* Use data-label to display header */
 		font-weight: bold;
-		color: #333;
+		color: var(--table-rowheadtextcolor);
 	}
 }
 

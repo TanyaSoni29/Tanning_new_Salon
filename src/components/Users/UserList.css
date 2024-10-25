@@ -216,7 +216,7 @@
 	.user-table-row span::before {
 		content: attr(data-label); /* Use data-label to display header */
 		font-weight: bold;
-		color: #333;
+		color: var(--table-rowheadtextcolor);
 	}
 }
 

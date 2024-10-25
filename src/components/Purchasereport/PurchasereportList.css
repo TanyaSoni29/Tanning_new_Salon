@@ -315,7 +315,7 @@
 
 	.purchasereportlist-table {
 		width: 100%;
-		overflow-x: scroll;
+		overflow-x: hide;
 	}
 
 	.purchasereportlist-table-header span,
