@@ -83,7 +83,7 @@
 }
 
 .transaction-table {
-    background-color: #555555; /* Darker background for the table */
+    background-color: var(--table-rowcolor); /* Darker background for the table */
     border-radius: 8px;
     width: 100%;
     border-spacing: 0;
@@ -181,7 +181,7 @@
 /* Responsive styles for mobile view */
 @media (max-width: 1450px) {
     .transaction-table {
-        background-color: #555555;
+        background-color: var(--table-rowcolor);
         border-radius: 8px;
         width: 100%;
         border-spacing: 0;
@@ -202,7 +202,7 @@
     }
 
     .transaction-table-row {
-        background-color: #555555;
+        background-color: var(--table-rowcolor);
         color: #ffcc00;
     }
 
@@ -210,12 +210,24 @@
         color: #ffffff;
         font-size: 11px;
     }
+    
+    .transaction-table-wrapper {
+        max-height: 250px;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+    
 }
 
 @media (max-width: 768px) {
+
+    .service-wizard-container .service-info {
+        display: flex;
+        flex-direction: column;
+    }
     .service-wizard-container {
-        width: 100%;
-        margin-left: 0;
+        width: 90%;
+        margin-left: 20px;
     }
 
     .transaction-table-header {
