@@ -16,6 +16,7 @@
 }
 
 .service-modal-container .modal-body {
+	color: var(--table-rowheadtextcolor);
 	padding: 20px 0;
 }
 
