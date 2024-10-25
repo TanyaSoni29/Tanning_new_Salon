@@ -1,197 +1,226 @@
-/* General styles for modal container */
+/**
+ * General styles for modal container
+ *
+ * @format
+ */
+
 .Buyproduct-modal-container {
-    width: 90%;
-    padding: 20px;
-    background-color: var(--cardpart-background);
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    margin: 20px auto; /* Center the modal */
+	width: 90%;
+	padding: 20px;
+	background-color: var(--cardpart-background);
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+	margin: 20px auto; /* Center the modal */
+}
+
+.Buyproduct-modal-container .search {
+	width: 30%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 /* Header Styling */
 .Buyproduct-modal-header {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    border-bottom: 2px solid #ddd;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: black;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 2px solid #ddd;
 }
 
 /* Table layout */
 .Buyproducts-table {
-    width: 100%;
-    margin-top: 20px;
+	width: 100%;
+	margin-top: 20px;
+	max-height: 60%; /* Set a max height for the table */
+	overflow-y: auto; /* Enable vertical scrolling */
+	border: 1px solid #ddd;
+}
+
+.Buyproducts-table::-webkit-scrollbar {
+	width: 8px; /* Width of the scrollbar */
+}
+
+.Buyproducts-table::-webkit-scrollbar-thumb {
+	background-color: #ccc; /* Color of the scrollbar thumb */
+	border-radius: 4px; /* Rounded edges */
+}
+
+.Buyproducts-table::-webkit-scrollbar-track {
+	background-color: #f4f4f4; /* Background of the scrollbar track */
 }
 
 .Buyproducts-table-header,
 .Buyproducts-table-row {
-    display: grid;
-    grid-template-columns: 6fr 3fr 3fr 1fr;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    font-size: 13px;
+	display: grid;
+	grid-template-columns: 6fr 3fr 3fr 1fr;
+	align-items: center;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	font-size: 13px;
 }
 
 .Buyproducts-table-header {
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    background-color: #f4f4f4;
-    padding: 10px;
-    border-radius: 5px;
+	font-weight: bold;
+	color: rgb(0, 0, 0);
+	background-color: #f4f4f4;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 /* BuyProduct rows */
 .Buyproducts-table-row {
-    padding: 10px;
-    color: var(--table-rowtextcolor);
+	padding: 10px;
+	color: var(--table-rowtextcolor);
 }
 
 .Buyproduct-name {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .Buyproduct-image {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
 }
 
 /* Select dropdown for quantity */
 .quantity-select {
-    width: 60px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+	width: 60px;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
 }
 
 /* Modal actions: buy and cancel buttons */
 .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
 }
 
 .buy-button,
 .cancel-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
 }
 
 .buy-button {
-    background-color: #0c65be;
-    color: white;
-    margin-right: 10px;
+	background-color: #0c65be;
+	color: white;
+	margin-right: 10px;
 }
 
 .buy-button:hover {
-    background-color: #004080;
+	background-color: #004080;
 }
 
 .cancel-button {
-    background-color: white;
-    color: #666;
-    border: 1px solid #ccc;
+	background-color: white;
+	color: #666;
+	border: 1px solid #ccc;
 }
 
 .cancel-button:hover {
-    background-color: #f1f1f1;
-    color: black;
+	background-color: #f1f1f1;
+	color: black;
 }
 
 /* Responsive Design */
 
 /* Tablet View (768px and below) */
 @media (max-width: 768px) {
-    .Buyproduct-modal-container {
-        width: 100%; /* Wider on tablets */
-        padding: 15px;
-    }
+	.Buyproduct-modal-container {
+		width: 100%; /* Wider on tablets */
+		padding: 15px;
+	}
 
-    .Buyproduct-modal-header {
-        font-size: 20px;
-    }
+	.Buyproduct-modal-header {
+		font-size: 20px;
+	}
 
-    .Buyproducts-table-header,
-    .Buyproducts-table-row {
-        grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Slightly narrower columns */
-    }
+	.Buyproducts-table-header,
+	.Buyproducts-table-row {
+		grid-template-columns: 2fr 1fr 1.5fr 1fr; /* Slightly narrower columns */
+	}
 
-    .quantity-select {
-        width: 50px;
-    }
+	.quantity-select {
+		width: 50px;
+	}
 
-    /* Buttons will stack vertically in tablet view */
-    .modal-actions {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+	/* Buttons will stack vertically in tablet view */
+	.modal-actions {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 
-    .buy-button,
-    .cancel-button {
-        width: 100%; /* Full width buttons for better readability */
-        margin: 5px 0;
-    }
+	.buy-button,
+	.cancel-button {
+		width: 100%; /* Full width buttons for better readability */
+		margin: 5px 0;
+	}
 }
 
 /* Mobile View (480px and below) */
 @media (max-width: 580px) {
-    .Buyproduct-modal-container {
-        width: 120%; /* Take up most of the screen on mobile */
-        padding: 10px;
-    }
+	.Buyproduct-modal-container {
+		width: 120%; /* Take up most of the screen on mobile */
+		padding: 10px;
+	}
 
-    .Buyproduct-modal-header {
-        font-size: 12px;
-    }
+	.Buyproduct-modal-header {
+		font-size: 12px;
+	}
 
-    /* Stack the table items for better readability on mobile */
-    .Buyproducts-table-header{
-        font-size: 8px;
-        grid-template-columns: 3.3fr 1fr 1.5fr 1fr; 
-    }
-    .Buyproducts-table-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items:flex-end;
-        padding: 10px;
-        font-size: 8px;
-        grid-template-columns: 3fr 1fr 1.5fr 1fr; 
-    }
+	/* Stack the table items for better readability on mobile */
+	.Buyproducts-table-header {
+		font-size: 8px;
+		grid-template-columns: 3.3fr 1fr 1.5fr 1fr;
+	}
+	.Buyproducts-table-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-end;
+		padding: 10px;
+		font-size: 8px;
+		grid-template-columns: 3fr 1fr 1.5fr 1fr;
+	}
 
-    .Buyproduct-name {
-        flex-direction: row; /* Stack image and name */
-        align-items: flex-start;
-    }
+	.Buyproduct-name {
+		flex-direction: row; /* Stack image and name */
+		align-items: flex-start;
+	}
 
-    .Buyproduct-image {
-        width: 30px;
-        height: 30px;
-    }
+	.Buyproduct-image {
+		width: 30px;
+		height: 30px;
+	}
 
-    .quantity-select {
-        width: 90%; /* Full width dropdown on mobile */
-    }
+	.quantity-select {
+		width: 90%; /* Full width dropdown on mobile */
+	}
 
-    /* Full width buttons stacked vertically */
-    .buy-button,
-    .cancel-button {
-        width: 100%;
-        font-size: 14px;
-        padding: 7px;
-        margin: 5px 0;
-    }
+	/* Full width buttons stacked vertically */
+	.buy-button,
+	.cancel-button {
+		width: 100%;
+		font-size: 14px;
+		padding: 7px;
+		margin: 5px 0;
+	}
 
-    .modal-actions {
-        flex-direction: column;
-        width: 100%;
-    }
+	.modal-actions {
+		flex-direction: column;
+		width: 100%;
+	}
 }

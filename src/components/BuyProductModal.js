@@ -14,6 +14,7 @@ function BuyProductModal({
 }) {
 	const { products } = useSelector((state) => state.product);
 	const { locations } = useSelector((state) => state.location);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const locationDetails = locations.find(
 		(location) => location.id === selectedLoginLocation
@@ -21,6 +22,10 @@ function BuyProductModal({
 	const dispatch = useDispatch();
 	const [selectedQuantities, setSelectedQuantities] = useState(
 		products.map(() => 0)
+	);
+
+	const filteredProducts = products?.filter((product) =>
+		product?.name?.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
 	useEffect(() => {
@@ -73,6 +78,13 @@ function BuyProductModal({
 	return (
 		<div className='Buyproduct-modal-container'>
 			<h2 className='Buyproduct-modal-header'>Products</h2>
+			<input
+				type='text'
+				placeholder='Search'
+				className='search'
+				value={searchTerm}
+				onChange={(e) => setSearchTerm(e.target.value)}
+			/>
 			<div className='Buyproducts-table'>
 				<div className='Buyproducts-table-header'>
 					<span>Product Name</span>
@@ -82,8 +94,8 @@ function BuyProductModal({
 				</div>
 
 				{/* Render products */}
-				{products?.length > 0 ? (
-					products.map((product, index) => {
+				{filteredProducts?.length > 0 ? (
+					filteredProducts.map((product, index) => {
 						const stockField = getStockFieldForLocation(
 							locationDetails?.location_id
 						);
@@ -130,21 +142,20 @@ function BuyProductModal({
 						<span>No products found.</span>
 					</div>
 				)}
-
-				<div className='modal-actions'>
-					<button
-						className='buy-button'
-						onClick={handleBuy}
-					>
-						Buy
-					</button>
-					<button
-						className='cancel-button'
-						onClick={onClose}
-					>
-						Cancel
-					</button>
-				</div>
+			</div>
+			<div className='modal-actions'>
+				<button
+					className='buy-button'
+					onClick={handleBuy}
+				>
+					Buy
+				</button>
+				<button
+					className='cancel-button'
+					onClick={onClose}
+				>
+					Cancel
+				</button>
 			</div>
 		</div>
 	);
