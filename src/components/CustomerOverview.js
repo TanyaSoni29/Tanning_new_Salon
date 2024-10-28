@@ -83,7 +83,7 @@ function CustomerOverview({ filteredCustomers }) {
 	// 			data.user?.email.toLowerCase().includes(searchQuery.toLowerCase()))
 	// );
 
-	console.log('filterUsers in CustomerOverview---', filteredCustomers);
+	// console.log('filterUsers in CustomerOverview---', filteredCustomers);
 
 	return (
 		<>

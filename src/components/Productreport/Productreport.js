@@ -49,7 +49,7 @@ function Productreport() {
 					location_id: selectedLocation === 'All' ? '' : locationId.id,
 				};
 				const response = await getProductReport(token, newData);
-				console.log(response);
+				// console.log(response);
 				setProductTransaction(
 					response.sort((a, b) => b.total_sold - a.total_sold)
 				);
@@ -61,7 +61,7 @@ function Productreport() {
 		dispatch(refreshLocation());
 	}, [dispatch, selectedLocation, dateRange]);
 
-	console.log('Product---', productTransaction);
+	// console.log('Product---', productTransaction);
 	return (
 		<div>
 			<HeaderWithSidebar />

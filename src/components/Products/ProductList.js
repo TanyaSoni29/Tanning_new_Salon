@@ -38,7 +38,7 @@ const ProductList = () => {
 		setSortConfig({ key, direction });
 	};
 
-	console.log('Product', products);
+	// console.log('Product', products);
 
 	// Filter and sort products based on search term and sort configuration
 	const filteredProducts = products

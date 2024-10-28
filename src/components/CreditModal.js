@@ -36,7 +36,7 @@ function CreditModal({ onClose, customer }) {
         };
         const response = await addMinutesToService(token, data);
         dispatch(refreshCustomers());
-        console.log(response); // Call the function to add the minutes
+        // console.log(response); // Call the function to add the minutes
         onClose(); // Close the modal
       } else {
         setError("Please enter a valid number between 1 and 999.");

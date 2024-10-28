@@ -19,7 +19,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 
-	console.log('selectedLoginLocation in Customers:', selectedLoginLocation);
+	// console.log('selectedLoginLocation in Customers:', selectedLoginLocation);
 
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);

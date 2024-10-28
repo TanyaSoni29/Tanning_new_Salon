@@ -52,7 +52,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 
 	useEffect(() => {
 		if (!customer || !customer.user?.id) {
-			console.log('No customer selected, redirecting...');
+			// console.log('No customer selected, redirecting...');
 			navigate('/about'); // Redirect to the about page
 			return;
 		}
@@ -109,7 +109,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 
 	const refreshTransactionOfCustomer = async () => {
 		if (!customer || !customer.user?.id) {
-			console.log('No customer selected');
+			// console.log('No customer selected');
 			return;
 		}
 		try {

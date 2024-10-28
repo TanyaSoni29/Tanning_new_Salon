@@ -28,7 +28,7 @@ function UseServiceModal({
 		?.slice() // Create a shallow copy to avoid mutating the original array
 		.sort((a, b) => a.minutesAvailable - b.minutesAvailable); // Sort by minutesAvailable in ascending order
 
-	console.log('Filtered and sorted services:', filteredServiceOptions);
+	// console.log('Filtered and sorted services:', filteredServiceOptions);
 
 	return (
 		<Box className='use-service-modal-container'>

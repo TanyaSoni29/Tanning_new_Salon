@@ -39,7 +39,7 @@ const AboutStep = ({
 			try {
 				const response = await getStats(token, selectedLocation);
 				// const response = await getStats(token, 0);
-				console.log('Stats:', response);
+				// console.log('Stats:', response);
 				setStats(response.data);
 			} catch (error) {
 				console.error('Failed to fetch stats:', error);
@@ -128,7 +128,7 @@ const AboutStep = ({
 		  })
 		: [];
 
-	console.log(customers, selectedLocation);
+	// console.log(customers, selectedLocation);
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {

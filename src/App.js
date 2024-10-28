@@ -56,7 +56,7 @@ const App = () => {
 		}
 	}, [dispatch, token]);
 
-	console.log('selectedLocationlogin in App.js', selectedLoginLocation);
+	// console.log('selectedLocationlogin in App.js', selectedLoginLocation);
 
 	const handleLocationChange = (e) => {
 		setSelectedLocation(Number(e.target.value));
