@@ -11,7 +11,7 @@
 	overflow-x: auto; /* Enables horizontal scrolling */
 }
 
-.Topcustomer-files{
+.Topcustomer-files {
 	display: flex;
 }
 /* Search Bar */
@@ -37,7 +37,6 @@
 	gap: 15px;
 	margin-top: 10px;
 }
-
 
 /* Table Styles */
 .Topcustomer-table {
