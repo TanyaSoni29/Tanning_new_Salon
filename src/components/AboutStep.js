@@ -12,7 +12,7 @@ import { refreshCustomers } from '../slices/customerProfile';
 import { refreshLocation } from '../slices/locationSlice';
 import { refreshUser } from '../slices/userProfileSlice';
 import StatsHeader from './StatsHeader';
-import TopHeader from './TopHeader';
+// import TopHeader from './TopHeader';
 import { getStats } from '../service/operations/statApi';
 
 const AboutStep = ({

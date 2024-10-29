@@ -14,8 +14,8 @@ import { refreshUser } from "../slices/userProfileSlice";
 const Dashboard = ({ stats }) => {
   const navigate = useNavigate();
   const { customers } = useSelector((state) => state.customer);
-  const { user: loginUser } = useSelector((state) => state.auth);
-  const { locationIndex } = useSelector((state) => state.location);
+  // const { user: loginUser } = useSelector((state) => state.auth);
+  // const { locationIndex } = useSelector((state) => state.location);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
@@ -39,13 +39,13 @@ const Dashboard = ({ stats }) => {
       searchRef.current.blur();
     }
   };
-  const handleNext = () => {
-    navigate("/service");
-  };
+  // const handleNext = () => {
+  //   navigate("/service");
+  // };
 
-  const handlePrevious = () => {
-    navigate("/locationStep");
-  };
+  // const handlePrevious = () => {
+  //   navigate("/locationStep");
+  // };
 
   const closeAddModal = () => {
     setIsAddOpen(false);

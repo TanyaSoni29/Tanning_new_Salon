@@ -37,7 +37,7 @@ function BuyProductModal({
 		return `stock${locationId}`;
 	};
 
-	console.log('....', selectedLoginLocation, locationDetails);
+	// console.log('....', selectedLoginLocation, locationDetails);
 
 	// Handle quantity change from select dropdown
 	const handleQuantityChange = (index, value) => {

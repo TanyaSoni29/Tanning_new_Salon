@@ -5,13 +5,13 @@ import './CustomerOverview.css'; // Importing the separate CSS file
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDate } from '../utils/formateDate';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { setCustomer, setCustomerIndex } from '../slices/customerProfile';
 import Modal from '../components/Modal';
 import QuestionCustomer from './QuestionCustomer';
 import {
 	getAllServiceTransactions,
-	getServiceTransactionsByUser,
+	// getServiceTransactionsByUser,
 } from '../service/operations/serviceAndServiceTransaction';
 function CustomerOverview({ filteredCustomers }) {
 	const [isQuesModal, setIsQuesModal] = useState(false);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import './BuyServiceModal.css'; // Importing the CSS file for styles
-import { refreshCustomers } from '../slices/customerProfile';
+// import { refreshCustomers } from '../slices/customerProfile';
 
 function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 	const [selectedService, setSelectedService] = useState('');
