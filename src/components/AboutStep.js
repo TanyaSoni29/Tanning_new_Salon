@@ -19,12 +19,12 @@ const AboutStep = ({
 	stats,
 	setStats,
 	selectedLocation,
-	setSelectedLocation,
+	// setSelectedLocation,
   selectedLoginLocation
 }) => {
 	const navigate = useNavigate();
 	const { customers } = useSelector((state) => state.customer);
-	const { locations } = useSelector((state) => state.location);
+	// const { locations } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
 	const { token } = useSelector((state) => state.auth);
