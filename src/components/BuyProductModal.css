@@ -37,7 +37,7 @@
 .Buyproducts-table {
 	width: 100%;
 	margin-top: 20px;
-	max-height: 60%; /* Set a max height for the table */
+	max-height: 400px; /* Set a max height for the table */
 	overflow-y: auto; /* Enable vertical scrolling */
 	border: 1px solid #ddd;
 }
