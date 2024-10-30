@@ -164,6 +164,11 @@
     color: white;
 }
 
+.transaction-type.credit {
+    background-color: #57beee; /* Green for purchased */
+    color: white;
+}
+
 .transaction-type.product {
     background-color: #555555; /* Darker gray for product */
     color: white;

@@ -1,3 +1,5 @@
+/** @format */
+
 // console.log("My URI", process.env.REACT_APP_BASE_URI);
 // const BASE_URL = "http://localhost:3000/api/v1";
 const BASE_URL = 'https://salon.thetechnoguyz.com/api';
@@ -52,6 +54,8 @@ export const serviceEndpoints = {
 	GET_TOTAL_SPEND: BASE_URL + '/totalSpend',
 	GET_SERVICE_REPORT: BASE_URL + '/service-purchase-report',
 	GET_SERVICE_USE_REPORT: BASE_URL + '/service-use-report',
+	GET_SERVICE_DAILY_USES_REPORT: BASE_URL + '/customerDayUsage',
+
 	// GET_ALL_SERVICE_USAGES_API: BASE_URL + "/serviceUsage",
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API: BASE_URL + "/serviceUsage/user",
 };
@@ -59,4 +63,3 @@ export const serviceEndpoints = {
 export const statsEndpoint = {
 	GET_ALL_STATS: BASE_URL + '/stats',
 };
-

@@ -11,6 +11,7 @@ const {
 	GET_TOTAL_SPEND,
 	GET_SERVICE_REPORT,
 	GET_SERVICE_USE_REPORT,
+	GET_SERVICE_DAILY_USES_REPORT,
 	// GET_ALL_SERVICE_USAGES_API,
 	// GET_ALL_SERVICE_USAGES_BY_USERID_API,
 } = serviceEndpoints;
@@ -300,6 +301,37 @@ export const getServiceUseReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('GET_SERVICE_USE_REPORT Api Error', error);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
+	}
+	return result;
+};
+
+export const getServiceDailyUsesReport = async (token, data) => {
+	let result = null;
+	try {
+		const response = await apiConnector(
+			'POST',
+			GET_SERVICE_DAILY_USES_REPORT,
+			{
+				start_date: data.start_date,
+				end_date: data.end_date,
+				location_id: data.location_id,
+			},
+			{
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			}
+		);
+		console.log('GET_SERVICE_DAILY_USE_REPORT Api Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch GET_SERVICE_DAILY_USE_REPORT');
+		// toast.success("User Transactions fetch successfully");
+		result = response.data;
+	} catch (error) {
+		console.log('GET_SERVICE_DAILY_USE_REPORT Api Error', error);
 		if (error.response.status !== 404) {
 			const errorMessage = error.response?.data?.error;
 			toast.error(errorMessage);

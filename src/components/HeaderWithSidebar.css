@@ -1,150 +1,179 @@
-/* Importing Google Fonts */
+/**
+ * Importing Google Fonts
+ *
+ * @format
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* General Styling */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 body {
-  font-family: 'Inter', sans-serif;
+	font-family: 'Inter', sans-serif;
 }
 
 .sidebar-logo {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio */
-  object-fit: contain;
-  border-radius: 8px; /* Optional: Add border-radius if needed */
+	max-width: 100%;
+	height: auto; /* Maintain aspect ratio */
+	object-fit: contain;
+	border-radius: 8px; /* Optional: Add border-radius if needed */
 }
 
 /* Adjust the margin or size of other elements if the sidebar is open */
 .sidebar.open .sidebar-logo {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 /* Sidebar */
 .sidebar {
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  bottom: 10px;
-  width: 250px;
-  height: calc(100% - 40px);
-  /* background: linear-gradient(180deg, #333333 0%, #1b1b1b 100%); */
-  background-color: #000000;
-  color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
-  padding: 10px;
-  z-index: 100;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	bottom: 10px;
+	width: 250px;
+	height: calc(100% - 40px);
+	/* background: linear-gradient(180deg, #333333 0%, #1b1b1b 100%); */
+	background-color: #000000;
+	color: #ffffff;
+	border-radius: 15px;
+	box-shadow: 1px 0 10px rgba(116, 115, 115, 0.842);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow-y: auto;
+	transition: transform 0.3s ease-in-out;
+	padding: 10px;
+	z-index: 100;
+}
+
+/* Custom scrollbar styling for the sidebar */
+.sidebar::-webkit-scrollbar {
+	width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1); /* Transparent track */
+	border-radius: 15px; /* Round the edges */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+	background-color: #4444440c; /* Thumb color with slight opacity */
+	border-radius: 15px; /* Rounded edges */
+	border: 2px solid rgba(255, 255, 255, 0.1); /* Transparent border for spacing */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(31, 28, 28, 0); /* Darker on hover for visibility */
+}
+
+/* Firefox scrollbar styling */
+.sidebar {
+	scrollbar-width: 8px; /* Thin scrollbar */
+	scrollbar-color: rgba(36, 34, 34, 0.781) transparent; /* Thumb color and transparent track */
 }
 
 .sidebar.open {
-  transform: translateX(0); /* Sidebar slides in when open */
+	transform: translateX(0); /* Sidebar slides in when open */
 }
 
 .sidebar-header {
-  background-color: transparent;
-  color: rgb(255, 255, 255);
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 22px;
-  font-weight: 700;
-  border-bottom: 1px solid #3d3c3c;
+	background-color: transparent;
+	color: rgb(255, 255, 255);
+	padding: 15px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 22px;
+	font-weight: 700;
+	border-bottom: 1px solid #3d3c3c;
 }
 
-
 .sidebar-header h3 {
-  font-size: 22px;
-  display: flex;
-  align-items: center;
+	font-size: 22px;
+	display: flex;
+	align-items: center;
 }
 
 .sidebar-header h3 svg {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 /* Sidebar Menu */
 .sidebar-menu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
-  overflow-y: auto;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	flex-grow: 1;
+	overflow-y: auto;
 }
 
 .sidebar-menu li {
-  padding: 0px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0px 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-menu li a {
-  text-decoration: none;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  padding: 1px 20px;
-  transition: color 0.3s ease, background-color 0.3s ease;
-  font-weight: 400;
-  height: 50px;
+	text-decoration: none;
+	color: #ffffff;
+	display: flex;
+	align-items: center;
+	font-size: 15px;
+	padding: 1px 20px;
+	transition: color 0.3s ease, background-color 0.3s ease;
+	font-weight: 400;
+	height: 50px;
 }
 
 .sidebar-menu li a svg {
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
+	margin-right: 10px;
+	width: 20px;
+	height: 20px;
 }
 
 .sidebar-menu li a.active {
-  background-color: #0c65be;
-  color: white;
-  font-weight: 600;
-  border-radius: 8px;
+	background-color: #0c65be;
+	color: white;
+	font-weight: 600;
+	border-radius: 8px;
 }
 
 /* Submenu Styling */
 .submenu-item {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .submenu-title {
-  font-size: 15px;
-  padding: 7px 20px;
-  color: #ffffff;
-  font-weight: 400;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  border-radius: 8px;
+	font-size: 15px;
+	padding: 7px 20px;
+	color: #ffffff;
+	font-weight: 400;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: background-color 0.3s ease;
+	border-radius: 8px;
 }
 
-
 .submenu-title:hover {
-  background-color: #0c65be;
-  color: white;
+	background-color: #0c65be;
+	color: white;
 }
 
 .submenu-title svg {
-  margin-right: 18px; /* Space between icon and text */
-  font-size: 20px;
+	margin-right: 18px; /* Space between icon and text */
+	font-size: 20px;
 }
 
 .submenu-icon {
-  margin-left: auto;
-  width: 16px;
-  height: 16px;
-  transition: transform 0.3s ease;
+	margin-left: auto;
+	width: 16px;
+	height: 16px;
+	transition: transform 0.3s ease;
 }
 
 /* .submenu-item:hover .submenu-title {
@@ -152,89 +181,89 @@ body {
 } */
 
 .submenu-title.active .submenu-icon {
-  transform: rotate(180deg); /* Rotate the arrow when submenu is open */
+	transform: rotate(180deg); /* Rotate the arrow when submenu is open */
 }
 
 .submenu {
-  padding-left: 20px;
-  margin-top: 10px;
-  list-style: none;
+	padding-left: 20px;
+	margin-top: 10px;
+	list-style: none;
 }
 
 .submenu li a {
-  padding: 0px 10px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  transition: color 0.3s ease;
-  font-weight: 400;
+	padding: 0px 10px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	color: #ffffff;
+	transition: color 0.3s ease;
+	font-weight: 400;
 }
 
 .submenu li a svg {
-  margin-right: 10px;
-  width: 16px;
-  height: 16px;
+	margin-right: 10px;
+	width: 16px;
+	height: 16px;
 }
 
 .submenu li a.active {
-  background-color: #0c65be;
-  color: white;
-  font-weight: 600;
-  border-radius: 8px;
+	background-color: #0c65be;
+	color: white;
+	font-weight: 600;
+	border-radius: 8px;
 }
 
 /* Hamburger Button */
 .hamburger {
-  display: none;
-  font-size: 24px;
-  color: white;
-  background-color: #0c65be;
-  padding: 15px;
-  cursor: pointer;
-  position: fixed;
-  top: 40px;
-  left: 20px;
-  border-radius: 20px;
-  z-index: 100;
+	display: none;
+	font-size: 24px;
+	color: white;
+	background-color: #0c65be;
+	padding: 15px;
+	cursor: pointer;
+	position: fixed;
+	top: 40px;
+	left: 20px;
+	border-radius: 20px;
+	z-index: 100;
 }
 
 @media (max-width: 980px) {
-  .sidebar {
-    left: 20px;
-    top: 20px;
-    bottom: 20px;
-    width: 250px;
-    border-radius: 15px;
-    transform: translateX(-300px);
-    transition: transform 0.3s ease-in-out;
-  }
+	.sidebar {
+		left: 20px;
+		top: 20px;
+		bottom: 20px;
+		width: 250px;
+		border-radius: 15px;
+		transform: translateX(-300px);
+		transition: transform 0.3s ease-in-out;
+	}
 
-  .hamburger {
-    display: block;
-  }
+	.hamburger {
+		display: block;
+	}
 
-  .sidebar.open {
-    transform: translateX(0);
-  }
+	.sidebar.open {
+		transform: translateX(0);
+	}
 }
 
 /* Logout Button */
 .logout-button {
-  background-color: #ff5e5e;
-  color: white;
-  padding: 12px 15px;
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-  border-radius: 12px;
+	background-color: #ff5e5e;
+	color: white;
+	padding: 12px 15px;
+	text-align: center;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 600;
+	transition: background-color 0.3s ease;
+	border-radius: 12px;
 }
 
 .logout-button svg {
-  margin-right: 10px;
+	margin-right: 10px;
 }

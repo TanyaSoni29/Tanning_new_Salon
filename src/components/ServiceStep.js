@@ -107,6 +107,23 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 		}
 	};
 
+	const createServiceCreditTransactionOfUser = async (quantity) => {
+		try {
+			const data = {
+				user_id: customer.user.id,
+				location_id: selectedLoginLocation,
+				quantity: quantity,
+				type: 'credit',
+			};
+			await createServiceTransaction(token, data);
+			await getTotalSpend(token, customer.user.id);
+			await refreshTransactionOfCustomer();
+			dispatch(refreshCustomers());
+		} catch (err) {
+			console.error('Error creating transaction', err);
+		}
+	};
+
 	const refreshTransactionOfCustomer = async () => {
 		if (!customer || !customer.user?.id) {
 			// console.log('No customer selected');
@@ -126,7 +143,12 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 				quantity: transaction?.transaction?.quantity,
 				price: Number(transaction?.service?.price),
 				location: transaction.user_details?.preferred_location?.name,
-				type: transaction.transaction?.type === 'used' ? 'used' : 'purchased',
+				type:
+					transaction.transaction?.type === 'used'
+						? 'used'
+						: transaction.transaction?.type === 'purchased'
+						? 'purchased'
+						: 'credit',
 				createdAt: new Date(transaction.transaction?.created_at),
 			}));
 
@@ -335,12 +357,18 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 														? 'Used Min.'
 														: transaction?.type === 'product'
 														? 'Product'
-														: 'Service'
+														: transaction?.type === 'purchased'
+														? 'Service'
+														: 'Credit'
 													: '-'}
 											</span>
 										</span>
 										<span data-label='Product / Service'>
-											{transaction.productName ? transaction?.productName : '-'}
+											{transaction.type === 'credit'
+												? 'Credit Minutes'
+												: transaction.productName
+												? transaction?.productName
+												: '-'}
 										</span>
 										<span
 											data-label='Price'
@@ -378,6 +406,9 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 						<CreditModal
 							onClose={closeCreditModal}
 							customer={customer}
+							createServiceCreditTransactionOfUser={
+								createServiceCreditTransactionOfUser
+							}
 						/>
 					</Modal>
 				)}

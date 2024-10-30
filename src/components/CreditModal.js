@@ -7,7 +7,11 @@ import { addMinutesToService } from '../service/operations/serviceAndServiceTran
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshCustomers } from '../slices/customerProfile';
 
-function CreditModal({ onClose, customer }) {
+function CreditModal({
+	onClose,
+	customer,
+	createServiceCreditTransactionOfUser,
+}) {
 	const [enteredMinutes, setEnteredMinutes] = useState();
 	const [error, setError] = useState('');
 	const { token } = useSelector((state) => state.auth);
@@ -32,12 +36,7 @@ function CreditModal({ onClose, customer }) {
 		try {
 			const minutes = Number(enteredMinutes);
 			if (minutes >= 1 && minutes <= 999) {
-				const data = {
-					user_id: customer?.user.id,
-					available_balance: minutes,
-				};
-				const response = await addMinutesToService(token, data);
-				dispatch(refreshCustomers());
+				const response = await createServiceCreditTransactionOfUser(minutes);
 				// console.log(response); // Call the function to add the minutes
 				onClose(); // Close the modal
 			} else {

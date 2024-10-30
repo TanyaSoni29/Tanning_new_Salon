@@ -34,6 +34,7 @@ import TopHeader from './components/TopHeader';
 // import { getStats } from './service/operations/statApi';
 // import { Dashboard } from '@mui/icons-material';
 import TopCustomer from './components/Currentmonth/Currentmonth';
+import DailyUses from './components/DailyUses/DailyUses';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -177,6 +178,10 @@ const App = () => {
 						<Route
 							path='/serviceused'
 							element={<ProtectedRoute element={<Serviceused />} />}
+						/>
+						<Route
+							path='/dailyUses'
+							element={<ProtectedRoute element={<DailyUses />} />}
 						/>
 						<Route
 							path='/purchasereport'
