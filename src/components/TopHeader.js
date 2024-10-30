@@ -23,7 +23,7 @@ function TopHeader({
 	const [theme, setTheme] = useState('light'); // Theme state for toggling
 
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
-	const preferredLocationId = userDetails?.profile?.preferred_location;
+	// const preferredLocationId = selectedLoginLocation;
 	const locationPath = useLocation().pathname;
 	const selectedLocationName = locations.find(
 		(location) => location.id === selectedLoginLocation
@@ -31,20 +31,20 @@ function TopHeader({
 
 	const filteredLocations = locations.filter((location) => location.isActive);
 	const locationName = filteredLocations.find(
-		(l) => l.id === preferredLocationId
+		(l) => l.id === selectedLoginLocation
 	);
 
 	useEffect(() => {
         const storedLocation = Number(localStorage.getItem('selectedLoginLocation'));
-        if (!storedLocation && preferredLocationId) {
-            setSelectedLocation(preferredLocationId);
-            setSelectedLoginLocation(preferredLocationId);
-            localStorage.setItem('selectedLoginLocation', preferredLocationId);
+        if (!storedLocation) {
+            setSelectedLocation(selectedLoginLocation);
+            setSelectedLoginLocation(selectedLoginLocation);
+            localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
         } else if(storedLocation) {
             setSelectedLocation(storedLocation);
             setSelectedLoginLocation(storedLocation);
         }
-    }, [preferredLocationId, setSelectedLocation, setSelectedLoginLocation]);
+    }, [ setSelectedLocation, setSelectedLoginLocation]);
 	// Handle theme change
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
