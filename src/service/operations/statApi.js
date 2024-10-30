@@ -1,3 +1,4 @@
+/** @format */
 
 import toast from 'react-hot-toast';
 import { statsEndpoint } from '../api';
@@ -21,7 +22,7 @@ export const getStats = async (token, locationId) => {
 		result = response?.data;
 	} catch (error) {
 		console.log('Get All Locations Api Error', error);
-		const errorMessage = error.response?.data.error;
+		const errorMessage = error.response?.data.message;
 		toast.error(errorMessage);
 	}
 	return result;

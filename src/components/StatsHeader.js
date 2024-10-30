@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { FaUsersGear } from 'react-icons/fa6';
 import { FaUserFriends } from 'react-icons/fa'; // Import necessary icons
 import { BsClockHistory } from 'react-icons/bs'; // Import Today Users Icon
 import { AiFillPoundCircle } from 'react-icons/ai'; // Import Revenue Icon
@@ -11,6 +12,18 @@ function StatsHeader({ stats }) {
 		<div>
 			<div className='stats-wizard-container'>
 				<div className='stats-section'>
+					<div className='stat-box'>
+						<div className='icon-container'>
+							<FaUsersGear
+								size={40}
+								color='#57BEEE'
+							/>
+						</div>
+						<div className='stats-info'>
+							<h3>{stats?.customerServiceToday}</h3>
+							<p>Service Customers </p>
+						</div>
+					</div>
 					<div className='stat-box'>
 						<div className='icon-container'>
 							<FaUserFriends
