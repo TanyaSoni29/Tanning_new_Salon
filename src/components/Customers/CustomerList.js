@@ -288,7 +288,11 @@ const CustomerList = ({ selectedLoginLocation }) => {
 								<span data-label='Location'>
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
-								<span data-label='Phone'>{customer.profile?.phone_number ? customer.profile?.phone_number : "-"}</span>
+								<span data-label='Phone'>
+									{customer.profile?.phone_number
+										? customer.profile?.phone_number
+										: '-'}
+								</span>
 								<span
 									data-label='Min. Aval.'
 									className='min-avail'
@@ -406,16 +410,16 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
 				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
-				<button
 					className='cancel-button'
 					onClick={closeDeleteModal}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
+					Confirm
 				</button>
 			</div>
 		</div>
@@ -436,16 +440,16 @@ function RemainingMinutesWarningModal({
 			</p>
 			<div className='button-container'>
 				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
-					Proceed to Delete
-				</button>
-				<button
 					className='cancel-button'
 					onClick={closeWarningModal}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
+					Proceed to Delete
 				</button>
 			</div>
 		</div>

@@ -228,6 +228,19 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 					}}
 				>
 					<Button
+						variant='outlined'
+						onClick={closeEditModal}
+						sx={{
+							'width': { xs: '100%', sm: 'auto' },
+							'backgroundColor': '#fff',
+							'color': '#666',
+							'border': '1px solid #ccc',
+							':hover': { backgroundColor: '#f1f1f1' },
+						}}
+					>
+						Cancel
+					</Button>
+					<Button
 						variant='contained'
 						onClick={() => setShowLink(true)}
 						sx={{
@@ -250,19 +263,6 @@ const EditLocationModal = ({ activeLocation, closeEditModal }) => {
 						}}
 					>
 						Submit
-					</Button>
-					<Button
-						variant='outlined'
-						onClick={closeEditModal}
-						sx={{
-							'width': { xs: '100%', sm: 'auto' },
-							'backgroundColor': '#fff',
-							'color': '#666',
-							'border': '1px solid #ccc',
-							':hover': { backgroundColor: '#f1f1f1' },
-						}}
-					>
-						Cancel
 					</Button>
 				</Box>
 			</form>

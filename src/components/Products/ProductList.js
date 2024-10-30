@@ -130,110 +130,121 @@ const ProductList = () => {
 			</div>
 
 			<div className='product-table'>
-    <div
-        className={`${
-            loginUser?.role === 'admin'
-                ? `products-table-header admin dynamic`
-                : 'products-table-header dynamic'
-        }`}
-    >
-        <span onClick={() => handleSort('name')}>
-            Product Name{' '}
-            <i
-                className={`fa fa-caret-${
-                    sortConfig.key === 'name' && sortConfig.direction === 'asc'
-                        ? 'up'
-                        : 'down'
-                }`}
-            ></i>
-        </span>
-        <span onClick={() => handleSort('price')}>
-            Price{' '}
-            <i
-                className={`fa fa-caret-${
-                    sortConfig.key === 'price' && sortConfig.direction === 'asc'
-                        ? 'up'
-                        : 'down'
-                }`}
-            ></i>
-        </span>
-        {activeLocations.map((location) => (
-            <span
-                key={location.id}
-                onClick={() => handleSort(`stock${location.location_id}`)}
-            >
-                Stock (Loc. {location.location_id}){' '}
-                <i
-                    className={`fa fa-caret-${
-                        sortConfig.key === `stock${location.location_id}` &&
-                        sortConfig.direction === 'asc'
-                            ? 'up'
-                            : 'down'
-                    }`}
-                ></i>
-            </span>
-        ))}
-        <span onClick={() => handleSort('created_at')}>
-            Listed On{' '}
-            <i
-                className={`fa fa-caret-${
-                    sortConfig.key === 'created_at' &&
-                    sortConfig.direction === 'asc'
-                        ? 'up'
-                        : 'down'
-                }`}
-            ></i>
-        </span>
-        {loginUser?.role === 'admin' && <span>Action</span>}
-    </div>
+				<div
+					className={`${
+						loginUser?.role === 'admin'
+							? `products-table-header admin dynamic`
+							: 'products-table-header dynamic'
+					}`}
+				>
+					<span onClick={() => handleSort('name')}>
+						Product Name{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'name' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					<span onClick={() => handleSort('price')}>
+						Price{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'price' && sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					{activeLocations.map((location) => (
+						<span
+							key={location.id}
+							onClick={() => handleSort(`stock${location.location_id}`)}
+						>
+							Stock (Loc. {location.location_id}){' '}
+							<i
+								className={`fa fa-caret-${
+									sortConfig.key === `stock${location.location_id}` &&
+									sortConfig.direction === 'asc'
+										? 'up'
+										: 'down'
+								}`}
+							></i>
+						</span>
+					))}
+					<span onClick={() => handleSort('created_at')}>
+						Listed On{' '}
+						<i
+							className={`fa fa-caret-${
+								sortConfig.key === 'created_at' &&
+								sortConfig.direction === 'asc'
+									? 'up'
+									: 'down'
+							}`}
+						></i>
+					</span>
+					{loginUser?.role === 'admin' && <span>Action</span>}
+				</div>
 
-    {/* Render filtered and sorted products */}
-    {filteredProducts?.length > 0 ? (
-        filteredProducts.map((product) => (
-            <div
-                key={product?.id}
-                className={`${
-                    loginUser?.role === 'admin'
-                        ? `products-table-row admin dynamic`
-                        : 'products-table-row dynamic'
-                }`}
-            >
-                <span data-label='Product Name'>{product?.name}</span>
-                <span data-label='Price' className='productPrice'>
-                    £{product?.price}
-                </span>
-                {activeLocations.map((location) => {
-                    const stockField = `stock${location.location_id}`;
-                    return (
-                        <span
-                            key={location.id}
-                            data-label={`Stock (Loc. ${location.location_id})`}
-                            className='productPrice2'
-                        >
-                            {product[stockField] ?? '0'}
-                        </span>
-                    );
-                })}
-                <span data-label='Listed On'>
-                    {formatDate(product?.created_at)}
-                </span>
-                {loginUser?.role === 'admin' && (
-                    <span data-label='Actions' className='admin'>
-                        <div className='product-action'>
-                            <i className='fa fa-pencil' onClick={() => handleEdit(product)}></i>
-                            <i className='fa fa-trash' onClick={() => confirmDelete(product)}></i>
-                        </div>
-                    </span>
-                )}
-            </div>
-        ))
-    ) : (
-        <div className='products-table-row'>
-            <span>No products found.</span>
-        </div>
-    )}
-</div>
-
+				{/* Render filtered and sorted products */}
+				{filteredProducts?.length > 0 ? (
+					filteredProducts.map((product) => (
+						<div
+							key={product?.id}
+							className={`${
+								loginUser?.role === 'admin'
+									? `products-table-row admin dynamic`
+									: 'products-table-row dynamic'
+							}`}
+						>
+							<span data-label='Product Name'>{product?.name}</span>
+							<span
+								data-label='Price'
+								className='productPrice'
+							>
+								£{product?.price}
+							</span>
+							{activeLocations.map((location) => {
+								const stockField = `stock${location.location_id}`;
+								return (
+									<span
+										key={location.id}
+										data-label={`Stock (Loc. ${location.location_id})`}
+										className='productPrice2'
+									>
+										{product[stockField] ?? '0'}
+									</span>
+								);
+							})}
+							<span data-label='Listed On'>
+								{formatDate(product?.created_at)}
+							</span>
+							{loginUser?.role === 'admin' && (
+								<span
+									data-label='Actions'
+									className='admin'
+								>
+									<div className='product-action'>
+										<i
+											className='fa fa-pencil'
+											onClick={() => handleEdit(product)}
+										></i>
+										<i
+											className='fa fa-trash'
+											onClick={() => confirmDelete(product)}
+										></i>
+									</div>
+								</span>
+							)}
+						</div>
+					))
+				) : (
+					<div className='products-table-row'>
+						<span>No products found.</span>
+					</div>
+				)}
+			</div>
 
 			{isAddOpen && (
 				<Modal
@@ -286,16 +297,16 @@ function DeleteProductModal({ handleDelete, activeProduct, closeDeleteModal }) {
 			<p>Are you sure you want to delete {activeProduct?.name}?</p>
 			<div className='button-container'>
 				<button
-					onClick={() => handleDelete(activeProduct?.id)}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
-				<button
 					className='cancel-button'
 					onClick={closeDeleteModal}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={() => handleDelete(activeProduct?.id)}
+					className='confirm-button'
+				>
+					Confirm
 				</button>
 			</div>
 		</div>

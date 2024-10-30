@@ -116,7 +116,7 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 			<Typography
 				variant='h6'
 				id='add-location-modal-title'
-				color= 'white'
+				color='white'
 			>
 				Add New Customer
 			</Typography>
@@ -316,18 +316,18 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 				<Box className='button-row'>
 					<Button
 						variant='contained'
+						className='cancel-button'
+						onClick={closeAddModal}
+					>
+						Cancel
+					</Button>
+					<Button
+						variant='contained'
 						className='confirm-button'
 						type='submit'
 						disabled={isSubmitting}
 					>
 						{isSubmitting ? 'Submitting...' : 'Submit'}
-					</Button>
-					<Button
-						variant='contained'
-						className='cancel-button'
-						onClick={closeAddModal}
-					>
-						Cancel
 					</Button>
 				</Box>
 			</form>

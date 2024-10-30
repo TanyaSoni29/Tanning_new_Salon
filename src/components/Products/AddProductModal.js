@@ -76,7 +76,10 @@ const AddProductModal = ({ closeAddModal }) => {
 
 	return (
 		<div className='add-modal-overlay'>
-			<Box sx={{ backgroundColor: 'var(--modal--formbg)', }} className='add-modal'>
+			<Box
+				sx={{ backgroundColor: 'var(--modal--formbg)' }}
+				className='add-modal'
+			>
 				<Typography
 					variant='h6'
 					id='add-location-modal-title'
@@ -203,18 +206,18 @@ const AddProductModal = ({ closeAddModal }) => {
 						justifyContent='space-between'
 					>
 						<Button
-							variant='contained'
-							type='submit'
-							className='confirm-button'
-						>
-							Submit
-						</Button>
-						<Button
 							variant='outlined'
 							onClick={closeAddModal}
 							className='cancel-button'
 						>
 							Cancel
+						</Button>
+						<Button
+							variant='contained'
+							type='submit'
+							className='confirm-button'
+						>
+							Submit
 						</Button>
 					</Box>
 				</form>

@@ -145,16 +145,16 @@ function BuyProductModal({
 			</div>
 			<div className='modal-actions'>
 				<button
-					className='buy-button'
-					onClick={handleBuy}
-				>
-					Buy
-				</button>
-				<button
 					className='cancel-button'
 					onClick={onClose}
 				>
 					Cancel
+				</button>
+				<button
+					className='buy-button'
+					onClick={handleBuy}
+				>
+					Buy
 				</button>
 			</div>
 		</div>

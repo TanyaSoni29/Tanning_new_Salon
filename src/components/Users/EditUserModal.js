@@ -118,7 +118,12 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 				overflowY: 'auto', // Adds scroll for overflowing content
 			}}
 		>
-			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Edit User</Typography>
+			<Typography
+				variant='h6'
+				color='var(--modal--formbgtextcol)'
+			>
+				Edit User
+			</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box
@@ -383,6 +388,22 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 				>
 					<Button
 						variant='contained'
+						color='info'
+						onClick={closeEditModal}
+						sx={{
+							'backgroundColor': '#fff',
+							'color': '#666',
+							'border': '1px solid #ccc',
+							'borderRadius': '5px',
+							'padding': { xs: '5px 10px', lg: '8px 15px' },
+							'fontSize': { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#f1f1f1' },
+						}}
+					>
+						Cancel
+					</Button>
+					<Button
+						variant='contained'
 						sx={{
 							'backgroundColor': '#0c65be',
 							'color': 'white',
@@ -408,22 +429,6 @@ const EditUserModal = ({ activeUser, closeEditModal }) => {
 						type='submit'
 					>
 						Submit
-					</Button>
-					<Button
-						variant='contained'
-						color='info'
-						onClick={closeEditModal}
-						sx={{
-							'backgroundColor': '#fff',
-							'color': '#666',
-							'border': '1px solid #ccc',
-							'borderRadius': '5px',
-							'padding': { xs: '5px 10px', lg: '8px 15px' },
-							'fontSize': { xs: '10px', lg: '13px' },
-							':hover': { backgroundColor: '#f1f1f1' },
-						}}
-					>
-						Cancel
 					</Button>
 				</Box>
 			</form>

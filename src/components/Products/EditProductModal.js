@@ -90,7 +90,7 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 			<Typography
 				variant='h6'
 				color='var(--modal--formbgtextcol)'
-				sx={{ marginBottom: '16px', textAlign: 'center'  }}
+				sx={{ marginBottom: '16px', textAlign: 'center' }}
 			>
 				Edit Product
 			</Typography>
@@ -218,6 +218,22 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 					mt={2}
 				>
 					<Button
+						variant='outlined'
+						onClick={closeEditModal}
+						sx={{
+							'width': { xs: '100%', md: 'auto' }, // Full width on mobile, auto on desktop
+							'textTransform': 'none',
+							'backgroundColor': '#fff',
+							'borderColor': '#ccc',
+							'color': '#666',
+							':hover': {
+								backgroundColor: '#f1f1f1',
+							},
+						}}
+					>
+						Cancel
+					</Button>
+					<Button
 						variant='contained'
 						type='submit'
 						sx={{
@@ -231,21 +247,6 @@ const EditProductModal = ({ activeProduct, closeEditModal }) => {
 						}}
 					>
 						Submit
-					</Button>
-					<Button
-						variant='outlined'
-						onClick={closeEditModal}
-						sx={{
-							'width': { xs: '100%', md: 'auto' }, // Full width on mobile, auto on desktop
-							'textTransform': 'none',
-							'borderColor': '#ccc',
-							'color': '#666',
-							':hover': {
-								backgroundColor: '#f1f1f1',
-							},
-						}}
-					>
-						Cancel
 					</Button>
 				</Box>
 			</form>

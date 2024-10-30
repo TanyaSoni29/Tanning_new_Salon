@@ -116,7 +116,12 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 
 	return (
 		<Box className='addCustomer-modal-container'>
-			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Edit Customer</Typography>
+			<Typography
+				variant='h6'
+				color='var(--modal--formbgtextcol)'
+			>
+				Edit Customer
+			</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box className='form-row'>
@@ -238,7 +243,6 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 							fullWidth
 							error={!!errors.dob}
 							helperText={errors.dob ? errors.dob.message : ''}
-							
 						/>
 					</Box>
 
@@ -314,7 +318,6 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 									{location.name}
 								</option>
 							))}
-							
 						</select>
 
 						<select
@@ -365,17 +368,17 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 					</Button> */}
 					<Button
 						variant='contained'
-						className='confirm-button'
-						type='submit'
-					>
-						Submit
-					</Button>
-					<Button
-						variant='contained'
 						className='cancel-button'
 						onClick={closeEditModal}
 					>
 						Cancel
+					</Button>
+					<Button
+						variant='contained'
+						className='confirm-button'
+						type='submit'
+					>
+						Submit
 					</Button>
 				</Box>
 			</form>

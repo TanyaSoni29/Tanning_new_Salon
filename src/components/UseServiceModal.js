@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import './UseServiceModal.css'; // Import the separate CSS file
@@ -33,7 +35,10 @@ function UseServiceModal({
 	return (
 		<Box className='use-service-modal-container'>
 			<div className='modal-header'>
-				<Typography variant='h6' color='black'>
+				<Typography
+					variant='h6'
+					color='black'
+				>
 					Select a Service to Use
 				</Typography>
 			</div>
@@ -45,7 +50,10 @@ function UseServiceModal({
 					onChange={handleServiceChange}
 					className='service-select'
 				>
-					<option value='' disabled>
+					<option
+						value=''
+						disabled
+					>
 						Select Service
 					</option>
 					{filteredServiceOptions?.length > 0 &&
@@ -67,17 +75,17 @@ function UseServiceModal({
 			<div className='modal-actions'>
 				<button
 					variant='contained'
-					onClick={handleUseService}
-					className='confirm-button'
-				>
-					Use Service
-				</button>
-				<button
-					variant='contained'
 					className='cancel-button'
 					onClick={() => onClose()}
 				>
 					Cancel
+				</button>
+				<button
+					variant='contained'
+					onClick={handleUseService}
+					className='confirm-button'
+				>
+					Use Service
 				</button>
 			</div>
 		</Box>

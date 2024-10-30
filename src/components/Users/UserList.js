@@ -330,16 +330,16 @@ function DeleteUserModal({ handleDelete, activeUser, closeDeleteModal }) {
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
 				<button
-					onClick={() => handleDelete(activeUser.user.id)}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
-				<button
 					className='cancel-button'
 					onClick={closeDeleteModal}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={() => handleDelete(activeUser.user.id)}
+					className='confirm-button'
+				>
+					Confirm
 				</button>
 			</div>
 		</div>
@@ -350,21 +350,20 @@ function DeleteAllModal({ handleDelete, closeDeleteAllData }) {
 	return (
 		<div className='delete-modal'>
 			<p>
-				Are you sure you want to delete all customers and their
-				transactions?
+				Are you sure you want to delete all customers and their transactions?
 			</p>
 			<div className='button-container'>
-				<button
-					onClick={() => handleDelete()}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
 				<button
 					className='cancel-button'
 					onClick={closeDeleteAllData}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={() => handleDelete()}
+					className='confirm-button'
+				>
+					Confirm
 				</button>
 			</div>
 		</div>

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import './ServiceList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
@@ -244,16 +246,16 @@ function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 			<p>Are you sure you want to delete {activeService?.serviceName}?</p>
 			<div className='button-container'>
 				<button
-					onClick={() => handleDelete(activeService?.id)}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
-				<button
 					className='cancel-button'
 					onClick={closeDeleteModal}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={() => handleDelete(activeService?.id)}
+					className='confirm-button'
+				>
+					Confirm
 				</button>
 			</div>
 		</div>

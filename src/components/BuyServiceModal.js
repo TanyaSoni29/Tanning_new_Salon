@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -56,8 +58,6 @@ function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 						.map((service) => (
 							<option
 								key={service.id}
-
-								
 								value={service.id}
 							>
 								{service.serviceName}
@@ -87,16 +87,16 @@ function BuyServiceModal({ onClose, createServiceTransactionOfUser }) {
 			</div>
 			<div className='modal-actions'>
 				<button
-					onClick={handleBuyService}
-					className='confirm-button'
-				>
-					Buy Service
-				</button>
-				<button
 					className='cancel-button'
 					onClick={() => onClose()}
 				>
 					Cancel
+				</button>
+				<button
+					onClick={handleBuyService}
+					className='confirm-button'
+				>
+					Buy Service
 				</button>
 			</div>
 		</Box>

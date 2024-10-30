@@ -90,10 +90,14 @@ const AddUserModal = ({ closeAddModal }) => {
 				borderRadius: '8px',
 				boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
 				boxSizing: 'border-box',
-				
 			}}
 		>
-			<Typography variant='h6' color='var(--modal--formbgtextcol)'>Add New User</Typography>
+			<Typography
+				variant='h6'
+				color='var(--modal--formbgtextcol)'
+			>
+				Add New User
+			</Typography>
 			<form onSubmit={handleSubmit(handleSubmitForm)}>
 				<Box mt={2}>
 					<Box
@@ -366,20 +370,6 @@ const AddUserModal = ({ closeAddModal }) => {
 				>
 					<Button
 						variant='contained'
-						sx={{
-							'backgroundColor': '#0c65be',
-							'color': 'white',
-							'borderRadius': '5px',
-							'padding': { xs: '5px 10px', lg: '8px 15px' },
-							'fontSize': { xs: '10px', lg: '13px' },
-							':hover': { backgroundColor: '#000' },
-						}}
-						type='submit'
-					>
-						Submit
-					</Button>
-					<Button
-						variant='contained'
 						color='info'
 						onClick={closeAddModal}
 						sx={{
@@ -393,6 +383,20 @@ const AddUserModal = ({ closeAddModal }) => {
 						}}
 					>
 						Cancel
+					</Button>
+					<Button
+						variant='contained'
+						sx={{
+							'backgroundColor': '#0c65be',
+							'color': 'white',
+							'borderRadius': '5px',
+							'padding': { xs: '5px 10px', lg: '8px 15px' },
+							'fontSize': { xs: '10px', lg: '13px' },
+							':hover': { backgroundColor: '#000' },
+						}}
+						type='submit'
+					>
+						Submit
 					</Button>
 				</Box>
 			</form>

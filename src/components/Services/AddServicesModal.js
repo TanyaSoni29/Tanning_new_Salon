@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -52,7 +54,10 @@ const AddServiceModal = ({ closeAddModal }) => {
 
 	return (
 		<div className='add-modal-overlay'>
-			<Box sx={{ backgroundColor: 'var(--modal--formbg)', }} className='add-modal'>
+			<Box
+				sx={{ backgroundColor: 'var(--modal--formbg)' }}
+				className='add-modal'
+			>
 				<Typography
 					variant='h6'
 					id='add-location-modal-title'
@@ -62,7 +67,7 @@ const AddServiceModal = ({ closeAddModal }) => {
 				</Typography>
 
 				<form onSubmit={handleSubmit(handleSubmitForm)}>
-					<Box  mt={2}>
+					<Box mt={2}>
 						<TextField
 							label='Name'
 							fullWidth
@@ -111,18 +116,18 @@ const AddServiceModal = ({ closeAddModal }) => {
 						gap={2}
 					>
 						<Button
-							variant='contained'
-							type='submit'
-							className='confirm-button'
-						>
-							Submit
-						</Button>
-						<Button
 							variant='outlined'
 							onClick={closeAddModal}
 							className='cancel-button'
 						>
 							Cancel
+						</Button>
+						<Button
+							variant='contained'
+							type='submit'
+							className='confirm-button'
+						>
+							Submit
 						</Button>
 					</Box>
 				</form>
