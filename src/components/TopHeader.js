@@ -35,11 +35,12 @@ function TopHeader({
 	);
 
 	useEffect(() => {
-		if (preferredLocationId) {
-			setSelectedLocation(preferredLocationId);
-			setSelectedLoginLocation(preferredLocationId);
-		}
-	}, [preferredLocationId, setSelectedLocation, setSelectedLoginLocation]);
+        const storedLocation = Number(localStorage.getItem('selectedLoginLocation'));
+        if (!storedLocation && preferredLocationId) {
+            setSelectedLocation(preferredLocationId);
+            setSelectedLoginLocation(preferredLocationId);
+        }
+    }, [preferredLocationId, setSelectedLocation, setSelectedLoginLocation]);
 
 	// Handle theme change
 	useEffect(() => {
@@ -89,7 +90,7 @@ function TopHeader({
 				{heading && <h2 className='page-heading'>{heading}</h2>}
 
 				<select
-					value={selectedLocation}
+					value={selectedLoginLocation}
 					onChange={handleLocationChange}
 					className='location-select'
 					style={{

@@ -46,7 +46,9 @@ const App = () => {
 		user: loginUser,
 	} = useSelector((state) => state.auth);
 	const [selectedLoginLocation, setSelectedLoginLocation] = useState(
-		loginUser?.profile?.preferred_location
+		() => localStorage.getItem('selectedLoginLocation') 
+			? Number(localStorage.getItem('selectedLoginLocation')) 
+			: loginUser?.profile?.preferred_location || 0
 	);
 	const navigate = useNavigate();
 
@@ -56,6 +58,19 @@ const App = () => {
 			dispatch(getMe(navigate));
 		}
 	}, [dispatch, token]);
+
+	useEffect(() => {
+		if (selectedLoginLocation) {
+			localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
+		}
+	}, [selectedLoginLocation]);
+
+	// Redirect to LocationStep if selectedLoginLocation is not set
+	useEffect(() => {
+		if (!selectedLoginLocation) {
+			navigate('/locationStep');
+		}
+	}, [selectedLoginLocation, navigate]);
 
 	// console.log('selectedLocationlogin in App.js', selectedLoginLocation);
 
