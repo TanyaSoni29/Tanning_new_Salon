@@ -22,7 +22,7 @@ function TopHeader({
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [theme, setTheme] = useState('light'); // Theme state for toggling
 
-	const userDetails = users.find((user) => user.user.id === selectedLoginLocation);
+	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 	const locationPath = useLocation().pathname;
 	const selectedLocationName = locations.find(
@@ -39,9 +39,12 @@ function TopHeader({
         if (!storedLocation && preferredLocationId) {
             setSelectedLocation(preferredLocationId);
             setSelectedLoginLocation(preferredLocationId);
+            localStorage.setItem('selectedLoginLocation', preferredLocationId);
+        } else if (storedLocation) {
+            setSelectedLocation(storedLocation);
+            setSelectedLoginLocation(storedLocation);
         }
     }, [preferredLocationId, setSelectedLocation, setSelectedLoginLocation]);
-
 	// Handle theme change
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);

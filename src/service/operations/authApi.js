@@ -126,6 +126,8 @@ export function getMe(navigate) {
 			dispatch(setIsAuth(false));
 			localStorage.removeItem('token');
 			localStorage.removeItem('expirationTime');
+			localStorage.removeItem('selectedLoginLocation');
+
 
 			// Redirect to login page
 			navigate('/');
