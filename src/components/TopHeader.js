@@ -22,7 +22,7 @@ function TopHeader({
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [theme, setTheme] = useState('light'); // Theme state for toggling
 
-	const userDetails = users.find((user) => user.user.id === loginUser?.id);
+	const userDetails = users.find((user) => user.user.id === selectedLoginLocation);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 	const locationPath = useLocation().pathname;
 	const selectedLocationName = locations.find(
@@ -40,7 +40,7 @@ function TopHeader({
             setSelectedLocation(preferredLocationId);
             setSelectedLoginLocation(preferredLocationId);
             localStorage.setItem('selectedLoginLocation', preferredLocationId);
-        } else if (storedLocation) {
+        } else if(storedLocation) {
             setSelectedLocation(storedLocation);
             setSelectedLoginLocation(storedLocation);
         }

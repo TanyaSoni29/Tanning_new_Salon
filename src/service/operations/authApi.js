@@ -124,9 +124,9 @@ export function getMe(navigate) {
 			// Log user out on failure
 			dispatch(setToken(null));
 			dispatch(setIsAuth(false));
+			localStorage.removeItem('selectedLoginLocation');
 			localStorage.removeItem('token');
 			localStorage.removeItem('expirationTime');
-			localStorage.removeItem('selectedLoginLocation');
 
 
 			// Redirect to login page
@@ -143,6 +143,7 @@ export function logout(navigate) {
 		dispatch(setToken(null));
 		dispatch(setUser(null));
 		dispatch(setIsAuth(false));
+		localStorage.removeItem('selectedLoginLocation');
 		localStorage.removeItem('token');
 		localStorage.removeItem('expirationTime');
 		toast.success('Logged Out');
