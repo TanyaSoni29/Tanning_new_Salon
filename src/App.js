@@ -66,11 +66,11 @@ const App = () => {
 	}, [selectedLoginLocation]);
 
 	// Redirect to LocationStep if selectedLoginLocation is not set
-	useEffect(() => {
-		if (!selectedLoginLocation) {
-			navigate('/locationStep');
-		}
-	}, [selectedLoginLocation, navigate]);
+	// useEffect(() => {
+	// 	if (!selectedLoginLocation) {
+	// 		navigate('/locationStep');
+	// 	}
+	// }, [selectedLoginLocation, navigate]);
 
 	// console.log('selectedLocationlogin in App.js', selectedLoginLocation);
 
