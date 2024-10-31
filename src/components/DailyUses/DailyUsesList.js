@@ -7,7 +7,8 @@ import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { formatDate } from '../../utils/formateDate';
 import { useSelector } from 'react-redux';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const DailyUsesList = ({
 	dailyUseServiceTransaction = [], // Add a default value of an empty array to avoid null errors
 	selectedLocation,
@@ -16,6 +17,8 @@ const DailyUsesList = ({
 	setDateRange,
 }) => {
 	const [searchTerm, setSearchTerm] = useState('');
+	const [currentPage, setCurrentPage] = useState(1);
+	const servicesPerPage = 10;
 	// Default sort by 'date' in descending order
 	const [sortConfig, setSortConfig] = useState({
 		key: 'date',
@@ -185,6 +188,36 @@ const DailyUsesList = ({
 		});
 	};
 
+	const indexOfLastServices = currentPage * servicesPerPage;
+	const indexOfFirstServices = indexOfLastServices - servicesPerPage;
+	const currentServices = filteredTransaction.slice(
+		indexOfFirstServices,
+		indexOfLastServices
+	);
+	const totalPages = Math.ceil(filteredTransaction.length / servicesPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
+
 	return (
 		<div className='DailyUses-container'>
 			<div className='filter-DailyUses'>
@@ -295,8 +328,8 @@ const DailyUsesList = ({
 					</span> */}
 				</div>
 
-				{filteredTransaction.length > 0 ? (
-					filteredTransaction.map((transaction, i) => (
+				{currentServices.length > 0 ? (
+					currentServices.map((transaction, i) => (
 						<div
 							key={i}
 							className='DailyUses-table-row'
@@ -323,6 +356,7 @@ const DailyUsesList = ({
 					<div className='DailyUses-no-data'>No Data found.</div>
 				)}
 			</div>
+			{totalPages > 1 && <PaginationControls/>}
 		</div>
 	);
 };

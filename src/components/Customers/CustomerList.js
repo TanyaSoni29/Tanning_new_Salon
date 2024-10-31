@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CustomerList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshCustomers, removeCustomer } from '../../slices/customerProfile';
@@ -10,7 +10,8 @@ import Modal from '../Modal';
 import AddCustomerModal from './AddCustomerModal';
 import ViewCustomerModal from './ViewCustomerModal';
 import EditCustomerModal from './EditCustomerModal';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const CustomerList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth);
@@ -18,7 +19,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 	const { locations } = useSelector((state) => state.location);
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const customersPerPage = 10; 
 	// console.log('selectedLoginLocation in Customers:', selectedLoginLocation);
 
 	const [isAddOpen, setIsAddOpen] = useState(false);
@@ -48,22 +50,23 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		setSortConfig({ key, direction });
 	};
 
+	
 	const filteredCustomers = customers.filter((data) => {
-		const firstName = data.profile?.firstName.toLowerCase() || '';
+		const firstName = data?.profile?.firstName.toLowerCase() || '';
 		const lastName = data?.profile?.lastName?.toLowerCase() || '';
 		const phoneNumber = data.profile?.phone_number?.toLowerCase() || '';
-
+		
 		const matchesSearchQuery =
-			`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-			phoneNumber?.includes(searchTerm.toLowerCase());
-
+		`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
+		phoneNumber?.includes(searchTerm.toLowerCase());
+		
 		const preferredLocation = locations.find(
 			(location) => location.id === data.profile?.preferred_location
 		);
 		const matchesLocation =
-			selectedLocation === 'All' ||
-			(preferredLocation && preferredLocation.name === selectedLocation);
-
+		selectedLocation === 'All' ||
+		(preferredLocation && preferredLocation.name === selectedLocation);
+		
 		return matchesSearchQuery && matchesLocation;
 	});
 
@@ -82,6 +85,23 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		}
 		return 0;
 	});
+
+	const indexOfLastCustomer = currentPage * customersPerPage;
+	const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+	const currentLocations = sortedCustomers.slice(
+		indexOfFirstCustomer,
+		indexOfLastCustomer
+	);
+	const totalPages = Math.ceil(sortedCustomers.length / customersPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
 
 	const handleAdd = () => {
 		setIsAddOpen(true);
@@ -143,6 +163,20 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		setIsViewOpen(false);
 	};
 	const isMobile = window.innerWidth <= 700;
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
 
 	return (
 		<div className='customer-container'>
@@ -263,8 +297,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<span>Action</span>
 				</div>
 
-				{sortedCustomers.length > 0 ? (
-					sortedCustomers.map((customer) => {
+				{currentLocations.length > 0 ? (
+					currentLocations.map((customer) => {
 						const preferredLocation = locations.find(
 							(location) =>
 								location?.id === customer.profile?.preferred_location
@@ -335,7 +369,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<div className='no-data'>No customers found.</div>
 				)}
 			</div>
-
+            {totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
 				<Modal
 					setOpen={setIsAddOpen}

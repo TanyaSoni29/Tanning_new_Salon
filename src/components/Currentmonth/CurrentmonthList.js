@@ -7,13 +7,15 @@ import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
 import { formatDate } from '../../utils/formateDate';
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const customersPerPage = 10;
 	// Get the first day of the current month and today's date
 	const getCurrentMonthStartDate = () => {
 		const now = new Date();
@@ -155,6 +157,22 @@ const CustomerList = () => {
 
 		return 0;
 	});
+
+	
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -303,6 +321,22 @@ const CustomerList = () => {
 		});
 
 		doc.save('Customers.pdf');
+	};
+
+	const indexOfLastCustomer = currentPage * customersPerPage;
+	const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+	const currentCustomers = filteredAndSortedCustomers.slice(
+		indexOfFirstCustomer,
+		indexOfLastCustomer
+	);
+	const totalPages = Math.ceil(filteredAndSortedCustomers.length / customersPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
 	};
 
 	return (
@@ -510,8 +544,8 @@ const CustomerList = () => {
 					</span>
 				</div>
 
-				{filteredAndSortedCustomers.length > 0 ? (
-					filteredAndSortedCustomers.map((customer) => {
+				{currentCustomers.length > 0 ? (
+					currentCustomers.map((customer) => {
 						const preferredLocation = locations.find(
 							(location) =>
 								location.id === customer?.profile?.preferred_location
@@ -570,6 +604,7 @@ const CustomerList = () => {
 					<div className='currentmon-no-data'>No customers found.</div>
 				)}
 			</div>
+			{totalPages > 1 && <PaginationControls />}
 		</div>
 	);
 };

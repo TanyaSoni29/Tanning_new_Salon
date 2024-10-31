@@ -5,7 +5,8 @@ import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { formatDate } from '../../utils/formateDate';
 import { useSelector } from 'react-redux';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const ServiceUsedList = ({
     useServiceTransaction = [], // Add a default value of an empty array to avoid null errors
     selectedLocation,
@@ -16,7 +17,8 @@ const ServiceUsedList = ({
     const [searchTerm, setSearchTerm] = useState('');
     // Default sort by 'date' in descending order
     const [sortConfig, setSortConfig] = useState({ key: 'date', direction: 'desc' });
-
+    const [currentPage, setCurrentPage] = useState(1);
+	const servicesPerPage = 10;
     // Helper function to format date for input fields (YYYY-MM-DD)
     const formatDateForInput = (date) => {
         if (date instanceof Date && !isNaN(date)) {
@@ -93,6 +95,35 @@ const ServiceUsedList = ({
 
         return sortedData;
     }, [useServiceTransaction, searchTerm, selectedLocation, sortConfig]);
+    const indexOfLastServices = currentPage * servicesPerPage;
+	const indexOfFirstServices = indexOfLastServices - servicesPerPage;
+	const currentServices = filteredTransaction.slice(
+		indexOfFirstServices,
+		indexOfLastServices
+	);
+	const totalPages = Math.ceil(filteredTransaction.length / servicesPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
 
     // Function to download CSV
     const handleDownloadCSV = () => {
@@ -276,8 +307,8 @@ const ServiceUsedList = ({
                     </span>
                 </div>
 
-                {filteredTransaction.length > 0 ? (
-                    filteredTransaction.map((transaction, i) => (
+                {currentServices.length > 0 ? (
+                    currentServices.map((transaction, i) => (
                         <div key={i} className='serviceused-table-row'>
                             <span data-label='Date' style={{ whiteSpace: 'nowrap' }}>
                                 {formatDate(transaction.date)}
@@ -293,6 +324,7 @@ const ServiceUsedList = ({
                     <div className='serviceused-no-data'>No service transaction found.</div>
                 )}
             </div>
+            {totalPages > 1 && <PaginationControls />}
         </div>
     );
 };

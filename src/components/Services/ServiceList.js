@@ -8,7 +8,8 @@ import { deleteService } from '../../service/operations/serviceAndServiceTransac
 import Modal from '../Modal';
 import EditServiceModal from './EditServicesModal';
 import AddServiceModal from './AddServicesModal';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const ServiceList = () => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
@@ -20,7 +21,8 @@ const ServiceList = () => {
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeService, setActiveService] = useState(null); // Track the Service to be deleted or edited
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const servicesPerPage = 10;
 	// Handle sorting logic
 	const handleSort = (key) => {
 		let direction = 'asc';
@@ -50,6 +52,38 @@ const ServiceList = () => {
 			}
 			return 0;
 		});
+
+		const indexOfLastServices = currentPage * servicesPerPage;
+	const indexOfFirstServices = indexOfLastServices - servicesPerPage;
+	const currentServices = filteredServices.slice(
+		indexOfFirstServices,
+		indexOfLastServices
+	);
+	const totalPages = Math.ceil(filteredServices.length / servicesPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
+
+
 
 	// Function to handle the delete action with API call and Redux update
 	const handleDelete = async (serviceId) => {
@@ -158,8 +192,8 @@ const ServiceList = () => {
 				</div>
 
 				{/* Render filtered and sorted services */}
-				{filteredServices?.length > 0 ? (
-					filteredServices.map((service) => (
+				{currentServices?.length > 0 ? (
+					currentServices.map((service) => (
 						<div
 							key={service?.id}
 							className='table-row'
@@ -199,7 +233,7 @@ const ServiceList = () => {
 					</div>
 				)}
 			</div>
-
+			{totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
 				<Modal
 					setOpen={setIsAddOpen}

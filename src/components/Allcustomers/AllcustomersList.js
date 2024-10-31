@@ -4,7 +4,8 @@ import './AllcustomersList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const CustomerList = ({
 	customerReportData = [],
 	selectedLocation,
@@ -16,7 +17,8 @@ const CustomerList = ({
 	const { locations } = useSelector((state) => state.location);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isCurrentMonth, setIsCurrentMonth] = useState(false);
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const customersPerPage = 10;
 	const filteredLocations = locations.filter((location) => location.isActive);
 
 	const uniqueLocations = [
@@ -74,6 +76,37 @@ const CustomerList = ({
 			}
 			return 0;
 		});
+
+		const indexOfLastCustomer = currentPage * customersPerPage;
+	const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+	const currentCustomers = filteredCustomers.slice(
+		indexOfFirstCustomer,
+		indexOfLastCustomer
+	);
+	const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+
+		const PaginationControls = () => (
+			<div className='pagination-controls'>
+				<button onClick={handlePrevPage} disabled={currentPage === 1}>
+					<IoIosArrowBack fontSize={18}/>
+				</button>
+				<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+					<IoIosArrowForward fontSize={18}/>
+				</button>
+				<span>
+					Page {currentPage} of {totalPages}
+				</span>
+			</div>
+		);
 
 	// Function to download CSV (with UTF-8 BOM to ensure proper encoding)
 	const handleDownloadCSV = () => {
@@ -273,8 +306,8 @@ const CustomerList = ({
 					</span>
 				</div>
 
-				{filteredCustomers.length > 0 ? (
-					filteredCustomers.map((customer, i) => {
+				{currentCustomers.length > 0 ? (
+					currentCustomers.map((customer, i) => {
 						return (
 							<div
 								key={i}
@@ -306,6 +339,7 @@ const CustomerList = ({
 					<div className='allcustomer-no-data'>No Data found.</div>
 				)}
 			</div>
+			{totalPages > 1 && <PaginationControls />}
 		</div>
 	);
 };

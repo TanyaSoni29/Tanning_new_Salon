@@ -17,7 +17,8 @@ import EditLocationModal from './EditLocationModal';
 import AddLocationModal from './AddLocationModal';
 import { Switch } from '@mui/material';
 import toast from 'react-hot-toast';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const LocationList = () => {
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
@@ -28,7 +29,8 @@ const LocationList = () => {
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [activeLocation, setActiveLocation] = useState(null); // Track the location to be deleted
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const locationsPerPage = 10; 
 	// Handle sort toggling between ascending and descending
 	const handleSort = (key) => {
 		let direction = 'asc';
@@ -72,6 +74,23 @@ const LocationList = () => {
 			(location?.phone_number &&
 				location?.phone_number.toLowerCase().includes(searchTerm.toLowerCase()))
 	);
+
+	const indexOfLastLocation = currentPage * locationsPerPage;
+	const indexOfFirstLocation = indexOfLastLocation - locationsPerPage;
+	const currentLocations = filteredLocations.slice(
+		indexOfFirstLocation,
+		indexOfLastLocation
+	);
+	const totalPages = Math.ceil(filteredLocations.length / locationsPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
 
 	// Function to handle the delete action with API call and Redux update
 	const handleDelete = async (locationId) => {
@@ -149,6 +168,20 @@ const LocationList = () => {
 		}
 	};
 
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
+
 	return (
 		<div className='location-container'>
 			<div className='location-search-container'>
@@ -218,8 +251,8 @@ const LocationList = () => {
 				</div>
 
 				{/* Render filtered locations */}
-				{filteredLocations.length > 0 ? (
-					filteredLocations.map((location) => (
+				{currentLocations.length > 0 ? (
+					currentLocations.map((location) => (
 						<div
 							key={location.id}
 							className='location-table-row'
@@ -266,7 +299,7 @@ const LocationList = () => {
 					</div>
 				)}
 			</div>
-
+			{totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
 				<Modal
 					setOpen={setIsAddOpen}

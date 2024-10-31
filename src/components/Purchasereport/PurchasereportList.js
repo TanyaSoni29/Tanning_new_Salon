@@ -5,7 +5,8 @@ import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const ProductList = ({
     purchaseServiceTransaction,
     selectedLocation,
@@ -23,7 +24,8 @@ const ProductList = ({
 
     // State for search term
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [currentPage, setCurrentPage] = useState(1);
+	const servicesPerPage = 10;
     // State for sorting configuration with default sorting by date in descending order
     const [sortConfig, setSortConfig] = useState({ key: 'date', direction: 'desc' });
 
@@ -212,6 +214,37 @@ const ProductList = ({
         });
     };
 
+    const indexOfLastServices = currentPage * servicesPerPage;
+	const indexOfFirstServices = indexOfLastServices - servicesPerPage;
+	const currentServices = filteredTransaction.slice(
+		indexOfFirstServices,
+		indexOfLastServices
+	);
+	const totalPages = Math.ceil(filteredTransaction.length / servicesPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
+
+
     return (
         <div className='purchasereportlist-container'>
             <div className='filter-purchase'>
@@ -285,8 +318,8 @@ const ProductList = ({
                     </span>
                 </div>
 
-                {filteredTransaction.length > 0 ? (
-                    filteredTransaction.map((transaction, i) => (
+                {currentServices.length > 0 ? (
+                    currentServices.map((transaction, i) => (
                         <div key={i} className='purchasereportlist-table-row'>
                             <span data-label='Date' style={{ whiteSpace: 'nowrap' }}>
                                 {formatDate(transaction.date)}
@@ -307,6 +340,7 @@ const ProductList = ({
                     </div>
                 )}
             </div>
+            {totalPages > 1 && <PaginationControls />}
         </div>
     );
 };

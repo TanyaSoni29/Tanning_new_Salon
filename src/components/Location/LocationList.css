@@ -139,6 +139,8 @@
 	color: grey;
 }
 
+
+
 /* Small laptop devices respos */
 @media (max-width: 1450px) {
 	.location-container {

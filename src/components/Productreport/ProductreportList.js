@@ -5,7 +5,8 @@ import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { useSelector } from 'react-redux';
 import { formatDate } from '../../utils/formateDate';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const ProductList = ({
     productTransaction,
     selectedLocation,
@@ -29,7 +30,8 @@ const ProductList = ({
     });
 
     const { locations } = useSelector((state) => state.location);
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const productsPerPage = 10;
 	const filteredLocations = locations.filter((location) => location.isActive);
 
     // Extract unique locations for dropdown
@@ -103,6 +105,36 @@ const ProductList = ({
 
         return sortedData;
     }, [productTransaction, searchTerm, selectedLocation, sortConfig]);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+	const currentProducts = filteredTransaction.slice(
+		indexOfFirstProduct,
+		indexOfLastProduct
+	);
+	const totalPages = Math.ceil(filteredTransaction.length / productsPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
 
     // Download CSV
     const handleDownloadCSV = () => {
@@ -320,8 +352,8 @@ const ProductList = ({
                     </span>
                 </div>
 
-                {filteredTransaction.length > 0 ? (
-                    filteredTransaction.map((transaction, i) => (
+                {currentProducts.length > 0 ? (
+                    currentProducts.map((transaction, i) => (
                         <div key={i} className='productreportlist-table-row'>
                             <span
                                 style={{ whiteSpace: 'nowrap' }}
@@ -351,6 +383,7 @@ const ProductList = ({
                     </div>
                 )}
             </div>
+            {totalPages > 1 && <PaginationControls />}
         </div>
     );
 };

@@ -9,7 +9,8 @@ import Modal from '../Modal';
 import EditProductModal from './EditProductModal';
 import AddProductModal from './AddProductModal';
 import { formatDate } from '../../utils/formateDate';
-
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 const ProductList = () => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
@@ -23,6 +24,9 @@ const ProductList = () => {
 	const { locations } = useSelector((state) => state.location);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 	const activeLocations = locations.filter((location) => location.isActive);
+	const [currentPage, setCurrentPage] = useState(1);
+	const productsPerPage = 10; 
+	
 	// const locationDetails = locations.find(
 	// 	(location) => location.id === selectedLoginLocation
 	// );
@@ -60,6 +64,37 @@ const ProductList = () => {
 			}
 			return 0;
 		});
+
+		const indexOfLastProduct = currentPage * productsPerPage;
+	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+	const currentProducts = filteredProducts.slice(
+		indexOfFirstProduct,
+		indexOfLastProduct
+	);
+	const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
+
 
 	// Function to handle the delete action with API call and Redux update
 	const handleDelete = async (productId) => {
@@ -188,8 +223,8 @@ const ProductList = () => {
 				</div>
 
 				{/* Render filtered and sorted products */}
-				{filteredProducts?.length > 0 ? (
-					filteredProducts.map((product) => (
+				{currentProducts?.length > 0 ? (
+					currentProducts.map((product) => (
 						<div
 							key={product?.id}
 							className={`${
@@ -245,6 +280,8 @@ const ProductList = () => {
 					</div>
 				)}
 			</div>
+
+			{totalPages > 1 && <PaginationControls />}
 
 			{isAddOpen && (
 				<Modal

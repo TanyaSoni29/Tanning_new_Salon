@@ -11,6 +11,8 @@ import EditUserModal from './EditUserModal';
 import { deleteAllData } from '../../service/operations/userApi';
 import { setProducts } from '../../slices/productSlice';
 import { setServices } from '../../slices/serviceSlice';
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 const UserList = () => {
 	const dispatch = useDispatch();
@@ -24,7 +26,8 @@ const UserList = () => {
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
 	const [isDeleteAllData, setIsDeleteAllData] = useState(false);
 	const [searchTerm, setSearchTerm] = useState('');
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const usersPerPage = 10;
 	// Function to handle sorting
 	const sortedUsers = (users) => {
 		if (!sortConfig.key) return users;
@@ -81,6 +84,25 @@ const UserList = () => {
 					data.user?.role.toLowerCase().includes(searchTerm.toLowerCase()))
 		)
 	);
+
+	const indexOfLastUser = currentPage * usersPerPage;
+	const indexOfFirstUser = indexOfLastUser - usersPerPage;
+	const currentUsers = filteredUsers.slice(
+		indexOfFirstUser,
+		indexOfLastUser
+	);
+	const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
+	const handleNextPage = () => {
+		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+	};
+
+	const handlePrevPage = () => {
+		if (currentPage > 1) setCurrentPage(currentPage - 1);
+	};
+
+
+
 	const handleDeleteAll = () => setIsDeleteAllData(true);
 
 	const handleAdd = () => setIsAddOpen(true);
@@ -145,6 +167,20 @@ const UserList = () => {
 		}
 		return '▲'; // Default icon
 	};
+
+	const PaginationControls = () => (
+		<div className='pagination-controls'>
+			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+				<IoIosArrowBack fontSize={18}/>
+			</button>
+			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+				<IoIosArrowForward fontSize={18}/>
+			</button>
+			<span>
+				Page {currentPage} of {totalPages}
+			</span>
+		</div>
+	);
 
 	return (
 		<div className='user-container'>
@@ -221,8 +257,8 @@ const UserList = () => {
 					<span>Action</span>
 				</div>
 
-				{filteredUsers.length > 0 ? (
-					filteredUsers.map((user) => {
+				{currentUsers.length > 0 ? (
+					currentUsers.map((user) => {
 						const preferredLocation = locations.find(
 							(location) => location.id === user.profile?.preferred_location
 						);
@@ -272,7 +308,7 @@ const UserList = () => {
 					<div className='no-data'>No users found.</div>
 				)}
 			</div>
-
+            {totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
 				<Modal
 					setOpen={setIsAddOpen}
