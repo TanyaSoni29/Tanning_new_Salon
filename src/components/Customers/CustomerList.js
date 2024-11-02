@@ -10,23 +10,23 @@ import Modal from '../Modal';
 import AddCustomerModal from './AddCustomerModal';
 import ViewCustomerModal from './ViewCustomerModal';
 import EditCustomerModal from './EditCustomerModal';
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
 const CustomerList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth);
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
+
 	const [selectedLocation, setSelectedLocation] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 	const [currentPage, setCurrentPage] = useState(1);
-	const customersPerPage = 10; 
-	// console.log('selectedLoginLocation in Customers:', selectedLoginLocation);
+	const customersPerPage = 10;
 
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [isEditOpen, setIsEditOpen] = useState(false);
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-	const [isWarningOpen, setIsWarningOpen] = useState(false); // Warning for remaining minutes
+	const [isWarningOpen, setIsWarningOpen] = useState(false);
 	const [activeUser, setActiveUser] = useState(null);
 
 	const filteredLocations = locations.filter((location) => location.isActive);
@@ -34,8 +34,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		'All',
 		...new Set(filteredLocations.map((location) => location.name)),
 	];
-	const [isViewOpen, setIsViewOpen] = useState(false);
 
+	const [isViewOpen, setIsViewOpen] = useState(false);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
 	const handleLocationChange = (e) => {
@@ -50,28 +50,21 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		setSortConfig({ key, direction });
 	};
 
-	
 	const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-const filteredCustomers = customers.filter((data) => {
-	// Safely get the lowercased values or set empty strings
-	const firstName = data?.profile?.firstName?.toLowerCase() || '';
-	const lastName = data?.profile?.lastName?.toLowerCase() || '';
-	const phoneNumber = data?.profile?.phone_number?.toLowerCase() || '';
+	const filteredCustomers = customers.filter((data) => {
+		const firstName = data?.profile?.firstName?.toLowerCase() || '';
+		const lastName = data?.profile?.lastName?.toLowerCase() || '';
+		const phoneNumber = data?.profile?.phone_number?.toLowerCase() || '';
 
-	// Combine first and last names for a full-name search
-	const fullName = `${firstName} ${lastName}`;
+		const fullName = `${firstName} ${lastName}`;
+		const matchesSearchQuery = fullName.includes(normalizedSearchTerm) || phoneNumber.includes(normalizedSearchTerm);
 
-	// Check if the search term matches either full name or phone number
-	const matchesSearchQuery = fullName.includes(normalizedSearchTerm) || phoneNumber.includes(normalizedSearchTerm);
+		const preferredLocation = locations.find((location) => location.id === data.profile?.preferred_location);
+		const matchesLocation = selectedLocation === 'All' || preferredLocation?.name === selectedLocation;
 
-	// Check if the customer's location matches the selected location
-	const preferredLocation = locations.find((location) => location.id === data.profile?.preferred_location);
-	const matchesLocation = selectedLocation === 'All' || preferredLocation?.name === selectedLocation;
-
-	return matchesSearchQuery && matchesLocation;
-});
-
+		return matchesSearchQuery && matchesLocation;
+	});
 
 	const sortedCustomers = [...filteredCustomers].sort((a, b) => {
 		if (sortConfig.key) {
@@ -89,6 +82,11 @@ const filteredCustomers = customers.filter((data) => {
 		return 0;
 	});
 
+	// Reset to the first page when searchTerm or selectedLocation changes
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedLocation]);
+
 	const indexOfLastCustomer = currentPage * customersPerPage;
 	const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
 	const currentLocations = sortedCustomers.slice(
@@ -104,7 +102,6 @@ const filteredCustomers = customers.filter((data) => {
 	const handlePrevPage = () => {
 		if (currentPage > 1) setCurrentPage(currentPage - 1);
 	};
-
 
 	const handleAdd = () => {
 		setIsAddOpen(true);
@@ -165,15 +162,16 @@ const filteredCustomers = customers.filter((data) => {
 	const closeViewModal = () => {
 		setIsViewOpen(false);
 	};
+
 	const isMobile = window.innerWidth <= 700;
 
 	const PaginationControls = () => (
 		<div className='pagination-controls'>
 			<button onClick={handlePrevPage} disabled={currentPage === 1}>
-				<IoIosArrowBack fontSize={18}/>
+				<IoIosArrowBack fontSize={18} />
 			</button>
 			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
-				<IoIosArrowForward fontSize={18}/>
+				<IoIosArrowForward fontSize={18} />
 			</button>
 			<span>
 				Page {currentPage} of {totalPages}
@@ -209,10 +207,7 @@ const filteredCustomers = customers.filter((data) => {
 				</div>
 
 				<div className='add-button-wrapper'>
-					<button
-						className='add-button2'
-						onClick={() => handleAdd()}
-					>
+					<button className='add-button2' onClick={() => handleAdd()}>
 						Add New Customer
 					</button>
 				</div>
@@ -220,104 +215,25 @@ const filteredCustomers = customers.filter((data) => {
 
 			<div className='customers-table'>
 				<div className='customer-table-header'>
-					<span onClick={() => handleSort('firstName')}>
-						Customers Name{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'firstName' && sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-					<span onClick={() => handleSort('dob')}>
-						D.O.B{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'dob' && sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-
-					<span onClick={() => handleSort('preferred_location')}>
-						Location{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'preferred_location' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-					<span onClick={() => handleSort('phone_number')}>
-						Phone{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'phone_number' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-					<span onClick={() => handleSort('available_balance')}>
-						Min. Aval.{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'available_balance' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-
-					<span onClick={() => handleSort('total_service_purchased_price')}>
-						Total Spent{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'total_service_purchased_price' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
-					<span onClick={() => handleSort('updated_at')}>
-						Last Purchase{' '}
-						<i
-							className={`fa fa-caret-${
-								sortConfig.key === 'updated_at' &&
-								sortConfig.direction === 'asc'
-									? 'up'
-									: 'down'
-							}`}
-						></i>
-					</span>
+					<span onClick={() => handleSort('firstName')}>Customers Name</span>
+					<span onClick={() => handleSort('dob')}>D.O.B</span>
+					<span onClick={() => handleSort('preferred_location')}>Location</span>
+					<span onClick={() => handleSort('phone_number')}>Phone</span>
+					<span onClick={() => handleSort('available_balance')}>Min. Aval.</span>
+					<span onClick={() => handleSort('total_service_purchased_price')}>Total Spent</span>
+					<span onClick={() => handleSort('updated_at')}>Last Purchase</span>
 					<span>Action</span>
 				</div>
 
 				{currentLocations.length > 0 ? (
 					currentLocations.map((customer) => {
 						const preferredLocation = locations.find(
-							(location) =>
-								location?.id === customer.profile?.preferred_location
+							(location) => location?.id === customer.profile?.preferred_location
 						);
-						// Format DOB (assuming 'dob' is stored in the profile object)
-						const formattedDOB = customer.profile?.dob
-							? formatDate(customer.profile.dob)
-							: '-';
-						const totalSpent =
-							(customer?.total_service_purchased_price || 0) +
-							(customer?.total_product_purchased_price || 0);
+						const formattedDOB = customer.profile?.dob ? formatDate(customer.profile.dob) : '-';
+						const totalSpent = (customer?.total_service_purchased_price || 0) + (customer?.total_product_purchased_price || 0);
 						return (
-							<div
-								key={customer.user.id}
-								className='customer-table-row'
-							>
+							<div key={customer.user.id} className='customer-table-row'>
 								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
@@ -326,42 +242,23 @@ const filteredCustomers = customers.filter((data) => {
 									{preferredLocation ? preferredLocation?.name : '-'}
 								</span>
 								<span data-label='Phone'>
-									{customer.profile?.phone_number
-										? customer.profile?.phone_number
-										: '-'}
+									{customer.profile?.phone_number || '-'}
 								</span>
-								<span
-									data-label='Min. Aval.'
-									className='min-avail'
-								>
+								<span data-label='Min. Aval.' className='min-avail'>
 									{customer.profile?.available_balance}
 								</span>
-								<span
-									data-label='Total Spent'
-									className='customertab'
-								>
-									{/* £{customer.total_service_purchased_price?.toFixed(2)} */}£
-									{totalSpent.toFixed(2)}
+								<span data-label='Total Spent' className='customertab'>
+									£{totalSpent.toFixed(2)}
 								</span>
-
 								<span data-label='Last Purchase'>
 									{formatDate(customer.profile?.updated_at)}
 								</span>
 								<span data-label='Action'>
 									<div className='customerlistaction'>
-										<i
-											className='fa fa-eye'
-											onClick={() => handleView(customer)}
-										></i>
-										<i
-											className='fa fa-pencil'
-											onClick={() => handleEdit(customer)}
-										></i>
+										<i className='fa fa-eye' onClick={() => handleView(customer)}></i>
+										<i className='fa fa-pencil' onClick={() => handleEdit(customer)}></i>
 										{loginUser?.role === 'admin' && (
-											<i
-												className='fa fa-trash'
-												onClick={() => confirmDelete(customer)}
-											></i>
+											<i className='fa fa-trash' onClick={() => confirmDelete(customer)}></i>
 										)}
 									</div>
 								</span>
@@ -374,64 +271,28 @@ const filteredCustomers = customers.filter((data) => {
 			</div>
             {totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
-				<Modal
-					setOpen={setIsAddOpen}
-					open={isAddOpen}
-				>
-					<AddCustomerModal
-						closeAddModal={closeAddModal}
-						selectedLoginLocation={selectedLoginLocation}
-					/>
+				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
+					<AddCustomerModal closeAddModal={closeAddModal} selectedLoginLocation={selectedLoginLocation} />
 				</Modal>
 			)}
-
 			{isViewOpen && activeUser && (
-				<Modal
-					setOpen={setIsViewOpen}
-					open={isViewOpen}
-				>
-					<ViewCustomerModal
-						closeViewModal={closeViewModal}
-						activeUser={activeUser}
-					/>
+				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
+					<ViewCustomerModal closeViewModal={closeViewModal} activeUser={activeUser} />
 				</Modal>
 			)}
-
 			{isDeleteOpen && activeUser && (
-				<Modal
-					setOpen={setIsDeleteOpen}
-					open={isDeleteOpen}
-				>
-					<DeleteCustomerModal
-						handleDelete={handleDelete}
-						activeUser={activeUser}
-						closeDeleteModal={closeDeleteModal}
-					/>
+				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
+					<DeleteCustomerModal handleDelete={handleDelete} activeUser={activeUser} closeDeleteModal={closeDeleteModal} />
 				</Modal>
 			)}
-
 			{isWarningOpen && activeUser && (
-				<Modal
-					setOpen={setIsWarningOpen}
-					open={isWarningOpen}
-				>
-					<RemainingMinutesWarningModal
-						handleDelete={handleDelete}
-						closeWarningModal={closeWarningModal}
-						activeUser={activeUser}
-					/>
+				<Modal setOpen={setIsWarningOpen} open={isWarningOpen}>
+					<RemainingMinutesWarningModal handleDelete={handleDelete} closeWarningModal={closeWarningModal} activeUser={activeUser} />
 				</Modal>
 			)}
-
 			{isEditOpen && activeUser && (
-				<Modal
-					setOpen={setIsEditOpen}
-					open={isEditOpen}
-				>
-					<EditCustomerModal
-						activeUser={activeUser}
-						closeEditModal={closeEditModal}
-					/>
+				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
+					<EditCustomerModal activeUser={activeUser} closeEditModal={closeEditModal} />
 				</Modal>
 			)}
 		</div>
@@ -446,48 +307,23 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button
-					className='cancel-button'
-					onClick={closeDeleteModal}
-				>
-					Cancel
-				</button>
-				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
-					Confirm
-				</button>
+				<button className='cancel-button' onClick={closeDeleteModal}>Cancel</button>
+				<button onClick={handleDelete} className='confirm-button'>Confirm</button>
 			</div>
 		</div>
 	);
 }
 
 // RemainingMinutesWarningModal Component
-function RemainingMinutesWarningModal({
-	handleDelete,
-	activeUser,
-	closeWarningModal,
-}) {
+function RemainingMinutesWarningModal({ handleDelete, activeUser, closeWarningModal }) {
 	return (
 		<div className='warning-modal'>
 			<p style={{ color: 'yellow' }}>
-				{activeUser.user.name} has {activeUser.profile.available_balance}{' '}
-				minutes remaining. Are you sure you want to delete this customer?
+				{activeUser.user.name} has {activeUser.profile.available_balance} minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
-				<button
-					className='cancel-button'
-					onClick={closeWarningModal}
-				>
-					Cancel
-				</button>
-				<button
-					onClick={handleDelete}
-					className='confirm-button'
-				>
-					Proceed to Delete
-				</button>
+				<button className='cancel-button' onClick={closeWarningModal}>Cancel</button>
+				<button onClick={handleDelete} className='confirm-button'>Proceed to Delete</button>
 			</div>
 		</div>
 	);
