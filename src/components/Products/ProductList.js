@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ProductList.css"; // Importing CSS
 import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, refreshProduct } from "../../slices/productSlice";
@@ -9,29 +9,28 @@ import Modal from "../Modal";
 import EditProductModal from "./EditProductModal";
 import AddProductModal from "./AddProductModal";
 import { formatDate } from "../../utils/formateDate";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
-  const { products = [] } = useSelector((state) => state.product); // Ensure products is always an array, defaulting to []
+  const { token, user: loginUser } = useSelector((state) => state.auth); 
+  const { products = [] } = useSelector((state) => state.product); 
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
+  const [isEditOpen, setIsEditOpen] = useState(false); 
   const [isAddOpen, setIsAddOpen] = useState(false);
-  const [activeProduct, setActiveProduct] = useState(null); // Track the product to be deleted or edited
+  const [activeProduct, setActiveProduct] = useState(null); 
   const { locations } = useSelector((state) => state.location);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const activeLocations = locations.filter((location) => location.isActive);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
-  // const locationDetails = locations.find(
-  // 	(location) => location.id === selectedLoginLocation
-  // );
-
-  // const stockField = `stock${locationDetails?.location_id}`;
+  // Reset to the first page whenever searchTerm changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   // Handle sorting logic
   const handleSort = (key) => {
@@ -42,30 +41,27 @@ const ProductList = () => {
     setSortConfig({ key, direction });
   };
 
-  // console.log('Product', products);
-
   // Filter and sort products based on search term and sort configuration
   const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
   const filteredProducts = products
-	?.filter((product) => 
-	  product?.name?.toLowerCase().includes(normalizedSearchTerm)
-	)
-	.sort((a, b) => {
-	  if (!sortConfig.key) return 0;
-  
-	  const aValue = a[sortConfig.key];
-	  const bValue = b[sortConfig.key];
-  
-	  if (aValue < bValue) {
-		return sortConfig.direction === "asc" ? -1 : 1;
-	  }
-	  if (aValue > bValue) {
-		return sortConfig.direction === "asc" ? 1 : -1;
-	  }
-	  return 0;
-	});
-  
+    ?.filter((product) =>
+      product?.name?.toLowerCase().includes(normalizedSearchTerm)
+    )
+    .sort((a, b) => {
+      if (!sortConfig.key) return 0;
+
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+
+      if (aValue < bValue) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -100,19 +96,16 @@ const ProductList = () => {
   // Function to handle the delete action with API call and Redux update
   const handleDelete = async (productId) => {
     try {
-      // Call delete API
       const result = await deleteProduct(token, productId);
-
-      // If deletion was successful, update the Redux state
       if (result) {
         dispatch(removeProduct(productId));
-        dispatch(refreshProduct()); // Refresh products after deletion
+        dispatch(refreshProduct()); 
         setIsDeleteOpen(false);
       }
     } catch (error) {
       console.error("Error during Product deletion:", error);
     } finally {
-      setIsDeleteOpen(false); // Close delete modal/confirmation dialog
+      setIsDeleteOpen(false);
     }
   };
 
@@ -122,24 +115,22 @@ const ProductList = () => {
 
   const handleEdit = (product) => {
     setIsEditOpen(true);
-    setActiveProduct(product); // Set the product to be edited
+    setActiveProduct(product);
   };
 
-  // Handle opening the delete confirmation/modal
   const confirmDelete = (product) => {
     setActiveProduct(product);
-    setIsDeleteOpen(true); // Show delete confirmation modal
+    setIsDeleteOpen(true);
   };
 
-  // Handle closing the delete confirmation/modal
   const closeDeleteModal = () => {
     setIsDeleteOpen(false);
-    setActiveProduct(null); // Reset active Product
+    setActiveProduct(null);
   };
 
   const closeEditModal = () => {
     setIsEditOpen(false);
-    setActiveProduct(null); // Reset active Product
+    setActiveProduct(null);
   };
 
   const closeAddModal = () => {
@@ -277,14 +268,10 @@ const ProductList = () => {
 
       {isAddOpen && (
         <Modal setOpen={setIsAddOpen} open={isAddOpen}>
-          <AddProductModal
-            closeAddModal={closeAddModal}
-            // selectedLoginLocation={selectedLoginLocation}
-          />
+          <AddProductModal closeAddModal={closeAddModal} />
         </Modal>
       )}
 
-      {/* Delete Confirmation Modal/Alert */}
       {isDeleteOpen && activeProduct && (
         <Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
           <DeleteProductModal
@@ -297,11 +284,7 @@ const ProductList = () => {
 
       {isEditOpen && activeProduct && (
         <Modal setOpen={setIsEditOpen} open={isEditOpen}>
-          <EditProductModal
-            activeProduct={activeProduct}
-            closeEditModal={closeEditModal}
-            // selectedLoginLocation={selectedLoginLocation}
-          />
+          <EditProductModal activeProduct={activeProduct} closeEditModal={closeEditModal} />
         </Modal>
       )}
     </div>

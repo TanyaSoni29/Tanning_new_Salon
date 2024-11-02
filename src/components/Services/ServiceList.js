@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ServiceList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
 import { removeService, refreshService } from '../../slices/serviceSlice';
@@ -8,21 +8,27 @@ import { deleteService } from '../../service/operations/serviceAndServiceTransac
 import Modal from '../Modal';
 import EditServiceModal from './EditServicesModal';
 import AddServiceModal from './AddServicesModal';
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
 const ServiceList = () => {
 	const dispatch = useDispatch();
-	const { token, user: loginUser } = useSelector((state) => state.auth); // Assuming token is stored in auth slice
-	const { services = [] } = useSelector((state) => state.service); // Ensure Services is always an array, defaulting to []
+	const { token, user: loginUser } = useSelector((state) => state.auth); 
+	const { services = [] } = useSelector((state) => state.service); 
 
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-	const [isEditOpen, setIsEditOpen] = useState(false); // Control delete modal/confirmation
+	const [isEditOpen, setIsEditOpen] = useState(false); 
 	const [isAddOpen, setIsAddOpen] = useState(false);
-	const [activeService, setActiveService] = useState(null); // Track the Service to be deleted or edited
-	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // Sorting state
+	const [activeService, setActiveService] = useState(null); 
+	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); 
 	const [currentPage, setCurrentPage] = useState(1);
 	const servicesPerPage = 10;
+
+	// Reset to the first page whenever searchTerm changes
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm]);
+
 	// Handle sorting logic
 	const handleSort = (key) => {
 		let direction = 'asc';
@@ -39,8 +45,8 @@ const ServiceList = () => {
 		)
 		.sort((a, b) => {
 			if (sortConfig.key) {
-				const aValue = a[sortConfig.key] || a;
-				const bValue = b[sortConfig.key] || b;
+				const aValue = a[sortConfig.key] || '';
+				const bValue = b[sortConfig.key] || '';
 
 				if (aValue < bValue) {
 					return sortConfig.direction === 'asc' ? -1 : 1;
@@ -53,7 +59,7 @@ const ServiceList = () => {
 			return 0;
 		});
 
-		const indexOfLastServices = currentPage * servicesPerPage;
+	const indexOfLastServices = currentPage * servicesPerPage;
 	const indexOfFirstServices = indexOfLastServices - servicesPerPage;
 	const currentServices = filteredServices.slice(
 		indexOfFirstServices,
@@ -72,10 +78,10 @@ const ServiceList = () => {
 	const PaginationControls = () => (
 		<div className='pagination-controls'>
 			<button onClick={handlePrevPage} disabled={currentPage === 1}>
-				<IoIosArrowBack fontSize={18}/>
+				<IoIosArrowBack fontSize={18} />
 			</button>
 			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
-				<IoIosArrowForward fontSize={18}/>
+				<IoIosArrowForward fontSize={18} />
 			</button>
 			<span>
 				Page {currentPage} of {totalPages}
@@ -83,24 +89,19 @@ const ServiceList = () => {
 		</div>
 	);
 
-
-
 	// Function to handle the delete action with API call and Redux update
 	const handleDelete = async (serviceId) => {
 		try {
-			// Call delete API
 			const result = await deleteService(token, serviceId);
-
-			// If deletion was successful, update the Redux state
 			if (result) {
 				dispatch(removeService(serviceId));
-				dispatch(refreshService()); // Refresh Services after deletion
+				dispatch(refreshService()); 
 				setIsDeleteOpen(false);
 			}
 		} catch (error) {
 			console.error('Error during Service deletion:', error);
 		} finally {
-			setIsDeleteOpen(false); // Close delete modal/confirmation dialog
+			setIsDeleteOpen(false);
 		}
 	};
 
@@ -110,24 +111,22 @@ const ServiceList = () => {
 
 	const handleEdit = (service) => {
 		setIsEditOpen(true);
-		setActiveService(service); // Set the Service to be edited
+		setActiveService(service); 
 	};
 
-	// Handle opening the delete confirmation/modal
 	const confirmDelete = (service) => {
 		setActiveService(service);
-		setIsDeleteOpen(true); // Show delete confirmation modal
+		setIsDeleteOpen(true); 
 	};
 
-	// Handle closing the delete confirmation/modal
 	const closeDeleteModal = () => {
 		setIsDeleteOpen(false);
-		setActiveService(null); // Reset active Service
+		setActiveService(null); 
 	};
 
 	const closeEditModal = () => {
 		setIsEditOpen(false);
-		setActiveService(null); // Reset active Service
+		setActiveService(null); 
 	};
 
 	const closeAddModal = () => {
@@ -144,17 +143,13 @@ const ServiceList = () => {
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				{loginUser?.role === 'admin' && (
-					<button
-						className='add-button'
-						onClick={handleAdd}
-					>
+					<button className='add-button' onClick={handleAdd}>
 						Add New Service
 					</button>
 				)}
 			</div>
 
 			<div className='services-table'>
-				{/* Hide the header in mobile view */}
 				<div className='table-header'>
 					<span onClick={() => handleSort('serviceName')}>
 						Service Name{' '}
@@ -191,24 +186,14 @@ const ServiceList = () => {
 					{loginUser?.role === 'admin' && <span>Action</span>}
 				</div>
 
-				{/* Render filtered and sorted services */}
 				{currentServices?.length > 0 ? (
 					currentServices.map((service) => (
-						<div
-							key={service?.id}
-							className='table-row'
-						>
+						<div key={service?.id} className='table-row'>
 							<span data-label='Service Name'>{service?.serviceName}</span>
-							<span
-								data-label='Minutes'
-								className='servicetd'
-							>
+							<span data-label='Minutes' className='servicetd'>
 								{service?.minutesAvailable}
 							</span>
-							<span
-								data-label='Price'
-								className='servicepricetd'
-							>
+							<span data-label='Price' className='servicepricetd'>
 								£{service?.price}
 							</span>
 							{loginUser?.role === 'admin' && (
@@ -235,19 +220,13 @@ const ServiceList = () => {
 			</div>
 			{totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
-				<Modal
-					setOpen={setIsAddOpen}
-					open={isAddOpen}
-				>
+				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
 					<AddServiceModal closeAddModal={closeAddModal} />
 				</Modal>
 			)}
 
 			{isDeleteOpen && activeService && (
-				<Modal
-					setOpen={setIsDeleteOpen}
-					open={isDeleteOpen}
-				>
+				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
 					<DeleteServiceModal
 						handleDelete={handleDelete}
 						activeService={activeService}
@@ -257,10 +236,7 @@ const ServiceList = () => {
 			)}
 
 			{isEditOpen && activeService && (
-				<Modal
-					setOpen={setIsEditOpen}
-					open={isEditOpen}
-				>
+				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
 					<EditServiceModal
 						activeService={activeService}
 						closeEditModal={closeEditModal}
@@ -279,10 +255,7 @@ function DeleteServiceModal({ handleDelete, activeService, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeService?.serviceName}?</p>
 			<div className='button-container'>
-				<button
-					className='cancel-button'
-					onClick={closeDeleteModal}
-				>
+				<button className='cancel-button' onClick={closeDeleteModal}>
 					Cancel
 				</button>
 				<button
