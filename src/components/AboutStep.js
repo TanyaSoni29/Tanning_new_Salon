@@ -109,24 +109,22 @@ const AboutStep = ({
 	// 	});
 
 	const filteredCustomers = searchQuery
-		? customers?.filter((user) => {
-				// Filter by search query if provided
-				return (
-					user.profile?.firstName
-						?.toLowerCase()
-						.includes(searchQuery.toLowerCase()) ||
-					user.profile?.lastName
-						?.toLowerCase()
-						.includes(searchQuery.toLowerCase()) || // Added lastName filter
-					(user.profile?.phone_number &&
-						user.profile.phone_number
-							.toLowerCase()
-							.includes(searchQuery.toLowerCase())) ||
-					(user.user?.email &&
-						user.user.email.toLowerCase().includes(searchQuery.toLowerCase()))
-				);
-		  })
-		: [];
+	? customers.filter((user) => {
+		// Normalize the search query to lowercase and trim any extra spaces
+		const query = searchQuery.toLowerCase().trim();
+		
+		// Combine the full name for more flexible search handling
+		const fullName = `${user.profile?.firstName || ''} ${user.profile?.lastName || ''}`.toLowerCase();
+		
+		// Check if the query matches either the full name, phone number, or email
+		return (
+		  fullName.includes(query) || 
+		  (user.profile?.phone_number && user.profile.phone_number.toLowerCase().includes(query)) ||
+		  (user.user?.email && user.user.email.toLowerCase().includes(query))
+		);
+	  })
+	: [];
+  
 
 	// console.log(customers, selectedLocation);
 

@@ -51,24 +51,27 @@ const CustomerList = ({ selectedLoginLocation }) => {
 	};
 
 	
-	const filteredCustomers = customers.filter((data) => {
-		const firstName = data?.profile?.firstName.toLowerCase() || '';
-		const lastName = data?.profile?.lastName?.toLowerCase() || '';
-		const phoneNumber = data.profile?.phone_number?.toLowerCase() || '';
-		
-		const matchesSearchQuery =
-		`${firstName} ${lastName}`.includes(searchTerm.toLowerCase()) ||
-		phoneNumber?.includes(searchTerm.toLowerCase());
-		
-		const preferredLocation = locations.find(
-			(location) => location.id === data.profile?.preferred_location
-		);
-		const matchesLocation =
-		selectedLocation === 'All' ||
-		(preferredLocation && preferredLocation.name === selectedLocation);
-		
-		return matchesSearchQuery && matchesLocation;
-	});
+	const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+
+const filteredCustomers = customers.filter((data) => {
+	// Safely get the lowercased values or set empty strings
+	const firstName = data?.profile?.firstName?.toLowerCase() || '';
+	const lastName = data?.profile?.lastName?.toLowerCase() || '';
+	const phoneNumber = data?.profile?.phone_number?.toLowerCase() || '';
+
+	// Combine first and last names for a full-name search
+	const fullName = `${firstName} ${lastName}`;
+
+	// Check if the search term matches either full name or phone number
+	const matchesSearchQuery = fullName.includes(normalizedSearchTerm) || phoneNumber.includes(normalizedSearchTerm);
+
+	// Check if the customer's location matches the selected location
+	const preferredLocation = locations.find((location) => location.id === data.profile?.preferred_location);
+	const matchesLocation = selectedLocation === 'All' || preferredLocation?.name === selectedLocation;
+
+	return matchesSearchQuery && matchesLocation;
+});
+
 
 	const sortedCustomers = [...filteredCustomers].sort((a, b) => {
 		if (sortConfig.key) {
