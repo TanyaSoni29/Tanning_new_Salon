@@ -1,8 +1,6 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./BuyProductModal.css"; // Import the CSS file for styling
+import "./BuyProductModal.css";
 import toast from "react-hot-toast";
 import { refreshProduct } from "../slices/productSlice";
 import { refreshLocation } from "../slices/locationSlice";
@@ -20,9 +18,9 @@ function BuyProductModal({
     (location) => location.id === selectedLoginLocation
   );
   const dispatch = useDispatch();
-  const [selectedQuantities, setSelectedQuantities] = useState(
-    products.map(() => 0)
-  );
+
+  // Initialize selectedQuantities as an object keyed by product ID for more reliable access
+  const [selectedQuantities, setSelectedQuantities] = useState({});
 
   const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
@@ -39,18 +37,17 @@ function BuyProductModal({
     return `stock${locationId}`;
   };
 
-  // console.log('....', selectedLoginLocation, locationDetails);
-
-  // Handle quantity change from select dropdown
-  const handleQuantityChange = (index, value) => {
-    const updatedQuantities = [...selectedQuantities];
-    updatedQuantities[index] = value;
-    setSelectedQuantities(updatedQuantities);
+  // Handle quantity change by using product ID as the key
+  const handleQuantityChange = (productId, value) => {
+    setSelectedQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: value,
+    }));
   };
 
   // Handle the submit action
   const handleBuy = () => {
-    const hasSelectedQuantity = selectedQuantities.some(
+    const hasSelectedQuantity = Object.values(selectedQuantities).some(
       (quantity) => quantity > 0
     );
 
@@ -67,16 +64,17 @@ function BuyProductModal({
       return;
     }
 
-    products.forEach((product, index) => {
-      const quantity = selectedQuantities[index];
+    filteredProducts.forEach((product) => {
+      const quantity = selectedQuantities[product.id] || 0;
       if (quantity > 0) {
         createProductTransactionOfUser(product.id, quantity);
       }
     });
 
-    setSelectedQuantities(products.map(() => 0)); // Reset the quantities
+    setSelectedQuantities({}); // Reset the quantities after purchase
     onClose(); // Close the modal after buying
   };
+
   return (
     <div className="Buyproduct-modal-container">
       <h2 className="Buyproduct-modal-header">Products</h2>
@@ -97,33 +95,27 @@ function BuyProductModal({
 
         {/* Render products */}
         {filteredProducts?.length > 0 ? (
-          filteredProducts.map((product, index) => {
+          filteredProducts.map((product) => {
             const stockField = getStockFieldForLocation(
               locationDetails?.location_id
             );
-            const availableStock = product[stockField] || 0;
+            const availableStock = product[stockField] || 0; // Default to 0 if stock is undefined
+
             return (
               <div key={product?.id} className="Buyproducts-table-row">
-                <span className="Buyproduct-name">
-                  {/* <img
-									src={product?.image ? product?.image : ''}
-									alt={product.name}
-									className='Buyproduct-image'
-								/> */}
-                  {product?.name}
-                </span>
+                <span className="Buyproduct-name">{product?.name}</span>
                 <span>£{product?.price}</span>
                 <span>{availableStock}</span>
                 <span>
                   <select
-                    value={selectedQuantities[index]}
+                    value={selectedQuantities[product.id] || 0}
                     onChange={(e) =>
-                      handleQuantityChange(index, parseInt(e.target.value))
+                      handleQuantityChange(product.id, parseInt(e.target.value))
                     }
                     className="quantity-select"
                   >
-                    {/* Options from 0 to 10 */}
-                    {[...Array(availableStock + 1).keys()].map((quantity) => (
+                    {/* Ensure availableStock is valid by adding fallback to 0 */}
+                    {[...Array(Math.max(availableStock, 0) + 1).keys()].map((quantity) => (
                       <option key={quantity} value={quantity}>
                         {quantity}
                       </option>
