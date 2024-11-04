@@ -33,18 +33,17 @@ function TopHeader({
 	const locationName = filteredLocations.find(
 		(l) => l.id === selectedLoginLocation
 	);
-
+	const storedLocation = Number(localStorage.getItem('selectedLoginLocation'));
 	useEffect(() => {
-        const storedLocation = Number(localStorage.getItem('selectedLoginLocation'));
-        if (!storedLocation) {
-            setSelectedLocation(selectedLoginLocation);
-            setSelectedLoginLocation(selectedLoginLocation);
-            localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
-        } else if(storedLocation) {
-            setSelectedLocation(storedLocation);
-            setSelectedLoginLocation(storedLocation);
-        }
-    }, [ setSelectedLocation, setSelectedLoginLocation]);
+		if (!storedLocation) {
+			setSelectedLocation(selectedLoginLocation);
+			setSelectedLoginLocation(selectedLoginLocation);
+			localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
+		} else if (storedLocation) {
+			setSelectedLocation(storedLocation);
+			setSelectedLoginLocation(storedLocation);
+		}
+	}, [setSelectedLocation, setSelectedLoginLocation, storedLocation]);
 	// Handle theme change
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
