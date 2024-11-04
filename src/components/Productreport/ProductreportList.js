@@ -177,7 +177,7 @@ const ProductList = ({
         const rowHeight = 20;
         let currentY = margin + 30;
 
-        const colWidths = [140, 120, 100, 80, 100];
+        const colWidths = [160, 120, 100, 70, 90];
 
         // Set title
         doc.setFont('helvetica', 'bold');
