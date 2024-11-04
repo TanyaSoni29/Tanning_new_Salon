@@ -74,11 +74,14 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 						fullWidth
 						defaultValue={activeService?.serviceName}
 						{...register('serviceName', { required: true })}
-						InputLabelProps={{
-							style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-						}}
-						InputProps={{
-							style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+						sx={{
+							'color': 'var(--modal--formbgtextcol)', // Main TextField color
+							'& .MuiInputLabel-root': {
+								color: 'var(--modal--formbgtextcol)', // Label color
+							},
+							'& .MuiInputBase-input': {
+								color: 'var(--modal--formbgtextcol)', // Input text color
+							},
 						}}
 					/>
 					<Box
@@ -95,11 +98,14 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 							defaultValue={activeService?.price}
 							type='number'
 							{...register('price', { required: true })}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 						<TextField
@@ -108,11 +114,14 @@ const EditServiceModal = ({ activeService, closeEditModal }) => {
 							defaultValue={activeService?.minutesAvailable}
 							type='number'
 							{...register('minutesAvailable', { required: true })}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 					</Box>

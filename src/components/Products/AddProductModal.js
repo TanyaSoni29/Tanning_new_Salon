@@ -98,11 +98,14 @@ const AddProductModal = ({ closeAddModal }) => {
 							label='Name'
 							fullWidth
 							{...register('name', { required: true })}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 					</Box>
@@ -116,11 +119,14 @@ const AddProductModal = ({ closeAddModal }) => {
 							label='Price'
 							fullWidth
 							{...register('price', { required: true })}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 					</Box>
@@ -147,11 +153,14 @@ const AddProductModal = ({ closeAddModal }) => {
 									? errors.stock01.message
 									: ''
 							}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 						<TextField
@@ -172,11 +181,14 @@ const AddProductModal = ({ closeAddModal }) => {
 									? errors.stock02.message
 									: ''
 							}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 						{/* <TextField
@@ -203,7 +215,8 @@ const AddProductModal = ({ closeAddModal }) => {
 					<Box
 						mt={2}
 						display='flex'
-						justifyContent='space-between'
+						justifyContent='flex-end'
+						gap={2}
 					>
 						<Button
 							variant='outlined'

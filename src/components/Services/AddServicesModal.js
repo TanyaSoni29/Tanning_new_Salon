@@ -72,11 +72,14 @@ const AddServiceModal = ({ closeAddModal }) => {
 							label='Name'
 							fullWidth
 							{...register('serviceName', { required: true })}
-							InputLabelProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-							}}
-							InputProps={{
-								style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+							sx={{
+								'color': 'var(--modal--formbgtextcol)', // Main TextField color
+								'& .MuiInputLabel-root': {
+									color: 'var(--modal--formbgtextcol)', // Label color
+								},
+								'& .MuiInputBase-input': {
+									color: 'var(--modal--formbgtextcol)', // Input text color
+								},
 							}}
 						/>
 						<Box
@@ -88,22 +91,28 @@ const AddServiceModal = ({ closeAddModal }) => {
 								label='Price'
 								fullWidth
 								{...register('price', { required: true })}
-								InputLabelProps={{
-									style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-								}}
-								InputProps={{
-									style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+								sx={{
+									'color': 'var(--modal--formbgtextcol)', // Main TextField color
+									'& .MuiInputLabel-root': {
+										color: 'var(--modal--formbgtextcol)', // Label color
+									},
+									'& .MuiInputBase-input': {
+										color: 'var(--modal--formbgtextcol)', // Input text color
+									},
 								}}
 							/>
 							<TextField
 								label='Minute'
 								fullWidth
 								{...register('minutesAvailable', { required: true })}
-								InputLabelProps={{
-									style: { color: 'var(--modal--formbgtextcol)' }, // Label color
-								}}
-								InputProps={{
-									style: { color: 'var(--modal--formbgtextcol)' }, // Input text color
+								sx={{
+									'color': 'var(--modal--formbgtextcol)', // Main TextField color
+									'& .MuiInputLabel-root': {
+										color: 'var(--modal--formbgtextcol)', // Label color
+									},
+									'& .MuiInputBase-input': {
+										color: 'var(--modal--formbgtextcol)', // Input text color
+									},
 								}}
 							/>
 						</Box>
