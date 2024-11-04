@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import './ProductreportList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
@@ -121,6 +121,10 @@ const ProductList = ({
 	const handlePrevPage = () => {
 		if (currentPage > 1) setCurrentPage(currentPage - 1);
 	};
+
+    useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedLocation]);
 
 	const PaginationControls = () => (
 		<div className='pagination-controls'>

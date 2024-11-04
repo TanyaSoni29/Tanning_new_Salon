@@ -7,8 +7,8 @@ import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
 import { formatDate } from '../../utils/formateDate';
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 const CustomerList = () => {
 	const { customers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
@@ -45,6 +45,10 @@ const CustomerList = () => {
 	const [isBySpend, setIsBySpend] = useState(false);
 	const [isMinUsed, setIsMinUsed] = useState(false);
 	const [isBySale, setIsBySale] = useState(false);
+
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedLocation]);
 
 	const filteredLocations = locations.filter((location) => location.isActive);
 
@@ -158,15 +162,19 @@ const CustomerList = () => {
 		return 0;
 	});
 
-	
-
 	const PaginationControls = () => (
 		<div className='pagination-controls'>
-			<button onClick={handlePrevPage} disabled={currentPage === 1}>
-				<IoIosArrowBack fontSize={18}/>
+			<button
+				onClick={handlePrevPage}
+				disabled={currentPage === 1}
+			>
+				<IoIosArrowBack fontSize={18} />
 			</button>
-			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
-				<IoIosArrowForward fontSize={18}/>
+			<button
+				onClick={handleNextPage}
+				disabled={currentPage === totalPages}
+			>
+				<IoIosArrowForward fontSize={18} />
 			</button>
 			<span>
 				Page {currentPage} of {totalPages}
@@ -235,12 +243,12 @@ const CustomerList = () => {
 		// Define column widths for proper spacing
 		const columnWidths = {
 			userName: 40, // Width for the Customer Name column
-			location:  25, // Width for the Location column
+			location: 25, // Width for the Location column
 			minutesAvailable: 22, // Width for Min. Avail. column
 			totalMinUsed: 25, // Width for Total Min. Used column
 			totalSpend: 30, // Width for Total Spent column
 			totalSales: 30, // Width for Total Sales column
-			total:  25, // Width for Total column
+			total: 25, // Width for Total column
 		};
 
 		// Adjust start positions for columns dynamically based on column widths
@@ -329,7 +337,9 @@ const CustomerList = () => {
 		indexOfFirstCustomer,
 		indexOfLastCustomer
 	);
-	const totalPages = Math.ceil(filteredAndSortedCustomers.length / customersPerPage);
+	const totalPages = Math.ceil(
+		filteredAndSortedCustomers.length / customersPerPage
+	);
 
 	const handleNextPage = () => {
 		if (currentPage < totalPages) setCurrentPage(currentPage + 1);

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './ServiceusedList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
@@ -124,6 +124,10 @@ const ServiceUsedList = ({
 			</span>
 		</div>
 	);
+
+    useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedLocation]);
 
     // Function to download CSV
     const handleDownloadCSV = () => {

@@ -1,14 +1,14 @@
 /** @format */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './DailyUsesList.css'; // Importing CSS
 import { saveAs } from 'file-saver'; // For saving files
 import jsPDF from 'jspdf'; // For generating PDFs
 import { FaFileCsv, FaFilePdf } from 'react-icons/fa'; // Icons for CSV and PDF
 import { formatDate } from '../../utils/formateDate';
 import { useSelector } from 'react-redux';
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 const DailyUsesList = ({
 	dailyUseServiceTransaction = [], // Add a default value of an empty array to avoid null errors
 	selectedLocation,
@@ -104,6 +104,10 @@ const DailyUsesList = ({
 
 		return sortedData;
 	}, [dailyUseServiceTransaction, searchTerm, selectedLocation, sortConfig]);
+
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedLocation]);
 
 	// Function to download CSV
 	const handleDownloadCSV = () => {
@@ -206,11 +210,17 @@ const DailyUsesList = ({
 
 	const PaginationControls = () => (
 		<div className='pagination-controls'>
-			<button onClick={handlePrevPage} disabled={currentPage === 1}>
-				<IoIosArrowBack fontSize={18}/>
+			<button
+				onClick={handlePrevPage}
+				disabled={currentPage === 1}
+			>
+				<IoIosArrowBack fontSize={18} />
 			</button>
-			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
-				<IoIosArrowForward fontSize={18}/>
+			<button
+				onClick={handleNextPage}
+				disabled={currentPage === totalPages}
+			>
+				<IoIosArrowForward fontSize={18} />
 			</button>
 			<span>
 				Page {currentPage} of {totalPages}
@@ -356,7 +366,7 @@ const DailyUsesList = ({
 					<div className='DailyUses-no-data'>No Data found.</div>
 				)}
 			</div>
-			{totalPages > 1 && <PaginationControls/>}
+			{totalPages > 1 && <PaginationControls />}
 		</div>
 	);
 };

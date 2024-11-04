@@ -93,6 +93,10 @@ const CustomerList = ({
 		if (currentPage > 1) setCurrentPage(currentPage - 1);
 	};
 
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [selectedLocation]);
+
 
 		const PaginationControls = () => (
 			<div className='pagination-controls'>
