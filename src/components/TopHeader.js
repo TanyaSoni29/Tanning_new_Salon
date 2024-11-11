@@ -43,7 +43,7 @@ function TopHeader({
 			setSelectedLocation(storedLocation);
 			setSelectedLoginLocation(storedLocation);
 		}
-	}, [setSelectedLocation, setSelectedLoginLocation, storedLocation]);
+	}, []);
 	// Handle theme change
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
