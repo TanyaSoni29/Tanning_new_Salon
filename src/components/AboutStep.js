@@ -19,8 +19,9 @@ const AboutStep = ({
 	stats,
 	setStats,
 	selectedLocation,
+	setDashboardSelectedCustomer,
 	// setSelectedLocation,
-  selectedLoginLocation
+	selectedLoginLocation,
 }) => {
 	const navigate = useNavigate();
 	const { customers } = useSelector((state) => state.customer);
@@ -109,22 +110,24 @@ const AboutStep = ({
 	// 	});
 
 	const filteredCustomers = searchQuery
-	? customers.filter((user) => {
-		// Normalize the search query to lowercase and trim any extra spaces
-		const query = searchQuery.toLowerCase().trim();
-		
-		// Combine the full name for more flexible search handling
-		const fullName = `${user.profile?.firstName || ''} ${user.profile?.lastName || ''}`.toLowerCase();
-		
-		// Check if the query matches either the full name, phone number, or email
-		return (
-		  fullName.includes(query) || 
-		  (user.profile?.phone_number && user.profile.phone_number.toLowerCase().includes(query)) ||
-		  (user.user?.email && user.user.email.toLowerCase().includes(query))
-		);
-	  })
-	: [];
-  
+		? customers.filter((user) => {
+				// Normalize the search query to lowercase and trim any extra spaces
+				const query = searchQuery.toLowerCase().trim();
+
+				// Combine the full name for more flexible search handling
+				const fullName = `${user.profile?.firstName || ''} ${
+					user.profile?.lastName || ''
+				}`.toLowerCase();
+
+				// Check if the query matches either the full name, phone number, or email
+				return (
+					fullName.includes(query) ||
+					(user.profile?.phone_number &&
+						user.profile.phone_number.toLowerCase().includes(query)) ||
+					(user.user?.email && user.user.email.toLowerCase().includes(query))
+				);
+		  })
+		: [];
 
 	// console.log(customers, selectedLocation);
 
@@ -207,7 +210,7 @@ const AboutStep = ({
 				</div>
 
 				<div>
-					<CustomerOverview filteredCustomers={filteredCustomers} />
+					<CustomerOverview filteredCustomers={filteredCustomers} setDashboardSelectedCustomer={setDashboardSelectedCustomer} />
 				</div>
 
 				{isAddOpen && (

@@ -25,7 +25,12 @@ import {
 import { refreshCustomers } from '../slices/customerProfile';
 import { formatDate } from '../utils/formateDate';
 
-const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
+const ServiceStep = ({
+	stats,
+	selectedLocation,
+	selectedLoginLocation,
+	dashboardSelectedCustomer,
+}) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [buyProductModal, setBuyProductModal] = useState(false);
@@ -33,7 +38,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	const [useServiceModal, setUseServiceModal] = useState(false);
 	const [creditModal, setCreditModal] = useState(false); // New state for CreditModal
 
-	const { customer } = useSelector((state) => state.customer);
+	// const { customer } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 	const { users } = useSelector((state) => state.userProfile);
 	const { token, user: loginUser } = useSelector((state) => state.auth);
@@ -50,18 +55,20 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 		refreshTransactionOfCustomer();
 	}, [dispatch]);
 
+	console.log('service step---', dashboardSelectedCustomer);
+
 	useEffect(() => {
-		if (!customer || !customer.user?.id) {
+		if (!dashboardSelectedCustomer || !dashboardSelectedCustomer?.user?.id) {
 			// console.log('No customer selected, redirecting...');
 			navigate('/about'); // Redirect to the about page
 			return;
 		}
-	}, [customer, navigate]);
+	}, [dashboardSelectedCustomer, navigate]);
 
 	const createProductTransactionOfUser = async (productId, quantity) => {
 		try {
 			const data = {
-				user_id: customer.user.id,
+				user_id: dashboardSelectedCustomer?.user?.id,
 				location_id: selectedLoginLocation,
 				product_id: productId,
 				quantity,
@@ -77,7 +84,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	const createServiceTransactionOfUser = async (serviceId) => {
 		try {
 			const data = {
-				user_id: customer.user.id,
+				user_id: dashboardSelectedCustomer?.user?.id,
 				service_id: serviceId,
 				location_id: selectedLoginLocation,
 				type: 'purchased',
@@ -93,13 +100,13 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	const createServiceUseTransactionOfUser = async (serviceId) => {
 		try {
 			const data = {
-				user_id: customer.user.id,
+				user_id: dashboardSelectedCustomer?.user?.id,
 				location_id: selectedLoginLocation,
 				service_id: serviceId,
 				type: 'used',
 			};
 			await createServiceTransaction(token, data);
-			await getTotalSpend(token, customer.user.id);
+			await getTotalSpend(token, dashboardSelectedCustomer?.user?.id);
 			await refreshTransactionOfCustomer();
 			dispatch(refreshCustomers());
 		} catch (err) {
@@ -110,13 +117,13 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	const createServiceCreditTransactionOfUser = async (quantity) => {
 		try {
 			const data = {
-				user_id: customer.user.id,
+				user_id: dashboardSelectedCustomer?.user.id,
 				location_id: selectedLoginLocation,
 				quantity: quantity,
 				type: 'credit',
 			};
 			await createServiceTransaction(token, data);
-			await getTotalSpend(token, customer.user.id);
+			await getTotalSpend(token, dashboardSelectedCustomer?.user.id);
 			await refreshTransactionOfCustomer();
 			dispatch(refreshCustomers());
 		} catch (err) {
@@ -125,14 +132,14 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	};
 
 	const refreshTransactionOfCustomer = async () => {
-		if (!customer || !customer.user?.id) {
+		if (!dashboardSelectedCustomer || !dashboardSelectedCustomer?.user?.id) {
 			// console.log('No customer selected');
 			return;
 		}
 		try {
 			const [serviceResponse, productResponse] = await Promise.all([
-				getServiceTransactionsByUser(token, customer?.user.id),
-				getProductTransactionsByUser(token, customer?.user.id),
+				getServiceTransactionsByUser(token, dashboardSelectedCustomer?.user.id),
+				getProductTransactionsByUser(token, dashboardSelectedCustomer?.user.id),
 			]);
 			const serviceData = Array.isArray(serviceResponse) ? serviceResponse : [];
 			const productData = Array.isArray(productResponse) ? productResponse : [];
@@ -184,7 +191,10 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	const handleUseServiceModal = async () => {
 		setUseServiceModal(true);
 		try {
-			const response = await getAllServices(token, customer.user.id);
+			const response = await getAllServices(
+				token,
+				dashboardSelectedCustomer?.user.id
+			);
 			setServiceUseOptions(response);
 		} catch (error) {
 			console.log(error);
@@ -214,7 +224,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 	};
 
 	const preferredLocation = locations.find(
-		(loc) => loc.id === customer?.profile.preferred_location
+		(loc) => loc.id === dashboardSelectedCustomer?.profile?.preferred_location
 	);
 
 	return (
@@ -222,7 +232,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 			<HeaderWithSidebar />
 			<div className='service-wizard-container'>
 				<div className='service-info'>
-					{customer ? (
+					{dashboardSelectedCustomer ? (
 						<div
 							style={{
 								width: '50%',
@@ -239,13 +249,15 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 								}}
 							>
 								<p>
-									<span>Name:</span> {customer.user.name}
+									<span>Name:</span> {dashboardSelectedCustomer?.user.name}
 								</p>
 								<p>
-									<span>Phone Number:</span> {customer.profile?.phone_number}
+									<span>Phone Number:</span>{' '}
+									{dashboardSelectedCustomer?.profile?.phone_number}
 								</p>
 								<p>
-									<span>Gender:</span> {customer.profile?.gender}
+									<span>Gender:</span>{' '}
+									{dashboardSelectedCustomer?.profile?.gender}
 								</p>
 								<p>
 									<span>Registered Location:</span>{' '}
@@ -261,13 +273,15 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 							>
 								<p>
 									<span>Minutes Balance:</span>{' '}
-									{customer.profile?.available_balance}
+									{dashboardSelectedCustomer?.profile?.available_balance}
 								</p>
 								<p>
 									<span>Total Spent:</span> £
 									{(
-										(customer?.total_service_purchased_price || 0) +
-										(customer?.total_product_purchased_price || 0)
+										(dashboardSelectedCustomer?.total_service_purchased_price ||
+											0) +
+										(dashboardSelectedCustomer?.total_product_purchased_price ||
+											0)
 									).toFixed(2)}
 								</p>
 							</div>
@@ -275,7 +289,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 					) : (
 						<p>No customer selected</p>
 					)}
-					{customer && (
+					{dashboardSelectedCustomer && (
 						<div className='use-btn'>
 							<button
 								className='confirm-button'
@@ -290,11 +304,13 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 								Buy Service
 							</button>
 
-							{customer?.profile?.available_balance > 0 && (
+							{dashboardSelectedCustomer?.profile?.available_balance > 0 && (
 								<button
 									className='confirm-button'
 									onClick={handleUseServiceModal}
-									disabled={customer?.profile?.available_balance <= 0}
+									disabled={
+										dashboardSelectedCustomer?.profile?.available_balance <= 0
+									}
 								>
 									Use Service
 								</button>
@@ -405,7 +421,7 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 					>
 						<CreditModal
 							onClose={closeCreditModal}
-							customer={customer}
+							customer={dashboardSelectedCustomer}
 							createServiceCreditTransactionOfUser={
 								createServiceCreditTransactionOfUser
 							}
@@ -448,7 +464,9 @@ const ServiceStep = ({ stats, selectedLocation, selectedLoginLocation }) => {
 							createServiceUseTransactionOfUser={
 								createServiceUseTransactionOfUser
 							}
-							availableBalance={customer?.profile?.available_balance}
+							availableBalance={
+								dashboardSelectedCustomer?.profile?.available_balance
+							}
 						/>
 					</Modal>
 				)}

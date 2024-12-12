@@ -45,12 +45,14 @@ const App = () => {
 		loading,
 		user: loginUser,
 	} = useSelector((state) => state.auth);
-	const [selectedLoginLocation, setSelectedLoginLocation] = useState(
-		() => localStorage.getItem('selectedLoginLocation') 
-			? Number(localStorage.getItem('selectedLoginLocation')) 
+	const [selectedLoginLocation, setSelectedLoginLocation] = useState(() =>
+		localStorage.getItem('selectedLoginLocation')
+			? Number(localStorage.getItem('selectedLoginLocation'))
 			: loginUser?.profile?.preferred_location || 0
 	);
 	const navigate = useNavigate();
+	const [dashboardSelectedCustomer, setDashboardSelectedCustomer] =
+		useState(null);
 
 	// Fetch user info on app load if token is available
 	useEffect(() => {
@@ -130,6 +132,7 @@ const App = () => {
 									selectedLocation={selectedLocation}
 									selectedLoginLocation={selectedLoginLocation}
 									setStats={setStats}
+									setDashboardSelectedCustomer={setDashboardSelectedCustomer}
 								/>
 							}
 						/>
@@ -145,6 +148,7 @@ const App = () => {
 									selectedLocation={selectedLocation}
 									selectedLoginLocation={selectedLoginLocation}
 									setSelectedLoginLocation={setSelectedLoginLocation}
+									dashboardSelectedCustomer={dashboardSelectedCustomer}
 								/>
 							}
 						/>

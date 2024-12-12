@@ -13,12 +13,14 @@ import {
 	getAllServiceTransactions,
 	// getServiceTransactionsByUser,
 } from '../service/operations/serviceAndServiceTransaction';
-function CustomerOverview({ filteredCustomers }) {
+function CustomerOverview({ filteredCustomers, setDashboardSelectedCustomer }) {
 	const [isQuesModal, setIsQuesModal] = useState(false);
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.auth);
 	const [useServiceTransaction, setUseServiceTransaction] = useState([]);
 	const handleSelectButton = (user) => {
+		console.log("selected Customer",user)
+		setDashboardSelectedCustomer(user);
 		dispatch(setCustomer(user));
 		setIsQuesModal(true);
 	};
