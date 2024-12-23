@@ -246,7 +246,8 @@ const ServiceStep = ({
 								}}
 							>
 								<p>
-									<span>Name:</span> {customer?.user.name}
+									<span>Name:</span> {customer?.profile?.firstName}{' '}
+									{customer?.profile?.lastName}
 								</p>
 								<p>
 									<span>Phone Number:</span> {customer?.profile?.phone_number}
