@@ -57,12 +57,14 @@ export function refreshCustomers() {
 				(data) => data.user?.role === 'customer'
 			);
 			dispatch(setCustomers(customers));
-			const updatedCustomer = customers.find(
-				(customer) => customer?.user.id === selectedCustomerId
-			);
-			// console.log("updatedCustomer finding",updatedCustomer);
-			if (updatedCustomer) {
-				dispatch(setCustomer(updatedCustomer));
+			if (selectedCustomerId) {
+				const updatedCustomer = customers.find(
+					(customer) => customer?.user.id === selectedCustomerId
+				);
+				// console.log("updatedCustomer finding",updatedCustomer);
+				if (updatedCustomer) {
+					dispatch(setCustomer(updatedCustomer));
+				}
 			}
 		} catch (error) {
 			console.error('Failed to refresh users:', error);

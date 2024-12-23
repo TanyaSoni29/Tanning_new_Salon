@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomerOverview from './CustomerOverview';
 import AddCustomerModal from './Customers/AddCustomerModal';
 import Modal from '../components/Modal';
-import { refreshCustomers } from '../slices/customerProfile';
+import { refreshCustomers, setCustomer } from '../slices/customerProfile';
 import { refreshLocation } from '../slices/locationSlice';
 import { refreshUser } from '../slices/userProfileSlice';
 import StatsHeader from './StatsHeader';
@@ -53,6 +53,10 @@ const AboutStep = ({
 		dispatch(refreshCustomers());
 		dispatch(refreshLocation());
 		dispatch(refreshUser());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(setCustomer(null));
 	}, [dispatch]);
 
 	// Filter customers based on location and search query
@@ -210,7 +214,10 @@ const AboutStep = ({
 				</div>
 
 				<div>
-					<CustomerOverview filteredCustomers={filteredCustomers} setDashboardSelectedCustomer={setDashboardSelectedCustomer} />
+					<CustomerOverview
+						filteredCustomers={filteredCustomers}
+						setDashboardSelectedCustomer={setDashboardSelectedCustomer}
+					/>
 				</div>
 
 				{isAddOpen && (

@@ -47,7 +47,7 @@ const ServiceStep = ({
 
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
-
+	console.log('customer in service Step', customer);
 	useEffect(() => {
 		dispatch(refreshProduct());
 		dispatch(refreshService());
@@ -191,10 +191,7 @@ const ServiceStep = ({
 	const handleUseServiceModal = async () => {
 		setUseServiceModal(true);
 		try {
-			const response = await getAllServices(
-				token,
-				customer?.user.id
-			);
+			const response = await getAllServices(token, customer?.user.id);
 			setServiceUseOptions(response);
 		} catch (error) {
 			console.log(error);
@@ -252,12 +249,10 @@ const ServiceStep = ({
 									<span>Name:</span> {customer?.user.name}
 								</p>
 								<p>
-									<span>Phone Number:</span>{' '}
-									{customer?.profile?.phone_number}
+									<span>Phone Number:</span> {customer?.profile?.phone_number}
 								</p>
 								<p>
-									<span>Gender:</span>{' '}
-									{customer?.profile?.gender}
+									<span>Gender:</span> {customer?.profile?.gender}
 								</p>
 								<p>
 									<span>Registered Location:</span>{' '}
@@ -278,10 +273,8 @@ const ServiceStep = ({
 								<p>
 									<span>Total Spent:</span> £
 									{(
-										(customer?.total_service_purchased_price ||
-											0) +
-										(customer?.total_product_purchased_price ||
-											0)
+										(customer?.total_service_purchased_price || 0) +
+										(customer?.total_product_purchased_price || 0)
 									).toFixed(2)}
 								</p>
 							</div>
@@ -308,9 +301,7 @@ const ServiceStep = ({
 								<button
 									className='confirm-button'
 									onClick={handleUseServiceModal}
-									disabled={
-										customer?.profile?.available_balance <= 0
-									}
+									disabled={customer?.profile?.available_balance <= 0}
 								>
 									Use Service
 								</button>
@@ -464,9 +455,7 @@ const ServiceStep = ({
 							createServiceUseTransactionOfUser={
 								createServiceUseTransactionOfUser
 							}
-							availableBalance={
-								customer?.profile?.available_balance
-							}
+							availableBalance={customer?.profile?.available_balance}
 						/>
 					</Modal>
 				)}

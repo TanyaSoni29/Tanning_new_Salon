@@ -19,9 +19,9 @@ function CustomerOverview({ filteredCustomers, setDashboardSelectedCustomer }) {
 	const { token } = useSelector((state) => state.auth);
 	const [useServiceTransaction, setUseServiceTransaction] = useState([]);
 	const handleSelectButton = (user) => {
-		console.log("selected Customer",user)
-		setDashboardSelectedCustomer(user);
+		console.log('selected Customer', user);
 		dispatch(setCustomer(user));
+		setDashboardSelectedCustomer(user);
 		setIsQuesModal(true);
 	};
 
@@ -123,7 +123,9 @@ function CustomerOverview({ filteredCustomers, setDashboardSelectedCustomer }) {
 											<td data-label='Customer Name'>
 												{data.profile?.firstName} {data.profile?.lastName}
 											</td>
-											<td data-label='D.O.B'>{formatDate(data.profile?.dob)}</td>
+											<td data-label='D.O.B'>
+												{formatDate(data.profile?.dob)}
+											</td>
 
 											<td data-label='Phone No.'>
 												{data.profile?.phone_number
