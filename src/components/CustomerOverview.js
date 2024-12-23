@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { formatDate } from '../utils/formateDate';
 import { Button } from '@mui/material';
 // import { useNavigate } from 'react-router';
-import { setCustomer, setCustomerIndex } from '../slices/customerProfile';
+import { setCustomer } from '../slices/customerProfile';
 import Modal from '../components/Modal';
 import QuestionCustomer from './QuestionCustomer';
 import {
