@@ -2,7 +2,8 @@
 
 // console.log("My URI", process.env.REACT_APP_BASE_URI);
 // const BASE_URL = "http://localhost:3000/api/v1";
-const BASE_URL = 'https://salon.thetechnoguyz.com/api';
+// const BASE_URL = 'https://salon.thetechnoguyz.com/api';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const endpoints = {
 	SIGNUP_API: BASE_URL + '/register',
