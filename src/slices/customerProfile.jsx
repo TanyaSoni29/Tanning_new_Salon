@@ -50,7 +50,8 @@ export function refreshCustomers() {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token;
 		const selectedCustomerId = getState().customer.customer?.user.id;
-		// console.log(selectedCustomerId);
+		const currentCustomer = getState().customer.customer;
+		console.log(selectedCustomerId);
 		try {
 			const response = await getAllUser(token);
 			const customers = response.filter(
@@ -61,8 +62,11 @@ export function refreshCustomers() {
 				const updatedCustomer = customers.find(
 					(customer) => customer?.user.id === selectedCustomerId
 				);
-				// console.log("updatedCustomer finding",updatedCustomer);
-				if (updatedCustomer) {
+				console.log('updatedCustomer finding', updatedCustomer);
+				if (
+					updatedCustomer &&
+					JSON.stringify(updatedCustomer) !== JSON.stringify(currentCustomer)
+				) {
 					dispatch(setCustomer(updatedCustomer));
 				}
 			}
