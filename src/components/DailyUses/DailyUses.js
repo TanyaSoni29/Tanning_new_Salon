@@ -55,7 +55,7 @@ function DailyUses() {
 				};
 
 				const response = await getServiceDailyUsesReport(token, newData);
-				console.log('response for daily uses---', response.data);
+				// console.log('response for daily uses---', response.data);
 				setDailyUseServiceTransaction(
 					response.data.sort((a, b) => new Date(b.date) - new Date(a.date))
 				);

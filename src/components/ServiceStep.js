@@ -47,7 +47,7 @@ const ServiceStep = ({
 
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
-	console.log('customer in service Step', customer);
+	// console.log('customer in service Step', customer);
 	useEffect(() => {
 		dispatch(refreshProduct());
 		dispatch(refreshService());
