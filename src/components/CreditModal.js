@@ -38,7 +38,7 @@ function CreditModal({
 			if (minutes >= 1 && minutes <= 999) {
 				const response = await createServiceCreditTransactionOfUser(minutes);
 				// console.log(response); // Call the function to add the minutes
-				onClose(); // Close the modal
+				onClose(); // Close modal
 			} else {
 				setError('Please enter a valid number between 1 and 999.');
 			}
