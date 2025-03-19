@@ -35,7 +35,6 @@ import TopHeader from './components/TopHeader';
 // import { Dashboard } from '@mui/icons-material';
 import TopCustomer from './components/Currentmonth/Currentmonth';
 import DailyUses from './components/DailyUses/DailyUses';
-import { refreshCustomers } from './slices/customerProfile';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -43,13 +42,14 @@ const App = () => {
 	const [stats, setStats] = useState({});
 	const {
 		token,
-		loading,
+		signupData,
 		user: loginUser,
 	} = useSelector((state) => state.auth);
+
 	const [selectedLoginLocation, setSelectedLoginLocation] = useState(() =>
 		localStorage.getItem('selectedLoginLocation')
 			? Number(localStorage.getItem('selectedLoginLocation'))
-			: loginUser?.profile?.preferred_location || 0
+			: signupData?.locationId
 	);
 	const navigate = useNavigate();
 	const [dashboardSelectedCustomer, setDashboardSelectedCustomer] =
@@ -67,10 +67,6 @@ const App = () => {
 			localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
 		}
 	}, [selectedLoginLocation]);
-
-	useEffect(() => {
-		dispatch(refreshCustomers());
-	}, [dispatch]);
 
 	// Redirect to LocationStep if selectedLoginLocation is not set
 	// useEffect(() => {

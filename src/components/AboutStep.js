@@ -50,7 +50,7 @@ const AboutStep = ({
 	}, [selectedLocation, dispatch, token]);
 
 	useEffect(() => {
-		
+		dispatch(refreshCustomers());
 		dispatch(refreshLocation());
 	}, [dispatch]);
 

@@ -19,19 +19,17 @@ const WizardStep = ({
 	const { locations, loading, locationIndex } = useSelector(
 		(state) => state.location
 	);
-	const { users } = useSelector((state) => state.userProfile);
-	const { user: loginUser } = useSelector((state) => state.auth);
+	const { signupData } = useSelector((state) => state.auth);
 
 	// Find the logged-in user's details
-	const userDetails = users?.find((user) => user?.user?.id === loginUser?.id);
-	const preferredLocationId = userDetails?.profile?.preferred_location;
+	// const userDetails = users?.find((user) => user?.user?.id === loginUser?.id);
+	const preferredLocationId = signupData?.locationId;
 
 	const filteredLocations = locations.filter((location) => location.isActive);
 
 	useEffect(() => {
 		// Fetch locations and user details from the API
 		dispatch(refreshLocation());
-		dispatch(refreshUser());
 	}, [dispatch]);
 
 	useEffect(() => {

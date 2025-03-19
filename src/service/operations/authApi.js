@@ -72,6 +72,7 @@ export function login(email, password, navigate) {
 					id: response?.data?.id,
 					name: response?.data?.name,
 					preferred_location: response?.data?.preferred_location,
+					locationId: response?.data?.location_id,
 				})
 			);
 			localStorage.setItem('token', JSON.stringify(response.data.access_token));
@@ -81,6 +82,7 @@ export function login(email, password, navigate) {
 					id: response?.data?.id,
 					name: response?.data?.name,
 					preferred_location: response?.data?.preferred_location,
+					locationId: response?.data?.location_id,
 				})
 			);
 			navigate('/locationStep');
