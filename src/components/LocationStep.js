@@ -23,7 +23,7 @@ const WizardStep = ({
 	const { user: loginUser } = useSelector((state) => state.auth);
 
 	// Find the logged-in user's details
-	const userDetails = users.find((user) => user.user.id === loginUser?.id);
+	const userDetails = users?.find((user) => user?.user?.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
 
 	const filteredLocations = locations.filter((location) => location.isActive);
