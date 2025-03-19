@@ -54,13 +54,13 @@ export function refreshCustomers() {
 		console.log(selectedCustomerId);
 		try {
 			const response = await getAllUser(token);
-			const customers = response?.filter(
+			const customers = Array.isArray(response)?.filter(
 				(data) => data?.user?.role === 'customer'
 			);
 			dispatch(setCustomers(customers));
 			if (selectedCustomerId) {
-				const updatedCustomer = customers.find(
-					(customer) => customer?.user.id === selectedCustomerId
+				const updatedCustomer = customers?.find(
+					(customer) => customer?.user?.id === selectedCustomerId
 				);
 				console.log('updatedCustomer finding', updatedCustomer);
 				if (
