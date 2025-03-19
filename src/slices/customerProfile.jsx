@@ -54,7 +54,7 @@ export function refreshCustomers() {
 		console.log(selectedCustomerId);
 		try {
 			const response = await getAllUser(token);
-			const customers = Array.isArray(response)?.filter(
+			const customers = response?.filter(
 				(data) => data?.user?.role === 'customer'
 			);
 			dispatch(setCustomers(customers));

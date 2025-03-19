@@ -99,11 +99,11 @@ export const getAllUser = async (token) => {
 		const response = await apiConnector('GET', GET_ALL_USERS, null, {
 			Authorization: `Bearer ${token}`,
 		});
-		console.log('Get All Users Api Response..', response);
+		console.log('GET_ALL_USERS Api Response..', response);
 		if (response.status !== 200) throw new Error('Could not fetch Users');
 		result = response?.data ? response?.data : [];
 	} catch (error) {
-		console.log('Get All Users Api Error', error);
+		console.log('GET_ALL_USERS Api Error', error);
 		if (error.response.status !== 404) {
 			const errorMessage = error.response?.data?.error;
 			toast.error(errorMessage);

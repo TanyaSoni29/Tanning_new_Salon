@@ -25,6 +25,7 @@ function TopHeader({
 	const userDetails = users?.find((user) => user?.user?.id === loginUser?.id);
 	// const preferredLocationId = selectedLoginLocation;
 	const locationPath = useLocation().pathname;
+
 	const selectedLocationName = locations?.find(
 		(location) => location?.id === selectedLoginLocation
 	)?.name;
