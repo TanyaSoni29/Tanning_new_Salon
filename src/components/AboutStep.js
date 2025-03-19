@@ -40,7 +40,6 @@ const AboutStep = ({
 			try {
 				const response = await getStats(token, selectedLocation);
 				// const response = await getStats(token, 0);
-				// console.log('Stats:', response);
 				setStats(response.data);
 			} catch (error) {
 				console.error('Failed to fetch stats:', error);
