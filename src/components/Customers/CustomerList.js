@@ -10,7 +10,7 @@ import Modal from '../Modal';
 import AddCustomerModal from './AddCustomerModal';
 import ViewCustomerModal from './ViewCustomerModal';
 import EditCustomerModal from './EditCustomerModal';
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const CustomerList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 	const [isWarningOpen, setIsWarningOpen] = useState(false);
 	const [activeUser, setActiveUser] = useState(null);
 
-	const filteredLocations = locations.filter((location) => location.isActive);
+	const filteredLocations = locations?.filter((location) => location.isActive);
 	const uniqueLocations = [
 		'All',
 		...new Set(filteredLocations.map((location) => location.name)),
@@ -58,10 +58,16 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		const phoneNumber = data?.profile?.phone_number?.toLowerCase() || '';
 
 		const fullName = `${firstName} ${lastName}`;
-		const matchesSearchQuery = fullName.includes(normalizedSearchTerm) || phoneNumber.includes(normalizedSearchTerm);
+		const matchesSearchQuery =
+			fullName.includes(normalizedSearchTerm) ||
+			phoneNumber.includes(normalizedSearchTerm);
 
-		const preferredLocation = locations.find((location) => location.id === data.profile?.preferred_location);
-		const matchesLocation = selectedLocation === 'All' || preferredLocation?.name === selectedLocation;
+		const preferredLocation = locations.find(
+			(location) => location.id === data.profile?.preferred_location
+		);
+		const matchesLocation =
+			selectedLocation === 'All' ||
+			preferredLocation?.name === selectedLocation;
 
 		return matchesSearchQuery && matchesLocation;
 	});
@@ -167,10 +173,16 @@ const CustomerList = ({ selectedLoginLocation }) => {
 
 	const PaginationControls = () => (
 		<div className='pagination-controls'>
-			<button onClick={handlePrevPage} disabled={currentPage === 1}>
+			<button
+				onClick={handlePrevPage}
+				disabled={currentPage === 1}
+			>
 				<IoIosArrowBack fontSize={18} />
 			</button>
-			<button onClick={handleNextPage} disabled={currentPage === totalPages}>
+			<button
+				onClick={handleNextPage}
+				disabled={currentPage === totalPages}
+			>
 				<IoIosArrowForward fontSize={18} />
 			</button>
 			<span>
@@ -207,7 +219,10 @@ const CustomerList = ({ selectedLoginLocation }) => {
 				</div>
 
 				<div className='add-button-wrapper'>
-					<button className='add-button2' onClick={() => handleAdd()}>
+					<button
+						className='add-button2'
+						onClick={() => handleAdd()}
+					>
 						Add New Customer
 					</button>
 				</div>
@@ -219,21 +234,33 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<span onClick={() => handleSort('dob')}>D.O.B</span>
 					<span onClick={() => handleSort('preferred_location')}>Location</span>
 					<span onClick={() => handleSort('phone_number')}>Phone</span>
-					<span onClick={() => handleSort('available_balance')}>Min. Aval.</span>
-					<span onClick={() => handleSort('total_service_purchased_price')}>Total Spent</span>
+					<span onClick={() => handleSort('available_balance')}>
+						Min. Aval.
+					</span>
+					<span onClick={() => handleSort('total_service_purchased_price')}>
+						Total Spent
+					</span>
 					<span onClick={() => handleSort('updated_at')}>Last Purchase</span>
 					<span>Action</span>
 				</div>
 
-				{currentLocations.length > 0 ? (
+				{currentLocations?.length > 0 ? (
 					currentLocations.map((customer) => {
-						const preferredLocation = locations.find(
-							(location) => location?.id === customer.profile?.preferred_location
+						const preferredLocation = locations?.find(
+							(location) =>
+								location?.id === customer.profile?.preferred_location
 						);
-						const formattedDOB = customer.profile?.dob ? formatDate(customer.profile.dob) : '-';
-						const totalSpent = (customer?.total_service_purchased_price || 0) + (customer?.total_product_purchased_price || 0);
+						const formattedDOB = customer.profile?.dob
+							? formatDate(customer.profile.dob)
+							: '-';
+						const totalSpent =
+							(customer?.total_service_purchased_price || 0) +
+							(customer?.total_product_purchased_price || 0);
 						return (
-							<div key={customer.user.id} className='customer-table-row'>
+							<div
+								key={customer.user.id}
+								className='customer-table-row'
+							>
 								<span data-label='Customer Name'>
 									{customer.profile?.firstName} {customer.profile?.lastName}
 								</span>
@@ -244,10 +271,16 @@ const CustomerList = ({ selectedLoginLocation }) => {
 								<span data-label='Phone'>
 									{customer.profile?.phone_number || '-'}
 								</span>
-								<span data-label='Min. Aval.' className='min-avail'>
+								<span
+									data-label='Min. Aval.'
+									className='min-avail'
+								>
 									{customer.profile?.available_balance}
 								</span>
-								<span data-label='Total Spent' className='customertab'>
+								<span
+									data-label='Total Spent'
+									className='customertab'
+								>
 									£{totalSpent.toFixed(2)}
 								</span>
 								<span data-label='Last Purchase'>
@@ -255,10 +288,19 @@ const CustomerList = ({ selectedLoginLocation }) => {
 								</span>
 								<span data-label='Action'>
 									<div className='customerlistaction'>
-										<i className='fa fa-eye' onClick={() => handleView(customer)}></i>
-										<i className='fa fa-pencil' onClick={() => handleEdit(customer)}></i>
+										<i
+											className='fa fa-eye'
+											onClick={() => handleView(customer)}
+										></i>
+										<i
+											className='fa fa-pencil'
+											onClick={() => handleEdit(customer)}
+										></i>
 										{loginUser?.role === 'admin' && (
-											<i className='fa fa-trash' onClick={() => confirmDelete(customer)}></i>
+											<i
+												className='fa fa-trash'
+												onClick={() => confirmDelete(customer)}
+											></i>
 										)}
 									</div>
 								</span>
@@ -269,30 +311,62 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<div className='no-data'>No customers found.</div>
 				)}
 			</div>
-            {totalPages > 1 && <PaginationControls />}
+			{totalPages > 1 && <PaginationControls />}
 			{isAddOpen && (
-				<Modal setOpen={setIsAddOpen} open={isAddOpen}>
-					<AddCustomerModal closeAddModal={closeAddModal} selectedLoginLocation={selectedLoginLocation} />
+				<Modal
+					setOpen={setIsAddOpen}
+					open={isAddOpen}
+				>
+					<AddCustomerModal
+						closeAddModal={closeAddModal}
+						selectedLoginLocation={selectedLoginLocation}
+					/>
 				</Modal>
 			)}
 			{isViewOpen && activeUser && (
-				<Modal setOpen={setIsViewOpen} open={isViewOpen}>
-					<ViewCustomerModal closeViewModal={closeViewModal} activeUser={activeUser} />
+				<Modal
+					setOpen={setIsViewOpen}
+					open={isViewOpen}
+				>
+					<ViewCustomerModal
+						closeViewModal={closeViewModal}
+						activeUser={activeUser}
+					/>
 				</Modal>
 			)}
 			{isDeleteOpen && activeUser && (
-				<Modal setOpen={setIsDeleteOpen} open={isDeleteOpen}>
-					<DeleteCustomerModal handleDelete={handleDelete} activeUser={activeUser} closeDeleteModal={closeDeleteModal} />
+				<Modal
+					setOpen={setIsDeleteOpen}
+					open={isDeleteOpen}
+				>
+					<DeleteCustomerModal
+						handleDelete={handleDelete}
+						activeUser={activeUser}
+						closeDeleteModal={closeDeleteModal}
+					/>
 				</Modal>
 			)}
 			{isWarningOpen && activeUser && (
-				<Modal setOpen={setIsWarningOpen} open={isWarningOpen}>
-					<RemainingMinutesWarningModal handleDelete={handleDelete} closeWarningModal={closeWarningModal} activeUser={activeUser} />
+				<Modal
+					setOpen={setIsWarningOpen}
+					open={isWarningOpen}
+				>
+					<RemainingMinutesWarningModal
+						handleDelete={handleDelete}
+						closeWarningModal={closeWarningModal}
+						activeUser={activeUser}
+					/>
 				</Modal>
 			)}
 			{isEditOpen && activeUser && (
-				<Modal setOpen={setIsEditOpen} open={isEditOpen}>
-					<EditCustomerModal activeUser={activeUser} closeEditModal={closeEditModal} />
+				<Modal
+					setOpen={setIsEditOpen}
+					open={isEditOpen}
+				>
+					<EditCustomerModal
+						activeUser={activeUser}
+						closeEditModal={closeEditModal}
+					/>
 				</Modal>
 			)}
 		</div>
@@ -307,23 +381,48 @@ function DeleteCustomerModal({ handleDelete, activeUser, closeDeleteModal }) {
 		<div className='delete-modal'>
 			<p>Are you sure you want to delete {activeUser.user.name}?</p>
 			<div className='button-container'>
-				<button className='cancel-button' onClick={closeDeleteModal}>Cancel</button>
-				<button onClick={handleDelete} className='confirm-button'>Confirm</button>
+				<button
+					className='cancel-button'
+					onClick={closeDeleteModal}
+				>
+					Cancel
+				</button>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
+					Confirm
+				</button>
 			</div>
 		</div>
 	);
 }
 
 // RemainingMinutesWarningModal Component
-function RemainingMinutesWarningModal({ handleDelete, activeUser, closeWarningModal }) {
+function RemainingMinutesWarningModal({
+	handleDelete,
+	activeUser,
+	closeWarningModal,
+}) {
 	return (
 		<div className='warning-modal'>
 			<p style={{ color: 'yellow' }}>
-				{activeUser.user.name} has {activeUser.profile.available_balance} minutes remaining. Are you sure you want to delete this customer?
+				{activeUser.user.name} has {activeUser.profile.available_balance}{' '}
+				minutes remaining. Are you sure you want to delete this customer?
 			</p>
 			<div className='button-container'>
-				<button className='cancel-button' onClick={closeWarningModal}>Cancel</button>
-				<button onClick={handleDelete} className='confirm-button'>Proceed to Delete</button>
+				<button
+					className='cancel-button'
+					onClick={closeWarningModal}
+				>
+					Cancel
+				</button>
+				<button
+					onClick={handleDelete}
+					className='confirm-button'
+				>
+					Proceed to Delete
+				</button>
 			</div>
 		</div>
 	);

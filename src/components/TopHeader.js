@@ -22,15 +22,15 @@ function TopHeader({
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [theme, setTheme] = useState('light'); // Theme state for toggling
 
-	const userDetails = users.find((user) => user.user.id === loginUser?.id);
+	const userDetails = users?.find((user) => user.user.id === loginUser?.id);
 	// const preferredLocationId = selectedLoginLocation;
 	const locationPath = useLocation().pathname;
-	const selectedLocationName = locations.find(
+	const selectedLocationName = locations?.find(
 		(location) => location.id === selectedLoginLocation
 	)?.name;
 
-	const filteredLocations = locations.filter((location) => location.isActive);
-	const locationName = filteredLocations.find(
+	const filteredLocations = locations?.filter((location) => location.isActive);
+	const locationName = filteredLocations?.find(
 		(l) => l.id === selectedLoginLocation
 	);
 	const storedLocation = Number(localStorage.getItem('selectedLoginLocation'));
