@@ -6,6 +6,7 @@ import { apiConnector } from '../apiConnector';
 import {
 	setIsAuth,
 	setLoading,
+	setSignupData,
 	setToken,
 	setUser,
 } from '../../slices/authSlice';
@@ -66,10 +67,22 @@ export function login(email, password, navigate) {
 
 			dispatch(setToken(response.data.access_token));
 			dispatch(setIsAuth(true));
-			const expirationTime = Date.now() + response.data.expires_in * 1000; // Convert to milliseconds
+			dispatch(
+				setSignupData({
+					id: response?.data?.id,
+					name: response?.data?.name,
+					preferred_location: response?.data?.preferred_location,
+				})
+			);
 			localStorage.setItem('token', JSON.stringify(response.data.access_token));
-			localStorage.setItem('expirationTime', JSON.stringify(expirationTime)); // Store expiration time
-
+			localStorage.setItem(
+				'loginUser',
+				JSON.stringify({
+					id: response?.data?.id,
+					name: response?.data?.name,
+					preferred_location: response?.data?.preferred_location,
+				})
+			);
 			navigate('/locationStep');
 		} catch (error) {
 			console.log('LOGIN API ERROR........', error);
@@ -127,7 +140,6 @@ export function getMe(navigate) {
 			localStorage.removeItem('selectedLoginLocation');
 			localStorage.removeItem('token');
 			localStorage.removeItem('expirationTime');
-
 
 			// Redirect to login page
 			navigate('/');

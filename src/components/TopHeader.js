@@ -16,7 +16,7 @@ function TopHeader({
 	setSelectedLoginLocation,
 	handleLoginLocationChange,
 }) {
-	const { user: loginUser } = useSelector((state) => state.auth);
+	const { user: loginUser, signupData } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations } = useSelector((state) => state.location);
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +28,8 @@ function TopHeader({
 	const selectedLocationName = locations?.find(
 		(location) => location?.id === selectedLoginLocation
 	)?.name;
+
+	console.log('signUpData', signupData);
 
 	const filteredLocations = locations?.filter((location) => location.isActive);
 	// const locationName = filteredLocations?.find(
@@ -123,14 +125,17 @@ function TopHeader({
 								color='#F54291'
 								style={{ marginRight: '5px' }}
 							/>
-							{userDetails?.profile?.firstName
+							<span style={{ textTransform: 'capitalize' }}>
+								User: {signupData?.name ? signupData?.name : 'USER'}
+							</span>
+							{/* {userDetails?.profile?.firstName
 								? userDetails?.profile?.firstName.charAt(0).toUpperCase() +
 								  userDetails?.profile?.firstName.slice(1).toLowerCase()
 								: 'User'}{' '}
 							{userDetails?.profile?.lastName
 								? userDetails?.profile?.lastName.charAt(0).toUpperCase() +
 								  userDetails?.profile?.lastName.slice(1).toLowerCase()
-								: 'User'}
+								: 'User'} */}
 						</div>
 
 						<div className='login-user-name'>

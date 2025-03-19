@@ -101,7 +101,7 @@ export const getAllUser = async (token) => {
 		});
 		console.log('Get All Users Api Response..', response);
 		if (response.status !== 200) throw new Error('Could not fetch Users');
-		result = response?.data;
+		result = response?.data ? response?.data : [];
 	} catch (error) {
 		console.log('Get All Users Api Error', error);
 		if (error.response.status !== 404) {

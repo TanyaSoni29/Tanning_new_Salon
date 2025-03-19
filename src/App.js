@@ -35,6 +35,7 @@ import TopHeader from './components/TopHeader';
 // import { Dashboard } from '@mui/icons-material';
 import TopCustomer from './components/Currentmonth/Currentmonth';
 import DailyUses from './components/DailyUses/DailyUses';
+import { refreshCustomers } from './slices/customerProfile';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -66,6 +67,10 @@ const App = () => {
 			localStorage.setItem('selectedLoginLocation', selectedLoginLocation);
 		}
 	}, [selectedLoginLocation]);
+
+	useEffect(() => {
+		dispatch(refreshCustomers());
+	}, [dispatch]);
 
 	// Redirect to LocationStep if selectedLoginLocation is not set
 	// useEffect(() => {
