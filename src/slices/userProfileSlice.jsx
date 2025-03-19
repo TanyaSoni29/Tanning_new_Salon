@@ -51,7 +51,7 @@ export function refreshUser() {
 		// const selectedUserId = getState().user.user?.user.id;
 		try {
 			const response = await getAllUser(token);
-			const users = Array.isArray(response)?.filter(
+			const users = response?.filter(
 				(data) => data?.user?.role !== 'customer'
 			);
 			dispatch(setUsers(users));
