@@ -102,6 +102,10 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		setCurrentPage(1);
 	}, [searchTerm, selectedLocation]);
 
+	useEffect(() => {
+		dispatch(setSearchCustomers([]));
+	}, [dispatch]);
+
 	const indexOfLastCustomer = currentPage * customersPerPage;
 	const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
 	const currentLocations = sortedCustomers.slice(

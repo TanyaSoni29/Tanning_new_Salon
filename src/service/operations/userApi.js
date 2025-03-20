@@ -133,6 +133,7 @@ export const getAllSystemUser = async (token) => {
 };
 
 export const getCustomerSearch = async (token, key, locationId) => {
+	const toastId = toast.loading('Loading...');
 	let result = [];
 	try {
 		const response = await apiConnector(
@@ -154,6 +155,7 @@ export const getCustomerSearch = async (token, key, locationId) => {
 			toast.error(errorMessage);
 		}
 	}
+	toast.dismiss(toastId);
 	return result;
 };
 

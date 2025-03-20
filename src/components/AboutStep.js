@@ -16,6 +16,7 @@ import { refreshLocation } from '../slices/locationSlice';
 import StatsHeader from './StatsHeader';
 // import TopHeader from './TopHeader';
 import { getStats } from '../service/operations/statApi';
+import toast from 'react-hot-toast';
 
 const AboutStep = ({
 	stats,
@@ -25,7 +26,7 @@ const AboutStep = ({
 	// setSelectedLocation,
 	selectedLoginLocation,
 }) => {
-	const { searchCustomers } = useSelector((state) => state.customer);
+	const { searchCustomers, loading } = useSelector((state) => state.customer);
 	// const { locations } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
@@ -42,9 +43,7 @@ const AboutStep = ({
 	};
 
 	const handleSearchClick = () => {
-		console.log('clicked');
 		if (searchQuery.trim()) {
-			const location = '';
 			dispatch(refreshSearchCustomers(searchQuery.trim()));
 		} else {
 			dispatch(setSearchCustomers([]));

@@ -89,7 +89,7 @@ export function refreshSearchCustomers(keyword, location) {
 		const token = getState().auth.token;
 		const selectedCustomerId = getState().customer.customer?.user.id;
 		const currentCustomer = getState().customer.customer;
-		console.log('here', selectedCustomerId, keyword, location);
+
 		try {
 			const response = await getCustomerSearch(token, keyword, location);
 			console.log('redux---', response);
