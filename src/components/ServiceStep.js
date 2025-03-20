@@ -22,7 +22,7 @@ import {
 	getServiceTransactionsByUser,
 	getTotalSpend,
 } from '../service/operations/serviceAndServiceTransaction';
-import { refreshCustomers } from '../slices/customerProfile';
+import { refreshSelectedCustomer } from '../slices/customerProfile';
 import { formatDate } from '../utils/formateDate';
 
 const ServiceStep = ({
@@ -47,13 +47,13 @@ const ServiceStep = ({
 
 	const userDetails = users.find((user) => user.user.id === loginUser?.id);
 	const preferredLocationId = userDetails?.profile?.preferred_location;
-	// console.log('customer in service Step', customer);
+	console.log('customer in service Step', customer);
 	useEffect(() => {
+		dispatch(refreshSelectedCustomer(customer?.user?.id));
 		dispatch(refreshProduct());
 		dispatch(refreshService());
-		dispatch(refreshCustomers());
 		refreshTransactionOfCustomer();
-	}, [dispatch]);
+	}, [customer?.user?.id, dispatch]);
 
 	// console.log('service step---', dashboardSelectedCustomer);
 
@@ -75,7 +75,7 @@ const ServiceStep = ({
 			};
 			await createProductTransaction(token, data);
 			await refreshTransactionOfCustomer();
-			dispatch(refreshCustomers());
+			dispatch(refreshSelectedCustomer(customer?.user?.id));
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
@@ -91,7 +91,7 @@ const ServiceStep = ({
 			};
 			await createServiceTransaction(token, data);
 			await refreshTransactionOfCustomer();
-			dispatch(refreshCustomers());
+			dispatch(refreshSelectedCustomer(customer?.user?.id));
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
@@ -108,7 +108,7 @@ const ServiceStep = ({
 			await createServiceTransaction(token, data);
 			await getTotalSpend(token, customer?.user?.id);
 			await refreshTransactionOfCustomer();
-			dispatch(refreshCustomers());
+			dispatch(refreshSelectedCustomer(customer?.user?.id));
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}
@@ -125,7 +125,7 @@ const ServiceStep = ({
 			await createServiceTransaction(token, data);
 			await getTotalSpend(token, customer?.user.id);
 			await refreshTransactionOfCustomer();
-			dispatch(refreshCustomers());
+			dispatch(refreshSelectedCustomer(customer?.user?.id));
 		} catch (err) {
 			console.error('Error creating transaction', err);
 		}

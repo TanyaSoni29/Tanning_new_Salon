@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import './LocationStep.css'; // Import the new CSS file
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshLocation, setLocationIndex } from '../slices/locationSlice';
-import { refreshUser } from '../slices/userProfileSlice';
 import { IoLocationSharp } from 'react-icons/io5';
 
 const WizardStep = ({
@@ -16,7 +15,7 @@ const WizardStep = ({
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { locations, loading, locationIndex } = useSelector(
+	const { locations, loading } = useSelector(
 		(state) => state.location
 	);
 	const { signupData } = useSelector((state) => state.auth);

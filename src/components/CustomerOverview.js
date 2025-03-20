@@ -112,8 +112,8 @@ function CustomerOverview({ filteredCustomers, setDashboardSelectedCustomer }) {
 							</tr>
 						</thead>
 						<tbody>
-							{filteredCustomers.length > 0 ? (
-								filteredCustomers.map((data) => {
+							{filteredCustomers?.length > 0 ? (
+								filteredCustomers?.map((data) => {
 									const lastUsedDate = getLastUsedServiceDate(data.user?.id);
 									const totalSpent =
 										(data?.total_service_purchased_price || 0) +

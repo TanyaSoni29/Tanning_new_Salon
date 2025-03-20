@@ -1,3 +1,5 @@
+/** @format */
+
 .customer-container {
 	width: 70%;
 	margin: 20px auto;
@@ -337,6 +339,15 @@
 	.customer-container {
 		width: 95%;
 		margin-left: 10px;
+	}
+	.search-location-wrapper {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.customer-location-select {
+		width: 80%;
 	}
 
 	.customer-search-container input {

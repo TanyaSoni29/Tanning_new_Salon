@@ -10,6 +10,13 @@ export const endpoints = {
 	LOGIN_API: BASE_URL + '/login',
 	GET_ME_API: BASE_URL + '/me',
 	ADD_CUSTOMER: BASE_URL + '/AddCustomer',
+	CUSTOMER_SEARCH: (keyword, location) =>
+		`${BASE_URL}/customers/search${keyword ? `?key=${keyword}` : ''}${
+			location !== undefined
+				? `${keyword ? '&' : '?'}locationId=${location}`
+				: ''
+		}`,
+	GET_CUSTOMER_BY_ID: (id) => `${BASE_URL}/getUserById/${id}`,
 	// UPDATE_PASSWORD_API: BASE_URL + "/user/updatePassword",
 	RESET_PASSWORD_API: BASE_URL + '/password/reset',
 	FORGET_PASSWORD_API: BASE_URL + '/password/forget',
@@ -21,6 +28,7 @@ export const locationEndpoints = {
 
 export const userEndpoints = {
 	GET_ALL_USERS: BASE_URL + '/users',
+	GET_SYSTEM_USERS: BASE_URL + '/system-users',
 	GET_ALL_CUSTOMER_REPORT: BASE_URL + '/getUserd',
 	GET_CUSTOMERS_BY_LOCATION_DATE: BASE_URL + '/getUserByLocationAndDate',
 	RESET_PASSWORD_API: BASE_URL + '/password/reset',

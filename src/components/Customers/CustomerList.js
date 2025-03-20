@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import './CustomerList.css'; // Importing CSS
 import { useDispatch, useSelector } from 'react-redux';
-import { refreshCustomers, removeCustomer } from '../../slices/customerProfile';
+import {
+	refreshSearchCustomers,
+	removeCustomer,
+	setSearchCustomers,
+} from '../../slices/customerProfile';
 import { deleteUserProfile } from '../../service/operations/userProfileApi';
 import { formatDate } from '../../utils/formateDate';
 import Modal from '../Modal';
@@ -15,7 +19,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 const CustomerList = ({ selectedLoginLocation }) => {
 	const dispatch = useDispatch();
 	const { token, user: loginUser } = useSelector((state) => state.auth);
-	const { customers } = useSelector((state) => state.customer);
+	const { searchCustomers } = useSelector((state) => state.customer);
 	const { locations } = useSelector((state) => state.location);
 
 	const [selectedLocation, setSelectedLocation] = useState('All');
@@ -35,6 +39,11 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		...new Set(filteredLocations.map((location) => location.name)),
 	];
 
+	const locationId =
+		selectedLocation === 'All'
+			? 0
+			: locations.find((loc) => loc.name === selectedLocation)?.id;
+
 	const [isViewOpen, setIsViewOpen] = useState(false);
 	const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
@@ -52,7 +61,7 @@ const CustomerList = ({ selectedLoginLocation }) => {
 
 	const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-	const filteredCustomers = customers.filter((data) => {
+	const filteredCustomers = searchCustomers.filter((data) => {
 		const firstName = data?.profile?.firstName?.toLowerCase() || '';
 		const lastName = data?.profile?.lastName?.toLowerCase() || '';
 		const phoneNumber = data?.profile?.phone_number?.toLowerCase() || '';
@@ -123,12 +132,31 @@ const CustomerList = ({ selectedLoginLocation }) => {
 		setIsViewOpen(true);
 	};
 
+	const handleSearchButton = () => {
+		const trimmedSearch = searchTerm.trim();
+		if (
+			trimmedSearch.length >= 3 ||
+			trimmedSearch.length === 0 ||
+			locationId !== undefined
+		) {
+			if (locationId === 0) {
+				dispatch(refreshSearchCustomers(searchTerm));
+			} else {
+				dispatch(refreshSearchCustomers(searchTerm, locationId));
+			}
+		}
+	};
+
 	const handleDelete = async () => {
 		try {
 			const result = await deleteUserProfile(token, activeUser.user.id);
 			if (result) {
 				dispatch(removeCustomer(activeUser.user.id));
-				dispatch(refreshCustomers());
+				if (locationId === 0) {
+					dispatch(refreshSearchCustomers(searchTerm));
+				} else {
+					dispatch(refreshSearchCustomers(searchTerm, locationId));
+				}
 				setIsDeleteOpen(false);
 				setIsWarningOpen(false);
 			}
@@ -167,6 +195,12 @@ const CustomerList = ({ selectedLoginLocation }) => {
 
 	const closeViewModal = () => {
 		setIsViewOpen(false);
+	};
+
+	const handleClearSearch = () => {
+		setSearchTerm('');
+		setSelectedLocation('All');
+		dispatch(setSearchCustomers([]));
 	};
 
 	const isMobile = window.innerWidth <= 700;
@@ -216,6 +250,18 @@ const CustomerList = ({ selectedLoginLocation }) => {
 							))}
 						</select>
 					</div>
+					<button
+						className='add-button2'
+						onClick={handleSearchButton}
+					>
+						Search
+					</button>
+					<button
+						className='add-button2'
+						onClick={handleClearSearch}
+					>
+						Clear
+					</button>
 				</div>
 
 				<div className='add-button-wrapper'>
@@ -320,6 +366,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<AddCustomerModal
 						closeAddModal={closeAddModal}
 						selectedLoginLocation={selectedLoginLocation}
+						searchTerm={searchTerm}
+						selectedLocation={locationId}
 					/>
 				</Modal>
 			)}
@@ -366,6 +414,8 @@ const CustomerList = ({ selectedLoginLocation }) => {
 					<EditCustomerModal
 						activeUser={activeUser}
 						closeEditModal={closeEditModal}
+						searchTerm={searchTerm}
+						selectedLocation={locationId}
 					/>
 				</Modal>
 			)}

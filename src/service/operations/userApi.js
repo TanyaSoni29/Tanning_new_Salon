@@ -2,10 +2,11 @@
 
 import { toast } from 'react-hot-toast';
 import { apiConnector } from '../apiConnector';
-import { endpoints, userEndpoints, userProfileEndpoints } from '../api';
+import { endpoints, userEndpoints } from '../api';
 
 const {
 	GET_ALL_USERS,
+	GET_SYSTEM_USERS,
 	GET_CUSTOMERS_BY_LOCATION_DATE,
 	RESET_PASSWORD_API,
 	GET_ALL_CUSTOMER_REPORT,
@@ -21,7 +22,7 @@ const {
 	// GET_PRODUCT_TRANSACTIONS_BY_USER,
 } = userEndpoints;
 
-const { ADD_CUSTOMER } = endpoints;
+const { ADD_CUSTOMER, CUSTOMER_SEARCH, GET_CUSTOMER_BY_ID } = endpoints;
 // const { GET_ALL_USER_PROFILE_API } = userProfileEndpoints;
 
 export const createUser = async (token, data) => {
@@ -112,6 +113,50 @@ export const getAllUser = async (token) => {
 	return result;
 };
 
+export const getAllSystemUser = async (token) => {
+	let result = [];
+	try {
+		const response = await apiConnector('GET', GET_SYSTEM_USERS, null, {
+			Authorization: `Bearer ${token}`,
+		});
+		console.log('GET_SYSTEM_USERS Api Response..', response);
+		if (response.status !== 200) throw new Error('Could not fetch Users');
+		result = response?.data ? response?.data : [];
+	} catch (error) {
+		console.log('GET_SYSTEM_USERS Api Error', error);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
+	}
+	return result;
+};
+
+export const getCustomerSearch = async (token, key, locationId) => {
+	let result = [];
+	try {
+		const response = await apiConnector(
+			'GET',
+			CUSTOMER_SEARCH(key, locationId),
+			null,
+			{
+				Authorization: `Bearer ${token}`,
+			}
+		);
+		console.log('CUSTOMER_SEARCH Api Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch Customer Search');
+		result = response?.data ? response?.data : [];
+	} catch (error) {
+		console.log('CUSTOMER_SEARCH Api Error', error);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
+	}
+	return result;
+};
+
 export const getAllCustomerReport = async (token, data) => {
 	let result = [];
 	try {
@@ -133,6 +178,26 @@ export const getAllCustomerReport = async (token, data) => {
 		result = response.data;
 	} catch (error) {
 		console.log('getAllCustomerReport Error', error);
+		if (error.response.status !== 404) {
+			const errorMessage = error.response?.data?.error;
+			toast.error(errorMessage);
+		}
+	}
+	return result;
+};
+
+export const getCustomerById = async (token, id) => {
+	let result = null;
+	try {
+		const response = await apiConnector('GET', GET_CUSTOMER_BY_ID(id), null, {
+			Authorization: `Bearer ${token}`,
+		});
+		console.log('GET_CUSTOMER_BY_ID Api Response..', response);
+		if (response.status !== 200)
+			throw new Error('Could not fetch this Customer');
+		result = response?.data ? response?.data : null;
+	} catch (error) {
+		console.log('GET_CUSTOMER_BY_ID Api Error', error);
 		if (error.response.status !== 404) {
 			const errorMessage = error.response?.data?.error;
 			toast.error(errorMessage);

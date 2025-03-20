@@ -1,7 +1,7 @@
 /** @format */
 
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllUser } from '../service/operations/userApi';
+import { getAllSystemUser } from '../service/operations/userApi';
 // import { getAllUserProfiles } from '../service/operations/userProfileApi';
 
 const initialState = {
@@ -50,11 +50,8 @@ export function refreshUser() {
 		const token = getState().auth.token;
 		// const selectedUserId = getState().user.user?.user.id;
 		try {
-			const response = await getAllUser(token);
-			const users = response?.filter(
-				(data) => data?.user?.role !== 'customer'
-			);
-			dispatch(setUsers(users));
+			const response = await getAllSystemUser(token);
+			dispatch(setUsers(response));
 		} catch (error) {
 			console.error('Failed to refresh users:', error);
 		}

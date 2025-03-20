@@ -13,10 +13,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { refreshLocation } from '../../slices/locationSlice';
 import { createUser } from '../../service/operations/userApi';
-import { addCustomer, refreshCustomers } from '../../slices/customerProfile';
+import {
+	addCustomer,
+	refreshSearchCustomers,
+} from '../../slices/customerProfile';
 import './AddCustomer.css';
 
-const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
+const AddCustomerModal = ({
+	closeAddModal,
+	selectedLoginLocation,
+	searchTerm,
+	selectedLocation,
+}) => {
 	const { token, user: loggedInUser } = useSelector((state) => state.auth);
 	const { users } = useSelector((state) => state.userProfile);
 	const { locations, loading } = useSelector((state) => state.location);
@@ -76,7 +84,11 @@ const AddCustomerModal = ({ closeAddModal, selectedLoginLocation }) => {
 			const newUser = await createUser(token, newUserData);
 			if (newUser) {
 				dispatch(addCustomer(newUser));
-				dispatch(refreshCustomers());
+				if (selectedLocation === 0) {
+					dispatch(refreshSearchCustomers(searchTerm));
+				} else {
+					dispatch(refreshSearchCustomers(searchTerm, selectedLocation));
+				}
 				closeAddModal();
 				reset(); // Reset form fields only on success
 			}

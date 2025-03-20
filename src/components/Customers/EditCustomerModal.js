@@ -13,12 +13,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { updateUserProfile } from '../../service/operations/userProfileApi';
 import { refreshLocation } from '../../slices/locationSlice';
-import { refreshCustomers } from '../../slices/customerProfile';
+import { refreshSearchCustomers } from '../../slices/customerProfile';
 import Modal from '../../components/Modal';
 import ResetPassword from '../ResetPassword';
 import './AddCustomer.css';
 
-const EditCustomerModal = ({ closeEditModal, activeUser }) => {
+const EditCustomerModal = ({
+	closeEditModal,
+	activeUser,
+	searchTerm,
+	selectedLocation,
+}) => {
 	const { locations, loading } = useSelector((state) => state.location);
 	const [preferredLocation, setPreferredLocation] = useState('');
 	const [resetPasswordModal, setResetPasswordModal] = useState(false);
@@ -87,7 +92,11 @@ const EditCustomerModal = ({ closeEditModal, activeUser }) => {
 				closeEditModal();
 				reset();
 			}
-			dispatch(refreshCustomers());
+			if (selectedLocation === 0) {
+				dispatch(refreshSearchCustomers(searchTerm));
+			} else {
+				dispatch(refreshSearchCustomers(searchTerm, selectedLocation));
+			}
 		} catch (error) {
 			console.error(error);
 		}

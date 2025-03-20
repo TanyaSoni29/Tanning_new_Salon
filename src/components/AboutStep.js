@@ -1,16 +1,18 @@
 /** @format */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './AboutStep.css'; // Ensure this CSS file is imported
 import HeaderWithSidebar from './HeaderWithSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomerOverview from './CustomerOverview';
 import AddCustomerModal from './Customers/AddCustomerModal';
 import Modal from '../components/Modal';
-import { refreshCustomers, setCustomer } from '../slices/customerProfile';
+import {
+	refreshSearchCustomers,
+	setCustomer,
+	setSearchCustomers,
+} from '../slices/customerProfile';
 import { refreshLocation } from '../slices/locationSlice';
-import { refreshUser } from '../slices/userProfileSlice';
 import StatsHeader from './StatsHeader';
 // import TopHeader from './TopHeader';
 import { getStats } from '../service/operations/statApi';
@@ -23,8 +25,7 @@ const AboutStep = ({
 	// setSelectedLocation,
 	selectedLoginLocation,
 }) => {
-	const navigate = useNavigate();
-	const { customers } = useSelector((state) => state.customer);
+	const { searchCustomers } = useSelector((state) => state.customer);
 	// const { locations } = useSelector((state) => state.location);
 	const [isAddOpen, setIsAddOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
@@ -34,6 +35,21 @@ const AboutStep = ({
 	// const [selectedLocation, setSelectedLocation] = useState(0);
 	const dispatch = useDispatch();
 	const searchRef = useRef(null);
+
+	const handleSearch = (e) => {
+		const query = e.target.value;
+		setSearchQuery(query);
+	};
+
+	const handleSearchClick = () => {
+		console.log('clicked');
+		if (searchQuery.trim()) {
+			const location = '';
+			dispatch(refreshSearchCustomers(searchQuery.trim()));
+		} else {
+			dispatch(setSearchCustomers([]));
+		}
+	};
 
 	useEffect(() => {
 		async function stats() {
@@ -46,15 +62,15 @@ const AboutStep = ({
 			}
 		}
 		stats();
-	}, [selectedLocation, dispatch, token]);
+	}, [selectedLocation, dispatch, token, setStats]);
 
 	useEffect(() => {
-		dispatch(refreshCustomers());
 		dispatch(refreshLocation());
 	}, [dispatch]);
 
 	useEffect(() => {
 		dispatch(setCustomer(null));
+		dispatch(setSearchCustomers([]));
 	}, [dispatch]);
 
 	// Filter customers based on location and search query
@@ -111,25 +127,25 @@ const AboutStep = ({
 	// 		);
 	// 	});
 
-	const filteredCustomers = searchQuery
-		? customers.filter((user) => {
-				// Normalize the search query to lowercase and trim any extra spaces
-				const query = searchQuery.toLowerCase().trim();
+	// const filteredCustomers = searchQuery
+	// 	? customers.filter((user) => {
+	// 			// Normalize the search query to lowercase and trim any extra spaces
+	// 			const query = searchQuery.toLowerCase().trim();
 
-				// Combine the full name for more flexible search handling
-				const fullName = `${user.profile?.firstName || ''} ${
-					user.profile?.lastName || ''
-				}`.toLowerCase();
+	// 			// Combine the full name for more flexible search handling
+	// 			const fullName = `${user.profile?.firstName || ''} ${
+	// 				user.profile?.lastName || ''
+	// 			}`.toLowerCase();
 
-				// Check if the query matches either the full name, phone number, or email
-				return (
-					fullName.includes(query) ||
-					(user.profile?.phone_number &&
-						user.profile.phone_number.toLowerCase().includes(query)) ||
-					(user.user?.email && user.user.email.toLowerCase().includes(query))
-				);
-		  })
-		: [];
+	// 			// Check if the query matches either the full name, phone number, or email
+	// 			return (
+	// 				fullName.includes(query) ||
+	// 				(user.profile?.phone_number &&
+	// 					user.profile.phone_number.toLowerCase().includes(query)) ||
+	// 				(user.user?.email && user.user.email.toLowerCase().includes(query))
+	// 			);
+	// 	  })
+	// 	: [];
 
 	// console.log(customers, selectedLocation);
 
@@ -143,6 +159,7 @@ const AboutStep = ({
 		// setIsAllLocation(false);
 		// setSelectedLocation(0);
 		setSearchQuery('');
+		dispatch(setSearchCustomers([]));
 	};
 
 	// const handleLocationChange = (e) => {
@@ -187,12 +204,17 @@ const AboutStep = ({
 						value={searchQuery}
 						onKeyPress={handleKeyPress}
 						ref={searchRef}
-						onChange={(e) => setSearchQuery(e.target.value)}
+						onChange={handleSearch}
 						placeholder='Search Customer'
 					/>
 
 					{/* Search Button */}
-					<button className='search-button'>Search</button>
+					<button
+						className='search-button'
+						onClick={handleSearchClick}
+					>
+						Search
+					</button>
 
 					{/* Clear Filter Button */}
 					<button
@@ -213,7 +235,7 @@ const AboutStep = ({
 
 				<div>
 					<CustomerOverview
-						filteredCustomers={filteredCustomers}
+						filteredCustomers={searchCustomers}
 						setDashboardSelectedCustomer={setDashboardSelectedCustomer}
 					/>
 				</div>
