@@ -75,8 +75,6 @@ const App = () => {
 	// 	}
 	// }, [selectedLoginLocation, navigate]);
 
-	// console.log('selectedLocationlogin in App.js', selectedLoginLocation);
-
 	const handleLocationChange = (e) => {
 		setSelectedLocation(Number(e.target.value));
 	};
