@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './UserList.css'; // Importing CSS
 import { deleteUserProfile } from '../../service/operations/userProfileApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +9,8 @@ import Modal from '../Modal';
 import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 // import { deleteAllData } from '../../service/operations/userApi';
-import { setProducts } from '../../slices/productSlice';
-import { setServices } from '../../slices/serviceSlice';
+// import { setProducts } from '../../slices/productSlice';
+// import { setServices } from '../../slices/serviceSlice';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 
@@ -354,7 +354,7 @@ const UserList = () => {
 				</Modal>
 			)}
 
-			{isDeleteAllData && (
+			{/* {isDeleteAllData && (
 				<Modal
 					setOpen={setIsDeleteAllData}
 					open={isDeleteAllData}
@@ -364,7 +364,7 @@ const UserList = () => {
 						closeDeleteAllData={closeDeleteAllData}
 					/>
 				</Modal>
-			)}
+			)} */}
 		</div>
 	);
 };
