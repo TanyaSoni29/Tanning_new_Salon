@@ -209,12 +209,12 @@ const UserList = () => {
 					>
 						Add New User
 					</button>
-					<button
-						className='delete-button3'
-						onClick={handleDeleteAll}
-					>
-						Reset Customer Data
-					</button>
+					// <button
+					// 	className='delete-button3'
+					// 	onClick={handleDeleteAll}
+					// >
+					// 	Reset Customer Data
+					// </button>
 				</div>
 			</div>
 
