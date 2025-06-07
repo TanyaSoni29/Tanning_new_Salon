@@ -8,7 +8,7 @@ import { refreshUser, removeUser } from '../../slices/userProfileSlice';
 import Modal from '../Modal';
 import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
-import { deleteAllData } from '../../service/operations/userApi';
+// import { deleteAllData } from '../../service/operations/userApi';
 import { setProducts } from '../../slices/productSlice';
 import { setServices } from '../../slices/serviceSlice';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -131,20 +131,20 @@ const UserList = () => {
 		}
 	};
 
-	const handleDeleteAllData = async () => {
-		try {
-			const result = await deleteAllData(token);
-			if (result) {
-				dispatch(setProducts([]));
-				dispatch(setServices([]));
-				setIsDeleteAllData(false);
-			}
-		} catch (error) {
-			console.error('Error during all deletion:', error);
-		} finally {
-			setIsDeleteAllData(false);
-		}
-	};
+	// const handleDeleteAllData = async () => {
+	// 	try {
+	// 		const result = await deleteAllData(token);
+	// 		if (result) {
+	// 			dispatch(setProducts([]));
+	// 			dispatch(setServices([]));
+	// 			setIsDeleteAllData(false);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Error during all deletion:', error);
+	// 	} finally {
+	// 		setIsDeleteAllData(false);
+	// 	}
+	// };
 
 	const confirmDelete = (user) => {
 		setActiveUser(user);
